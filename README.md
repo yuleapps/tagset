@@ -1,6 +1,10 @@
-# tagset2017
+# tagset
 
-> the yuletide 2017 tagset and letters app. powered by coal, for everyone.
+> the yuletide ~~2017~~ tagset and letters app. powered by coal, for everyone.
+
+## Production URLs
+
+2017: [https://tagset2017.firebaseapp.com](https://tagset2017.firebaseapp.com)
 
 ## Stack
 
