@@ -1,10 +1,20 @@
 # tagset2017
 
-> yuletide 2017 tagset
+> the yuletide 2017 tagset and letters app. powered by coal, for everyone.
+
+## Stack
+
+Before you start, you'll want to know how to use the following
+
+* Firebase.io: real-time database and hosting
+* Vue.js: frontend framework and dev server
+  * For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+To get firebase working on your local dev server, you'll need the API keys in `src/config.js`: email an admin for that file. We r super sekure right now. 
 
 ## Build Setup
 
-``` bash
+```
 # install dependencies
 npm install
 
@@ -14,8 +24,10 @@ npm run dev
 # build for production with minification
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# admin only: ride the deploy train straight to production
+firebase deploy
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Tests
+
+... are a thing of fantasy.
