@@ -215,13 +215,6 @@ let fandomsRef = db.ref('/fandoms');
 let metaRef = db.ref('/meta');
 
 
-function removeArticlesCompare(o) {
-	const regex = /^(the\s|a\s|an\s)/i;
-	if (!o.name) {
-		return o;  
-	}
-	return o.name.toLowerCase().replace(regex, '');
-}
 
 export default {
 	name: 'app',
@@ -365,11 +358,8 @@ export default {
 		}
 	},
 	methods: {
+		// i r good at names
 		getFandomPal() {
-			// iterate through all the fandoms this user has
-			// create list of users who also have fandoms in that letter
-			// increment count 
-
 			const fandoms = _.filter(this.fandoms, fandom => {
 				return _.find(fandom.letters, { username: this.findPal });
 			});
@@ -396,6 +386,7 @@ export default {
 				});
 			}
 		},
+		// show easter eggs on F1
 		easterEggs(e) {
 			if (e.keyCode !== 112) {
 				return;
@@ -404,6 +395,7 @@ export default {
 			this.showEasterEggs = !this.showEasterEggs;
 			this.showEggHelp = true;
 		},
+		// EE: * marker for prolific writers
 		isProlific(name) {
 			if (!this.showEasterEggs) {
 				return false;
@@ -415,6 +407,7 @@ export default {
 
 			return false;
 		},
+		// EE: superscripts for challenge uses
 		challenges(name) {
 			if (!this.showEasterEggs) {
 				return false;
@@ -431,6 +424,7 @@ export default {
 
 			return data;
 		},
+		// add letter modal
 		showModal(fandom) {
 			this.show = true;
 			this.selectedFandom = fandom;
@@ -455,6 +449,7 @@ export default {
 
 			this.cancel();
 		},
+		// bookmark checks
 		hasBookmark(fandom) {
 			return _.find(this.bookmarks, o => { return o['.key'] === fandom['.key']; });
 		},
@@ -463,6 +458,7 @@ export default {
 				return o.username === letter.username && o.key === fandom['.key']; 
 			});
 		},
+		// remove bookmarks
 		remove(fandom) {
 			this.bookmarks = _.filter(this.bookmarks, o => {
 				return o['.key'] !== fandom['.key'];
@@ -475,6 +471,7 @@ export default {
 			});
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
 		},
+		// add bookmarks
 		add(fandom) {
 			if (_.includes(this.bookmarks, fandom)) {
 				return false;
@@ -497,6 +494,7 @@ export default {
 
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
 		},
+		// utilities
 		scrollToTop() {
 			document.body.scrollTop = 0; 
 			document.documentElement.scrollTop = 0; 
@@ -553,6 +551,15 @@ export default {
 			return url;
 		}
 	}
+}
+
+// Remove english articles from fandom names
+function removeArticlesCompare(o) {
+	const regex = /^(the\s|a\s|an\s)/i;
+	if (!o.name) {
+		return o;  
+	}
+	return o.name.toLowerCase().replace(regex, '');
 }
 </script>
 
