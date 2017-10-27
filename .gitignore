@@ -14,3 +14,5 @@ yarn-error.log*
 
 # Config file with API keys
 src/config.js
+src/data/prompts.json
+src/data/prompts.js
