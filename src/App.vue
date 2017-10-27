@@ -162,7 +162,7 @@
 						<td class="fandom">
 							{{ fandom.name }} 
 							<div class="hide">
-								{{ fandom['.key']}}
+								{{ fandom['.key'] }}
 							</div>
 							<button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
 						</td>
@@ -186,9 +186,9 @@
 							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
 						<td class="prompts-col">
-							<button v-if="!prompts[index]" @click="getPrompts(index)">Get Prompts</button>
-							<div v-if="prompts[index] === 'loading'">Loading...</div>
-							<table v-if="prompts[index] && prompts[index] !== 'loading'" class="table prompts">
+							<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
+							<table v-if="prompts[fandom['.key']] && prompts[fandom['.key']] !== 'loading'" class="table prompts">
 								<thead>
 									<tr>
 										<th>Username</th>
@@ -197,7 +197,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="prompt in prompts[index]">
+									<tr v-for="prompt in prompts[fandom['.key']]">
 										<td>{{ prompt.username }}</td>
 										<td>
 											<ul v-if="prompt.characters">
