@@ -1,0 +1,66 @@
+//todo: requester facepalm
+
+//fandom + characters + prompt
+(Request \d+ by )(\w+)\n(.+?)\n(.+)\n\n([\s\S]+?(?=Request|\*{3}))
+{"fandom": "$2","characters": "$3","prompt": "$4"},
+
+// fandom + characters only
+(Request .+)\n(.+)\n(.+)\n\n(?=Request|\*{3}) 
+{"fandom": "$2","characters": "$3","prompt": null},
+
+// fandom + prompt only
+(Request .+)\n(.+)\n\n([\s\S]+?(?=Request|\*{3})) 
+{"fandom": "$2","characters": null,"prompt": "$3"},
+
+// fandom
+(Request .+)\n(.+)\n\n(?=Request|\*{3}) 
+{"fandom": "$2","characters": null,"prompt": null},
+
+
+
+
+REQUESTER 	FANDOM 	CHARACTERS 	PROMPT 	LETTER
+X			X 		
+X			X		X
+X			X					X
+X			X		X			X
+X			X		X					X
+X			X		X			X		X
+
+
+STEP ONE
+
+* Escape all " and \ with \" and \\
+
+STEP TWO
+
+* Save these down
+
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n(.+(?!=Letter))\n\n([\s\S]*?(?=Request \d|\*{3}))
+{"username": "$2","fandom": "$3","characters": "$4","prompt": "$5"},
+
+* only fandom 
+(Request \d+ by )(\w+ *.*$)\n(.+)\n\n(?=Request \d|\*{3})
+{"username": "$2","fandom": "$3","characters": null,"prompt": null},
+
+* fandom, prompt 
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n\n([^\s\*+][\S\s]*?(?=Request \d|\*{3}))
+{"username": "$2","fandom": "$3","characters": null,"prompt": "$4"},
+
+* fandom, char, letter 
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n(.+?)\n(Letter:.+)\n\n
+{"username": "$2","fandom": "$3","characters": "$4","prompt": "$5"},
+
+STEP THREE
+
+* Replace \n with \\n
+
+STEP FOUR
+
+* Put in one .json file and format, checking for errors
+
+
+273
+214
+41
+17

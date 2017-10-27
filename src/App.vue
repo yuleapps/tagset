@@ -155,6 +155,7 @@
 							<td>Category</td>
 							<td>Characters</td>
 							<td>Letters</td>
+							<td>Prompts</td>
 						</tr>
 					</thead>
 					<tr v-for="(fandom, index) in filtered" :class="{odd: index % 2 !== 0 }">
@@ -183,6 +184,30 @@
 									</li>
 								</ul>
 							<button class="add" @click="showModal(fandom)">Add</button>
+						</td>
+						<td class="prompts">
+							<button v-if="!prompts[index]" @click="getPrompts(index)">Get Prompts</button>
+							<div v-if="prompts[index] === 'loading'"><div class="loader">Loading...</div></div>
+							<table v-if="prompts[index]" class="table prompts">
+								<thead>
+									<tr>
+										<th>Username</th>
+										<th>Characters</th>
+										<th>Prompts</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="prompt in prompts[index]">
+										<td>{{ prompt.username }}</td>
+										<td>
+											<ul v-if="prompt.characters">
+												<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+											</ul>
+										</td>
+										<td v-html="prompt.prompt"></td>
+									</tr>
+								</tbody>
+							</table>
 						</td>
 					</tr>
 				</table>
@@ -213,8 +238,6 @@ if (!Firebase.apps.length) {
 let db = firebaseApp.database();
 let fandomsRef = db.ref('/fandoms');
 let metaRef = db.ref('/meta');
-
-
 
 export default {
 	name: 'app',
@@ -277,7 +300,9 @@ export default {
 			PROLIFIC_WRITERS,
 			yuleporn: YULEPORN,
 			crueltide: CRUELTIDE,
-			festivus: FESTIVUS
+			festivus: FESTIVUS,
+			prompt: {},
+			prompts: {}
 		};
 	},
 	computed: {
@@ -358,6 +383,14 @@ export default {
 		}
 	},
 	methods: {
+		getPrompts(fandomKey) {
+			this.prompts[fandomKey] = 'loading';
+			this.prompts = { ...this.prompts };
+			db.ref('/prompts/' + fandomKey).once('value').then(snapshot => {
+				this.prompts[fandomKey] = snapshot.val();
+				this.prompts = { ...this.prompts };
+			});
+		},
 		// i r good at names
 		getFandomPal() {
 			const fandoms = _.filter(this.fandoms, fandom => {
@@ -699,6 +732,14 @@ function removeArticlesCompare(o) {
 		border-collapse: collapse;
 		border-spacing: 0;
 		width: 100%;
+
+		&.prompts {
+			width: auto;
+
+			td {
+				max-width: 300px;
+			}
+		}
 	}
 
 	thead {
