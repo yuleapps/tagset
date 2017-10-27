@@ -1,0 +1,19 @@
+* Escape all " and \ with \" and \\
+
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n(.+(?!=Letter))\n\n([\s\S]*?(?=Request \d|\*{3}))
+{"username": "$2","fandom": "$3","characters": "$4","prompt": "$5"},
+
+* only fandom 
+(Request \d+ by )(\w+ *.*$)\n(.+)\n\n(?=Request \d|\*{3})
+{"username": "$2","fandom": "$3","characters": null,"prompt": null},
+
+* fandom, prompt 
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n\n([^\s\*+][\S\s]*?(?=Request \d|\*{3}))
+{"username": "$2","fandom": "$3","characters": null,"prompt": "$4"},
+
+* fandom, char, letter 
+(Request \d+ by )(\w+ *.*$)\n(.+?)\n(.+?)\n(Letter:.+)\n\n
+{"username": "$2","fandom": "$3","characters": "$4","prompt": "$5"},
+
+
+* Replace \n with \\n

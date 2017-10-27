@@ -185,10 +185,10 @@
 								</ul>
 							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
-						<td class="prompts">
+						<td class="prompts-col">
 							<button v-if="!prompts[index]" @click="getPrompts(index)">Get Prompts</button>
-							<div v-if="prompts[index] === 'loading'"><div class="loader">Loading...</div></div>
-							<table v-if="prompts[index]" class="table prompts">
+							<div v-if="prompts[index] === 'loading'">Loading...</div>
+							<table v-if="prompts[index] && prompts[index] !== 'loading'" class="table prompts">
 								<thead>
 									<tr>
 										<th>Username</th>
@@ -204,7 +204,7 @@
 												<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
 											</ul>
 										</td>
-										<td v-html="prompt.prompt"></td>
+										<td class="prompt" v-html="prompt.prompt"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -735,9 +735,14 @@ function removeArticlesCompare(o) {
 
 		&.prompts {
 			width: auto;
+			font-size: smaller;
 
 			td {
 				max-width: 300px;
+
+				&.prompt {
+					word-break: break-word;
+				}
 			}
 		}
 	}
@@ -758,6 +763,10 @@ function removeArticlesCompare(o) {
 	td {
 		padding: 10px 5px;
 		vertical-align: top;
+
+		.characters {
+			max-width: 300px;
+		}
 	}
 
 	ul {
