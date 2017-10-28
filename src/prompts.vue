@@ -3,36 +3,35 @@
 		<h2>Raw: 6544</h2>
 
 		<h2>
-			Prompts: {{ prompts.length }}
+			Prompts: 
 		</h2>
-		<h2>Mapped Wrong!1!!</h2>
-		<ul>
-			<li v-for="i in badMapped">{{ i }}</li>
-		</ul>
-		<textarea>{{ prompts }}</textarea>
 		<table v-if="false">
 			<thead>
 				<tr>
-					<td>Username</td>
-					<td>Fandom</td>
-					<td>Characters</td>
-					<td>Prompt</td>
+					<th>Fandom</th>
+					<th>In DB</th>
+					<th>Actual</th>
 				</tr>
 			</thead>
-			<tr v-for="(prompt, index) in prompts" :class="{odd: index % 2 !== 0 }">
-				<td class="username">
-					{{ prompt.username }} 
-				</td>
-				<td class="fandom">
-					{{ prompt.fandom }}
-				</td>
-				<td class="characters">
-					{{ prompt.characters }}
-				</td>
-				<td class="prompts">
-					<span v-html="prompt.prompt"></span>
-					<!-- {{ prompt.prompt }} -->
-				</td>
+			<tr v-for="(value, key) in prompts" v-if="getActual(value[0].fandom).toString() !== value.length.toString()">
+				<td>{{ value[0].fandom }}</td>
+				<td>{{ value.length }}</td>
+				<td>{{ getActual(value[0].fandom) }}</td>
+			</tr>
+		</table> 
+
+		<table v-if="true">
+			<thead>
+				<tr>
+					<th>Fandom</th>
+					<th>In DB</th>
+					<th>Actual</th>
+				</tr>
+			</thead>
+			<tr v-for="item in summary" v-if="item.requests.toString() !== getDB(item.fandom).toString()">
+				<td>{{ item.fandom }}</td>
+				<td>{{ getDB(item.fandom) }}</td>
+				<td>{{ item.requests }}</td>
 			</tr>
 		</table> 
 	</div>
@@ -40,21 +39,54 @@
 
 <script>
 import _ from 'lodash';
-import prompts from './data/prompts.js';
-import fandoms from './data/fandoms.js';
+import prompts from './data/final.js';
+import summary from './data/summary.js';
+// import fandoms from './data/fandoms.js';
 
 export default {
 	name: 'app',
 	data() {
 		return {
-			prompts: null,
-			badMapped: []
+			prompts,
+			summary
 		};
 	},
-	beforeMount() {
-		this.prompts = this.normalise(prompts);
-	},
+	// computed: {
+	// 	total() {
+	// 		let total = 0;
+	// 		_.each(prompts, (value, key) => {
+	// 			total += value.length;
+	// 		});
+
+	// 		return total;
+	// 	}
+
+	// },
 	methods: {
+		getActual(fandom) {
+			const o = _.find(summary, obj => {
+				return obj.fandom.toLowerCase() === fandom.toLowerCase();
+			});
+
+			if (!o) {
+				return 'ERROR';
+			}
+
+			return o.requests;
+
+		},
+		getDB(fandom) {
+			const o = _.find(prompts, (value) => {
+				return value[0].fandom.toLowerCase() === fandom.toLowerCase();
+			});
+
+			if (!o) {
+				return 'ERROR';
+			}
+
+			return o.length;
+
+		},
 		normalise(prompts) {
 			// dedupe
 			let array = _.map(prompts, o => {

@@ -91,7 +91,7 @@
 								<tr>
 									<td>Fandom</td>
 									<td>Category</td>
-									<td>Characters</td>
+									<td v-if="!hideCharacters">Characters</td>
 									<td>Letters</td>
 								</tr>
 							</thead>
@@ -101,11 +101,10 @@
 									<a @click="remove(fandom)">(Remove)</a>
 								</td>
 								<td class="category">{{fandom.category}}</td>
-								<td class="characters">
-									<ul v-if="!hideCharacters">
+								<td class="characters" v-if="!hideCharacters">
+									<ul>
 										<li v-for="char in fandom.characters">{{char}}</li>
 									</ul>
-									<span v-else>...</span>
 								</td>
 								<td class="letters">
 									<ul v-for="letter in fandom.letters">
@@ -148,14 +147,14 @@
 					Last Updated: {{ lastUpdated }}
 				</div>
 
-				<table>
+				<table class="main">
 					<thead>
 						<tr>
-							<td>Fandom</td>
-							<td>Category</td>
-							<td>Characters</td>
-							<td>Letters</td>
-							<td>Prompts</td>
+							<th class="fandom">Fandom</th>
+							<th class="category">Category</th>
+							<th class="characters" v-if="!hideCharacters">Characters</th>
+							<th class="letters">Letters</th>
+							<th class="prompts">Prompts</th>
 						</tr>
 					</thead>
 					<tr v-for="(fandom, index) in filtered" :class="{odd: index % 2 !== 0 }">
@@ -167,11 +166,10 @@
 							<button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
 						</td>
 						<td class="category">{{fandom.category}}</td>
-						<td class="characters">
-							<ul v-if="!hideCharacters">
+						<td class="characters" v-if="!hideCharacters">
+							<ul>
 								<li v-for="char in fandom.characters">{{char}}</li>
 							</ul>
-							<span v-else>...</span>
 						</td>
 						<td class="letters">
 								<ul v-for="letter in fandom.letters">
@@ -188,17 +186,21 @@
 						<td class="prompts-col">
 							<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
-							<table v-if="prompts[fandom['.key']] && prompts[fandom['.key']] !== 'loading'" class="table prompts">
+							<table v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'" class="prompts">
 								<thead>
 									<tr>
-										<th>Username</th>
-										<th>Characters</th>
-										<th>Prompts</th>
+										<th class="username">Username</th>
+										<th class="characters">Characters</th>
+										<th class="prompts">Prompts</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr v-for="prompt in prompts[fandom['.key']]">
-										<td>{{ prompt.username }}</td>
+										<td>
+											{{ prompt.username }}
+											<span v-if="isProlific(prompt.username)">*</span>
+											<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+										</td>
 										<td>
 											<ul v-if="prompt.characters">
 												<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
@@ -208,6 +210,7 @@
 									</tr>
 								</tbody>
 							</table>
+							<span v-else-if="prompts[fandom['.key']] && !prompts[fandom['.key']].length">No prompts ):</span>
 						</td>
 					</tr>
 				</table>
@@ -222,6 +225,11 @@
 </template>
 
 <script>
+// no results for prompts
+// expand/collapse for loaded prompts
+// dedupe filigranka and just anything where n > 1
+// expand narrow down to and expand only all bookmarks
+// ancient pompeii graffiti missing
 import _ from 'lodash';
 import config from './config';
 import Firebase from 'firebase';
@@ -386,8 +394,17 @@ export default {
 		getPrompts(fandomKey) {
 			this.prompts[fandomKey] = 'loading';
 			this.prompts = { ...this.prompts };
+
 			db.ref('/prompts/' + fandomKey).once('value').then(snapshot => {
-				this.prompts[fandomKey] = snapshot.val();
+				let results = snapshot.val();
+
+				if (results && results.length) {
+					results = _.sortBy(results, o => o.username.toLowerCase());
+					this.prompts[fandomKey] = results;
+				} else {
+					this.prompts[fandomKey] = [];
+				}
+
 				this.prompts = { ...this.prompts };
 			});
 		},
@@ -732,25 +749,39 @@ function removeArticlesCompare(o) {
 		border-collapse: collapse;
 		border-spacing: 0;
 		width: 100%;
+		table-layout: fixed;
 
 		&.prompts {
-			width: auto;
 			font-size: smaller;
 
+			th.username,
+			th.characters {
+				width: 20%;				
+			}
+
 			td {
-				max-width: 300px;
 
 				&.prompt {
 					word-break: break-word;
 				}
 			}
 		}
+
+		th.fandom {
+			width: 20%;
+		}
+
+		th.category,
+		th.characters,
+		th.letters {
+			width: 15%;
+		}
 	}
 
 	thead {
 		font-weight: bold;
 
-		tr > td {
+		tr > th {
 			border-bottom: 1px solid #cfcfcf;
 		}
 
@@ -773,6 +804,10 @@ function removeArticlesCompare(o) {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+
+		li {
+			margin-bottom: 3px;
+		}
 	}
 
 	.caveats {
