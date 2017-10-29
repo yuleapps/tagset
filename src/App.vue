@@ -66,8 +66,7 @@
 			<div v-if="!loaded"><div class="loader">Loading...</div></div>
 
 			<template v-else>
-
-				<div :class="['bookmarks', { collapsed: !expand }]">
+				<div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
 					<h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }})
 						<a @click="expand = !expand">
 							{{ expand ? '(Collapse)' : '(Expand)' }}
@@ -75,6 +74,11 @@
 					</h4>
 					<div v-show="expand">
 						<div>
+							<div class="option">
+								<input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
+								<label for="expand-bookmarks">Make this wider</label>  
+							</div>
+
 							<strong>Letters:</strong>
 							<ul>
 								<li v-for="letter in lettermarks">
@@ -89,10 +93,11 @@
 						<table>
 							<thead>
 								<tr>
-									<td>Fandom</td>
-									<td v-if="!hideCategory">Category</td>
-									<td v-if="!hideCharacters">Characters</td>
-									<td>Letters</td>
+									<th class="fandom">Fandom</th>
+									<th class="category"  v-if="!hideCategory">Category</th>
+									<th class="characters" v-if="!hideCharacters">Characters</th>
+									<th class="letters">Letters</th>
+									<th class="prompts" v-if="unlock">Prompts</th>
 								</tr>
 							</thead>
 							<tr v-for="(fandom, index) in bookmarksTable" :class="{odd: index % 2 !== 0 }">
@@ -115,6 +120,38 @@
 										</li>
 									</ul>
 								</td>
+								<td v-if="unlock" class="prompts">
+									<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+									<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
+									<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
+										<a href="javascript:void(0);" @click="collapse">Collapse</a>	
+										<table class="prompts">
+											<thead>
+												<tr>
+													<th class="username">Username</th>
+													<th class="characters">Characters</th>
+													<th class="prompts">Prompts</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="prompt in prompts[fandom['.key']]">
+													<td>
+														{{ prompt.username }}
+														<span v-if="isProlific(prompt.username)">*</span>
+														<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+													</td>
+													<td>
+														<ul v-if="prompt.characters">
+															<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+														</ul>
+													</td>
+													<td class="prompt" v-html="prompt.prompt"></td>
+												</tr>
+											</tbody>
+										</table>
+									</template>
+									<span v-else-if="prompts[fandom['.key']] && !prompts[fandom['.key']].length">No prompts ):</span>
+								</td>
 							</tr>
 						</table>
 					</div>  
@@ -135,19 +172,29 @@
 				</div>
 
 				<div class="options">
-					<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
-					<label for="letters-fandoms">Only fandoms with letters</label>  
-					<input type="checkbox" id="journal-style" v-model="destyle">
-					<label for="journal-style">Gimme mobile/readable URLs</label> 
-					
+					<div class="option">
+						<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
+						<label for="letters-fandoms">Only fandoms with letters</label>  
+					</div>
+					<div class="option">
+						<input type="checkbox" id="journal-style" v-model="destyle">
+						<label for="journal-style">Gimme mobile/readable URLs</label> 
+					</div>
+					<div class="clear" v-if="unlock">
+						<small>* these apply only to the letters column, not to prompts</small>
+					</div>
 				</div>
 
 
-				<div>
-					<input type="checkbox" id="hide-chars" v-model="hideCharacters">
-					<label for="hide-chars">Hide characters</label> 
-					<input type="checkbox" id="hide-cat" v-model="hideCategory">
-					<label for="hide-chars">Hide category</label> 
+				<div class="options">
+					<div class="option">
+						<input type="checkbox" id="hide-chars" v-model="hideCharacters">
+						<label for="hide-chars">Hide characters</label> 
+					</div>
+					<div class="option">
+						<input type="checkbox" id="hide-cat" v-model="hideCategory">
+						<label for="hide-chars">Hide category</label> 
+					</div>
 				</div>
 
 				<div class="meta">
@@ -161,7 +208,7 @@
 							<th class="category" v-if="!hideCategory">Category</th>
 							<th class="characters" v-if="!hideCharacters">Characters</th>
 							<th class="letters">Letters</th>
-							<th class="prompts">Prompts</th>
+							<th v-if="unlock" class="prompts">Prompts</th>
 						</tr>
 					</thead>
 					<tr v-for="(fandom, index) in filtered" :class="{odd: index % 2 !== 0 }">
@@ -190,11 +237,11 @@
 								</ul>
 							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
-						<td class="prompts-col">
+						<td v-if="unlock" class="prompts">
 							<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
 							<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-								<a href="javascript:void(0);" @click="collapse">Expand/Collapse</a>	
+								<a href="javascript:void(0);" @click="collapse">Collapse</a>	
 								<table class="prompts">
 									<thead>
 										<tr>
@@ -235,11 +282,8 @@
 </template>
 
 <script>
-// no results for prompts
-// expand/collapse for loaded prompts
-// dedupe filigranka and just anything where n > 1
+// bookmarks
 // expand narrow down to and expand only all bookmarks
-// ancient pompeii graffiti missing
 import _ from 'lodash';
 import config from './config';
 import Firebase from 'firebase';
@@ -279,6 +323,8 @@ export default {
 	},
 	created() {
 		document.addEventListener('keydown', this.easterEggs);
+		document.addEventListener('keydown', this.unlockPrompts);
+		document.addEventListener('keyup', this.unlockPrompts);
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
@@ -320,7 +366,10 @@ export default {
 			yuleporn: YULEPORN,
 			crueltide: CRUELTIDE,
 			festivus: FESTIVUS,
-			prompts: {}
+			prompts: {},
+			down: {},
+			unlock: false,
+			largeBookmarks: false
 		};
 	},
 	computed: {
@@ -452,8 +501,23 @@ export default {
 				});
 			}
 		},
+		unlockPrompts(e) {
+			if (e.type === 'keydown') {
+				this.down[e.keyCode] = true;
+
+				if (this.down[16] && this.down[49] && this.down[50]) {
+					this.unlock = !this.unlock;
+				}
+			} 
+
+			if (e.type === 'keyup') {
+				this.down[e.keyCode] = false;
+			}
+
+		},
 		// show easter eggs on F1
 		easterEggs(e) {
+
 			if (e.keyCode !== 112) {
 				return;
 			}
@@ -652,6 +716,19 @@ function removeArticlesCompare(o) {
 		font-size: 14px;
 	}
 
+	.options {
+		overflow: hidden;
+	
+		.option {
+			float: left;
+			width: 300px;
+		}
+	}
+
+	.clear {
+		clear: both;
+	}
+
 	.scroll-top {
 		position: fixed; 
 		z-index: 1;
@@ -716,6 +793,10 @@ function removeArticlesCompare(o) {
 			margin: 0;
 		}
 
+		&.large {
+			width: 95%;
+		}
+		
 		&.collapsed {
 			width: 100px;
 		}
