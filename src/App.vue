@@ -67,18 +67,18 @@
 
 			<template v-else>
 				<div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
-					<h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }})
+					<h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }}<template v-if="unlock">, P: {{ promptmarks.length }}</template>)
 						<a @click="expand = !expand">
 							{{ expand ? '(Collapse)' : '(Expand)' }}
 						</a>
 					</h4>
 					<div v-show="expand">
-						<div>
-							<div class="option">
-								<input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
-								<label for="expand-bookmarks">Make this wider</label>  
-							</div>
+						<div class="option">
+							<input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
+							<label for="expand-bookmarks">Make this wider</label>  
+						</div>
 
+						<div>
 							<strong>Letters:</strong>
 							<ul>
 								<li v-for="letter in lettermarks">
@@ -128,6 +128,7 @@
 										<table class="prompts">
 											<thead>
 												<tr>
+													<th class="fave">&hearts;</th>
 													<th class="username">Username</th>
 													<th class="characters">Characters</th>
 													<th class="prompts">Prompts</th>
@@ -135,6 +136,13 @@
 											</thead>
 											<tbody>
 												<tr v-for="prompt in prompts[fandom['.key']]">
+													<td>
+														<button 
+															class="bookmark-prompt" 
+															v-if="!hasPromptmark(prompt)"
+															@click="addPromptmark(prompt)">&hearts;
+														</button>
+													</td>
 													<td>
 														{{ prompt.username }}
 														<span v-if="isProlific(prompt.username)">*</span>
@@ -154,6 +162,44 @@
 								</td>
 							</tr>
 						</table>
+
+						<hr />
+
+						<div v-if="unlock && promptmarks.length">
+							<strong>Prompts:</strong>
+
+								<table class="prompts">
+									<thead>
+										<tr>
+											<th class="fave">&hearts;</th>
+											<th class="username">Username</th>
+											<th class="characters">Characters</th>
+											<th class="prompts">Prompts</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="prompt in promptmarks">
+											<td>
+												<button 
+													class="remove-prompt" 
+													@click="removePromptmark(prompt)">x
+												</button>
+											</td>
+											<td>
+												{{ prompt.username }}
+												<span v-if="isProlific(prompt.username)">*</span>
+												<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+											</td>
+											<td>
+												<ul v-if="prompt.characters">
+													<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+												</ul>
+											</td>
+											<td class="prompt" v-html="prompt.prompt"></td>
+										</tr>
+									</tbody>
+								</table>
+						</div>
 					</div>  
 				</div>
 
@@ -342,6 +388,12 @@ export default {
 			lettermarks = JSON.parse(lettermarksJson);
 		}
 
+		let promptmarks = []
+		const promptmarksJson = this.$localStorage.get('promptmarks');
+		if (promptmarksJson) {
+			promptmarks = JSON.parse(promptmarksJson);
+		}
+
 		return {
 			maintenance: false,
 			loaded: false,
@@ -350,6 +402,7 @@ export default {
 			expand: false,
 			bookmarks,
 			lettermarks,
+			promptmarks,
 			onlyLetters: false,
 			hideCharacters: false,
 			hideCategory: false,
@@ -588,6 +641,11 @@ export default {
 				return o.username === letter.username && o.key === fandom['.key']; 
 			});
 		},
+		hasPromptmark(prompt) {
+			return _.find(this.promptmarks, o => { 
+				return o.username === prompt.username && o.fandom === prompt.fandom; 
+			});
+		},
 		// remove bookmarks
 		remove(fandom) {
 			this.bookmarks = _.filter(this.bookmarks, o => {
@@ -600,6 +658,13 @@ export default {
 				return o.username !== letter.username && o.key !== letter.key;
 			});
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
+		},
+		removePromptmark(prompt) {
+			this.promptmarks = _.filter(this.promptmarks, o => {
+				return (o.username !== prompt.username && o.fandom === prompt.fandom) 
+				|| o.fandom !== prompt.fandom;
+			});
+			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
 		},
 		// add bookmarks
 		add(fandom) {
@@ -623,6 +688,19 @@ export default {
 			});
 
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
+		},
+		addPromptmark(prompt) {
+			if (_.find(this.promptmarks, o => {
+				return o.username === prompt.username && o.fandom === prompt.fandom;  
+			})) {
+				return false;
+			}
+
+			this.promptmarks.push({ 
+				...prompt 
+			});
+
+			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
 		},
 		// utilities
 		scrollToTop() {
@@ -796,7 +874,7 @@ function removeArticlesCompare(o) {
 		&.large {
 			width: 95%;
 		}
-		
+
 		&.collapsed {
 			width: 100px;
 		}
@@ -823,7 +901,7 @@ function removeArticlesCompare(o) {
 		font-size: 14px;
 	}
 
-	.bookmark, button, .bookmark-letter {
+	.bookmark, button, .bookmark-letter, .bookmark-prompt {
 		cursor: pointer;
 		color: #fff;
 		background-color: #34495e;
@@ -831,7 +909,9 @@ function removeArticlesCompare(o) {
 		border-radius: 2px;
 	}
 
-	.bookmark-letter {
+	.bookmark-letter,
+	.bookmark-prompt,
+	.remove-prompt {
 		color: #d63939;
 		font-size: 14px;
 		background-color: transparent;
@@ -862,6 +942,10 @@ function removeArticlesCompare(o) {
 					word-break: break-word;
 				}
 			}
+		}
+
+		th.fave {
+			width: 20px;
 		}
 
 		th.fandom {
