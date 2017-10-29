@@ -90,7 +90,7 @@
 							<thead>
 								<tr>
 									<td>Fandom</td>
-									<td>Category</td>
+									<td v-if="!hideCategory">Category</td>
 									<td v-if="!hideCharacters">Characters</td>
 									<td>Letters</td>
 								</tr>
@@ -100,7 +100,7 @@
 									{{ fandom.name }}
 									<a @click="remove(fandom)">(Remove)</a>
 								</td>
-								<td class="category">{{fandom.category}}</td>
+								<td class="category" v-if="!hideCategory">{{fandom.category}}</td>
 								<td class="characters" v-if="!hideCharacters">
 									<ul>
 										<li v-for="char in fandom.characters">{{char}}</li>
@@ -122,25 +122,32 @@
 
 				<div class="scroll-top" @click="scrollToTop">(^)</div>
 
-				<label for="fandom-filter">Filter By Fandom:</label>
-				<input id="fandom-filter" type="text" v-model='filterTerm'>
+				<div class="filters">				
+					<label for="fandom-filter">Filter By Fandom:</label>
+					<input id="fandom-filter" type="text" v-model='filterTerm'>
 
-				<label for="category-filter">Filter By Category:</label>
+					<label for="category-filter">Filter By Category:</label>
 
-				<select id="category-filter" v-model="categoryTerm">
-					<option value=''>All</option>
-					<option v-for="category in categories">{{ category }}</option> 
-				</select>
+					<select id="category-filter" v-model="categoryTerm">
+						<option value=''>All</option>
+						<option v-for="category in categories">{{ category }}</option> 
+					</select>
+				</div>
 
-				<div>
+				<div class="options">
 					<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
 					<label for="letters-fandoms">Only fandoms with letters</label>  
-
-					<input type="checkbox" id="hide-chars" v-model="hideCharacters">
-					<label for="hide-chars">Hide characters</label> 
-
 					<input type="checkbox" id="journal-style" v-model="destyle">
 					<label for="journal-style">Gimme mobile/readable URLs</label> 
+					
+				</div>
+
+
+				<div>
+					<input type="checkbox" id="hide-chars" v-model="hideCharacters">
+					<label for="hide-chars">Hide characters</label> 
+					<input type="checkbox" id="hide-cat" v-model="hideCategory">
+					<label for="hide-chars">Hide category</label> 
 				</div>
 
 				<div class="meta">
@@ -151,7 +158,7 @@
 					<thead>
 						<tr>
 							<th class="fandom">Fandom</th>
-							<th class="category">Category</th>
+							<th class="category" v-if="!hideCategory">Category</th>
 							<th class="characters" v-if="!hideCharacters">Characters</th>
 							<th class="letters">Letters</th>
 							<th class="prompts">Prompts</th>
@@ -165,7 +172,7 @@
 							</div>
 							<button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
 						</td>
-						<td class="category">{{fandom.category}}</td>
+						<td class="category" v-if="!hideCategory">{{fandom.category}}</td>
 						<td class="characters" v-if="!hideCharacters">
 							<ul>
 								<li v-for="char in fandom.characters">{{char}}</li>
@@ -186,30 +193,33 @@
 						<td class="prompts-col">
 							<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
-							<table v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'" class="prompts">
-								<thead>
-									<tr>
-										<th class="username">Username</th>
-										<th class="characters">Characters</th>
-										<th class="prompts">Prompts</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr v-for="prompt in prompts[fandom['.key']]">
-										<td>
-											{{ prompt.username }}
-											<span v-if="isProlific(prompt.username)">*</span>
-											<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-										</td>
-										<td>
-											<ul v-if="prompt.characters">
-												<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-											</ul>
-										</td>
-										<td class="prompt" v-html="prompt.prompt"></td>
-									</tr>
-								</tbody>
-							</table>
+							<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
+								<a href="javascript:void(0);" @click="collapse">Expand/Collapse</a>	
+								<table class="prompts">
+									<thead>
+										<tr>
+											<th class="username">Username</th>
+											<th class="characters">Characters</th>
+											<th class="prompts">Prompts</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="prompt in prompts[fandom['.key']]">
+											<td>
+												{{ prompt.username }}
+												<span v-if="isProlific(prompt.username)">*</span>
+												<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+											</td>
+											<td>
+												<ul v-if="prompt.characters">
+													<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+												</ul>
+											</td>
+											<td class="prompt" v-html="prompt.prompt"></td>
+										</tr>
+									</tbody>
+								</table>
+							</template>
 							<span v-else-if="prompts[fandom['.key']] && !prompts[fandom['.key']].length">No prompts ):</span>
 						</td>
 					</tr>
@@ -296,6 +306,7 @@ export default {
 			lettermarks,
 			onlyLetters: false,
 			hideCharacters: false,
+			hideCategory: false,
 			show: false,
 			selectedFandom: null,
 			username: '',
@@ -309,7 +320,6 @@ export default {
 			yuleporn: YULEPORN,
 			crueltide: CRUELTIDE,
 			festivus: FESTIVUS,
-			prompt: {},
 			prompts: {}
 		};
 	},
@@ -391,6 +401,12 @@ export default {
 		}
 	},
 	methods: {
+		collapse(e) {
+			e.target.innerText = e.target.innerText === 'Expand' 
+				? 'Collapse'
+				: 'Expand'; 
+			e.target.nextElementSibling.classList.toggle('hide');
+		},
 		getPrompts(fandomKey) {
 			this.prompts[fandomKey] = 'loading';
 			this.prompts = { ...this.prompts };
