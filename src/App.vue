@@ -121,7 +121,7 @@
 									</ul>
 								</td>
 								<td v-if="unlock" class="prompts">
-									<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+									<button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 									<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
 									<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
 										<a href="javascript:void(0);" @click="collapse">Collapse</a>	
@@ -158,7 +158,7 @@
 											</tbody>
 										</table>
 									</template>
-									<span v-else-if="prompts[fandom['.key']] && !prompts[fandom['.key']].length">No prompts ):</span>
+									<span v-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
 								</td>
 							</tr>
 						</table>
@@ -291,13 +291,14 @@
 							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
 						<td v-if="unlock" class="prompts">
-							<button v-if="!prompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+							<button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
 							<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
 								<a href="javascript:void(0);" @click="collapse">Collapse</a>	
 								<table class="prompts">
 									<thead>
 										<tr>
+											<th class="fave">&hearts;</th>
 											<th class="username">Username</th>
 											<th class="characters">Characters</th>
 											<th class="prompts">Prompts</th>
@@ -305,6 +306,13 @@
 									</thead>
 									<tbody>
 										<tr v-for="prompt in prompts[fandom['.key']]">
+											<td>
+												<button 
+													class="bookmark-prompt" 
+													v-if="!hasPromptmark(prompt)"
+													@click="addPromptmark(prompt)">&hearts;
+												</button>
+											</td>
 											<td>
 												{{ prompt.username }}
 												<span v-if="isProlific(prompt.username)">*</span>
@@ -320,14 +328,14 @@
 									</tbody>
 								</table>
 							</template>
-							<span v-else-if="prompts[fandom['.key']] && !prompts[fandom['.key']].length">No prompts ):</span>
+							<span v-else-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
 						</td>
 					</tr>
 				</table>
 			</template>
 
 			<div class="caveats">
-				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. Tagset subject to changes based on the clarifications post.</small>
+				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. Tagset subject to changes based on the clarifications post. <strong>The app now loads 100 fandoms at a time as you scroll for speed purposes.</strong> If you want to see everything at once (e.g. to CTRL-F search), check the Load All option.</small>
 			</div>
 		</template>
 
@@ -341,7 +349,7 @@ import _ from 'lodash';
 import config from './config';
 import Firebase from 'firebase';
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from './data/lists';
-
+import hasPrompts from './data/prompts.js';
 let firebaseApp;
 if (!Firebase.apps.length) {
 	firebaseApp = Firebase.initializeApp(config);
@@ -433,6 +441,7 @@ export default {
 			crueltide: CRUELTIDE,
 			festivus: FESTIVUS,
 			prompts: {},
+			hasPrompts,
 			down: {},
 			unlock: false,
 			largeBookmarks: false,
