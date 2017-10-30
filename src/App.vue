@@ -327,7 +327,7 @@
 			</template>
 
 			<div class="caveats">
-				<small>Caveats: some fandoms are currently missing their year disambiguation. Tagset subject to changes based on the clarifications post.</small>
+				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. Tagset subject to changes based on the clarifications post.</small>
 			</div>
 		</template>
 
