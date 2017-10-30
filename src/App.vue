@@ -231,8 +231,12 @@
 					</div>
 				</div>
 
-
 				<div class="options">
+					<div class="option">
+						<input type="checkbox" id="load-all" v-model="loadAll">
+						<label for="load-all">Load everything!**</label> 
+					</div>
+
 					<div class="option">
 						<input type="checkbox" id="hide-chars" v-model="hideCharacters">
 						<label for="hide-chars">Hide characters</label> 
@@ -241,10 +245,13 @@
 						<input type="checkbox" id="hide-cat" v-model="hideCategory">
 						<label for="hide-chars">Hide category</label> 
 					</div>
+					<div class="clear">
+						<small>** fandoms are now loaded in increments of 100 as you scroll. If you want to load everything (which was the old app experience), check this box and give your browser some time.</small>
+					</div>
 				</div>
 
 				<div class="meta">
-					Last Updated: {{ lastUpdated }}
+					Last Updated: {{ lastUpdated }} | Feedback/problems: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
 				</div>
 
 				<table class="main">
@@ -257,7 +264,7 @@
 							<th v-if="unlock" class="prompts">Prompts</th>
 						</tr>
 					</thead>
-					<tr v-for="(fandom, index) in filtered" :class="{odd: index % 2 !== 0 }">
+					<tr v-for="(fandom, index) in filtered" v-if="loadAll || index <= scrollPosition" :class="{odd: index % 2 !== 0 }">
 						<td class="fandom">
 							{{ fandom.name }} 
 							<div class="hide">
@@ -371,9 +378,15 @@ export default {
 		document.addEventListener('keydown', this.easterEggs);
 		document.addEventListener('keydown', this.unlockPrompts);
 		document.addEventListener('keyup', this.unlockPrompts);
+		window.addEventListener('scroll', this.lazyload);
+
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
+		document.removeEventListener('keydown', this.unlockPrompts);
+		document.removeEventListener('keyup', this.unlockPrompts);
+		window.removeEventListener('scroll', this.lazyload);
+
 	},
 	data() {
 		let bookmarks = [];
@@ -422,7 +435,9 @@ export default {
 			prompts: {},
 			down: {},
 			unlock: false,
-			largeBookmarks: false
+			largeBookmarks: false,
+			scrollPosition: 100,
+			loadAll: false
 		};
 	},
 	computed: {
@@ -503,6 +518,16 @@ export default {
 		}
 	},
 	methods: {
+		lazyload() {
+			const y = window.scrollY;
+			const totalHeight = document.body.scrollHeight;
+
+			if (totalHeight - y - document.body.scrollTop < 50) {
+				if (this.scrollPosition < this.fandoms.length) {
+					this.scrollPosition += 100;
+				}
+			}
+		},
 		collapse(e) {
 			e.target.innerText = e.target.innerText === 'Expand' 
 				? 'Collapse'
@@ -796,10 +821,17 @@ function removeArticlesCompare(o) {
 
 	.options {
 		overflow: hidden;
-	
+
 		.option {
 			float: left;
-			width: 300px;
+			width: 250px;
+		}
+
+		.clear {
+			max-width: 750px;
+			color: rgba(0,0,0, 0.5);
+			line-height: 14px;
+			margin-bottom: 3px;
 		}
 	}
 
