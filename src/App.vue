@@ -219,13 +219,21 @@
 				</div>
 
 				<div class="options">
+					<div class="option" v-if="unlock">
+						<input type="checkbox" id="letters-fandoms" v-model="onlyPrompts">
+						<label for="letters-fandoms">Only fandoms with prompts</label>  
+					</div>
+					<div class="option" v-if="unlock">
+						<input type="checkbox" id="letters-fandoms" v-model="onlyBookmarks">
+						<label for="letters-fandoms">Only bookmarked fandoms</label>  
+					</div>
 					<div class="option">
 						<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
-						<label for="letters-fandoms">Only fandoms with letters</label>  
+						<label for="letters-fandoms">Only fandoms with letters*</label>  
 					</div>
 					<div class="option">
 						<input type="checkbox" id="journal-style" v-model="destyle">
-						<label for="journal-style">Gimme mobile/readable URLs</label> 
+						<label for="journal-style">Gimme mobile/readable URLs*</label> 
 					</div>
 					<div class="clear" v-if="unlock">
 						<small>* these apply only to the letters column, not to prompts</small>
@@ -247,12 +255,12 @@
 						<label for="hide-chars">Hide category</label> 
 					</div>
 					<div class="clear">
-						<small>** fandoms are now loaded in increments of 100 as you scroll. If you want to load everything (which was the old app experience), check this box and give your browser some time.</small>
+						<small>** <strong :style="{ color: 'red'}">fandoms are now loaded in increments of 100 as you scroll.</strong> <BR/>If you want to load everything (the old app experience), check this box and give your browser some time.</small>
 					</div>
 				</div>
 
 				<div class="meta">
-					Last Updated: {{ lastUpdated }} | Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
+					Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
 				</div>
 
 				<div :class="['user-lookup', { collapsed: !user }]">
@@ -373,7 +381,7 @@
 			</template>
 
 			<div class="caveats">
-				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. Tagset subject to changes based on the clarifications post. <strong>The app now loads 100 fandoms at a time as you scroll for speed purposes.</strong> If you want to see everything at once (e.g. to CTRL-F search), check the Load All option.</small>
+				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. <strong>The app now loads 100 fandoms at a time as you scroll for speed purposes.</strong> If you want to see everything at once (e.g. to CTRL-F search), check the Load All option.</small>
 			</div>
 		</template>
 
@@ -422,15 +430,15 @@ export default {
 	},
 	created() {
 		document.addEventListener('keydown', this.easterEggs);
-		document.addEventListener('keydown', this.unlockPrompts);
-		document.addEventListener('keyup', this.unlockPrompts);
+		// document.addEventListener('keydown', this.unlockPrompts);
+		// document.addEventListener('keyup', this.unlockPrompts);
 		window.addEventListener('scroll', this.lazyload);
 
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
-		document.removeEventListener('keydown', this.unlockPrompts);
-		document.removeEventListener('keyup', this.unlockPrompts);
+		// document.removeEventListener('keydown', this.unlockPrompts);
+		// document.removeEventListener('keyup', this.unlockPrompts);
 		window.removeEventListener('scroll', this.lazyload);
 
 	},
@@ -464,7 +472,7 @@ export default {
 			promptmarks,
 			onlyLetters: false,
 			hideCharacters: false,
-			hideCategory: false,
+			hideCategory: true,
 			show: false,
 			selectedFandom: null,
 			username: '',
@@ -481,28 +489,51 @@ export default {
 			prompts: {},
 			hasPrompts,
 			down: {},
-			unlock: false,
+			unlock: true,
 			largeBookmarks: false,
 			scrollPosition: 100,
 			loadAll: false,
 			user: null,
-			userPrompts: null
+			userPrompts: null,
+			onlyPrompts: true,
+			onlyBookmarks: false
 		};
 	},
 	computed: {
 		filtered() {
 
 			if (!this.onlyLetters && 
+				!this.onlyPrompts &&
 				!this.filterTerm.length && 
+				!this.onlyBookmarks &&
 				!this.categoryTerm.length) {
 				return _.sortBy(this.fandoms, ['category', removeArticlesCompare]);
 			}
 
 			let arr = this.fandoms;
 
-			if (this.onlyLetters === true) {
+			if (this.onlyPrompts) {
+				arr = _.filter(arr, o => {
+					return this.hasPrompts[o['.key']];
+				});
+			}
+
+			if (this.onlyLetters) {
 				arr = _.filter(arr, o => {
 					return o.letters !== undefined;
+				});
+			}
+
+			if (this.onlyBookmarks) {
+				const bookmarkedFandoms = [];
+				_.each(this.bookmarks, b => {
+					bookmarkedFandoms.push(b['.key']);
+				});
+
+				console.log(bookmarkedFandoms);
+
+				arr = _.filter(arr, o => {
+					return _.includes(bookmarkedFandoms, o['.key']);
 				});
 			}
 
