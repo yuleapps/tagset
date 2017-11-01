@@ -220,20 +220,20 @@
 
 				<div class="options">
 					<div class="option" v-if="unlock">
-						<input type="checkbox" id="letters-fandoms" v-model="onlyPrompts">
-						<label for="letters-fandoms">Only fandoms with prompts</label>  
+						<input type="checkbox" id="prompts-fandoms" v-model="onlyPrompts">
+						<label for="prompts-fandoms">Only fandoms with prompts</label>  
 					</div>
-					<div class="option" v-if="unlock">
-						<input type="checkbox" id="letters-fandoms" v-model="onlyBookmarks">
-						<label for="letters-fandoms">Only bookmarked fandoms</label>  
+					<div class="option">
+						<input type="checkbox" id="bookmarked-fandoms" v-model="onlyBookmarks">
+						<label for="bookmarked-fandoms">Only bookmarked fandoms</label>  
 					</div>
 					<div class="option">
 						<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
-						<label for="letters-fandoms">Only fandoms with letters*</label>  
+						<label for="letters-fandoms">Only fandoms with letters<span v-if="unlock">*</span></label>  
 					</div>
 					<div class="option">
 						<input type="checkbox" id="journal-style" v-model="destyle">
-						<label for="journal-style">Gimme mobile/readable URLs*</label> 
+						<label for="journal-style">Gimme mobile/readable URLs<span v-if="unlock">*</span></label> 
 					</div>
 					<div class="clear" v-if="unlock">
 						<small>* these apply only to the letters column, not to prompts</small>
@@ -430,15 +430,15 @@ export default {
 	},
 	created() {
 		document.addEventListener('keydown', this.easterEggs);
-		// document.addEventListener('keydown', this.unlockPrompts);
-		// document.addEventListener('keyup', this.unlockPrompts);
+		document.addEventListener('keydown', this.unlockPrompts);
+		document.addEventListener('keyup', this.unlockPrompts);
 		window.addEventListener('scroll', this.lazyload);
 
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
-		// document.removeEventListener('keydown', this.unlockPrompts);
-		// document.removeEventListener('keyup', this.unlockPrompts);
+		document.removeEventListener('keydown', this.unlockPrompts);
+		document.removeEventListener('keyup', this.unlockPrompts);
 		window.removeEventListener('scroll', this.lazyload);
 
 	},
@@ -489,7 +489,7 @@ export default {
 			prompts: {},
 			hasPrompts,
 			down: {},
-			unlock: true,
+			unlock: false,
 			largeBookmarks: false,
 			scrollPosition: 100,
 			loadAll: false,
