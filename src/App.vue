@@ -147,6 +147,7 @@
 														{{ prompt.username }}
 														<span v-if="isProlific(prompt.username)">*</span>
 														<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+														<a @click="getUserPrompts(prompt.username)"> (see all)</a>
 													</td>
 													<td>
 														<ul v-if="prompt.characters">
@@ -251,7 +252,43 @@
 				</div>
 
 				<div class="meta">
-					Last Updated: {{ lastUpdated }} | Feedback/problems: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
+					Last Updated: {{ lastUpdated }} | Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
+				</div>
+
+				<div :class="['user-lookup', { collapsed: !user }]">
+					<div class="heading"><strong>{{ user }}'s</strong> prompts</div>
+					<a @click="user = null; userPrompts = null" class="close-lookup">(x)</a>
+					<table class="prompts">
+						<thead>
+							<tr>
+								<th class="fave">&hearts;</th>
+								<th class="username">Fandom</th>
+								<th class="characters">Characters</th>
+								<th class="prompts">Prompts</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="prompt in userPrompts">
+								<td>
+									<button 
+										class="bookmark-prompt" 
+										v-if="!hasPromptmark(prompt)"
+										@click="addPromptmark(prompt)">&hearts;
+									</button>
+								</td>
+								<td>
+									{{ prompt.fandom }}
+								</td>
+								<td>
+									<ul v-if="prompt.characters">
+										<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+									</ul>
+								</td>
+								<td class="prompt" v-html="prompt.prompt"></td>
+							</tr>
+						</tbody>
+					</table>
+					
 				</div>
 
 				<table class="main">
@@ -317,6 +354,7 @@
 												{{ prompt.username }}
 												<span v-if="isProlific(prompt.username)">*</span>
 												<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+												<a @click="getUserPrompts(prompt.username)"> (see all)</a>
 											</td>
 											<td>
 												<ul v-if="prompt.characters">
@@ -446,7 +484,9 @@ export default {
 			unlock: false,
 			largeBookmarks: false,
 			scrollPosition: 100,
-			loadAll: false
+			loadAll: false,
+			user: null,
+			userPrompts: null
 		};
 	},
 	computed: {
@@ -531,7 +571,7 @@ export default {
 			const y = window.scrollY;
 			const totalHeight = document.body.scrollHeight;
 
-			if (totalHeight - y - document.body.scrollTop < 50) {
+			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
 				if (this.scrollPosition < this.fandoms.length) {
 					this.scrollPosition += 100;
 				}
@@ -542,6 +582,20 @@ export default {
 				? 'Collapse'
 				: 'Expand'; 
 			e.target.nextElementSibling.classList.toggle('hide');
+		},
+		getUserPrompts(username) {
+			this.user = 'Loading';
+
+			db.ref('/users/' + username).once('value').then(snapshot => {
+				let results = snapshot.val();
+
+				this.user = username;
+				if (results && results.length) {
+					this.userPrompts = results;
+				} else {
+					this.userPrompts = [];
+				}
+			});
 		},
 		getPrompts(fandomKey) {
 			this.prompts[fandomKey] = 'loading';
@@ -897,6 +951,32 @@ function removeArticlesCompare(o) {
 		padding: 0 3px;
 	}
 
+	.user-lookup {
+		position: fixed;
+		top: 40px;
+		left: 0;
+		background: #fff;
+		width: 40%;
+		border: 1px solid #cfcfcf;
+		max-height: 600px;
+		overflow-y: auto;
+		padding: 10px;
+
+		.heading {
+			margin-bottom: 10px;
+		}
+
+		&.collapsed {
+			display: none;
+		}
+
+		.close-lookup {
+			position: absolute;
+			top: 10px;
+			right: 15px;
+		}
+	}
+
 	.bookmarks {
 		position: fixed; 
 		top: 40px;
@@ -1014,6 +1094,7 @@ function removeArticlesCompare(o) {
 	}
 
 	td {
+		word-break: break-word;
 		padding: 10px 5px;
 		vertical-align: top;
 
