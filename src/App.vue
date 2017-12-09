@@ -25,6 +25,11 @@
 						<label for="letter">Letter Link:</label>
 						<input type="text" id="letter" v-model="url" placeholder="Letter link">
 					</div>
+
+					<div class="input" v-if="mods">
+						<label for="pinchhitter">Pinch hitter?</label>
+						<input type="checkbox" v-model="pinchhitter">
+					</div>
 					
 					
 					<button class="add-letter" @click="addLetter">Add!</button>  
@@ -82,7 +87,10 @@
 							<strong>Letters:</strong>
 							<ul>
 								<li v-for="letter in lettermarks">
+									<template v-if="letter.isPinchhitter">(</template>
 									<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }}) 
+									<template v-if="letter.isPinchhitter">)</template>
+
 									(<a @click="removeLettermark(letter)">x</a>)
 								</li>
 							</ul>
@@ -114,8 +122,11 @@
 								<td class="letters">
 									<ul v-for="letter in fandom.letters">
 										<li>
+											<template v-if="letter.isPinchhitter">(</template>
 											<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
 											<span v-if="isProlific(letter.username)">*</span>
+										<template v-if="letter.isPinchhitter">)</template>
+
 											<button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
 										</li>
 									</ul>
@@ -232,6 +243,10 @@
 						<label for="letters-fandoms">Only fandoms with letters<span v-if="unlock">*</span></label>  
 					</div>
 					<div class="option">
+						<input type="checkbox" id="ph" v-model="onlyPHs">
+						<label for="ph">Only fandoms with pinch hitters (brackets around username)</label>  
+					</div>
+					<div class="option">
 						<input type="checkbox" id="journal-style" v-model="destyle">
 						<label for="journal-style">Gimme mobile/readable URLs<span v-if="unlock">*</span></label> 
 					</div>
@@ -326,10 +341,12 @@
 						<td class="letters">
 								<ul v-for="letter in fandom.letters">
 									<li>
+										<template v-if="letter.isPinchhitter">(</template>
 										<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
 
 										<span v-if="isProlific(letter.username)">*</span>
 										<sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+										<template v-if="letter.isPinchhitter">)</template>
 										<button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
 									</li>
 								</ul>
@@ -430,15 +447,15 @@ export default {
 	},
 	created() {
 		document.addEventListener('keydown', this.easterEggs);
-		document.addEventListener('keydown', this.unlockPrompts);
-		document.addEventListener('keyup', this.unlockPrompts);
+		document.addEventListener('keydown', this.unlockModTools);
+		document.addEventListener('keyup', this.unlockModTools);
 		window.addEventListener('scroll', this.lazyload);
 
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
-		document.removeEventListener('keydown', this.unlockPrompts);
-		document.removeEventListener('keyup', this.unlockPrompts);
+		document.removeEventListener('keydown', this.unlockModTools);
+		document.removeEventListener('keyup', this.unlockModTools);
 		window.removeEventListener('scroll', this.lazyload);
 
 	},
@@ -471,12 +488,14 @@ export default {
 			lettermarks,
 			promptmarks,
 			onlyLetters: false,
+			onlyPHs: false,
 			hideCharacters: false,
 			hideCategory: true,
 			show: false,
 			selectedFandom: null,
 			username: '',
 			url: '',
+			pinchhitter: false,
 			destyle: false,
 			showEasterEggs: false,
 			showEggHelp: false,
@@ -489,7 +508,8 @@ export default {
 			prompts: {},
 			hasPrompts,
 			down: {},
-			unlock: false,
+			unlock: true,
+			mods: false,
 			largeBookmarks: false,
 			scrollPosition: 100,
 			loadAll: false,
@@ -506,6 +526,7 @@ export default {
 				!this.onlyPrompts &&
 				!this.filterTerm.length && 
 				!this.onlyBookmarks &&
+				!this.onlyPHs &&
 				!this.categoryTerm.length) {
 				return _.sortBy(this.fandoms, ['category', removeArticlesCompare]);
 			}
@@ -530,11 +551,17 @@ export default {
 					bookmarkedFandoms.push(b['.key']);
 				});
 
-				console.log(bookmarkedFandoms);
-
 				arr = _.filter(arr, o => {
 					return _.includes(bookmarkedFandoms, o['.key']);
 				});
+			}
+
+			if (this.onlyPHs) {
+				arr = _.filter(arr, o => {
+					return _.filter(o.letters, l => {
+						return l.isPinchhitter; 
+					}).length;
+				})
 			}
 
 			if (this.categoryTerm.length) {
@@ -673,12 +700,13 @@ export default {
 				});
 			}
 		},
-		unlockPrompts(e) {
+		unlockModTools(e) {
 			if (e.type === 'keydown') {
 				this.down[e.keyCode] = true;
 
+				// shift + 1 + 2
 				if (this.down[16] && this.down[49] && this.down[50]) {
-					this.unlock = !this.unlock;
+					this.mods = !this.mods;
 				}
 			} 
 
@@ -736,6 +764,7 @@ export default {
 			this.selectedFandom = null;
 			this.username = null;
 			this.url = null;
+			this.pinchhitter = false;
 		},
 		addLetter(key) {
 			if (!this.selectedFandom || !this.username || !this.url) {
@@ -744,7 +773,8 @@ export default {
 
 			this.$firebaseRefs.fandoms.child(this.selectedFandom['.key']).child('letters').push({
 				username: this.username,
-				url: this.url
+				url: this.url,
+				isPinchhitter: this.pinchhitter
 			});
 
 			this.$firebaseRefs.meta.child('lastUpdated').set(new Date().toJSON());
