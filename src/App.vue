@@ -1,10 +1,8 @@
 <template>
 	<div id="app">
-		<h1>Yuletide 2017 Tagset</h1>
+		<h1>Yuletide 2018 Tagset</h1>
 
-		<div v-if="maintenance">
-			Currently undergoing maintenance!
-		</div>
+		<maintenance v-if="maintenance"></maintenance>
 
 		<template v-else>
 			<div class="modal" v-if="show">
@@ -37,282 +35,47 @@
 				</div>
 			</div>
 
-			<div class="modal" v-if="showEggHelp">
-				<div class="modal-content">
-					<p>You've {{ showEasterEggs ? 'enabled' : 'disabled' }} easter eggs! Press F1 again to toggle.</p> 
-					
-
-					<strong>Stats:</strong>
-					<p>
-						* next to a username indicates an author has been crowdsourced as prolific (3+ fics in the main collection) over the years 2014, 2015, 2016. There may be inaccuracies!
-					</p>
-					<p>
-						Superscripts indicate that the user has signed up for an optional challenge. <strong>It may not apply to the fandom you're looking at</strong>. C = Crueltide, P = Yuleporn, F = Festivus. (N.B. Unlike letters, these challenge lists are updated only once a day or so.)
-					</p>
-					<p>
-						Users with letters: {{ totalLetters }}
-					</p>
-					<p>
-						Who shares the most fandoms with <input type="text" v-model="findPal" placeholder="Enter username">?
-						<button @click="getFandomPal()">Go!</button>
-						<p v-if="pal && pal.length">
-							<ul>
-								<li v-for="p in pal">
-									<a :href="p.url" target="_blank">{{p.username}} ({{p.count}})</a>
-								</li>
-							</ul>
-						</p>
-						<p v-else-if="pal && !pal.length">): No results!</p>
-					</p>
-					<button class="cancel" @click="showEggHelp = false">(Got it)</button>
-				</div>
-			</div>
+			<easter-eggs 
+				class="modal" 
+				v-if="showEggHelp"
+				:enabled="showEasterEggs"
+				:fandoms="fandoms"
+				@hide="showEggHelp = false"
+			></easter-eggs>
 
 			<div v-if="!loaded"><div class="loader">Loading...</div></div>
 
 			<template v-else>
-				<div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
-					<h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }}<template v-if="unlock">, P: {{ promptmarks.length }}</template>)
-						<a @click="expand = !expand">
-							{{ expand ? '(Collapse)' : '(Expand)' }}
-						</a>
-					</h4>
-					<div v-show="expand">
-						<div class="option">
-							<input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
-							<label for="expand-bookmarks">Make this wider</label>  
-						</div>
-
-						<div>
-							<strong>Letters:</strong>
-							<ul>
-								<li v-for="letter in lettermarks">
-									<template v-if="letter.isPinchhitter">(</template>
-									<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }}) 
-									<template v-if="letter.isPinchhitter">)</template>
-
-									(<a @click="removeLettermark(letter)">x</a>)
-								</li>
-							</ul>
-						</div>
-
-						<hr />
-
-						<table>
-							<thead>
-								<tr>
-									<th class="fandom">Fandom</th>
-									<th class="category"  v-if="!hideCategory">Category</th>
-									<th class="characters" v-if="!hideCharacters">Characters</th>
-									<th class="letters">Letters</th>
-									<th class="prompts" v-if="unlock">Prompts</th>
-								</tr>
-							</thead>
-							<tr v-for="(fandom, index) in bookmarksTable" :class="{odd: index % 2 !== 0 }">
-								<td class="fandom">
-									{{ fandom.name }}
-									<a @click="remove(fandom)">(Remove)</a>
-								</td>
-								<td class="category" v-if="!hideCategory">{{fandom.category}}</td>
-								<td class="characters" v-if="!hideCharacters">
-									<ul>
-										<li v-for="char in fandom.characters">{{char}}</li>
-									</ul>
-								</td>
-								<td class="letters">
-									<ul v-for="letter in fandom.letters">
-										<li>
-											<template v-if="letter.isPinchhitter">(</template>
-											<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
-											<span v-if="isProlific(letter.username)">*</span>
-										<template v-if="letter.isPinchhitter">)</template>
-
-											<button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
-										</li>
-									</ul>
-								</td>
-								<td v-if="unlock" class="prompts">
-									<button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
-									<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
-									<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-										<a href="javascript:void(0);" @click="collapse">Collapse</a>	
-										<table class="prompts">
-											<thead>
-												<tr>
-													<th class="fave">&hearts;</th>
-													<th class="username">Username</th>
-													<th class="characters">Characters</th>
-													<th class="prompts">Prompts</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr v-for="prompt in prompts[fandom['.key']]">
-													<td>
-														<button 
-															class="bookmark-prompt" 
-															v-if="!hasPromptmark(prompt)"
-															@click="addPromptmark(prompt)">&hearts;
-														</button>
-													</td>
-													<td>
-														{{ prompt.username }}
-														<span v-if="isProlific(prompt.username)">*</span>
-														<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-														<a @click="getUserPrompts(prompt.username)"> (see all)</a>
-													</td>
-													<td>
-														<ul v-if="prompt.characters">
-															<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-														</ul>
-													</td>
-													<td class="prompt" v-html="prompt.prompt"></td>
-												</tr>
-											</tbody>
-										</table>
-									</template>
-									<span v-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
-								</td>
-							</tr>
-						</table>
-
-						<hr />
-
-						<div v-if="unlock && promptmarks.length">
-							<strong>Prompts:</strong>
-
-								<table class="prompts">
-									<thead>
-										<tr>
-											<th class="fave">&hearts;</th>
-											<th class="username">Username</th>
-											<th class="characters">Characters</th>
-											<th class="prompts">Prompts</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr v-for="prompt in promptmarks">
-											<td>
-												<button 
-													class="remove-prompt" 
-													@click="removePromptmark(prompt)">x
-												</button>
-											</td>
-											<td>
-												{{ prompt.username }}
-												<span v-if="isProlific(prompt.username)">*</span>
-												<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-											</td>
-											<td>
-												<ul v-if="prompt.characters">
-													<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-												</ul>
-											</td>
-											<td class="prompt" v-html="prompt.prompt"></td>
-										</tr>
-									</tbody>
-								</table>
-						</div>
-					</div>  
-				</div>
+				<bookmarks
+					@getPrompts="getPrompts"
+					:showEasterEggs="showEasterEggs"
+					:data="bookmarksData"
+					:prompts="prompts"
+					:promptmarks="promptmarks"
+					:lettermarks="lettermarks"
+					:bookmarks="bookmarks"
+					:unlock="unlock"
+					:hideCategory="hideCategory"
+					:hideCharacters="hideCharacters"
+				>
+				</bookmarks>
 
 				<div class="scroll-top" @click="scrollToTop">(^)</div>
 
-				<div class="filters">				
-					<label for="fandom-filter">Filter By Fandom:</label>
-					<input id="fandom-filter" type="text" v-model='filterTerm'>
-
-					<label for="category-filter">Filter By Category:</label>
-
-					<select id="category-filter" v-model="categoryTerm">
-						<option value=''>All</option>
-						<option v-for="category in categories">{{ category }}</option> 
-					</select>
-				</div>
-
-				<div class="options">
-					<div class="option" v-if="unlock">
-						<input type="checkbox" id="prompts-fandoms" v-model="onlyPrompts">
-						<label for="prompts-fandoms">Only fandoms with prompts</label>  
-					</div>
-					<div class="option">
-						<input type="checkbox" id="bookmarked-fandoms" v-model="onlyBookmarks">
-						<label for="bookmarked-fandoms">Only bookmarked fandoms</label>  
-					</div>
-					<div class="option">
-						<input type="checkbox" id="letters-fandoms" v-model="onlyLetters">
-						<label for="letters-fandoms">Only fandoms with letters<span v-if="unlock">*</span></label>  
-					</div>
-					<div class="option">
-						<input type="checkbox" id="ph" v-model="onlyPHs">
-						<label for="ph">Only fandoms with pinch hitters (brackets around username)</label>  
-					</div>
-					<div class="option">
-						<input type="checkbox" id="journal-style" v-model="destyle">
-						<label for="journal-style">Gimme mobile/readable URLs<span v-if="unlock">*</span></label> 
-					</div>
-					<div class="clear" v-if="unlock">
-						<small>* these apply only to the letters column, not to prompts</small>
-					</div>
-				</div>
-
-				<div class="options">
-					<div class="option">
-						<input type="checkbox" id="load-all" v-model="loadAll">
-						<label for="load-all">Load everything!**</label> 
-					</div>
-
-					<div class="option">
-						<input type="checkbox" id="hide-chars" v-model="hideCharacters">
-						<label for="hide-chars">Hide characters</label> 
-					</div>
-					<div class="option">
-						<input type="checkbox" id="hide-cat" v-model="hideCategory">
-						<label for="hide-chars">Hide category</label> 
-					</div>
-					<div class="clear">
-						<small>** <strong :style="{ color: 'red'}">fandoms are now loaded in increments of 100 as you scroll.</strong> <BR/>If you want to load everything (the old app experience), check this box and give your browser some time.</small>
-					</div>
-				</div>
+				
 
 				<div class="meta">
 					Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
 				</div>
 
-				<div :class="['user-lookup', { collapsed: !user }]">
-					<div class="heading"><strong>{{ user }}'s</strong> prompts</div>
-					<a @click="user = null; userPrompts = null" class="close-lookup">(x)</a>
-					<table class="prompts">
-						<thead>
-							<tr>
-								<th class="fave">&hearts;</th>
-								<th class="username">Fandom</th>
-								<th class="characters">Characters</th>
-								<th class="prompts">Prompts</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="prompt in userPrompts">
-								<td>
-									<button 
-										class="bookmark-prompt" 
-										v-if="!hasPromptmark(prompt)"
-										@click="addPromptmark(prompt)">&hearts;
-									</button>
-								</td>
-								<td>
-									{{ prompt.fandom }}
-								</td>
-								<td>
-									<ul v-if="prompt.characters">
-										<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-									</ul>
-								</td>
-								<td class="prompt" v-html="prompt.prompt"></td>
-							</tr>
-						</tbody>
-					</table>
-					
-				</div>
+				<user-lookup
+					:user="user"
+					:userPrompts="userPrompts"
+					:promptmarks="promptmarks"
+					@addPrompt="addPromptmark"
+					@close="user = null; userPrompts = null"
+				>
+				</user-lookup>
 
 				<table class="main">
 					<thead>
@@ -397,26 +160,34 @@
 				</table>
 			</template>
 
-			<div class="caveats">
-				<small>Caveats: human error may result in missing data; always go to yuletide-admin for the source of truth. <strong>The app now loads 100 fandoms at a time as you scroll for speed purposes.</strong> If you want to see everything at once (e.g. to CTRL-F search), check the Load All option.</small>
-			</div>
+			<caveats></caveats>
 		</template>
 
 	</div>
 </template>
 
 <script>
+// components
+import Bookmarks from './components/bookmarks.vue';
+import Caveats from './components/caveats.vue';
+import EasterEggs from './components/easter-eggs.vue';
+import Maintenance from './components/maintenance.vue';
+import Options from './components/options.vue';
+import UserLookup from './components/user-lookup.vue';
 // bookmarks
 // expand narrow down to and expand only all bookmarks
 import _ from 'lodash';
 import config from './config';
 import Firebase from 'firebase';
+import { mapGetters } from 'vuex'
+
+// Our stuff
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from './data/lists';
 import hasPrompts from './data/prompts.js';
+
 let firebaseApp;
 if (!Firebase.apps.length) {
 	firebaseApp = Firebase.initializeApp(config);
-	
 } else {
 	firebaseApp = Firebase.app();
 }
@@ -427,6 +198,13 @@ let metaRef = db.ref('/meta');
 
 export default {
 	name: 'app',
+	components: {
+		Bookmarks,
+		Caveats,
+		EasterEggs,
+		Maintenance,
+		UserLookup
+	},
 	firebase: {
 		fandoms: {
 			source: fandomsRef,
@@ -475,7 +253,7 @@ export default {
 		let promptmarks = []
 		const promptmarksJson = this.$localStorage.get('promptmarks');
 		if (promptmarksJson) {
-			promptmarks = JSON.parse(promptmarksJson);
+			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
 		}
 
 		return {
@@ -486,7 +264,6 @@ export default {
 			expand: false,
 			bookmarks,
 			lettermarks,
-			promptmarks,
 			onlyLetters: false,
 			onlyPHs: false,
 			hideCharacters: false,
@@ -499,8 +276,6 @@ export default {
 			destyle: false,
 			showEasterEggs: false,
 			showEggHelp: false,
-			findPal: '',
-			pal: null,
 			PROLIFIC_WRITERS,
 			yuleporn: YULEPORN,
 			crueltide: CRUELTIDE,
@@ -578,24 +353,7 @@ export default {
 
 			return _.sortBy(arr, ['category', removeArticlesCompare]);
 		},
-		totalLetters() {
-
-			if (!this.fandoms) {
-				return 'No data - database error!';
-			}
-
-			const users = [];
-
-			_.each(this.fandoms, fandom => {
-				_.each(fandom.letters, l => {
-					users.push(l.username.toLowerCase());
-				});
-			});
-
-			return _.uniq(users).length;
-
-		},
-		bookmarksTable() {
+		bookmarksData() {
 			const data = [];
 			_.each(this.bookmarks, o => {
 				const fandom = _.find(this.fandoms, fandom => {
@@ -622,7 +380,11 @@ export default {
 			}
 
 			return new Date(data['.value']).toString();
-		}
+		},
+		...mapGetters([
+			'promptmarks'
+			// 'prompts'
+		])
 	},
 	methods: {
 		lazyload() {
@@ -642,16 +404,18 @@ export default {
 			e.target.nextElementSibling.classList.toggle('hide');
 		},
 		getUserPrompts(username) {
-			this.user = 'Loading';
+			this.$store.commit('setUser', 'Loading');
 
 			db.ref('/users/' + username).once('value').then(snapshot => {
 				let results = snapshot.val();
 
+				this.$store.commit('setUser', username);
 				this.user = username;
+				
 				if (results && results.length) {
-					this.userPrompts = results;
+					this.$store.commit('setUserPrompts', results);
 				} else {
-					this.userPrompts = [];
+					this.$store.commit('setUserPrompts', []);
 				}
 			});
 		},
@@ -672,34 +436,7 @@ export default {
 				this.prompts = { ...this.prompts };
 			});
 		},
-		// i r good at names
-		getFandomPal() {
-			const fandoms = _.filter(this.fandoms, fandom => {
-				return _.find(fandom.letters, { username: this.findPal });
-			});
-
-			const users = [];
-
-			_.each(fandoms, fandom => {
-				_.each(fandom.letters, letter => {
-					const otherUser = letter.username.toLowerCase();
-					if (otherUser !== this.findPal.toLowerCase()) {
-						users.push(letter);
-					}
-				})
-			});
-
-			this.pal = [];
-
-			if (users.length) {
-				const counts = _.chain(users).countBy(o => o.username).value();
-
-				_.each(counts, (n, key) => {
-					this.pal.push({... _.find(users, user => user.username.toLowerCase() === key.toLowerCase()),
-						count: n }); 
-				});
-			}
-		},
+		
 		unlockModTools(e) {
 			if (e.type === 'keydown') {
 				this.down[e.keyCode] = true;

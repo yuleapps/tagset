@@ -1,0 +1,204 @@
+<template>
+  <div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
+    <h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }}<template v-if="unlock">, P: {{ promptmarks.length }}</template>)
+      <a @click="expand = !expand">
+        {{ expand ? '(Collapse)' : '(Expand)' }}
+      </a>
+    </h4>
+    <div v-show="expand">
+      <div class="option">
+        <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
+        <label for="expand-bookmarks">Make this wider</label>  
+      </div>
+
+      <div>
+        <strong>Letters:</strong>
+        <ul>
+          <li v-for="letter in lettermarks">
+            <template v-if="letter.isPinchhitter">(</template>
+            <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }}) 
+            <template v-if="letter.isPinchhitter">)</template>
+
+            (<a @click="removeLettermark(letter)">x</a>)
+          </li>
+        </ul>
+      </div>
+
+      <hr />
+
+      <table>
+        <thead>
+          <tr>
+            <th class="fandom">Fandom</th>
+            <th class="category"  v-if="!hideCategory">Category</th>
+            <th class="characters" v-if="!hideCharacters">Characters</th>
+            <th class="letters">Letters</th>
+            <th class="prompts" v-if="unlock">Prompts</th>
+          </tr>
+        </thead>
+        <tr 
+          v-for="(fandom, index) in data" 
+          :class="{ odd: index % 2 !== 0 }"
+        >
+          <td class="fandom">
+            {{ fandom.name }}
+            <a @click="remove(fandom)">(Remove)</a>
+          </td>
+          <td class="category" v-if="!hideCategory">{{fandom.category}}</td>
+          <td class="characters" v-if="!hideCharacters">
+            <ul>
+              <li v-for="char in fandom.characters">{{char}}</li>
+            </ul>
+          </td>
+          <td class="letters">
+            <ul v-for="letter in fandom.letters">
+              <li>
+                <template v-if="letter.isPinchhitter">(</template>
+                <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
+                <span v-if="isProlific(letter.username)">*</span>
+              <template v-if="letter.isPinchhitter">)</template>
+
+                <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
+              </li>
+            </ul>
+          </td>
+          <td v-if="unlock" class="prompts">
+            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="$emit('getPrompts', fandom['.key'])">Get Prompts</button>
+            <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
+            <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
+              <a href="javascript:void(0);" @click="collapse">Collapse</a>  
+              <table class="prompts">
+                <thead>
+                  <tr>
+                    <th class="fave">&hearts;</th>
+                    <th class="username">Username</th>
+                    <th class="characters">Characters</th>
+                    <th class="prompts">Prompts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="prompt in prompts[fandom['.key']]">
+                    <td>
+                      <button 
+                        class="bookmark-prompt" 
+                        v-if="!hasPromptmark(prompt)"
+                        @click="addPromptmark(prompt)">&hearts;
+                      </button>
+                    </td>
+                    <td>
+                      {{ prompt.username }}
+                      <span v-if="isProlific(prompt.username)">*</span>
+                      <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+                      <a @click="getUserPrompts(prompt.username)"> (see all)</a>
+                    </td>
+                    <td>
+                      <ul v-if="prompt.characters">
+                        <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                      </ul>
+                    </td>
+                    <td class="prompt" v-html="prompt.prompt"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </template>
+            <span v-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
+          </td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <div v-if="unlock && promptmarks.length">
+        <strong>Prompts:</strong>
+
+          <table class="prompts">
+            <thead>
+              <tr>
+                <th class="fave">&hearts;</th>
+                <th class="username">Username</th>
+                <th class="characters">Characters</th>
+                <th class="prompts">Prompts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="prompt in promptmarks">
+                <td>
+                  <button 
+                    class="remove-prompt" 
+                    @click="removePromptmark(prompt)">x
+                  </button>
+                </td>
+                <td>
+                  {{ prompt.username }}
+                  <span v-if="isProlific(prompt.username)">*</span>
+                  <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+                </td>
+                <td>
+                  <ul v-if="prompt.characters">
+                    <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                  </ul>
+                </td>
+                <td class="prompt" v-html="prompt.prompt"></td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>  
+  </div>
+</template>
+
+<script>
+  import hasPrompts from '../data/prompts.js';
+  
+  import utils from './utils.js';
+  export default {
+    props: {
+      unlock: {
+        type: Boolean,
+        default: false
+      },
+      hideCharacters: {
+        type: Boolean,
+        default: false
+      },
+      hideCategory: {
+        type: Boolean,
+        default: false
+      },
+      showEasterEggs: {
+        type: Boolean,
+        default: false
+      },
+      prompts: {
+        type: Object,
+        default() { return {} }
+      },
+      data: {
+        type: Array,
+        default() { return []; }
+      },
+      bookmarks: {
+        type: Array,
+        default() { return []; }
+      },
+      promptmarks: {
+        type: Array,
+        default() { return []; }
+      },
+      lettermarks: {
+        type: Array,
+        default() { return []; }
+      }
+    },
+    data() {
+      return {
+        hasPrompts,
+        expand: false,
+        largeBookmarks: false
+      };
+    },
+    methods: {
+      ...utils
+    }
+  };
+</script>
