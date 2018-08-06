@@ -1,0 +1,258 @@
+<template>
+  <div class="fandom-autocomplete">
+    <label for="fandom">Fandom:</label> {{ fandom.name }}
+
+    <template v-if="!fandom.name">
+      <input type="text"
+        @keydown.enter.prevent="select"
+        @keydown.down="next"
+        @keydown.up="prev"
+        @keyup="autocomplete"
+        v-model="term"
+      >
+
+      <div v-if="options.length">
+        <p><em>Available selections:</em></p>
+        <span
+          :class="['option', { focused: i === selectedIndex }]" 
+          v-for="(option, i) in options" 
+          :key="option['.key']"
+          @mouseenter="selectedIndex = i"
+          @mouseleave="selectedIndex = -1"
+          @click="select"
+        >
+          {{ option.name }}
+        </span>
+      </div>
+    </template>
+
+    <template v-else>
+      <br>
+      <label for="characters">Characters:</label>
+      <span class="badges">
+        <span
+          class="character"
+          v-for="char in characters" 
+        >
+          {{ char }}
+
+          <button class="remove" @click="removeChar(char)">(X)</button>
+        </span>
+      </span>
+      <br>
+
+      <input type="text"
+        @keydown.enter.prevent="select('char')"
+        @keydown.down="next"
+        @keydown.up="prev"
+        @keyup="autocomplete"
+        v-model="term"
+      >
+
+      <div v-if="options.length">
+        <p><em>Available selections:</em></p>
+        <span
+          :class="['option', { focused: i === selectedIndex }]" 
+          v-for="(option, i) in options" 
+          :key="option"
+          @mouseenter="selectedIndex = i"
+          @mouseleave="selectedIndex = -1"
+          @click="select('char')"
+        >
+          {{ option }}
+        </span>
+      </div>
+      
+    </template>
+
+    {{ msg }}
+
+  </div>
+</template>
+
+<script>
+  import _ from 'lodash';
+  import { mapGetters } from 'vuex';
+  export default {
+    props: {
+      fandoms: {
+        type: Array,
+        default() { return []; }
+      },
+      maxChars: {
+        type: Number,
+        default: 10
+      }
+    },
+    data() {
+      return {
+        msg: '',
+        term: '',
+        fandom: '',
+        characters: [],
+        selected: '',
+        options: [],
+        selectedIndex: -1
+      };
+    },
+    watch: {
+      term(val, oldVal) {
+        if (val !== oldVal) {
+          this.selectedIndex = -1;
+        }
+      },
+      characters: {
+        deep: true,
+        handler() {
+          this.update()
+        }
+      },
+      fandom: {
+        deep: true,
+        handler() {
+          this.update();
+        }
+      }
+    },
+    methods: {
+      update() {
+        this.$emit('update', { 
+          fandom: {
+            name: this.fandom.name,
+            '.key': this.fandom['.key']
+          },
+          characters: this.characters
+        });
+      },
+      warn() {
+        this.msg = 'You must choose from the dropdown!'
+      },
+      autocomplete(type) {
+        this.msg = null;
+        if (!this.term.length && !this.fandom.name) {
+          this.options = [];
+        }
+
+        if (!this.fandom.name) {
+          this.options = _.filter(this.fandoms, o => {
+            return o.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+          });
+        } else {
+
+          if (!this.options.length && !this.characters.length) {
+            this.options = _.filter(this.fandom.characters, o => {
+              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+            });            
+          } else {
+            this.options = _.filter(this.options, o => {
+              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+            });
+
+          }
+        }
+
+        if (this.options.length === 0) {
+          this.term = 'Nothing nominated :('
+        }
+
+      },
+      removeChar(char) {
+        this.characters = _.filter(this.characters, o => {
+          return o !== char;
+        });
+
+        this.options = _.difference(this.fandom.characters, this.characters);
+
+      },
+      select(type) {
+
+        if (this.selectedIndex < 0 || this.selectedIndex > this.options.length -1) {
+          this.msg = 'You must choose from the dropdown!'
+          return;
+        }
+
+        if (type !== 'char') {
+          this.show = null;
+          this.fandom = this.options[this.selectedIndex];
+          this.term = '';
+          this.options = this.fandom.characters;
+          return;
+        }
+
+        if (this.characters.length === this.maxChars) {
+          this.msg = 'You cannot select any more characters!'
+          return;
+        }
+
+        this.characters.push(this.options[this.selectedIndex]);
+        this.term = '';
+        this.options = _.filter(this.options, o => {
+          return !_.includes(this.characters, o);
+        })
+
+      },
+      next() {
+        if (this.selectedIndex === this.options.length - 1) {
+          return;
+        }
+        this.selectedIndex++;
+      },
+      prev() {
+        if (this.selectedIndex <= 0) {
+          this.selectedIndex = -1;
+        }
+        this.selectedIndex--;
+      }
+    }
+  };
+</script>
+
+<style lang="scss" scoped>
+
+label {
+  font-weight: bold;
+}
+
+input {
+  height: 24px;
+  font-size: 14px;
+}
+
+.option {
+  cursor: pointer;
+  display: block;
+  margin-bottom: 3px;
+  &.focused {
+    font-weight: bold;
+    background-color: #fcfc;
+  }
+}
+
+.character {
+  cursor: pointer;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  padding: 2px;
+  display: inline-block;
+  margin: 3px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+.remove {
+  border: 0;
+  border-radius: 2px;
+  color: #d63939 !important;
+  font-size: 14px;
+  background-color: transparent !important;
+  padding: 0;
+
+  &:hover{
+    font-weight: bold;
+  }
+}
+  
+</style>

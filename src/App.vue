@@ -168,13 +168,6 @@ export default {
 			source: metaRef
 		}
 	},
-	directives: {
-		focus: {
-			inserted(el) {
-				el.focus();
-			}
-		}
-	},
 	beforeMount() {
 		const bookmarksJson = this.$localStorage.get('bookmarks');
 		if (bookmarksJson) {
@@ -583,12 +576,6 @@ function removeArticlesCompare(o) {
 
 	.add {
 		margin-top: 15px;
-	}
-
-	.add-letter {
-		padding: 7px 20px;
-		font-weight: bold;
-		font-size: 14px;
 	}
 
 	.bookmark, button, .bookmark-letter, .bookmark-prompt {
