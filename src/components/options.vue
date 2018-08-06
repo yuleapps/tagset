@@ -61,29 +61,29 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
-    props: {
-      unlock: {
-        type: Boolean,
-        default: false
-      },
-      categories: {
-        type: Array,
-        default() { return []; }
-      }
+    computed: {
+      ...mapGetters([
+        'unlock',
+        'categories'
+      ])
     },
     watch: {
-      options(val) {
-        console.log('we be updated!', val);
-        this.$emit('update', val)
+      options: {
+        handler (val) {
+          this.$store.commit('setOptions', val);
+        },
+        deep: true
       }
     },
     data() {
       return {
         options: {
           filter: {
-            category: null,
-            term: null
+            category: '',
+            term: ''
           },
           onlyLetters: false,
           onlyBookmarks: false,

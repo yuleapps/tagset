@@ -1,3 +1,4 @@
+import db from '../db.js';
 export default {
   hasBookmark(fandom) {
     return _.find(this.bookmarks, o => { return o['.key'] === fandom['.key']; });
@@ -45,8 +46,30 @@ export default {
 
     return false;
   },
+  getPrompts(fandomKey) {
+    const newVal = this.prompts;
+    newVal[fandomKey] = 'loading';
+    this.$store.commit('setPrompts', {});
+    this.$store.commit('setPrompts', newVal);
+
+
+    db.ref('/prompts/' + fandomKey).once('value').then(snapshot => {
+      let results = snapshot.val();
+
+      if (results && results.length) {
+        results = _.sortBy(results, o => o.username.toLowerCase());
+        newVal[fandomKey] = results;
+      } else {
+        newVal[fandomKey] = [];
+      }
+
+      this.$store.commit('setPrompts', {});
+
+      this.$store.commit('setPrompts', newVal);
+    });
+  },
   formatUrl(url) {
-    if (!this.destyle || !url) {
+    if (!this.options.destyle || !url) {
       return url;
     }
 

@@ -30,22 +30,22 @@
         <thead>
           <tr>
             <th class="fandom">Fandom</th>
-            <th class="category"  v-if="!hideCategory">Category</th>
-            <th class="characters" v-if="!hideCharacters">Characters</th>
+            <th class="category"  v-if="!options.hideCategory">Category</th>
+            <th class="characters" v-if="!options.hideCharacters">Characters</th>
             <th class="letters">Letters</th>
             <th class="prompts" v-if="unlock">Prompts</th>
           </tr>
         </thead>
         <tr 
-          v-for="(fandom, index) in data" 
+          v-for="(fandom, index) in bookmarksData" 
           :class="{ odd: index % 2 !== 0 }"
         >
           <td class="fandom">
             {{ fandom.name }}
             <a @click="remove(fandom)">(Remove)</a>
           </td>
-          <td class="category" v-if="!hideCategory">{{fandom.category}}</td>
-          <td class="characters" v-if="!hideCharacters">
+          <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
+          <td class="characters" v-if="!options.hideCharacters">
             <ul>
               <li v-for="char in fandom.characters">{{char}}</li>
             </ul>
@@ -63,7 +63,7 @@
             </ul>
           </td>
           <td v-if="unlock" class="prompts">
-            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="$emit('getPrompts', fandom['.key'])">Get Prompts</button>
+            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
             <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
             <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
               <a href="javascript:void(0);" @click="collapse">Collapse</a>  
@@ -148,47 +148,36 @@
 </template>
 
 <script>
+  import _ from 'lodash';
   import hasPrompts from '../data/prompts.js';
-  
+  import { mapGetters } from 'vuex';
   import utils from './utils.js';
   export default {
-    props: {
-      unlock: {
-        type: Boolean,
-        default: false
+    computed: {
+      ...mapGetters([
+        'options',
+        'bookmarks',
+        'promptmarks',
+        'lettermarks',
+        'prompts',
+        'unlock',
+        'showEasterEggs'
+      ]),
+      bookmarksData() {
+        const data = [];
+        _.each(this.bookmarks, o => {
+          const fandom = _.find(this.fandoms, fandom => {
+            return fandom['.key'] === o['.key'];
+          });
+
+          if (fandom) {
+            data.push(fandom);
+          }
+
+        });
+
+        return data;
       },
-      hideCharacters: {
-        type: Boolean,
-        default: false
-      },
-      hideCategory: {
-        type: Boolean,
-        default: false
-      },
-      showEasterEggs: {
-        type: Boolean,
-        default: false
-      },
-      prompts: {
-        type: Object,
-        default() { return {} }
-      },
-      data: {
-        type: Array,
-        default() { return []; }
-      },
-      bookmarks: {
-        type: Array,
-        default() { return []; }
-      },
-      promptmarks: {
-        type: Array,
-        default() { return []; }
-      },
-      lettermarks: {
-        type: Array,
-        default() { return []; }
-      }
     },
     data() {
       return {

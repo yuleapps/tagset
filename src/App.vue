@@ -46,43 +46,24 @@
 			<div v-if="!loaded"><div class="loader">Loading...</div></div>
 
 			<template v-else>
-				<bookmarks
-					@getPrompts="getPrompts"
-					:showEasterEggs="showEasterEggs"
-					:data="bookmarksData"
-					:prompts="prompts"
-					:promptmarks="promptmarks"
-					:lettermarks="lettermarks"
-					:bookmarks="bookmarks"
-					:unlock="unlock"
-					:hideCategory="hideCategory"
-					:hideCharacters="hideCharacters"
-				>
-				</bookmarks>
+				<bookmarks></bookmarks>
 
 				<div class="scroll-top" @click="scrollToTop">(^)</div>
-
-				
-
+			
+				<options></options>
+ 				
 				<div class="meta">
 					Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
 				</div>
 
-				<user-lookup
-					:user="user"
-					:userPrompts="userPrompts"
-					:promptmarks="promptmarks"
-					@addPrompt="addPromptmark"
-					@close="user = null; userPrompts = null"
-				>
-				</user-lookup>
+				<user-lookup></user-lookup>
 
 				<table class="main">
 					<thead>
 						<tr>
 							<th class="fandom">Fandom</th>
-							<th class="category" v-if="!hideCategory">Category</th>
-							<th class="characters" v-if="!hideCharacters">Characters</th>
+							<th class="category" v-if="!options.hideCategory">Category</th>
+							<th class="characters" v-if="!options.hideCharacters">Characters</th>
 							<th class="letters">Letters</th>
 							<th v-if="unlock" class="prompts">Prompts</th>
 						</tr>
@@ -95,8 +76,8 @@
 							</div>
 							<button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
 						</td>
-						<td class="category" v-if="!hideCategory">{{fandom.category}}</td>
-						<td class="characters" v-if="!hideCharacters">
+						<td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
+						<td class="characters" v-if="!options.hideCharacters">
 							<ul>
 								<li v-for="char in fandom.characters">{{char}}</li>
 							</ul>
@@ -174,25 +155,17 @@ import EasterEggs from './components/easter-eggs.vue';
 import Maintenance from './components/maintenance.vue';
 import Options from './components/options.vue';
 import UserLookup from './components/user-lookup.vue';
-// bookmarks
-// expand narrow down to and expand only all bookmarks
+
+// third party
 import _ from 'lodash';
-import config from './config';
-import Firebase from 'firebase';
+import db from './db.js';
 import { mapGetters } from 'vuex'
 
-// Our stuff
+// internal
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from './data/lists';
 import hasPrompts from './data/prompts.js';
+import utils from './components/utils.js';
 
-let firebaseApp;
-if (!Firebase.apps.length) {
-	firebaseApp = Firebase.initializeApp(config);
-} else {
-	firebaseApp = Firebase.app();
-}
-
-let db = firebaseApp.database();
 let fandomsRef = db.ref('/fandoms');
 let metaRef = db.ref('/meta');
 
@@ -203,6 +176,7 @@ export default {
 		Caveats,
 		EasterEggs,
 		Maintenance,
+		Options,
 		UserLookup
 	},
 	firebase: {
@@ -210,6 +184,8 @@ export default {
 			source: fandomsRef,
 			readyCallback() {
 				this.loaded = true;
+			this.$store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
+
 			}
 		},
 		meta: {
@@ -238,19 +214,16 @@ export default {
 
 	},
 	data() {
-		let bookmarks = [];
 		const bookmarksJson = this.$localStorage.get('bookmarks');
 		if (bookmarksJson) {
-			bookmarks = JSON.parse(bookmarksJson);
+			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
 		}
 
-		let lettermarks = [];
 		const lettermarksJson = this.$localStorage.get('lettermarks');
 		if (lettermarksJson) {
-			lettermarks = JSON.parse(lettermarksJson);
+			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
 		}
 
-		let promptmarks = []
 		const promptmarksJson = this.$localStorage.get('promptmarks');
 		if (promptmarksJson) {
 			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
@@ -259,68 +232,50 @@ export default {
 		return {
 			maintenance: false,
 			loaded: false,
-			filterTerm: '',
-			categoryTerm: '',
-			expand: false,
-			bookmarks,
-			lettermarks,
-			onlyLetters: false,
-			onlyPHs: false,
-			hideCharacters: false,
-			hideCategory: true,
 			show: false,
 			selectedFandom: null,
 			username: '',
 			url: '',
 			pinchhitter: false,
-			destyle: false,
-			showEasterEggs: false,
 			showEggHelp: false,
 			PROLIFIC_WRITERS,
 			yuleporn: YULEPORN,
 			crueltide: CRUELTIDE,
 			festivus: FESTIVUS,
-			prompts: {},
 			hasPrompts,
 			down: {},
-			unlock: true,
 			mods: false,
-			largeBookmarks: false,
 			scrollPosition: 100,
-			loadAll: false,
-			user: null,
-			userPrompts: null,
-			onlyPrompts: true,
-			onlyBookmarks: false
+			loadAll: false
 		};
 	},
 	computed: {
 		filtered() {
 
-			if (!this.onlyLetters && 
-				!this.onlyPrompts &&
-				!this.filterTerm.length && 
-				!this.onlyBookmarks &&
-				!this.onlyPHs &&
-				!this.categoryTerm.length) {
+			if (!this.options.onlyLetters && 
+				!this.options.onlyPrompts &&
+				!this.options.filter.term.length && 
+				!this.options.onlyBookmarks &&
+				!this.options.onlyPHs &&
+				!this.options.filter.category.length) {
 				return _.sortBy(this.fandoms, ['category', removeArticlesCompare]);
 			}
 
 			let arr = this.fandoms;
 
-			if (this.onlyPrompts) {
+			if (this.options.onlyPrompts) {
 				arr = _.filter(arr, o => {
 					return this.hasPrompts[o['.key']];
 				});
 			}
 
-			if (this.onlyLetters) {
+			if (this.options.onlyLetters) {
 				arr = _.filter(arr, o => {
 					return o.letters !== undefined;
 				});
 			}
 
-			if (this.onlyBookmarks) {
+			if (this.options.onlyBookmarks) {
 				const bookmarkedFandoms = [];
 				_.each(this.bookmarks, b => {
 					bookmarkedFandoms.push(b['.key']);
@@ -331,7 +286,7 @@ export default {
 				});
 			}
 
-			if (this.onlyPHs) {
+			if (this.options.onlyPHs) {
 				arr = _.filter(arr, o => {
 					return _.filter(o.letters, l => {
 						return l.isPinchhitter; 
@@ -339,38 +294,21 @@ export default {
 				})
 			}
 
-			if (this.categoryTerm.length) {
+			if (this.options.filter.category.length) {
 				arr = _.filter(arr, o => {
-					return o.category === this.categoryTerm;
+					return o.category === this.options.filter.category;
 				});
 			}
 
-			if (this.filterTerm.length) {
+			if (this.options.filter.term.length) {
 				arr = _.filter(arr, o => {
-					return o.name.toLowerCase().indexOf(this.filterTerm.toLowerCase()) > -1;
+					return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
 				});
 			}
 
 			return _.sortBy(arr, ['category', removeArticlesCompare]);
 		},
-		bookmarksData() {
-			const data = [];
-			_.each(this.bookmarks, o => {
-				const fandom = _.find(this.fandoms, fandom => {
-					return fandom['.key'] === o['.key'];
-				});
-
-				if (fandom) {
-					data.push(fandom);
-				}
-
-			});
-
-			return data;
-		},
-		categories() {
-			return _.uniq(_.map(this.fandoms, o => { return o.category; }));
-		},
+		
 		lastUpdated() {
 
 			const data = _.find(this.meta, { '.key': 'lastUpdated'});
@@ -382,8 +320,15 @@ export default {
 			return new Date(data['.value']).toString();
 		},
 		...mapGetters([
-			'promptmarks'
-			// 'prompts'
+			'bookmarks',
+			'categories',
+			'lettermarks',
+			'promptmarks',
+			'unlock',
+			'options',
+			'user',
+			'prompts',
+			'showEasterEggs'
 		])
 	},
 	methods: {
@@ -410,7 +355,6 @@ export default {
 				let results = snapshot.val();
 
 				this.$store.commit('setUser', username);
-				this.user = username;
 				
 				if (results && results.length) {
 					this.$store.commit('setUserPrompts', results);
@@ -419,24 +363,7 @@ export default {
 				}
 			});
 		},
-		getPrompts(fandomKey) {
-			this.prompts[fandomKey] = 'loading';
-			this.prompts = { ...this.prompts };
-
-			db.ref('/prompts/' + fandomKey).once('value').then(snapshot => {
-				let results = snapshot.val();
-
-				if (results && results.length) {
-					results = _.sortBy(results, o => o.username.toLowerCase());
-					this.prompts[fandomKey] = results;
-				} else {
-					this.prompts[fandomKey] = [];
-				}
-
-				this.prompts = { ...this.prompts };
-			});
-		},
-		
+		getPrompts: utils.getPrompts,
 		unlockModTools(e) {
 			if (e.type === 'keydown') {
 				this.down[e.keyCode] = true;
@@ -459,7 +386,7 @@ export default {
 				return;
 			}
 
-			this.showEasterEggs = !this.showEasterEggs;
+			this.$store.commit('setEggs', !this.showEasterEggs);
 			this.showEggHelp = true;
 		},
 		// EE: * marker for prolific writers
@@ -534,22 +461,22 @@ export default {
 		},
 		// remove bookmarks
 		remove(fandom) {
-			this.bookmarks = _.filter(this.bookmarks, o => {
+			this.$store.commit('setBookmarks', _.filter(this.bookmarks, o => {
 				return o['.key'] !== fandom['.key'];
-			});
+			}));
 			this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
 		},
 		removeLettermark(letter) {
-			this.lettermarks = _.filter(this.lettermarks, o => {
+			this.$store.commit('setLettermarks',_.filter(this.lettermarks, o => {
 				return o.username !== letter.username && o.key !== letter.key;
-			});
+			}));
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
 		},
 		removePromptmark(prompt) {
-			this.promptmarks = _.filter(this.promptmarks, o => {
+			this.$store.commit('setPromptmarks', _.filter(this.promptmarks, o => {
 				return (o.username !== prompt.username && o.fandom === prompt.fandom) 
 				|| o.fandom !== prompt.fandom;
-			});
+			}));
 			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
 		},
 		// add bookmarks
@@ -557,7 +484,9 @@ export default {
 			if (_.includes(this.bookmarks, fandom)) {
 				return false;
 			}
-			this.bookmarks.push(fandom);
+			const newVal = this.bookmarks;
+			newVal.push(fandom);
+			this.$store.commit('setBookmarks', newVal);
 			this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
 		},
 		addLettermark(letter, fandom) {
@@ -567,12 +496,15 @@ export default {
 				return false;
 			}
 
-			this.lettermarks.push({ 
+			const newVal = this.lettermarks;
+
+			newVal.push({ 
 				...letter, 
 				name: fandom.name, 
 				key: fandom['.key'] 
 			});
 
+			this.$store.commit('setLettermarks', newVal);
 			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
 		},
 		addPromptmark(prompt) {
@@ -582,10 +514,12 @@ export default {
 				return false;
 			}
 
-			this.promptmarks.push({ 
+			const newVal = this.promptmarks;
+			newVal.push({ 
 				...prompt 
 			});
 
+			this.$store.commit('setPromptmarks', newVal);
 			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
 		},
 		// utilities
