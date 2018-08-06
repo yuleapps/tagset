@@ -9,7 +9,7 @@ import appStore from './store/index.js';
 import VueFire from 'vuefire';
 import VueLocalStorage from 'vue-localstorage';
 import db from './db.js';
-let fandomsRef = db.ref('/fandoms');
+let fandomsRef = db.ref('/fandomsonly');
 let metaRef = db.ref('/meta');
 
 
@@ -36,6 +36,14 @@ new Vue({
         store.commit('setDbLoaded', true);
         store.commit('setFandoms', this.fandoms);
         store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
+      }
+    },
+    characters: {
+      source: db.ref('/characters').limitToFirst(100),
+      asObject: true,
+      readyCallback() {
+        console.log(this.characters['.value'])
+        store.commit('setCharacters', this.characters['.value']);
       }
     },
     letters: {

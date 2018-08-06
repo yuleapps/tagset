@@ -1,5 +1,6 @@
 const state = {
   loaded: false,
+  characters: {},
   fandoms: [],
   letters: {},
   prompts: {},
@@ -28,6 +29,10 @@ const state = {
 };
 
 const mutations = {
+  setCharacters(state, characters) {
+    state.characters = characters;
+  },
+
   setLetters(state, letters) {
     state.letters = letters;
   },
@@ -82,6 +87,7 @@ const mutations = {
 };
 
 const getters = {
+  characters: state => state.characters,
   letters: state => state.letters,
   loaded: state => state.loaded,
   fandoms: state => state.fandoms,

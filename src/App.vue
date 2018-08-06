@@ -49,7 +49,7 @@
 						<td class="characters" v-if="!options.hideCharacters">
 							<ul>
 								<li 
-									v-for="char in fandom.characters"
+									v-for="char in characters[fandom['.key']]"
 									:class="{ highlight: letterHasChar(char) }"
 								>
 									{{char}}
@@ -140,9 +140,6 @@ import { mapGetters } from 'vuex'
 import hasPrompts from './data/prompts.js';
 import utils from './components/utils.js';
 
-let fandomsRef = db.ref('/fandoms');
-let metaRef = db.ref('/meta');
-
 export default {
 	name: 'app',
 	components: {
@@ -184,8 +181,8 @@ export default {
 	},
 	data() {
 		return {
-			showLetterModal: true,
-			maintenance: true,
+			showLetterModal: false,
+			maintenance: false,
 			showEggHelp: false,
 			hasPrompts,
 			down: {},
@@ -270,6 +267,7 @@ export default {
 			'fandoms',
 			'loaded',
 			'bookmarks',
+      'characters',
 			'categories',
 			'lettermarks',
 			'promptmarks',
@@ -288,7 +286,29 @@ export default {
 
 			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
 				if (this.scrollPosition < this.fandoms.length) {
+          const prevPosition = this.scrollPosition + 1 || 101;
 					this.scrollPosition += 100;
+
+          const data = db.ref('/characters').orderByKey()
+            .startAt(String(prevPosition))
+            .endAt(String(this.scrollPosition))
+            .once('value');
+
+          data.then(res => {
+            const backFill = res.val();
+            console.log(backFill);
+
+            const newVal = { ... this.characters, ...backFill };
+            this.$store.commit('setCharacters', {});
+
+            this.$store.commit('setCharacters', newVal);
+
+
+
+          })
+
+            //let results = snapshot.val();
+            
 				}
 			}
 		},
