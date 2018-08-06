@@ -390,34 +390,9 @@ export default {
 			this.showEggHelp = true;
 		},
 		// EE: * marker for prolific writers
-		isProlific(name) {
-			if (!this.showEasterEggs) {
-				return false;
-			}
-
-			if (_.includes(this.PROLIFIC_WRITERS, name.trim().toLowerCase())) {
-				return true;
-			}
-
-			return false;
-		},
+		isProlific: utils.isProlific,
 		// EE: superscripts for challenge uses
-		challenges(name) {
-			if (!this.showEasterEggs) {
-				return false;
-			}
-
-			const data = [];
-
-			_.includes(this.crueltide, name.trim().toLowerCase()) ? 
-				data.push('C') : null;
-			_.includes(this.yuleporn, name.trim().toLowerCase()) ? 
-				data.push('P') : null;
-			_.includes(this.festivus, name.trim().toLowerCase()) ? 
-				data.push('F') : null;
-
-			return data;
-		},
+		challenges: utils.challenges,
 		// add letter modal
 		showModal(fandom) {
 			this.show = true;
@@ -446,138 +421,23 @@ export default {
 			this.cancel();
 		},
 		// bookmark checks
-		hasBookmark(fandom) {
-			return _.find(this.bookmarks, o => { return o['.key'] === fandom['.key']; });
-		},
-		hasLettermark(letter, fandom) {
-			return _.find(this.lettermarks, o => { 
-				return o.username === letter.username && o.key === fandom['.key']; 
-			});
-		},
-		hasPromptmark(prompt) {
-			return _.find(this.promptmarks, o => { 
-				return o.username === prompt.username && o.fandom === prompt.fandom; 
-			});
-		},
+		hasBookmark: utils.hasBookmark,
+		hasLettermark: utils.hasLettermark,
+		hasPromptmark: utils.hasPromptmark,
 		// remove bookmarks
-		remove(fandom) {
-			this.$store.commit('setBookmarks', _.filter(this.bookmarks, o => {
-				return o['.key'] !== fandom['.key'];
-			}));
-			this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
-		},
-		removeLettermark(letter) {
-			this.$store.commit('setLettermarks',_.filter(this.lettermarks, o => {
-				return o.username !== letter.username && o.key !== letter.key;
-			}));
-			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
-		},
-		removePromptmark(prompt) {
-			this.$store.commit('setPromptmarks', _.filter(this.promptmarks, o => {
-				return (o.username !== prompt.username && o.fandom === prompt.fandom) 
-				|| o.fandom !== prompt.fandom;
-			}));
-			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
-		},
+		remove: utils.remove,
+		removeLettermark: utils.removeLettermark,
+		removePromptmark: utils.removePromptmark,
 		// add bookmarks
-		add(fandom) {
-			if (_.includes(this.bookmarks, fandom)) {
-				return false;
-			}
-			const newVal = this.bookmarks;
-			newVal.push(fandom);
-			this.$store.commit('setBookmarks', newVal);
-			this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
-		},
-		addLettermark(letter, fandom) {
-			if (_.find(this.lettermarks, o => {
-				return o.username === letter.username && o.key === fandom['.key'];  
-			})) {
-				return false;
-			}
-
-			const newVal = this.lettermarks;
-
-			newVal.push({ 
-				...letter, 
-				name: fandom.name, 
-				key: fandom['.key'] 
-			});
-
-			this.$store.commit('setLettermarks', newVal);
-			this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
-		},
-		addPromptmark(prompt) {
-			if (_.find(this.promptmarks, o => {
-				return o.username === prompt.username && o.fandom === prompt.fandom;  
-			})) {
-				return false;
-			}
-
-			const newVal = this.promptmarks;
-			newVal.push({ 
-				...prompt 
-			});
-
-			this.$store.commit('setPromptmarks', newVal);
-			this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
-		},
+		add: utils.add,
+		addLettermark: utils.addLettermark,
+		addPromptmark: utils.addPromptmark,
 		// utilities
 		scrollToTop() {
 			document.body.scrollTop = 0; 
 			document.documentElement.scrollTop = 0; 
 		},
-		formatUrl(url) {
-			if (!this.destyle || !url) {
-				return url;
-			}
-
-			url = url.trim();
-
-			const isDW = url.indexOf('dreamwidth.org') > -1;
-			const isLJ = url.indexOf('livejournal.com') > -1;
-			const isTumblr = url.indexOf('tumblr.com') > -1;
-			const isDocs = url.indexOf('docs.google') > -1;
-
-			if (isDW) {
-
-				if (url.indexOf('?style=') === -1 && url.indexOf('&style=') === -1) {
-					if (url.indexOf('?') > -1) {
-						return `${url}&style=site`;
-					}
-
-					return `${url}?style=site`;
-
-				}
-			}
-
-			if (isLJ) {
-
-				if (url.indexOf('?style=') === -1 && url.indexOf('&style=') === -1 && url.indexOf('format=') === -1) {
-					if (url.indexOf('?') > -1) {
-						return `${url}&format=light`;
-					}
-
-					return `${url}?format=light`;
-
-				}
-			}
-
-			if (isTumblr) {
-
-				if (url.indexOf('/mobile') === -1) {			
-					return `${url}/mobile`;
-				}
-			}
-
-			if (isDocs) {
-				if (url.indexOf('/mobilebasic') === -1) {
-					return `${url.replace(/\/edit.*$/, '')}/mobilebasic`;
-				}
-			}
-
-			return url;
-		}
+		formatUrl: utils.formatUrl
 	}
 }
 

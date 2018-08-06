@@ -1,5 +1,69 @@
+import _ from 'lodash';
 import db from '../db.js';
+import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from '../data/lists';
+
 export default {
+  add(fandom) {
+    if (_.includes(this.bookmarks, fandom)) {
+      return false;
+    }
+    const newVal = this.bookmarks;
+    newVal.push(fandom);
+    this.$store.commit('setBookmarks', newVal);
+    this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
+  },
+  addLettermark(letter, fandom) {
+    if (_.find(this.lettermarks, o => {
+      return o.username === letter.username && o.key === fandom['.key'];  
+    })) {
+      return false;
+    }
+
+    const newVal = this.lettermarks;
+
+    newVal.push({ 
+      ...letter, 
+      name: fandom.name, 
+      key: fandom['.key'] 
+    });
+
+    this.$store.commit('setLettermarks', newVal);
+    this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
+  },
+  addPromptmark(prompt) {
+    if (_.find(this.promptmarks, o => {
+      return o.username === prompt.username && o.fandom === prompt.fandom;  
+    })) {
+      return false;
+    }
+
+    const newVal = this.promptmarks;
+    newVal.push({ 
+      ...prompt 
+    });
+
+    this.$store.commit('setPromptmarks', newVal);
+    this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
+  },
+  remove(fandom) {
+    this.$store.commit('setBookmarks', _.filter(this.bookmarks, o => {
+      return o['.key'] !== fandom['.key'];
+    }));
+    this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
+  },
+  removeLettermark(letter) {
+    this.$store.commit('setLettermarks',_.filter(this.lettermarks, o => {
+      return o.username !== letter.username && o.key !== letter.key;
+    }));
+    this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
+  },
+  removePromptmark(prompt) {
+    this.$store.commit('setPromptmarks', _.filter(this.promptmarks, o => {
+      return (o.username !== prompt.username && o.fandom === prompt.fandom) 
+      || o.fandom !== prompt.fandom;
+    }));
+    this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
+  },
   hasBookmark(fandom) {
     return _.find(this.bookmarks, o => { return o['.key'] === fandom['.key']; });
   },
@@ -40,11 +104,27 @@ export default {
       return false;
     }
 
-    if (_.includes(this.PROLIFIC_WRITERS, name.trim().toLowerCase())) {
+    if (_.includes(PROLIFIC_WRITERS, name.trim().toLowerCase())) {
       return true;
     }
 
     return false;
+  },
+  challenges(name) {
+    if (!this.showEasterEggs) {
+      return false;
+    }
+
+    const data = [];
+
+    _.includes(this.crueltide, name.trim().toLowerCase()) ? 
+      data.push('C') : null;
+    _.includes(this.yuleporn, name.trim().toLowerCase()) ? 
+      data.push('P') : null;
+    _.includes(this.festivus, name.trim().toLowerCase()) ? 
+      data.push('F') : null;
+
+    return data;
   },
   getPrompts(fandomKey) {
     const newVal = this.prompts;
