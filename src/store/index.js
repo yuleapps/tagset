@@ -1,4 +1,5 @@
 const state = {
+  fandoms: [],
   prompts: {},
   bookmarks: [],
   lettermarks: [],
@@ -25,6 +26,10 @@ const state = {
 };
 
 const mutations = {
+  setFandoms(state, fandoms) {
+    state.fandoms = fandoms;
+  },
+
   setPrompts(state, prompts) {
     state.prompts = prompts;
   },
@@ -67,6 +72,7 @@ const mutations = {
 };
 
 const getters = {
+  fandoms: state => state.fandoms,
   prompts: state => state.prompts,
   categories: state => state.categories,
   bookmarks: state => state.bookmarks,

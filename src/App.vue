@@ -2,38 +2,12 @@
 	<div id="app">
 		<h1>Yuletide 2018 Tagset</h1>
 
+			<add-letter></add-letter>
+
+
 		<maintenance v-if="maintenance"></maintenance>
 
 		<template v-else>
-			<div class="modal" v-if="show">
-				<div class="modal-content">
-					<p>
-						Add A Letter To <strong>{{ this.selectedFandom.name }}</strong>
-					</p>
-					<p>
-						<small class="warn">Warning: update and delete functionality pending. Check before you add!</small><br>
-					</p>
-					
-					<div class="input">
-						<label for="username">Username:</label>
-						<input v-focus="show" ref="username" id="username" type="text" v-model="username" placeholder="Username"> 
-					</div>
-
-					<div class="input">
-						<label for="letter">Letter Link:</label>
-						<input type="text" id="letter" v-model="url" placeholder="Letter link">
-					</div>
-
-					<div class="input" v-if="mods">
-						<label for="pinchhitter">Pinch hitter?</label>
-						<input type="checkbox" v-model="pinchhitter">
-					</div>
-					
-					
-					<button class="add-letter" @click="addLetter">Add!</button>  
-					<button class="cancel" @click="cancel">(Cancel)</button>
-				</div>
-			</div>
 
 			<easter-eggs 
 				class="modal" 
@@ -149,6 +123,7 @@
 
 <script>
 // components
+import AddLetter from './components/add-letter.vue';
 import Bookmarks from './components/bookmarks.vue';
 import Caveats from './components/caveats.vue';
 import EasterEggs from './components/easter-eggs.vue';
@@ -172,6 +147,7 @@ let metaRef = db.ref('/meta');
 export default {
 	name: 'app',
 	components: {
+		AddLetter,
 		Bookmarks,
 		Caveats,
 		EasterEggs,
@@ -184,8 +160,8 @@ export default {
 			source: fandomsRef,
 			readyCallback() {
 				this.loaded = true;
-			this.$store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
-
+				this.$store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
+				this.$store.commit('setFandoms', this.fandoms);
 			}
 		},
 		meta: {
@@ -197,6 +173,22 @@ export default {
 			inserted(el) {
 				el.focus();
 			}
+		}
+	},
+	beforeMount() {
+		const bookmarksJson = this.$localStorage.get('bookmarks');
+		if (bookmarksJson) {
+			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
+		}
+
+		const lettermarksJson = this.$localStorage.get('lettermarks');
+		if (lettermarksJson) {
+			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
+		}
+
+		const promptmarksJson = this.$localStorage.get('promptmarks');
+		if (promptmarksJson) {
+			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
 		}
 	},
 	created() {
@@ -214,23 +206,10 @@ export default {
 
 	},
 	data() {
-		const bookmarksJson = this.$localStorage.get('bookmarks');
-		if (bookmarksJson) {
-			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
-		}
-
-		const lettermarksJson = this.$localStorage.get('lettermarks');
-		if (lettermarksJson) {
-			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
-		}
-
-		const promptmarksJson = this.$localStorage.get('promptmarks');
-		if (promptmarksJson) {
-			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
-		}
+		
 
 		return {
-			maintenance: false,
+			maintenance: true,
 			loaded: false,
 			show: false,
 			selectedFandom: null,
@@ -389,9 +368,7 @@ export default {
 			this.$store.commit('setEggs', !this.showEasterEggs);
 			this.showEggHelp = true;
 		},
-		// EE: * marker for prolific writers
 		isProlific: utils.isProlific,
-		// EE: superscripts for challenge uses
 		challenges: utils.challenges,
 		// add letter modal
 		showModal(fandom) {
