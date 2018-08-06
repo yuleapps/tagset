@@ -2,11 +2,12 @@
 	<div id="app">
 		<h1>Yuletide 2018 Tagset</h1>
 
-			<add-letter></add-letter>
+		<button @click="showLetterModal = true">Add Your Letter</button>
 
+		<add-letter v-if="showLetterModal" @close="showLetterModal = false"></add-letter>
 
 		<maintenance v-if="maintenance"></maintenance>
-
+		
 		<template v-else>
 
 			<easter-eggs 
@@ -202,6 +203,7 @@ export default {
 		
 
 		return {
+			showLetterModal: false,
 			maintenance: true,
 			loaded: false,
 			show: false,
@@ -496,7 +498,7 @@ function removeArticlesCompare(o) {
 	/* Modal Content/Box */
 	.modal-content {
 			background-color: #fefefe;
-			margin: 25% auto; /* 15% from the top and centered */
+			margin: 15% auto; /* 15% from the top and centered */
 			padding: 20px;
 			padding-bottom: 30px;
 			border: 1px solid #888;

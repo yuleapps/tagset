@@ -3,11 +3,7 @@
     <div class="modal-content">
       <h2>Add Your Letter</h2>
 
-      <p>Made a mistake in a previous submission? Contact us at SOMEPLACE</p>
-
-      <template v-if="!isReview">
-
-
+      <div v-show="!isReview">
         <div :class="['input username', { error: hasError('username')}]">
           <label for="username">Username:</label>
           <input v-focus id="username" type="text" v-model="username" placeholder="Username"> 
@@ -36,9 +32,9 @@
           <input type="checkbox" v-model="pinchhitter">
         </div>
          -->
-      </template>
+      </div>
 
-      <template v-else>
+      <template v-if="isReview">
 
         <table class="table">
           <tbody>
@@ -53,7 +49,12 @@
             <tr v-for="(fandom, i) in selectedFandoms">
               <th>Fandom {{i + 1}}</th>
               <td>{{ fandom.fandom.name }}</td>
-              <td><ul class="chars"><li v-for="char in fandom.characters">{{ char }}</li></ul></td>
+              <td>
+                  <ul class="chars">
+                    <li v-if="!fandom.characters.length">Any</li>
+                    <li v-for="char in fandom.characters">{{ char }}</li>
+                  </ul>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -70,16 +71,19 @@
             You need a letter link
           </li>
           <li v-if="hasError('fandom')">
-            You need at least {{ min }} fandom
+            You need at least {{ min }} fandoms
           </li>
         </ul>
       </div>
       
       <button @click="submit" class="submit">{{ submitText }}</button> 
-      <button v-if="isReview" @click="submit">Edit again</button>  
-      <button class="cancel">(Cancel)</button>
+      <button v-if="isReview" @click="isReview = false" class="submit">Edit Again</button>  
+      <button class="cancel" @click="$emit('close')">(Cancel)</button>
 
-      <p><small>* The Yuletide mods reserve the right to delete any letter that is locked or includes requests that INSERT NICE WORDING HERE, GUYS. Mods will do their best to contact you about the problem, and you may resubmit your fixed letter at any time. Problems? CONTACT STUFF HERE.</small></p>
+      <p><small>* <strong>Made a mistake in an earlier submission?</strong> Contact the mods at SOMEPLACE.</small></p>
+
+      <p><small>* The Yuletide mods reserve the right to delete any letter that is locked or includes requests that INSERT NICE WORDING HERE, GUYS. Mods will do their best to contact you about the problem! You may resubmit your fixed letter at any time.</small></p>
+      <p><small>* For those new to Yuletide: only nominated fandoms and characters are available for selection. Don't see your favourite? Double check the official tagset - they may not have been nominated!</small></p>
     </div>
   </div>
 </template>
@@ -99,7 +103,7 @@
         }
       }
     },
-    created() {
+    beforeMount() {
       this.availableFandoms = this.fandoms;
     },
     data() {
@@ -119,10 +123,6 @@
         'fandoms'
       ]),
       submitText() {
-        if (this.errors.length) {
-          return 'Uh oh...'
-        }
-
         if (this.isReview) {
           return 'Add!';
         }
@@ -160,7 +160,6 @@
         this.isReview = false;
       },
       hasError(type) {
-        console.log(_.includes(this.errors, type))
         return _.includes(this.errors, type);
       },
       update(index, data) {

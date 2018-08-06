@@ -4,6 +4,7 @@
 
     <template v-if="!fandom.name">
       <input type="text"
+        placeholder="Type for suggestions..."
         @keydown.enter.prevent="select"
         @keydown.down="next"
         @keydown.up="prev"
@@ -29,17 +30,7 @@
     <template v-else>
       <br>
       <label for="characters">Characters:</label>
-      <span class="badges">
-        <span
-          class="character"
-          v-for="char in characters" 
-        >
-          {{ char }}
-
-          <button class="remove" @click="removeChar(char)">(X)</button>
-        </span>
-      </span>
-      <br>
+      
 
       <input type="text"
         @keydown.enter.prevent="select('char')"
@@ -48,6 +39,18 @@
         @keyup="autocomplete"
         v-model="term"
       >
+
+      <div class="badges">
+        <span
+          class="character"
+          v-for="char in characters" 
+        >
+          {{ char }}
+
+          <button class="remove" @click="removeChar(char)">(X)</button>
+        </span>
+      </div>
+      <br>
 
       <div v-if="options.length">
         <p><em>Available selections:</em></p>
@@ -61,6 +64,7 @@
         >
           {{ option }}
         </span>
+        
       </div>
       
     </template>
@@ -150,11 +154,6 @@
 
           }
         }
-
-        if (this.options.length === 0) {
-          this.term = 'Nothing nominated :('
-        }
-
       },
       removeChar(char) {
         this.characters = _.filter(this.characters, o => {
