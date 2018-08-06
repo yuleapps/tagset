@@ -59,11 +59,11 @@
           :class="['option', { focused: i === selectedIndex }]" 
           v-for="(option, i) in options" 
           :key="option"
+          v-html="highlight(option)"
           @mouseenter="selectedIndex = i"
           @mouseleave="selectedIndex = -1"
           @click="select('char')"
         >
-          {{ option }}
         </span>
         
       </div>
