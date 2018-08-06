@@ -2,9 +2,14 @@
 	<div id="app">
 		<h1>Yuletide 2018 App</h1>
 
-		<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
+		<div v-if="!loaded"><div class="loader">Loading...</div></div>
+		<div v-else>
+			<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
 
-		<add-letter v-if="showLetterModal && loaded" @close="showLetterModal = false"></add-letter>
+			<add-letter v-if="showLetterModal && loaded" @close="showLetterModal = false"></add-letter>
+		</div>
+
+		
 
 		<maintenance v-if="maintenance"></maintenance>
 		
