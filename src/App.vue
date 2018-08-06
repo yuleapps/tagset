@@ -54,12 +54,17 @@
 						<td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
 						<td class="characters" v-if="!options.hideCharacters">
 							<ul>
-								<li v-for="char in fandom.characters">{{char}}</li>
+								<li 
+									v-for="char in fandom.characters"
+									:class="{ highlight: letterHasChar(char) }"
+								>
+									{{char}}
+								</li>
 							</ul>
 						</td>
 						<td class="letters">
-								<ul v-for="letter in fandom.letters">
-									<li>
+								<ul v-for="letter in letters[fandom['.key']]">
+									<li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
 										<template v-if="letter.isPinchhitter">(</template>
 										<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
 
@@ -71,6 +76,7 @@
 								</ul>
 							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
+						<!-- HERE BE PROMPTS -->
 						<td v-if="unlock" class="prompts">
 							<button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
 							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
@@ -156,19 +162,6 @@ export default {
 		Options,
 		UserLookup
 	},
-	firebase: {
-		fandoms: {
-			source: fandomsRef,
-			readyCallback() {
-				this.loaded = true;
-				this.$store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
-				this.$store.commit('setFandoms', this.fandoms);
-			}
-		},
-		meta: {
-			source: metaRef
-		}
-	},
 	beforeMount() {
 		const bookmarksJson = this.$localStorage.get('bookmarks');
 		if (bookmarksJson) {
@@ -200,12 +193,9 @@ export default {
 
 	},
 	data() {
-		
-
 		return {
 			showLetterModal: false,
-			maintenance: true,
-			loaded: false,
+			maintenance: false,
 			show: false,
 			selectedFandom: null,
 			username: '',
@@ -220,7 +210,8 @@ export default {
 			down: {},
 			mods: false,
 			scrollPosition: 100,
-			loadAll: false
+			loadAll: false,
+			letterChars: []
 		};
 	},
 	computed: {
@@ -294,6 +285,9 @@ export default {
 			return new Date(data['.value']).toString();
 		},
 		...mapGetters([
+			'letters',
+			'fandoms',
+			'loaded',
 			'bookmarks',
 			'categories',
 			'lettermarks',
@@ -306,6 +300,8 @@ export default {
 		])
 	},
 	methods: {
+		letterHasChar: utils.letterHasChar,
+		highlightChars: utils.highlightChars,
 		lazyload() {
 			const y = window.scrollY;
 			const totalHeight = document.body.scrollHeight;
@@ -430,6 +426,10 @@ function removeArticlesCompare(o) {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: left;
 	color: #2c3e50;
+
+	.highlight {
+		font-weight: bold;
+	}
 
 	a,
 	.cancel {

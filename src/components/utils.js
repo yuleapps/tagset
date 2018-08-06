@@ -3,6 +3,12 @@ import db from '../db.js';
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from '../data/lists';
 
 export default {
+  letterHasChar(char) {
+    return _.includes(this.letterChars, char);
+  },
+  highlightChars(letter) {
+    this.letterChars = letter.characters;
+  },
   add(fandom) {
     if (_.includes(this.bookmarks, fandom)) {
       return false;

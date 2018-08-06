@@ -1,9 +1,9 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <h2>Add Your Letter</h2>
+      <h2>Submit Your Letter</h2>
 
-      <p>Remember that adding your letter does <strong>not count as signing up for Yuletide!</strong> Go and do that first <a href="#">on AO3</a>.</p>
+      <p>Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong> Go and do that first <a href="#">on AO3</a>. This is a voluntary list to 'tide us through until requests are made public during Madness (DATE).</p>
 
       <p><small>* <strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</small></p>
 
@@ -96,11 +96,14 @@
 <script>
   import { mapGetters } from 'vuex';
   import FandomAutocomplete from './fandom-autocomplete.vue';
+  import db from '../db.js';
   export default {
     components: {
       FandomAutocomplete
     },
-
+    firebase: {
+      letters: db.ref('/letters')
+    },
     directives: {
       focus: {
         inserted(el) {
@@ -143,7 +146,7 @@
       submit() {
         this.errors = [];
         if (this.isReview) {
-          // submit
+          this.add();
           return;
         }
 
@@ -180,7 +183,21 @@
         this.availableFandoms = _.filter(this.fandoms, o => {
           return !_.includes(selected, o['.key']);
         });
-      }
+      },
+      add() {
+
+        _.each(this.selectedFandoms, req => {
+          this.$firebaseRefs.letters.child(req.fandom['.key']).push({
+            username: this.username,
+            url: this.url,
+            characters: req.characters,
+            isPinchhitter: this.pinchhitter || false
+          });
+        });
+
+        this.$emit('close');
+
+      },
     }
   };
 </script>

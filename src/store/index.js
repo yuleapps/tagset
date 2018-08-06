@@ -1,5 +1,7 @@
 const state = {
+  loaded: false,
   fandoms: [],
+  letters: {},
   prompts: {},
   bookmarks: [],
   lettermarks: [],
@@ -26,6 +28,14 @@ const state = {
 };
 
 const mutations = {
+  setLetters(state, letters) {
+    state.letters = letters;
+  },
+
+  setDbLoaded(state, val) {
+    state.loaded = val;
+  },
+
   setFandoms(state, fandoms) {
     state.fandoms = fandoms;
   },
@@ -72,6 +82,8 @@ const mutations = {
 };
 
 const getters = {
+  letters: state => state.letters,
+  loaded: state => state.loaded,
   fandoms: state => state.fandoms,
   prompts: state => state.prompts,
   categories: state => state.categories,

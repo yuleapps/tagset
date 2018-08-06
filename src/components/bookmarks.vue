@@ -47,12 +47,12 @@
           <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
-              <li v-for="char in fandom.characters">{{char}}</li>
+              <li v-for="char in fandom.characters" :class="{ highlight: letterHasChar(char) }">{{char}}</li>
             </ul>
           </td>
           <td class="letters">
-            <ul v-for="letter in fandom.letters">
-              <li>
+            <ul v-for="letter in letters[fandom['.key']]">
+              <li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
                 <template v-if="letter.isPinchhitter">(</template>
                 <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
                 <span v-if="isProlific(letter.username)">*</span>
@@ -153,17 +153,8 @@
   import { mapGetters } from 'vuex';
   import utils from './utils.js';
   export default {
-    computed: {
-      ...mapGetters([
-        'options',
-        'bookmarks',
-        'promptmarks',
-        'lettermarks',
-        'prompts',
-        'unlock',
-        'showEasterEggs'
-      ]),
-      bookmarksData() {
+    beforeMount() {
+        console.log('hello');
         const data = [];
         _.each(this.bookmarks, o => {
           const fandom = _.find(this.fandoms, fandom => {
@@ -176,13 +167,45 @@
 
         });
 
-        return data;
-      },
+        this.bookmarksData = data;
+    },
+    watch: {
+      bookmarks() {
+        console.log('hello');
+        const data = [];
+        _.each(this.bookmarks, o => {
+          const fandom = _.find(this.fandoms, fandom => {
+            return fandom['.key'] === o['.key'];
+          });
+
+          if (fandom) {
+            data.push(fandom);
+          }
+
+        });
+
+        this.bookmarksData = data;
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'letters',
+        'options',
+        'fandoms',
+        'bookmarks',
+        'promptmarks',
+        'lettermarks',
+        'prompts',
+        'unlock',
+        'showEasterEggs'
+      ]),
     },
     data() {
       return {
+        letterChars: [],
         hasPrompts,
         expand: false,
+        bookmarksData: [],
         largeBookmarks: false
       };
     },
