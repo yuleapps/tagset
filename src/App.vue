@@ -1,6 +1,6 @@
 <template>
-	<h1>Yuletide 2018 App</h1>
 	<div id="app">
+		<h1>Yuletide 2018 App</h1>
 
 		<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
 
