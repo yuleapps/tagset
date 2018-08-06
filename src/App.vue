@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Yuletide 2018 Tagset</h1>
 
-		<button @click="showLetterModal = true">Add Your Letter</button>
+		<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
 
 		<add-letter v-if="showLetterModal" @close="showLetterModal = false"></add-letter>
 
@@ -74,7 +74,6 @@
 										<button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
 									</li>
 								</ul>
-							<button class="add" @click="showModal(fandom)">Add</button>
 						</td>
 						<!-- HERE BE PROMPTS -->
 						<td v-if="unlock" class="prompts">
@@ -235,8 +234,10 @@ export default {
 			}
 
 			if (this.options.onlyLetters) {
+
+
 				arr = _.filter(arr, o => {
-					return o.letters !== undefined;
+					return this.letters[o['.key']] !== undefined;
 				});
 			}
 
@@ -270,6 +271,8 @@ export default {
 					return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
 				});
 			}
+
+			console.log(arr.length);
 
 			return _.sortBy(arr, ['category', removeArticlesCompare]);
 		},
@@ -739,6 +742,11 @@ function removeArticlesCompare(o) {
 		display: none;
 		font-size: 10px;
 		color: rgba(0,0,0,0.35);
+	}
+
+	.submit-letter {
+		font-size: 16px;
+		margin: 10px 0;
 	}
 
 }
