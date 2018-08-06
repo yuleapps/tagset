@@ -1,6 +1,6 @@
 <template>
   <div class="fandom-autocomplete">
-    <label for="fandom">Fandom {{ number }}:</label> {{ fandom.name }}
+    <label for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span> 
 
     <template v-if="!fandom.name">
       <input type="text"
@@ -21,8 +21,8 @@
           @mouseenter="selectedIndex = i"
           @mouseleave="selectedIndex = -1"
           @click="select"
+          v-html="highlight(option.name)"
         >
-          {{ option.name }}
         </span>
       </div>
     </template>
@@ -97,9 +97,8 @@
       return {
         msg: '',
         term: '',
-        fandom: '',
+        fandom: {},
         characters: [],
-        selected: '',
         options: [],
         selectedIndex: -1
       };
@@ -152,6 +151,13 @@
 
         }
       },
+      removeFandom() {
+        this.fandom = '';
+        this.characters = [];
+        this.options = [];
+        this.selectedIndex = -1;
+        this.term = '';
+      },
       removeChar(char) {
         this.characters = _.filter(this.characters, o => {
           return o !== char;
@@ -160,10 +166,13 @@
         this.options = _.difference(this.fandom.characters, this.characters);
 
       },
+      highlight(option) {
+        // highlight any char
+        const regex = new RegExp(this.term, 'ig');
+        return option.replace(regex, '<strong>$&</strong>');
+
+      },
       select(type) {
-
-        console.log('select')
-
         if (this.selectedIndex < 0 || this.selectedIndex > this.options.length -1) {
           this.msg = 'You must select from the available options!'
           return;

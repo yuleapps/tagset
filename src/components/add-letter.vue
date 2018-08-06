@@ -76,7 +76,7 @@
             You need a username
           </li>
           <li v-if="hasError('url')">
-            You need a valid letter link
+            You need a valid letter link (including the starting http!)
           </li>
           <li v-if="hasError('fandom')">
             You need at least {{ min }} fandoms
