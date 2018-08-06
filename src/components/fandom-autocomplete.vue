@@ -1,6 +1,6 @@
 <template>
   <div class="fandom-autocomplete">
-    <label for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span> 
+    <label :class="{ error: hasError }" for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span> 
 
     <template v-if="!fandom.name">
       <input type="text"
@@ -31,9 +31,8 @@
       <br>
       <label for="characters">Characters:</label>
       
-
       <input type="text"
-        placeholder="Search..."
+        placeholder="Filter..."
         @keydown.enter.prevent="select('char')"
         @keydown.down="next"
         @keydown.up="prev"
@@ -42,18 +41,14 @@
       >
 
       <div class="badges">
-        <span
-          class="character"
-          v-for="char in characters" 
-        >
+        <span class="character" v-for="char in characters" >
           {{ char }}
-
           <button class="remove" @click="removeChar(char)">(X)</button>
         </span>
       </div>
       <br>
 
-      <div v-if="options.length && characters.length < maxChars">
+      <div v-if="options.length && characters && characters.length < maxChars">
         <p><em>Available selections:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]" 
@@ -65,8 +60,10 @@
           @click="select('char')"
         >
         </span>
-        
+
       </div>
+      <span v-else-if="!fandom.characters">No characters were nominated</span>
+
       
     </template>
 
@@ -80,6 +77,10 @@
   import { mapGetters } from 'vuex';
   export default {
     props: {
+      hasError: {
+        type: Boolean,
+        default: false
+      },
       fandoms: {
         type: Array,
         default() { return []; }
@@ -136,19 +137,28 @@
       autocomplete(type) {
         if (!this.term.length && !this.fandom.name) {
           this.options = [];
+          return;
         }
 
         if (!this.fandom.name) {
           this.options = _.filter(this.fandoms, o => {
             return o.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
           });
+          return;
         } else {
+          if (!this.fandom.characters) {
+            this.options = []; 
+            return;
+          }
+
           const results = _.filter(this.fandom.characters, o => {
+            if (!o) {
+              o = '';
+            }
             return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
           }); 
 
-          this.options = _.difference(results, this.characters);
-
+          this.options = _.difference(results, this.characters) || [];
         }
       },
       removeFandom() {
@@ -167,6 +177,10 @@
 
       },
       highlight(option) {
+
+        if (!option) {
+          return;
+        }
         // highlight any char
         const regex = new RegExp(this.term, 'ig');
         return option.replace(regex, '<strong>$&</strong>');
@@ -182,7 +196,7 @@
           this.show = null;
           this.fandom = this.options[this.selectedIndex];
           this.term = '';
-          this.options = this.fandom.characters;
+          this.options = this.fandom.characters || [];
           return;
         }
 
@@ -225,7 +239,8 @@ input {
   font-size: 14px;
 }
 
-.msg {
+.msg,
+.error {
   font-weight: bold;
   color: #d63939;
 }

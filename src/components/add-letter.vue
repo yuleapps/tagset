@@ -15,16 +15,17 @@
           <input v-focus id="username" type="text" v-model="username" placeholder="Username"> 
           <span class="help"><small>AO3 username</small></span>
         </div>
+
         <div :class="['input link', , { error: hasError('url')}]">
           <label for="letter">Letter Link:</label>
           <input type="text" id="letter" v-model="url" placeholder="Letter link">
           <span class="help"><small>No locked letters! :(</small></span>
-
         </div>
 
           
-        <div :class="{ error: hasError('fandom')}">
+        <div>
           <fandom-autocomplete
+            :hasError="hasError('fandom')"
             v-for="i in max"
             :number="i"
             :fandoms="availableFandoms"
@@ -166,6 +167,9 @@
           return;
         }
 
+        this.selectedFandoms = _.compact(this.selectedFandoms);
+        
+
         this.isReview = true;
       },
       edit() {
@@ -176,8 +180,13 @@
       },
       update(index, data) {
         this.selectedFandoms[index] = data;
-        const selected = _.map(this.selectedFandoms, o => {
-          return o.fandom['.key'];
+        const selected = [];
+
+        _.each(this.selectedFandoms, o => {
+          if (!o) {
+            return;
+          }
+          selected.push(o.fandom['.key']);
         });
 
         this.availableFandoms = _.filter(this.fandoms, o => {
@@ -185,6 +194,7 @@
         });
       },
       add() {
+
 
         _.each(this.selectedFandoms, req => {
           this.$firebaseRefs.letters.child(req.fandom['.key']).push({

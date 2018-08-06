@@ -1,37 +1,25 @@
 <template>
 	<div id="app">
-		<h1>Yuletide 2018 Tagset</h1>
 
 		<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
 
-		<add-letter v-if="showLetterModal" @close="showLetterModal = false"></add-letter>
+		<add-letter v-if="showLetterModal && loaded" @close="showLetterModal = false"></add-letter>
 
 		<maintenance v-if="maintenance"></maintenance>
 		
 		<template v-else>
-
-			<easter-eggs 
-				class="modal" 
-				v-if="showEggHelp"
-				:enabled="showEasterEggs"
-				:fandoms="fandoms"
-				@hide="showEggHelp = false"
-			></easter-eggs>
-
 			<div v-if="!loaded"><div class="loader">Loading...</div></div>
-
 			<template v-else>
-				<bookmarks></bookmarks>
-
 				<div class="scroll-top" @click="scrollToTop">(^)</div>
+				<easter-eggs class="modal" v-if="showEggHelp"@hide="showEggHelp = false"></easter-eggs>
+				<user-lookup></user-lookup>
+				<bookmarks></bookmarks>
 			
 				<options></options>
  				
 				<div class="meta">
-					Feedback/problems/donate: <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">here</a>
+					<a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
 				</div>
-
-				<user-lookup></user-lookup>
 
 				<table class="main">
 					<thead>
@@ -143,7 +131,6 @@ import db from './db.js';
 import { mapGetters } from 'vuex'
 
 // internal
-import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from './data/lists';
 import hasPrompts from './data/prompts.js';
 import utils from './components/utils.js';
 
@@ -182,29 +169,18 @@ export default {
 		document.addEventListener('keydown', this.unlockModTools);
 		document.addEventListener('keyup', this.unlockModTools);
 		window.addEventListener('scroll', this.lazyload);
-
 	},
 	beforeDestroy() {
 		document.removeEventListener('keydown', this.easterEggs);
 		document.removeEventListener('keydown', this.unlockModTools);
 		document.removeEventListener('keyup', this.unlockModTools);
 		window.removeEventListener('scroll', this.lazyload);
-
 	},
 	data() {
 		return {
-			showLetterModal: false,
-			maintenance: false,
-			show: false,
-			selectedFandom: null,
-			username: '',
-			url: '',
-			pinchhitter: false,
+			showLetterModal: true,
+			maintenance: true,
 			showEggHelp: false,
-			PROLIFIC_WRITERS,
-			yuleporn: YULEPORN,
-			crueltide: CRUELTIDE,
-			festivus: FESTIVUS,
 			hasPrompts,
 			down: {},
 			mods: false,
@@ -215,7 +191,6 @@ export default {
 	},
 	computed: {
 		filtered() {
-
 			if (!this.options.onlyLetters && 
 				!this.options.onlyPrompts &&
 				!this.options.filter.term.length && 
@@ -272,13 +247,10 @@ export default {
 				});
 			}
 
-			console.log(arr.length);
-
 			return _.sortBy(arr, ['category', removeArticlesCompare]);
 		},
 		
 		lastUpdated() {
-
 			const data = _.find(this.meta, { '.key': 'lastUpdated'});
 
 			if (!data) {
@@ -303,8 +275,7 @@ export default {
 		])
 	},
 	methods: {
-		letterHasChar: utils.letterHasChar,
-		highlightChars: utils.highlightChars,
+		...utils,
 		lazyload() {
 			const y = window.scrollY;
 			const totalHeight = document.body.scrollHeight;
@@ -336,7 +307,6 @@ export default {
 				}
 			});
 		},
-		getPrompts: utils.getPrompts,
 		unlockModTools(e) {
 			if (e.type === 'keydown') {
 				this.down[e.keyCode] = true;
@@ -354,7 +324,6 @@ export default {
 		},
 		// show easter eggs on F1
 		easterEggs(e) {
-
 			if (e.keyCode !== 112) {
 				return;
 			}
@@ -362,53 +331,11 @@ export default {
 			this.$store.commit('setEggs', !this.showEasterEggs);
 			this.showEggHelp = true;
 		},
-		isProlific: utils.isProlific,
-		challenges: utils.challenges,
-		// add letter modal
-		showModal(fandom) {
-			this.show = true;
-			this.selectedFandom = fandom;
-		},
-		cancel() {
-			this.show = false;
-			this.selectedFandom = null;
-			this.username = null;
-			this.url = null;
-			this.pinchhitter = false;
-		},
-		addLetter(key) {
-			if (!this.selectedFandom || !this.username || !this.url) {
-				return;
-			}
-
-			this.$firebaseRefs.fandoms.child(this.selectedFandom['.key']).child('letters').push({
-				username: this.username,
-				url: this.url,
-				isPinchhitter: this.pinchhitter
-			});
-
-			this.$firebaseRefs.meta.child('lastUpdated').set(new Date().toJSON());
-
-			this.cancel();
-		},
-		// bookmark checks
-		hasBookmark: utils.hasBookmark,
-		hasLettermark: utils.hasLettermark,
-		hasPromptmark: utils.hasPromptmark,
-		// remove bookmarks
-		remove: utils.remove,
-		removeLettermark: utils.removeLettermark,
-		removePromptmark: utils.removePromptmark,
-		// add bookmarks
-		add: utils.add,
-		addLettermark: utils.addLettermark,
-		addPromptmark: utils.addPromptmark,
 		// utilities
 		scrollToTop() {
 			document.body.scrollTop = 0; 
 			document.documentElement.scrollTop = 0; 
-		},
-		formatUrl: utils.formatUrl
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <p>You've {{ enabled ? 'enabled' : 'disabled' }} easter eggs! Press F1 again to toggle.</p> 
+      <p>You've {{ showEasterEggs ? 'enabled' : 'disabled' }} easter eggs! Press F1 again to toggle.</p> 
       
 
       <strong>Stats:</strong>
@@ -32,17 +32,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   export default {
-    props: {
-      enabled: {
-        type: Boolean,
-        default: false
-      },
-      fandoms: {
-        type: Array,
-        default() { return []; }
-      }
-    },
     data() {
       return {
         findPal: '',
@@ -50,8 +41,11 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'fandoms',
+        'showEasterEggs'
+      ]),
       totalLetters() {
-
         if (!this.fandoms) {
           return 'No data - database error!';
         }

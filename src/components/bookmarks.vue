@@ -154,7 +154,6 @@
   import utils from './utils.js';
   export default {
     beforeMount() {
-        console.log('hello');
         const data = [];
         _.each(this.bookmarks, o => {
           const fandom = _.find(this.fandoms, fandom => {
