@@ -1,14 +1,14 @@
 <template>
   <div class="fandom-autocomplete">
-    <label for="fandom">Fandom:</label> {{ fandom.name }}
+    <label for="fandom">Fandom {{ number }}:</label> {{ fandom.name }}
 
     <template v-if="!fandom.name">
       <input type="text"
-        placeholder="Type for suggestions..."
-        @keydown.enter.prevent="select"
+        placeholder="Search..."
+        @keyup="autocomplete"
+        @keydown.enter.stop="select"
         @keydown.down="next"
         @keydown.up="prev"
-        @keyup="autocomplete"
         v-model="term"
       >
 
@@ -33,6 +33,7 @@
       
 
       <input type="text"
+        placeholder="Search..."
         @keydown.enter.prevent="select('char')"
         @keydown.down="next"
         @keydown.up="prev"
@@ -52,7 +53,7 @@
       </div>
       <br>
 
-      <div v-if="options.length">
+      <div v-if="options.length && characters.length < maxChars">
         <p><em>Available selections:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]" 
@@ -69,7 +70,7 @@
       
     </template>
 
-    {{ msg }}
+    <p class="msg"> {{ msg }}</p>
 
   </div>
 </template>
@@ -85,8 +86,12 @@
       },
       maxChars: {
         type: Number,
-        default: 10
-      }
+        default: 4
+      },
+      number: {
+        type: Number,
+        default: 1
+      },
     },
     data() {
       return {
@@ -103,6 +108,7 @@
       term(val, oldVal) {
         if (val !== oldVal) {
           this.selectedIndex = -1;
+          this.msg = null;
         }
       },
       characters: {
@@ -128,11 +134,7 @@
           characters: this.characters
         });
       },
-      warn() {
-        this.msg = 'You must choose from the dropdown!'
-      },
       autocomplete(type) {
-        this.msg = null;
         if (!this.term.length && !this.fandom.name) {
           this.options = [];
         }
@@ -142,17 +144,12 @@
             return o.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
           });
         } else {
+          const results = _.filter(this.fandom.characters, o => {
+            return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+          }); 
 
-          if (!this.options.length && !this.characters.length) {
-            this.options = _.filter(this.fandom.characters, o => {
-              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-            });            
-          } else {
-            this.options = _.filter(this.options, o => {
-              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-            });
+          this.options = _.difference(results, this.characters);
 
-          }
         }
       },
       removeChar(char) {
@@ -165,8 +162,10 @@
       },
       select(type) {
 
+        console.log('select')
+
         if (this.selectedIndex < 0 || this.selectedIndex > this.options.length -1) {
-          this.msg = 'You must choose from the dropdown!'
+          this.msg = 'You must select from the available options!'
           return;
         }
 
@@ -215,6 +214,11 @@ label {
 input {
   height: 24px;
   font-size: 14px;
+}
+
+.msg {
+  font-weight: bold;
+  color: #d63939;
 }
 
 .option {

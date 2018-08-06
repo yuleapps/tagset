@@ -3,6 +3,12 @@
     <div class="modal-content">
       <h2>Add Your Letter</h2>
 
+      <p>Remember that adding your letter does <strong>not count as signing up for Yuletide!</strong> Go and do that first <a href="#">on AO3</a>.</p>
+
+      <p><small>* <strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</small></p>
+
+      <p><small>* The mods will delete any letter that is locked or otherwise breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit your fixed letter at any time!</small></p>
+
       <div v-show="!isReview">
         <div :class="['input username', { error: hasError('username')}]">
           <label for="username">Username:</label>
@@ -20,6 +26,7 @@
         <div :class="{ error: hasError('fandom')}">
           <fandom-autocomplete
             v-for="i in max"
+            :number="i"
             :fandoms="availableFandoms"
             :key="i"
             @update="update(i - 1, $event)"
@@ -62,13 +69,14 @@
       </template>
 
 
-      <div class="error" v-if="errors.length">
+      <div class="error list" v-if="errors.length">
+        <p>Uh oh, looks like you need to fix some things...</p>
         <ul>
           <li v-if="hasError('username')">
             You need a username
           </li>
           <li v-if="hasError('url')">
-            You need a letter link
+            You need a valid letter link
           </li>
           <li v-if="hasError('fandom')">
             You need at least {{ min }} fandoms
@@ -80,10 +88,7 @@
       <button v-if="isReview" @click="isReview = false" class="submit">Edit Again</button>  
       <button class="cancel" @click="$emit('close')">(Cancel)</button>
 
-      <p><small>* <strong>Made a mistake in an earlier submission?</strong> Contact the mods at SOMEPLACE.</small></p>
-
-      <p><small>* The Yuletide mods reserve the right to delete any letter that is locked or includes requests that INSERT NICE WORDING HERE, GUYS. Mods will do their best to contact you about the problem! You may resubmit your fixed letter at any time.</small></p>
-      <p><small>* For those new to Yuletide: only nominated fandoms and characters are available for selection. Don't see your favourite? Double check the official tagset - they may not have been nominated!</small></p>
+      
     </div>
   </div>
 </template>
@@ -131,6 +136,10 @@
       }
     },
     methods: {
+      // https://stackoverflow.com/questions/8667070/javascript-regular-expression-to-validate-url
+      validateUrl(value) {
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+      },
       submit() {
         this.errors = [];
         if (this.isReview) {
@@ -142,7 +151,7 @@
           this.errors.push('username');
         }
 
-        if (!this.url.length) {
+        if (!this.url.length || !this.validateUrl(this.url)) {
           this.errors.push('url')
         }
 
@@ -196,6 +205,10 @@ label {
 
 .error {
   color: red !important;
+}
+
+.list {
+  margin-bottom: 10px;
 }
 
 table {
