@@ -3,6 +3,24 @@ import db from '../db.js';
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from '../data/lists';
 
 export default {
+  getCharacters(fandomKey) {
+    const chars = this.characters[fandomKey];
+    if (chars !== undefined) {
+      return chars;
+    } 
+
+    db.ref('/characters/' + fandomKey).once('value').then(res => {
+      this.timesCalled++;
+      const result = res.val();
+      const newVal = { ... this.characters };
+      newVal[fandomKey] = result;
+
+      this.$store.commit('setCharacters', {});
+      this.$store.commit('setCharacters', newVal);
+
+      return result;
+    });
+  },
   letterHasChar(char) {
     return _.includes(this.letterChars, char);
   },

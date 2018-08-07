@@ -2,8 +2,6 @@
 	<div id="app">
 		<h1>Yuletide 2018 App</h1>
 
-    <div class="top">{{timesCalled}} | {{Object.keys(characters).length}} | {{scrollPosition}} | {{filtered.length}}</div>
-
     <div v-if="!loaded ||!loadedChars" class="loader">Loading...</div>
 
     <template v-if="loaded && loadedChars && !maintenance">
@@ -128,312 +126,290 @@
 
 <script>
 // components
-import AddLetter from './components/add-letter.vue';
-import Bookmarks from './components/bookmarks.vue';
-import Caveats from './components/caveats.vue';
-import EasterEggs from './components/easter-eggs.vue';
-import Maintenance from './components/maintenance.vue';
-import Options from './components/options.vue';
-import UserLookup from './components/user-lookup.vue';
+  import AddLetter from './components/add-letter.vue';
+  import Bookmarks from './components/bookmarks.vue';
+  import Caveats from './components/caveats.vue';
+  import EasterEggs from './components/easter-eggs.vue';
+  import Maintenance from './components/maintenance.vue';
+  import Options from './components/options.vue';
+  import UserLookup from './components/user-lookup.vue';
 
-// third party
-import _ from 'lodash';
-import db from './db.js';
-import { mapGetters } from 'vuex'
+  // third party
+  import _ from 'lodash';
+  import db from './db.js';
+  import { mapGetters } from 'vuex'
 
-// internal
-import hasPrompts from './data/prompts.js';
-import utils from './components/utils.js';
+  // internal
+  import hasPrompts from './data/prompts.js';
+  import utils from './components/utils.js';
 
-export default {
-	name: 'app',
-	components: {
-		AddLetter,
-		Bookmarks,
-		Caveats,
-		EasterEggs,
-		Maintenance,
-		Options,
-		UserLookup
-	},
-	beforeMount() {
-		const bookmarksJson = this.$localStorage.get('bookmarks');
-		if (bookmarksJson) {
-			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
-		}
+  // Remove english articles from fandom names
+  function removeArticlesCompare(o) {
+    const regex = /^(the\s|a\s|an\s)/i;
+    if (!o.name) {
+      return o;  
+    }
+    return o.name.toLowerCase().replace(regex, '');
+  }
 
-		const lettermarksJson = this.$localStorage.get('lettermarks');
-		if (lettermarksJson) {
-			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
-		}
+  export default {
+  	name: 'app',
+  	components: {
+  		AddLetter,
+  		Bookmarks,
+  		Caveats,
+  		EasterEggs,
+  		Maintenance,
+  		Options,
+  		UserLookup
+  	},
+  	beforeMount() {
+  		const bookmarksJson = this.$localStorage.get('bookmarks');
+  		if (bookmarksJson) {
+  			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
+  		}
 
-		const promptmarksJson = this.$localStorage.get('promptmarks');
-		if (promptmarksJson) {
-			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
-		}
-	},
-	created() {
-		document.addEventListener('keydown', this.easterEggs);
-		document.addEventListener('keydown', this.unlockModTools);
-		document.addEventListener('keyup', this.unlockModTools);
-		window.addEventListener('scroll', this.lazyload);
-	},
-	beforeDestroy() {
-		document.removeEventListener('keydown', this.easterEggs);
-		document.removeEventListener('keydown', this.unlockModTools);
-		document.removeEventListener('keyup', this.unlockModTools);
-		window.removeEventListener('scroll', this.lazyload);
-	},
-	data() {
-		return {
-			showLetterModal: false,
-			maintenance: false,
-			showEggHelp: false,
-			hasPrompts,
-			down: {},
-			mods: false,
-			scrollPosition: 100,
-			letterChars: [],
-      timesCalled: 0,
-      filtered: []
-		};
-	},
-	computed: {
-		lastUpdated() {
-			const data = _.find(this.meta, { '.key': 'lastUpdated'});
+  		const lettermarksJson = this.$localStorage.get('lettermarks');
+  		if (lettermarksJson) {
+  			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
+  		}
 
-			if (!data) {
-				return '';
-			}
+  		const promptmarksJson = this.$localStorage.get('promptmarks');
+  		if (promptmarksJson) {
+  			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
+  		}
+  	},
+  	created() {
+  		document.addEventListener('keydown', this.easterEggs);
+  		document.addEventListener('keydown', this.unlockModTools);
+  		document.addEventListener('keyup', this.unlockModTools);
+  		window.addEventListener('scroll', this.lazyload);
+  	},
+  	beforeDestroy() {
+  		document.removeEventListener('keydown', this.easterEggs);
+  		document.removeEventListener('keydown', this.unlockModTools);
+  		document.removeEventListener('keyup', this.unlockModTools);
+  		window.removeEventListener('scroll', this.lazyload);
+  	},
+  	data() {
+  		return {
+  			showLetterModal: false,
+  			maintenance: false,
+  			showEggHelp: false,
+  			hasPrompts,
+  			down: {},
+  			mods: false,
+  			scrollPosition: 100,
+  			letterChars: [],
+        timesCalled: 0,
+        filtered: []
+  		};
+  	},
+  	computed: {
+  		lastUpdated() {
+  			const data = _.find(this.meta, { '.key': 'lastUpdated'});
 
-			return new Date(data['.value']).toString();
-		},
-		...mapGetters([
-			'letters',
-			'fandoms',
-			'loaded',
-			'bookmarks',
-      'characters',
-			'categories',
-			'lettermarks',
-			'promptmarks',
-			'unlock',
-			'options',
-			'user',
-			'prompts',
-			'showEasterEggs',
-      'loadedChars'
-		])
-	},
-  watch: {
-    options: {
-      deep: true,
-      handler() {
+  			if (!data) {
+  				return '';
+  			}
+
+  			return new Date(data['.value']).toString();
+  		},
+  		...mapGetters([
+  			'letters',
+  			'fandoms',
+  			'loaded',
+  			'bookmarks',
+        'characters',
+  			'categories',
+  			'lettermarks',
+  			'promptmarks',
+  			'unlock',
+  			'options',
+  			'user',
+  			'prompts',
+  			'showEasterEggs',
+        'loadedChars'
+  		])
+  	},
+    watch: {
+      options: {
+        deep: true,
+        handler() {
+          this.updateFilter();
+        }
+      },
+      loaded() {
+        this.updateFilter();
+      },
+      scrollPosition() {
         this.updateFilter();
       }
     },
-    loaded() {
-      this.updateFilter();
-    },
-    scrollPosition() {
-      this.updateFilter();
-    }
-  },
-	methods: {
-		...utils,
-    updateFilter() {
-      if (!this.options.onlyLetters && 
-        !this.options.onlyPrompts &&
-        !this.options.filter.term.length && 
-        !this.options.onlyBookmarks &&
-        !this.options.onlyPHs &&
-        !this.options.filter.category.length) {
-        this.filtered = _.take(_.sortBy(this.fandoms, ['category', removeArticlesCompare]), this.scrollPosition);
-      }
+  	methods: {
+  		...utils,
+      updateFilter() {
+        if (!this.options.onlyLetters && 
+          !this.options.onlyPrompts &&
+          !this.options.filter.term.length && 
+          !this.options.onlyBookmarks &&
+          !this.options.onlyPHs &&
+          !this.options.filter.category.length) {
+          this.filtered = _.take(_.sortBy(this.fandoms, ['category', removeArticlesCompare]), this.scrollPosition);
+        }
 
-      let arr = this.fandoms;
+        let arr = this.fandoms;
 
-      if (this.options.onlyPrompts) {
-        arr = _.filter(arr, o => {
-          return this.hasPrompts[o['.key']];
-        });
-      }
+        if (this.options.onlyPrompts) {
+          arr = _.filter(arr, o => {
+            return this.hasPrompts[o['.key']];
+          });
+        }
 
-      if (this.options.onlyLetters) {
+        if (this.options.onlyLetters) {
 
 
-        arr = _.filter(arr, o => {
-          return this.letters[o['.key']] !== undefined;
-        });
-      }
+          arr = _.filter(arr, o => {
+            return this.letters[o['.key']] !== undefined;
+          });
+        }
 
-      if (this.options.onlyBookmarks) {
-        const bookmarkedFandoms = [];
-        _.each(this.bookmarks, b => {
-          bookmarkedFandoms.push(b['.key']);
-        });
-
-        arr = _.filter(arr, o => {
-          return _.includes(bookmarkedFandoms, o['.key']);
-        });
-      }
-
-      if (this.options.onlyPHs) {
-        arr = _.filter(arr, o => {
-          return _.filter(o.letters, l => {
-            return l.isPinchhitter; 
-          }).length;
-        })
-      }
-
-      if (this.options.filter.category.length) {
-        arr = _.filter(arr, o => {
-          return o.category === this.options.filter.category;
-        });
-      }
-
-      if (this.options.filter.term.length) {
-        arr = _.filter(arr, o => {
-          return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
-        });
-      }
-
-      // If filtering by term, preload a bunch of characters if there are more than a few
-      if (this.options.filter.term.length 
-        && Object.keys(this.characters).length < this.fandoms.length 
-        && arr.length > 5) {
-
-         const data = db.ref('/characters').orderByKey()
-           .startAt(arr[0]['.key'])
-           .endAt(arr[arr.length-1]['.key'])
-           .once('value')
-           .then(res => {
-             const backFill = res.val();
-             const newVal = { ... this.characters, ...backFill };
-             this.$store.commit('setCharacters', {});
-             this.$store.commit('setCharacters', newVal);
-
-           this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
-
-         });
-        // Otherwise, just take the i/o hit
-       } else {
-         this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
-       }
-    },
-    getCharacters(fandomKey) {
-      const chars = this.characters[fandomKey];
-      if (chars !== undefined) {
-        return chars;
-      } 
-
-      db.ref('/characters/' + fandomKey).once('value').then(res => {
-        this.timesCalled++;
-        const result = res.val();
-        const newVal = { ... this.characters };
-        newVal[fandomKey] = result;
-
-        this.$store.commit('setCharacters', {});
-        this.$store.commit('setCharacters', newVal);
-
-        return result;
-      });
-    },
-		lazyload() {
-			const y = window.scrollY;
-			const totalHeight = document.body.scrollHeight;
-
-			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
-				if (this.scrollPosition < this.fandoms.length) {
-          const prevPosition = this.scrollPosition + 1 || 101;
-					const newPosition = this.scrollPosition + 100;
-
-          const data = db.ref('/characters').orderByKey()
-            .startAt(String(prevPosition))
-            .endAt(String(newPosition))
-            .once('value');
-
-          data.then(res => {
-            const backFill = res.val();
-            const newVal = { ... this.characters, ...backFill };
-            this.$store.commit('setCharacters', {});
-            this.$store.commit('setCharacters', newVal);
-            this.scrollPosition = newPosition;
+        if (this.options.onlyBookmarks) {
+          const bookmarkedFandoms = [];
+          _.each(this.bookmarks, b => {
+            bookmarkedFandoms.push(b['.key']);
           });
 
-				}
-			}
-		},
-		collapse(e) {
-			e.target.innerText = e.target.innerText === 'Expand' 
-				? 'Collapse'
-				: 'Expand'; 
-			e.target.nextElementSibling.classList.toggle('hide');
-		},
-		getUserPrompts(username) {
-			this.$store.commit('setUser', 'Loading');
+          arr = _.filter(arr, o => {
+            return _.includes(bookmarkedFandoms, o['.key']);
+          });
+        }
 
-			db.ref('/users/' + username).once('value').then(snapshot => {
-				let results = snapshot.val();
+        if (this.options.onlyPHs) {
+          arr = _.filter(arr, o => {
+            return _.filter(o.letters, l => {
+              return l.isPinchhitter; 
+            }).length;
+          })
+        }
 
-				this.$store.commit('setUser', username);
-				
-				if (results && results.length) {
-					this.$store.commit('setUserPrompts', results);
-				} else {
-					this.$store.commit('setUserPrompts', []);
-				}
-			});
-		},
-		unlockModTools(e) {
-			if (e.type === 'keydown') {
-				this.down[e.keyCode] = true;
+        if (this.options.filter.category.length) {
+          arr = _.filter(arr, o => {
+            return o.category === this.options.filter.category;
+          });
+        }
 
-				// shift + 1 + 2
-				if (this.down[16] && this.down[49] && this.down[50]) {
-					this.mods = !this.mods;
-				}
-			} 
+        if (this.options.filter.term.length) {
+          arr = _.filter(arr, o => {
+            return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
+          });
+        }
 
-			if (e.type === 'keyup') {
-				this.down[e.keyCode] = false;
-			}
+        // If filtering by term, preload a bunch of characters if there are more than a few
+        if (this.options.filter.term.length 
+          && Object.keys(this.characters).length < this.fandoms.length 
+          && arr.length > 5) {
 
-		},
-		// show easter eggs on F1
-		easterEggs(e) {
-			if (e.keyCode !== 112) {
-				return;
-			}
+           const data = db.ref('/characters').orderByKey()
+             .startAt(arr[0]['.key'])
+             .endAt(arr[arr.length-1]['.key'])
+             .once('value')
+             .then(res => {
+               const backFill = res.val();
+               const newVal = { ... this.characters, ...backFill };
+               this.$store.commit('setCharacters', {});
+               this.$store.commit('setCharacters', newVal);
 
-			this.$store.commit('setEggs', !this.showEasterEggs);
-			this.showEggHelp = true;
-		},
-		// utilities
-		scrollToTop() {
-			document.body.scrollTop = 0; 
-			document.documentElement.scrollTop = 0; 
-		}
-	}
-}
+             this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
 
-// Remove english articles from fandom names
-function removeArticlesCompare(o) {
-	const regex = /^(the\s|a\s|an\s)/i;
-	if (!o.name) {
-		return o;  
-	}
-	return o.name.toLowerCase().replace(regex, '');
-}
+           });
+          // Otherwise, just take the i/o hit
+         } else {
+           this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
+         }
+      },
+  		lazyload() {
+  			const y = window.scrollY;
+  			const totalHeight = document.body.scrollHeight;
+
+  			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
+  				if (this.scrollPosition < this.fandoms.length) {
+            const prevPosition = this.scrollPosition + 1 || 101;
+  					const newPosition = this.scrollPosition + 100;
+
+            const data = db.ref('/characters').orderByKey()
+              .startAt(String(prevPosition))
+              .endAt(String(newPosition))
+              .once('value');
+
+            data.then(res => {
+              const backFill = res.val();
+              const newVal = { ... this.characters, ...backFill };
+              this.$store.commit('setCharacters', {});
+              this.$store.commit('setCharacters', newVal);
+              this.scrollPosition = newPosition;
+            });
+
+  				}
+  			}
+  		},
+  		collapse(e) {
+  			e.target.innerText = e.target.innerText === 'Expand' 
+  				? 'Collapse'
+  				: 'Expand'; 
+  			e.target.nextElementSibling.classList.toggle('hide');
+  		},
+  		getUserPrompts(username) {
+  			this.$store.commit('setUser', 'Loading');
+
+  			db.ref('/users/' + username).once('value').then(snapshot => {
+  				let results = snapshot.val();
+
+  				this.$store.commit('setUser', username);
+  				
+  				if (results && results.length) {
+  					this.$store.commit('setUserPrompts', results);
+  				} else {
+  					this.$store.commit('setUserPrompts', []);
+  				}
+  			});
+  		},
+  		unlockModTools(e) {
+  			if (e.type === 'keydown') {
+  				this.down[e.keyCode] = true;
+
+  				// shift + 1 + 2
+  				if (this.down[16] && this.down[49] && this.down[50]) {
+  					this.mods = !this.mods;
+  				}
+  			} 
+
+  			if (e.type === 'keyup') {
+  				this.down[e.keyCode] = false;
+  			}
+
+  		},
+  		// show easter eggs on F1
+  		easterEggs(e) {
+  			if (e.keyCode !== 112) {
+  				return;
+  			}
+
+  			this.$store.commit('setEggs', !this.showEasterEggs);
+  			this.showEggHelp = true;
+  		},
+  		// utilities
+  		scrollToTop() {
+  			document.body.scrollTop = 0; 
+  			document.documentElement.scrollTop = 0; 
+  		}
+  	}
+  };
 </script>
 
 <style lang="scss">
 #app {
 
-  .top {
-    position: fixed;
-    top: 5px;
-  }
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

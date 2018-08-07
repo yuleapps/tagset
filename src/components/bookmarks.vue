@@ -47,7 +47,7 @@
           <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
-              <li v-for="char in fandom.characters" :class="{ highlight: letterHasChar(char) }">{{char}}</li>
+              <li v-for="char in getCharacters(fandom['.key'])" :class="{ highlight: letterHasChar(char) }">{{char}}</li>
             </ul>
           </td>
           <td class="letters">
@@ -192,6 +192,7 @@
         'options',
         'fandoms',
         'bookmarks',
+        'characters',
         'promptmarks',
         'lettermarks',
         'prompts',
