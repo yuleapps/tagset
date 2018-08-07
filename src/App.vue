@@ -487,11 +487,12 @@
 	/* Modal Content/Box */
 	.modal-content {
 			background-color: #fefefe;
-			margin: 15% auto; /* 15% from the top and centered */
+			margin: 20px auto; 
 			padding: 20px;
 			padding-bottom: 30px;
 			border: 1px solid #888;
-			width: 500px; /* Could be more or less, depending on screen size */
+			width: 80%; 
+      max-width: 800px;
 			position: relative;
 
 			.input {
