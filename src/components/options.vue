@@ -66,6 +66,7 @@
 <script>
   import { mapGetters } from 'vuex';
   import db from '../db.js';
+  import _ from 'lodash';
   export default {
     computed: {
       ...mapGetters([
@@ -76,16 +77,18 @@
     watch: {
       options: {
         handler (val) {
-          this.$store.commit('setOptions', val);
+          _.debounce(() => {
+            this.$store.commit('setOptions', val);
 
-          if (val.loadAll && !this.loadedAll) {
-            db.ref('/characters').once('value').then(res => {
-              const result = res.val();
-              this.$store.commit('setCharacters', {});
-              this.$store.commit('setCharacters', result);
-              this.loadedAll = true;
-            });
-          }
+            if (val.loadAll && !this.loadedAll) {
+              db.ref('/characters').once('value').then(res => {
+                const result = res.val();
+                this.$store.commit('setCharacters', {});
+                this.$store.commit('setCharacters', result);
+                this.loadedAll = true;
+              });
+            }
+          }, 900)();
         },
         deep: true
       }

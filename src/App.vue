@@ -2,12 +2,14 @@
 	<div id="app">
 		<h1>Yuletide 2018 App</h1>
 
-    <div v-if="!loaded" class="loader">Loading...</div>
+    <div class="top">{{timesCalled}} | {{Object.keys(characters).length}} | {{scrollPosition}} | {{filtered.length}}</div>
 
-    <template v-if="loaded && !maintenance">
+    <div v-if="!loaded ||!loadedChars" class="loader">Loading...</div>
+
+    <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <p>Fandoms are loaded in increments of 100 as you scroll.</p>
+      <p>Welcome to the Yuletide app! Fandoms are loaded in increments of 100 as you scroll.</p>
 
       <button class="submit-letter" @click="showLetterModal = true">
         Submit Your Letter
@@ -52,7 +54,7 @@
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
               <li 
-                v-for="char in characters[fandom['.key']]"
+                v-for="char in getCharacters(fandom['.key'])"
                 :class="{ highlight: letterHasChar(char) }"
               >
                 {{char}}
@@ -191,69 +193,12 @@ export default {
 			down: {},
 			mods: false,
 			scrollPosition: 100,
-			letterChars: []
+			letterChars: [],
+      timesCalled: 0,
+      filtered: []
 		};
 	},
 	computed: {
-		filtered() {
-			if (!this.options.onlyLetters && 
-				!this.options.onlyPrompts &&
-				!this.options.filter.term.length && 
-				!this.options.onlyBookmarks &&
-				!this.options.onlyPHs &&
-				!this.options.filter.category.length) {
-				return _.sortBy(this.fandoms, ['category', removeArticlesCompare]);
-			}
-
-			let arr = this.fandoms;
-
-			if (this.options.onlyPrompts) {
-				arr = _.filter(arr, o => {
-					return this.hasPrompts[o['.key']];
-				});
-			}
-
-			if (this.options.onlyLetters) {
-
-
-				arr = _.filter(arr, o => {
-					return this.letters[o['.key']] !== undefined;
-				});
-			}
-
-			if (this.options.onlyBookmarks) {
-				const bookmarkedFandoms = [];
-				_.each(this.bookmarks, b => {
-					bookmarkedFandoms.push(b['.key']);
-				});
-
-				arr = _.filter(arr, o => {
-					return _.includes(bookmarkedFandoms, o['.key']);
-				});
-			}
-
-			if (this.options.onlyPHs) {
-				arr = _.filter(arr, o => {
-					return _.filter(o.letters, l => {
-						return l.isPinchhitter; 
-					}).length;
-				})
-			}
-
-			if (this.options.filter.category.length) {
-				arr = _.filter(arr, o => {
-					return o.category === this.options.filter.category;
-				});
-			}
-
-			if (this.options.filter.term.length) {
-				arr = _.filter(arr, o => {
-					return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
-				});
-			}
-
-			return _.sortBy(arr, ['category', removeArticlesCompare]);
-		},
 		lastUpdated() {
 			const data = _.find(this.meta, { '.key': 'lastUpdated'});
 
@@ -276,11 +221,124 @@ export default {
 			'options',
 			'user',
 			'prompts',
-			'showEasterEggs'
+			'showEasterEggs',
+      'loadedChars'
 		])
 	},
+  watch: {
+    options: {
+      deep: true,
+      handler() {
+        this.updateFilter();
+      }
+    },
+    loaded() {
+      this.updateFilter();
+    },
+    scrollPosition() {
+      this.updateFilter();
+    }
+  },
 	methods: {
 		...utils,
+    updateFilter() {
+      if (!this.options.onlyLetters && 
+        !this.options.onlyPrompts &&
+        !this.options.filter.term.length && 
+        !this.options.onlyBookmarks &&
+        !this.options.onlyPHs &&
+        !this.options.filter.category.length) {
+        this.filtered = _.take(_.sortBy(this.fandoms, ['category', removeArticlesCompare]), this.scrollPosition);
+      }
+
+      let arr = this.fandoms;
+
+      if (this.options.onlyPrompts) {
+        arr = _.filter(arr, o => {
+          return this.hasPrompts[o['.key']];
+        });
+      }
+
+      if (this.options.onlyLetters) {
+
+
+        arr = _.filter(arr, o => {
+          return this.letters[o['.key']] !== undefined;
+        });
+      }
+
+      if (this.options.onlyBookmarks) {
+        const bookmarkedFandoms = [];
+        _.each(this.bookmarks, b => {
+          bookmarkedFandoms.push(b['.key']);
+        });
+
+        arr = _.filter(arr, o => {
+          return _.includes(bookmarkedFandoms, o['.key']);
+        });
+      }
+
+      if (this.options.onlyPHs) {
+        arr = _.filter(arr, o => {
+          return _.filter(o.letters, l => {
+            return l.isPinchhitter; 
+          }).length;
+        })
+      }
+
+      if (this.options.filter.category.length) {
+        arr = _.filter(arr, o => {
+          return o.category === this.options.filter.category;
+        });
+      }
+
+      if (this.options.filter.term.length) {
+        arr = _.filter(arr, o => {
+          return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
+        });
+      }
+
+      // If filtering by term, preload a bunch of characters if there are more than a few
+      if (this.options.filter.term.length 
+        && Object.keys(this.characters).length < this.fandoms.length 
+        && arr.length > 5) {
+
+         const data = db.ref('/characters').orderByKey()
+           .startAt(arr[0]['.key'])
+           .endAt(arr[arr.length-1]['.key'])
+           .once('value')
+           .then(res => {
+             const backFill = res.val();
+             const newVal = { ... this.characters, ...backFill };
+             this.$store.commit('setCharacters', {});
+             this.$store.commit('setCharacters', newVal);
+
+           this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
+
+         });
+        // Otherwise, just take the i/o hit
+       } else {
+         this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
+       }
+    },
+    getCharacters(fandomKey) {
+      const chars = this.characters[fandomKey];
+      if (chars !== undefined) {
+        return chars;
+      } 
+
+      db.ref('/characters/' + fandomKey).once('value').then(res => {
+        this.timesCalled++;
+        const result = res.val();
+        const newVal = { ... this.characters };
+        newVal[fandomKey] = result;
+
+        this.$store.commit('setCharacters', {});
+        this.$store.commit('setCharacters', newVal);
+
+        return result;
+      });
+    },
 		lazyload() {
 			const y = window.scrollY;
 			const totalHeight = document.body.scrollHeight;
@@ -288,11 +346,11 @@ export default {
 			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
 				if (this.scrollPosition < this.fandoms.length) {
           const prevPosition = this.scrollPosition + 1 || 101;
-					this.scrollPosition += 100;
+					const newPosition = this.scrollPosition + 100;
 
           const data = db.ref('/characters').orderByKey()
             .startAt(String(prevPosition))
-            .endAt(String(this.scrollPosition))
+            .endAt(String(newPosition))
             .once('value');
 
           data.then(res => {
@@ -300,7 +358,9 @@ export default {
             const newVal = { ... this.characters, ...backFill };
             this.$store.commit('setCharacters', {});
             this.$store.commit('setCharacters', newVal);
+            this.scrollPosition = newPosition;
           });
+
 				}
 			}
 		},
@@ -369,6 +429,11 @@ function removeArticlesCompare(o) {
 
 <style lang="scss">
 #app {
+
+  .top {
+    position: fixed;
+    top: 5px;
+  }
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
