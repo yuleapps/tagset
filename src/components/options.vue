@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="filters">       
-    <label for="fandom-filter">Filter By Fandom:</label>
+    <div class="filters"> 
+    <h3>Filters & Options</h3>
+    <label for="fandom-filter">Fandom:</label>
     <input id="fandom-filter" type="text" v-model='options.filter.term'>
 
-    <label for="category-filter">Filter By Category:</label>
-
+    <label for="category-filter">Category:</label>
     <select id="category-filter" v-model="options.filter.category">
       <option value=''>All</option>
       <option v-for="category in categories">{{ category }}</option> 
@@ -25,9 +25,9 @@
       <input type="checkbox" id="letters-fandoms" v-model="options.onlyLetters">
       <label for="letters-fandoms">Only fandoms with letters<span v-if="unlock">*</span></label>  
     </div>
-    <div class="option">
+    <div class="option" v-if="unlock">
       <input type="checkbox" id="ph" v-model="options.onlyPHs">
-      <label for="ph">Only fandoms with pinch hitters (brackets around username)</label>  
+      <label for="ph">Only fandoms with pinch hitters</label>  
     </div>
     <div class="option">
       <input type="checkbox" id="journal-style" v-model="options.destyle">
@@ -53,16 +53,19 @@
       <label for="hide-chars">Hide category</label> 
     </div>
     <div class="clear">
-      <small>** <strong :style="{ color: 'red'}">fandoms are loaded in increments of 100 as you scroll.</strong> <BR/>If you want to load everything (the old app experience), check this box and give your browser some time.</small>
+      <small>** <strong :style="{ color: 'red'}">This may take your browser a bit.</strong></small>
     </div>
   </div>
+  <div class="meta">
+    <a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
   </div>
+</div>  
   
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-
+  import db from '../db.js';
   export default {
     computed: {
       ...mapGetters([
@@ -74,6 +77,15 @@
       options: {
         handler (val) {
           this.$store.commit('setOptions', val);
+
+          if (val.loadAll && !this.loadedAll) {
+            db.ref('/characters').once('value').then(res => {
+              const result = res.val();
+              this.$store.commit('setCharacters', {});
+              this.$store.commit('setCharacters', result);
+              this.loadedAll = true;
+            });
+          }
         },
         deep: true
       }
@@ -85,6 +97,7 @@
             category: '',
             term: ''
           },
+          loadedAll: false,
           onlyLetters: false,
           onlyBookmarks: false,
           onlyPrompts: false,

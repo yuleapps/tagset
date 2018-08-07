@@ -2,122 +2,125 @@
 	<div id="app">
 		<h1>Yuletide 2018 App</h1>
 
-		<div v-if="!loaded"><div class="loader">Loading...</div></div>
-		<div v-else>
-			<button class="submit-letter" @click="showLetterModal = true">Submit Your Letter</button>
+    <div v-if="!loaded" class="loader">Loading...</div>
 
-			<add-letter v-if="showLetterModal && loaded" @close="showLetterModal = false"></add-letter>
-		</div>
+    <template v-if="loaded && !maintenance">
+      <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-		
+      <p>Fandoms are loaded in increments of 100 as you scroll.</p>
 
-		<maintenance v-if="maintenance"></maintenance>
-		
-		<template v-else>
-			<div v-if="!loaded"><div class="loader">Loading...</div></div>
-			<template v-else>
-				<div class="scroll-top" @click="scrollToTop">(^)</div>
-				<easter-eggs class="modal" v-if="showEggHelp"@hide="showEggHelp = false"></easter-eggs>
-				<user-lookup></user-lookup>
-				<bookmarks></bookmarks>
-			
-				<options></options>
- 				
-				<div class="meta">
-					<a href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
-				</div>
+      <button class="submit-letter" @click="showLetterModal = true">
+        Submit Your Letter
+      </button>
 
-				<table class="main">
-					<thead>
-						<tr>
-							<th class="fandom">Fandom</th>
-							<th class="category" v-if="!options.hideCategory">Category</th>
-							<th class="characters" v-if="!options.hideCharacters">Characters</th>
-							<th class="letters">Letters</th>
-							<th v-if="unlock" class="prompts">Prompts</th>
-						</tr>
-					</thead>
-					<tr v-for="(fandom, index) in filtered" v-if="loadAll || index <= scrollPosition" :class="{odd: index % 2 !== 0 }">
-						<td class="fandom">
-							{{ fandom.name }} 
-							<div class="hide">
-								{{ fandom['.key'] }}
-							</div>
-							<button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
-						</td>
-						<td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
-						<td class="characters" v-if="!options.hideCharacters">
-							<ul>
-								<li 
-									v-for="char in characters[fandom['.key']]"
-									:class="{ highlight: letterHasChar(char) }"
-								>
-									{{char}}
-								</li>
-							</ul>
-						</td>
-						<td class="letters">
-								<ul v-for="letter in letters[fandom['.key']]">
-									<li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
-										<template v-if="letter.isPinchhitter">(</template>
-										<a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
+      <add-letter 
+        v-if="showLetterModal" 
+        @close="showLetterModal = false"> 
+      </add-letter>
+      
+      <easter-eggs 
+        class="modal" 
+        v-if="showEggHelp" 
+        @hide="showEggHelp = false"
+      ></easter-eggs>
+      
+      <user-lookup></user-lookup>
+      
+      <bookmarks></bookmarks>
+      
+      <options></options>
 
-										<span v-if="isProlific(letter.username)">*</span>
-										<sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
-										<template v-if="letter.isPinchhitter">)</template>
-										<button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
-									</li>
-								</ul>
-						</td>
-						<!-- HERE BE PROMPTS -->
-						<td v-if="unlock" class="prompts">
-							<button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
-							<div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
-							<template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-								<a href="javascript:void(0);" @click="collapse">Collapse</a>	
-								<table class="prompts">
-									<thead>
-										<tr>
-											<th class="fave">&hearts;</th>
-											<th class="username">Username</th>
-											<th class="characters">Characters</th>
-											<th class="prompts">Prompts</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr v-for="prompt in prompts[fandom['.key']]">
-											<td>
-												<button 
-													class="bookmark-prompt" 
-													v-if="!hasPromptmark(prompt)"
-													@click="addPromptmark(prompt)">&hearts;
-												</button>
-											</td>
-											<td>
-												{{ prompt.username }}
-												<span v-if="isProlific(prompt.username)">*</span>
-												<sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-												<a @click="getUserPrompts(prompt.username)"> (see all)</a>
-											</td>
-											<td>
-												<ul v-if="prompt.characters">
-													<li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-												</ul>
-											</td>
-											<td class="prompt" v-html="prompt.prompt"></td>
-										</tr>
-									</tbody>
-								</table>
-							</template>
-							<span v-else-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
-						</td>
-					</tr>
-				</table>
-			</template>
+      <table class="main">
+        <thead>
+          <tr>
+            <th class="fandom">Fandom</th>
+            <th class="category" v-if="!options.hideCategory">Category</th>
+            <th class="characters" v-if="!options.hideCharacters">Characters</th>
+            <th class="letters">Letters</th>
+            <th v-if="unlock" class="prompts">Prompts</th>
+          </tr>
+        </thead>
+        <tr v-for="(fandom, index) in filtered" v-if="options.loadAll || index <= scrollPosition" :class="{odd: index % 2 !== 0 }">
+          <td class="fandom">
+            {{ fandom.name }} 
+            <div class="hide">
+              {{ fandom['.key'] }}
+            </div>
+            <button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
+          </td>
+          <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
+          <td class="characters" v-if="!options.hideCharacters">
+            <ul>
+              <li 
+                v-for="char in characters[fandom['.key']]"
+                :class="{ highlight: letterHasChar(char) }"
+              >
+                {{char}}
+              </li>
+            </ul>
+          </td>
+          <td class="letters">
+              <ul v-for="letter in letters[fandom['.key']]">
+                <li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
+                  <template v-if="letter.isPinchhitter">(</template>
+                  <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
 
-			<caveats></caveats>
-		</template>
+                  <span v-if="isProlific(letter.username)">*</span>
+                  <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+                  <template v-if="letter.isPinchhitter">)</template>
+                  <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
+                </li>
+              </ul>
+          </td>
+          <!-- HERE BE PROMPTS -->
+          <td v-if="unlock" class="prompts">
+            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+            <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
+            <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
+              <a href="javascript:void(0);" @click="collapse">Collapse</a>  
+              <table class="prompts">
+                <thead>
+                  <tr>
+                    <th class="fave">&hearts;</th>
+                    <th class="username">Username</th>
+                    <th class="characters">Characters</th>
+                    <th class="prompts">Prompts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="prompt in prompts[fandom['.key']]">
+                    <td>
+                      <button 
+                        class="bookmark-prompt" 
+                        v-if="!hasPromptmark(prompt)"
+                        @click="addPromptmark(prompt)">&hearts;
+                      </button>
+                    </td>
+                    <td>
+                      {{ prompt.username }}
+                      <span v-if="isProlific(prompt.username)">*</span>
+                      <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+                      <a @click="getUserPrompts(prompt.username)"> (see all)</a>
+                    </td>
+                    <td>
+                      <ul v-if="prompt.characters">
+                        <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                      </ul>
+                    </td>
+                    <td class="prompt" v-html="prompt.prompt"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </template>
+            <span v-else-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
+          </td>
+        </tr>
+      </table>
 
+      <caveats></caveats>
+    </template>
+
+    <maintenance v-else="maintenance"></maintenance>
 	</div>
 </template>
 
@@ -181,14 +184,13 @@ export default {
 	},
 	data() {
 		return {
-			showLetterModal: true,
+			showLetterModal: false,
 			maintenance: false,
 			showEggHelp: false,
 			hasPrompts,
 			down: {},
 			mods: false,
 			scrollPosition: 100,
-			loadAll: false,
 			letterChars: []
 		};
 	},

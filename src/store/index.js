@@ -10,7 +10,7 @@ const state = {
   user: null,
   userPrompts: [],
   categories: [],
-  unlock: true,
+  unlock: false,
   showEasterEggs: false,
   options: {
     filter: {
