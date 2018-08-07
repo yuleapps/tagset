@@ -179,7 +179,13 @@
         return _.includes(this.errors, type);
       },
       update(index, data) {
-        this.selectedFandoms[index] = data;
+
+        if (!data.fandom || !data.fandom.name) {
+          this.selectedFandoms = this.selectedFandoms.splice(index, 1);
+        } else {
+          this.selectedFandoms[index] = data;
+        }
+
         const selected = [];
 
         _.each(this.selectedFandoms, o => {

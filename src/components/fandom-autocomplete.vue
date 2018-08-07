@@ -155,11 +155,6 @@
           });
           return;
         } else {
-          if (!this.fandom.chars) {
-            this.options = []; 
-            return;
-          }
-
           const fandomKey = fandom['.key'];
 
           if (!this.characters[fandomKey]) {
@@ -171,7 +166,12 @@
               this.$store.commit('setCharacters', {});
               this.$store.commit('setCharacters', newVal);
 
-              const results = _.filter(this.fandom.chars, o => {
+              if (!result) {
+                this.options = []; 
+                return;
+              }
+
+              const results = _.filter(result, o => {
                 if (!o) { o = ''; }
                 return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
               }); 
@@ -180,7 +180,7 @@
             });
 
           } else {
-            const results = _.filter(this.fandom.chars, o => {
+            const results = _.filter(this.characters[fandomKey], o => {
               if (!o) {
                 o = '';
               }
