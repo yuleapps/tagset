@@ -181,7 +181,7 @@ export default {
 	},
 	data() {
 		return {
-			showLetterModal: false,
+			showLetterModal: true,
 			maintenance: false,
 			showEggHelp: false,
 			hasPrompts,
@@ -252,7 +252,6 @@ export default {
 
 			return _.sortBy(arr, ['category', removeArticlesCompare]);
 		},
-		
 		lastUpdated() {
 			const data = _.find(this.meta, { '.key': 'lastUpdated'});
 
@@ -296,19 +295,10 @@ export default {
 
           data.then(res => {
             const backFill = res.val();
-            console.log(backFill);
-
             const newVal = { ... this.characters, ...backFill };
             this.$store.commit('setCharacters', {});
-
             this.$store.commit('setCharacters', newVal);
-
-
-
-          })
-
-            //let results = snapshot.val();
-            
+          });
 				}
 			}
 		},

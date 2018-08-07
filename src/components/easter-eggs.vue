@@ -59,7 +59,6 @@
         });
 
         return _.uniq(users).length;
-
       }
     },
     methods: {

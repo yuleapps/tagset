@@ -42,7 +42,6 @@ new Vue({
       source: db.ref('/characters').limitToFirst(100),
       asObject: true,
       readyCallback() {
-        console.log(this.characters['.value'])
         store.commit('setCharacters', this.characters['.value']);
       }
     },

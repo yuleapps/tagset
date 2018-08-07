@@ -21,7 +21,7 @@
           @mouseenter="selectedIndex = i"
           @mouseleave="selectedIndex = -1"
           @click="select"
-          v-html="highlight(option.name)"
+          v-html="highlight(option.name, 'f')"
         >
         </span>
       </div>
@@ -29,7 +29,7 @@
 
     <template v-else>
       <br>
-      <label for="characters">Characters:</label>
+      <label for="chars">Characters:</label>
       
       <input type="text"
         placeholder="Filter..."
@@ -41,20 +41,22 @@
       >
 
       <div class="badges">
-        <span class="character" v-for="char in characters" >
+        <span class="character" v-for="char in chars" >
           {{ char }}
           <button class="remove" @click="removeChar(char)">(X)</button>
         </span>
       </div>
       <br>
 
-      <div v-if="options.length && characters && characters.length < maxChars">
+      <span v-if="charsLoading">Loading character options...</span>
+
+      <div v-if="options.length && chars && chars.length < maxChars">
         <p><em>Available selections:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]" 
           v-for="(option, i) in options" 
           :key="option"
-          v-html="highlight(option)"
+          v-html="highlight(option, 'c')"
           @mouseenter="selectedIndex = i"
           @mouseleave="selectedIndex = -1"
           @click="select('char')"
@@ -62,7 +64,7 @@
         </span>
 
       </div>
-      <span v-else-if="!fandom.characters">No characters were nominated</span>
+      <span v-else-if="!fandom.chars">No characters were nominated</span>
 
       
     </template>
@@ -74,6 +76,7 @@
 
 <script>
   import _ from 'lodash';
+  import db from '../db.js';
   import { mapGetters } from 'vuex';
   export default {
     props: {
@@ -99,10 +102,16 @@
         msg: '',
         term: '',
         fandom: {},
-        characters: [],
+        chars: [],
         options: [],
-        selectedIndex: -1
+        selectedIndex: -1,
+        charsLoading: false
       };
+    },
+    computed: {
+      ...mapGetters([
+        'characters'
+      ])
     },
     watch: {
       term(val, oldVal) {
@@ -111,7 +120,7 @@
           this.msg = null;
         }
       },
-      characters: {
+      chars: {
         deep: true,
         handler() {
           this.update()
@@ -131,7 +140,7 @@
             name: this.fandom.name,
             '.key': this.fandom['.key']
           },
-          characters: this.characters
+          characters: this.chars
         });
       },
       autocomplete(type) {
@@ -146,38 +155,58 @@
           });
           return;
         } else {
-          if (!this.fandom.characters) {
+          if (!this.fandom.chars) {
             this.options = []; 
             return;
           }
 
-          const results = _.filter(this.fandom.characters, o => {
-            if (!o) {
-              o = '';
-            }
-            return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-          }); 
+          const fandomKey = fandom['.key'];
 
-          this.options = _.difference(results, this.characters) || [];
+          if (!this.characters[fandomKey]) {
+            db.ref('/characters/' + fandomKey).once('value').then(res => {
+              const result = res.val();
+              const newVal = { ... this.characters };
+              newVal[fandomKey] = result;
+
+              this.$store.commit('setCharacters', {});
+              this.$store.commit('setCharacters', newVal);
+
+              const results = _.filter(this.fandom.chars, o => {
+                if (!o) { o = ''; }
+                return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+              }); 
+
+              this.options = _.difference(results, this.chars) || [];
+            });
+
+          } else {
+            const results = _.filter(this.fandom.chars, o => {
+              if (!o) {
+                o = '';
+              }
+              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+            }); 
+
+            this.options = _.difference(results, this.chars) || [];
+          }
         }
       },
       removeFandom() {
         this.fandom = '';
-        this.characters = [];
+        this.chars = [];
         this.options = [];
         this.selectedIndex = -1;
         this.term = '';
       },
       removeChar(char) {
-        this.characters = _.filter(this.characters, o => {
+        this.chars = _.filter(this.chars, o => {
           return o !== char;
         });
 
-        this.options = _.difference(this.fandom.characters, this.characters);
+        this.options = _.difference(this.fandom.chars, this.chars);
 
       },
-      highlight(option) {
-
+      highlight(option, type) {
         if (!option) {
           return;
         }
@@ -196,19 +225,38 @@
           this.show = null;
           this.fandom = this.options[this.selectedIndex];
           this.term = '';
-          this.options = this.fandom.characters || [];
+          const fandomKey = this.fandom['.key'];
+          this.options = [];
+
+          if (!this.characters[fandomKey]) {
+            this.charsLoading = true;
+            const data = db.ref('/characters/' + fandomKey)
+            .once('value').then(res => {
+              const result = res.val();
+              const newVal = { ...this.characters };
+              newVal[fandomKey] = result;
+              this.$store.commit('setCharacters', {});
+              this.$store.commit('setCharacters', newVal);
+
+              this.options = result;
+              this.charsLoading = false;
+            });
+
+          } else {
+            this.options = this.characters[fandomKey] || [];
+          }
           return;
         }
 
-        if (this.characters.length === this.maxChars) {
-          this.msg = 'You cannot select any more characters!'
+        if (this.chars.length === this.maxChars) {
+          this.msg = 'You cannot select any more chars!'
           return;
         }
 
-        this.characters.push(this.options[this.selectedIndex]);
+        this.chars.push(this.options[this.selectedIndex]);
         this.term = '';
         this.options = _.filter(this.options, o => {
-          return !_.includes(this.characters, o);
+          return !_.includes(this.chars, o);
         })
 
       },

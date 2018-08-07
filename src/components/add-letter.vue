@@ -59,7 +59,7 @@
               <td>{{ fandom.fandom.name }}</td>
               <td>
                   <ul class="chars">
-                    <li v-if="!fandom.characters.length">Any</li>
+                    <li v-if="!fandom.characters">Any</li>
                     <li v-for="char in fandom.characters">{{ char }}</li>
                   </ul>
               </td>
@@ -194,7 +194,6 @@
         });
       },
       add() {
-
 
         _.each(this.selectedFandoms, req => {
           this.$firebaseRefs.letters.child(req.fandom['.key']).push({
