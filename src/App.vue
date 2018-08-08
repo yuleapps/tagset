@@ -773,9 +773,13 @@ $muted: #e4a6a6;
     background-color: rgba(0, 0, 0, 0.1);
   }
 
+  td,
+  th {
+    padding: 10px 10px;
+  }
+
   td {
     word-break: break-word;
-    padding: 10px 10px;
     vertical-align: top;
   }
 
