@@ -2,6 +2,8 @@
   <div class="modal">
     <div class="modal-content">
       <h2>Submit Your Letter</h2>
+      <span class="close fas fa-times-circle" @click="$emit('close')"></span>
+
 
       <p>Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong> Go and do that first <a href="#">on AO3</a>. This is a voluntary list to 'tide us through until requests are made public during Madness (DATE).</p>
 

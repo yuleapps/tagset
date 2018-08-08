@@ -601,7 +601,7 @@ $muted: #e4a6a6;
 
   .modal {
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 99; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -914,6 +914,12 @@ $muted: #e4a6a6;
 
   .contact {
     background-color: $active;
+  }
+
+  .fas.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
 </style>

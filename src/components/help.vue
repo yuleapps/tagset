@@ -55,11 +55,3 @@
 export default {};
 </script>
 
-<style scoped>
-.close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-</style>
-
