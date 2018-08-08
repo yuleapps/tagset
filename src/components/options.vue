@@ -10,7 +10,6 @@
       <option v-for="category in categories">{{ category }}</option>
     </select>
   </div>
-
   <div>
 
     <span class="label">Show Only:</span>

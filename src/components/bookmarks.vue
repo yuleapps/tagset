@@ -12,21 +12,24 @@
       </div>
 
       <div>
-        <strong>Letters:</strong>
-        <ul>
+        <h3>Letters:</h3>
+        <ul v-if="lettermarks.length">
           <li v-for="letter in lettermarks">
             <template v-if="letter.isPinchhitter">(</template>
             <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
 
-            (<a @click="removeLettermark(letter)">x</a>)
+            (<a @click="removeLettermark(letter)">remove</a>)
           </li>
         </ul>
+        <span v-else>You haven't bookmarked any letters yet ):</span>
       </div>
 
       <hr />
 
-      <table>
+      <h3>Fandoms</h3>
+
+      <table v-if="bookmarksData.length">
         <thead>
           <tr>
             <th class="fandom">Fandom</th>
@@ -58,7 +61,10 @@
                 <span v-if="isProlific(letter.username)">*</span>
               <template v-if="letter.isPinchhitter">)</template>
 
-                <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="toggleLettermark(letter, fandom)">&hearts;</button>
+                <button class="bookmark-letter" @click="toggleLettermark(letter, fandom)">
+                  <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
+                  <span v-else class="far fa-heart"></span>
+                </button>
               </li>
             </ul>
           </td>
@@ -105,6 +111,7 @@
           </td>
         </tr>
       </table>
+      <span v-else>You haven't bookmarked any fandoms yet ):</span>
 
       <hr />
 
