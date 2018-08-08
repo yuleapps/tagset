@@ -13,10 +13,12 @@
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <button class="submit-letter" @click="showLetterModal = true">
-        Submit Your Letter
-      </button>
-      <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
+      <div class="buttons">
+        <button class="submit-letter" @click="showLetterModal = true">
+          Submit Your Letter
+        </button>
+        <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
+      </div>
 
       <add-letter
         v-if="showLetterModal"
@@ -476,7 +478,12 @@ $muted: #e4a6a6;
   text-align: left;
   color: $primary-body;
 
-  .fas {
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  .fas,
+  .far {
     cursor: pointer;
   }
 
@@ -631,6 +638,10 @@ $muted: #e4a6a6;
     .char-count {
       background: transparent;
     }
+  }
+
+  .buttons {
+    margin: 10px 0;
   }
 
   .bookmarks {

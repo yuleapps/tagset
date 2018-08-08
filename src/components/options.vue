@@ -48,7 +48,7 @@
     </div>
     <div class="option">
       <input type="checkbox" id="journal-style" v-model="options.destyle">
-      <label for="journal-style">Mobile letters<span v-if="unlock">*</span></label>
+      <label for="journal-style">Mobile letter format<span v-if="unlock">*</span></label>
     </div>
 
     <div class="clear" v-if="showMsg">

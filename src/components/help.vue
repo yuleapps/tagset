@@ -10,12 +10,26 @@
       <h3>Does submitting a letter mean I'm signed up?</h3>
       <p>No. You have to sign up for Yuletide on AO3.</p>
 
+      <h3>Help! I messed up submitting my letter!</h3>
+      <p>Hit up the Contact button and let a mod know; they will help you out!</p>
+
+      <h3>What? A nominated fandom isn't listed the big table!</h3>
+      <p>Fandoms are loaded in increments of 100 to save data. If you tried using your in-browser search (Ctrl-F),
+        you may not have loaded enough fandoms! Use the in-app search box instead, or select Load All to load
+        everything.
+      </p>
+
+      <h3>Tools: what does checking Mobile Letter Format do?</h3>
+      <p>Where possible, it gives you the "most readable" URLs for letters - e.g. mobile for Google Docs,
+         and Tumblr and DW/LJ light themes.
+      </p>
+
       <h3>Letters: what does the "Chars" badge mean?</h3>
       <p>It indicates the number of characters requested in the letter. Click on the badge and, if there are
         characters requested, they will be bolded in the Characters column.
       </p>
 
-      <h3>How do bookmarks work?</h3>
+      <h3>Bookmarks: How do bookmarks work?</h3>
       <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. An already-bookmarked thing
       is denoted by a solid <span class="fas fa-heart bookmark"></span>. That can be a whole fandom, an individual letter, or
          - once they're published - an individual prompt. Bookmarks are saved <em>in your browser memory</em>,
@@ -28,11 +42,7 @@
         all problems should be reported to the official post HERE.
       </p>
 
-      <h3>Help! I can't find my fandom!</h3>
-      <p>Fandoms are loaded in increments of 100. If you tried using your in-browser search (Ctrl-F),
-        you may not have loaded enough fandoms! Use the in-app filter instead, or select Load All to load
-        everything.
-      </p>
+
 
       <button class="cancel" @click="$emit('close')">(Close)</button>
     </div>
