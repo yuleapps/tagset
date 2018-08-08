@@ -54,7 +54,7 @@
     </div>
 
     <div class="clear" v-if="showMsg">
-      <small>** <strong :style="{ color: 'red'}">This may take your browser a bit.</strong></small>
+      <small>** <strong :style="{ color: 'red'}">Load all the fandoms at once instead of as you scroll. This may take your browser a bit!</strong></small>
     </div>
   </div>
 </div>
@@ -67,11 +67,7 @@ import db from '../db.js';
 import _ from 'lodash';
 export default {
   computed: {
-    ...mapGetters([
-      'unlock',
-      'categories',
-      'loadAll'
-    ])
+    ...mapGetters(['unlock', 'categories', 'loadAll'])
   },
   watch: {
     options: {
@@ -107,6 +103,7 @@ export default {
 
 <style lang="scss" scoped>
 .options {
+  padding: 0 10px;
   overflow: hidden;
   margin-bottom: 10px;
 

@@ -654,6 +654,72 @@ $muted: #e4a6a6;
   }
 
   // Table styles
+  table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+
+    &.prompts {
+      font-size: smaller;
+
+      th.username,
+      th.characters {
+        width: 20%;
+      }
+
+      td {
+        &.prompt {
+          word-break: break-word;
+        }
+      }
+    }
+
+    th.fandom {
+      width: 25%;
+    }
+
+    th.characters {
+      width: 300px;
+    }
+
+    th.letters {
+      width: auto;
+    }
+  }
+
+  thead {
+    font-weight: bold;
+
+    tr > th {
+      border-bottom: 1px solid $outline-light;
+    }
+  }
+
+  tr.odd {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  td,
+  th {
+    padding: 10px 10px;
+  }
+
+  td {
+    word-break: break-word;
+    vertical-align: top;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 3px;
+    }
+  }
 
   .main {
     position: relative;
@@ -751,79 +817,15 @@ $muted: #e4a6a6;
   .bookmark-letter,
   .bookmark-prompt,
   .remove-prompt {
+    span {
+      font-size: 14px;
+    }
     color: $active;
     background-color: transparent;
     padding: 0;
 
     &:hover {
       color: $muted;
-    }
-  }
-
-  table {
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    table-layout: fixed;
-
-    &.prompts {
-      font-size: smaller;
-
-      th.username,
-      th.characters {
-        width: 20%;
-      }
-
-      td {
-        &.prompt {
-          word-break: break-word;
-        }
-      }
-    }
-
-    th.fandom {
-      width: 25%;
-    }
-
-    th.characters {
-      width: 300px;
-    }
-
-    th.letters {
-      width: auto;
-    }
-  }
-
-  thead {
-    font-weight: bold;
-
-    tr > th {
-      border-bottom: 1px solid $outline-light;
-    }
-  }
-
-  tr.odd {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  td,
-  th {
-    padding: 10px 10px;
-  }
-
-  td {
-    word-break: break-word;
-    vertical-align: top;
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      margin-bottom: 3px;
     }
   }
 
@@ -910,6 +912,7 @@ $muted: #e4a6a6;
 
   .submit-letter {
     background-color: $primary-body;
+    margin-left: 10px;
   }
 
   .contact {

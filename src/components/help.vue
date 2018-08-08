@@ -13,12 +13,12 @@
       <p>No. You have to sign up for Yuletide on AO3.</p>
 
       <h3>Help! I messed up submitting my letter!</h3>
-      <p>Hit up the Contact button and let a mod know; they will help you out!</p>
+      <p>Hit up the big red Contact Us button and let a mod know; they will help you out!</p>
 
       <h3>What? A nominated fandom isn't listed the big table!</h3>
       <p>Fandoms are loaded in increments of 100 to save data. If you tried using your in-browser search (Ctrl-F),
-        you may not have loaded enough fandoms! Use the in-app search box instead, or select Load All to load
-        everything.
+        you may not have loaded enough fandoms! Use the in-app Filter By search box instead, or select Load All to load
+        everything. Still not there? Report a bug!
       </p>
 
       <h3>Tools: what does checking Mobile Letter Format do?</h3>
@@ -35,7 +35,7 @@
       <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. An already-bookmarked thing
       is denoted by a solid <span class="fas fa-heart bookmark"></span>. That can be a whole fandom, an individual letter, or
          - once they're published - an individual prompt. Bookmarks are saved <em>in your browser memory</em>,
-         so they should persist unless you clear your cache. However, that means you can't get sync bookmarks
+         so they should persist unless you clear your cache. However, that means you <strong>cannot sync</strong> bookmarks
          between browsers or devices.
       </p>
 
