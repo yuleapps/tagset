@@ -7,11 +7,11 @@
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <p>Welcome to the Yuletide app! Fandoms are loaded in increments of 100 as you scroll.</p>
-
+      <p>Fandoms are loaded in increments of 100 as you scroll. </p>
       <button class="submit-letter" @click="showLetterModal = true">
         Submit Your Letter
       </button>
+      <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
 
       <add-letter
         v-if="showLetterModal"
@@ -462,14 +462,26 @@ $muted: #e4a6a6;
   text-align: left;
   color: $primary-body;
 
-  .highlight {
-    font-weight: bold;
+  input {
+    line-height: 20px;
+    padding: 0 3px;
+  }
+
+  button {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
   }
 
   a,
   .cancel {
     cursor: pointer;
     color: #e74c3c;
+  }
+
+  .highlight {
+    font-weight: bold;
   }
 
   .cancel {
@@ -479,22 +491,6 @@ $muted: #e4a6a6;
     bottom: 10px;
     right: 10px;
     font-size: 14px;
-  }
-
-  .options {
-    overflow: hidden;
-
-    .option {
-      float: left;
-      width: 250px;
-    }
-
-    .clear {
-      max-width: 750px;
-      color: rgba(0, 0, 0, 0.5);
-      line-height: 14px;
-      margin-bottom: 3px;
-    }
   }
 
   .clear {
@@ -544,17 +540,6 @@ $muted: #e4a6a6;
     .input {
       margin-bottom: 5px;
     }
-  }
-
-  input {
-    line-height: 20px;
-    padding: 0 3px;
-  }
-
-  button {
-    cursor: pointer;
-    border: 0;
-    border-radius: 2px;
   }
 
   .user-lookup {
@@ -695,18 +680,16 @@ $muted: #e4a6a6;
       }
     }
 
-    th.fave {
-      width: 20px;
-    }
-
     th.fandom {
-      width: 20%;
+      width: 40%;
     }
 
-    th.category,
-    th.characters,
+    th.characters {
+      width: 35%;
+    }
+
     th.letters {
-      width: 15%;
+      width: auto;
     }
   }
 
@@ -808,9 +791,22 @@ $muted: #e4a6a6;
     color: rgba(0, 0, 0, 0.35);
   }
 
+  .contact,
   .submit-letter {
     font-size: 16px;
     margin: 10px 0;
+    padding: 3px 5px;
+    border-radius: 2px;
+    color: #ffffff;
+  }
+
+  .submit-letter {
+    background-color: $primary-body;
+  }
+
+  .contact {
+    background-color: $active;
+    text-decoration: none;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="fandom-autocomplete">
-    <label :class="{ error: hasError }" for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span> 
+    <label :class="{ error: hasError }" for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span>
 
     <template v-if="!fandom.name">
       <input type="text"
@@ -15,8 +15,8 @@
       <div v-if="options.length">
         <p><em>Available selections:</em></p>
         <span
-          :class="['option', { focused: i === selectedIndex }]" 
-          v-for="(option, i) in options" 
+          :class="['option', { focused: i === selectedIndex }]"
+          v-for="(option, i) in options"
           :key="option['.key']"
           @mouseenter="selectedIndex = i"
           @mouseleave="selectedIndex = -1"
@@ -30,7 +30,7 @@
     <template v-else>
       <br>
       <label for="chars">Characters:</label>
-      
+
       <input type="text"
         placeholder="Filter..."
         @keydown.enter.prevent="select('char')"
@@ -53,8 +53,8 @@
       <div v-if="options.length && chars && chars.length < maxChars">
         <p><em>Available selections:</em></p>
         <span
-          :class="['option', { focused: i === selectedIndex }]" 
-          v-for="(option, i) in options" 
+          :class="['option', { focused: i === selectedIndex }]"
+          v-for="(option, i) in options"
           :key="option"
           v-html="highlight(option, 'c')"
           @mouseenter="selectedIndex = i"
@@ -64,9 +64,7 @@
         </span>
 
       </div>
-      <span v-else-if="!fandom.chars">No characters were nominated</span>
-
-      
+      <span v-else-if="!fandom.chars && !chars.length">No characters were nominated</span>
     </template>
 
     <p class="msg"> {{ msg }}</p>
@@ -75,209 +73,210 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import db from '../db.js';
-  import { mapGetters } from 'vuex';
-  export default {
-    props: {
-      hasError: {
-        type: Boolean,
-        default: false
-      },
-      fandoms: {
-        type: Array,
-        default() { return []; }
-      },
-      maxChars: {
-        type: Number,
-        default: 4
-      },
-      number: {
-        type: Number,
-        default: 1
-      },
+import _ from 'lodash';
+import db from '../db.js';
+import { mapGetters } from 'vuex';
+export default {
+  props: {
+    hasError: {
+      type: Boolean,
+      default: false
     },
-    data() {
-      return {
-        msg: '',
-        term: '',
-        fandom: {},
-        chars: [],
-        options: [],
-        selectedIndex: -1,
-        charsLoading: false
-      };
-    },
-    computed: {
-      ...mapGetters([
-        'characters'
-      ])
-    },
-    watch: {
-      term(val, oldVal) {
-        if (val !== oldVal) {
-          this.selectedIndex = -1;
-          this.msg = null;
-        }
-      },
-      chars: {
-        deep: true,
-        handler() {
-          this.update()
-        }
-      },
-      fandom: {
-        deep: true,
-        handler() {
-          this.update();
-        }
+    fandoms: {
+      type: Array,
+      default() {
+        return [];
       }
     },
-    methods: {
-      update() {
-        this.$emit('update', { 
-          fandom: {
-            name: this.fandom.name,
-            '.key': this.fandom['.key']
-          },
-          characters: this.chars
+    maxChars: {
+      type: Number,
+      default: 4
+    },
+    number: {
+      type: Number,
+      default: 1
+    }
+  },
+  data() {
+    return {
+      msg: '',
+      term: '',
+      fandom: {},
+      chars: [],
+      options: [],
+      selectedIndex: -1,
+      charsLoading: false
+    };
+  },
+  computed: {
+    ...mapGetters(['characters'])
+  },
+  watch: {
+    term(val, oldVal) {
+      if (val !== oldVal) {
+        this.selectedIndex = -1;
+        this.msg = null;
+      }
+    },
+    chars: {
+      deep: true,
+      handler() {
+        this.update();
+      }
+    },
+    fandom: {
+      deep: true,
+      handler() {
+        this.update();
+      }
+    }
+  },
+  methods: {
+    update() {
+      this.$emit('update', {
+        fandom: {
+          name: this.fandom.name,
+          '.key': this.fandom['.key']
+        },
+        characters: this.chars
+      });
+    },
+    autocomplete(type) {
+      if (!this.term.length && !this.fandom.name) {
+        this.options = [];
+        return;
+      }
+
+      if (!this.fandom.name) {
+        this.options = _.filter(this.fandoms, o => {
+          return o.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
         });
-      },
-      autocomplete(type) {
-        if (!this.term.length && !this.fandom.name) {
-          this.options = [];
-          return;
-        }
+        return;
+      } else {
+        const fandomKey = fandom['.key'];
 
-        if (!this.fandom.name) {
-          this.options = _.filter(this.fandoms, o => {
-            return o.name.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-          });
-          return;
-        } else {
-          const fandomKey = fandom['.key'];
-
-          if (!this.characters[fandomKey]) {
-            db.ref('/characters/' + fandomKey).once('value').then(res => {
+        if (!this.characters[fandomKey]) {
+          db
+            .ref('/characters/' + fandomKey)
+            .once('value')
+            .then(res => {
               const result = res.val();
-              const newVal = { ... this.characters };
+              const newVal = { ...this.characters };
               newVal[fandomKey] = result;
 
               this.$store.commit('setCharacters', {});
               this.$store.commit('setCharacters', newVal);
 
               if (!result) {
-                this.options = []; 
+                this.options = [];
                 return;
               }
 
               const results = _.filter(result, o => {
-                if (!o) { o = ''; }
+                if (!o) {
+                  o = '';
+                }
                 return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-              }); 
+              });
 
               this.options = _.difference(results, this.chars) || [];
             });
+        } else {
+          const results = _.filter(this.characters[fandomKey], o => {
+            if (!o) {
+              o = '';
+            }
+            return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+          });
 
-          } else {
-            const results = _.filter(this.characters[fandomKey], o => {
-              if (!o) {
-                o = '';
-              }
-              return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-            }); 
-
-            this.options = _.difference(results, this.chars) || [];
-          }
+          this.options = _.difference(results, this.chars) || [];
         }
-      },
-      removeFandom() {
-        this.fandom = '';
-        this.chars = [];
-        this.options = [];
-        this.selectedIndex = -1;
+      }
+    },
+    removeFandom() {
+      this.fandom = '';
+      this.chars = [];
+      this.options = [];
+      this.selectedIndex = -1;
+      this.term = '';
+    },
+    removeChar(char) {
+      this.chars = _.filter(this.chars, o => {
+        return o !== char;
+      });
+
+      this.options = _.difference(this.characters[this.fandom['.key']], this.chars);
+    },
+    highlight(option, type) {
+      if (!option) {
+        return;
+      }
+      // highlight any char
+      const regex = new RegExp(this.term, 'ig');
+      return option.replace(regex, '<strong>$&</strong>');
+    },
+    select(type) {
+      if (this.selectedIndex < 0 || this.selectedIndex > this.options.length - 1) {
+        this.msg = 'You must select from the available options!';
+        return;
+      }
+
+      if (type !== 'char') {
+        this.show = null;
+        this.fandom = this.options[this.selectedIndex];
         this.term = '';
-      },
-      removeChar(char) {
-        this.chars = _.filter(this.chars, o => {
-          return o !== char;
-        });
+        const fandomKey = this.fandom['.key'];
+        this.options = [];
 
-        this.options = _.difference(this.fandom.chars, this.chars);
-
-      },
-      highlight(option, type) {
-        if (!option) {
-          return;
-        }
-        // highlight any char
-        const regex = new RegExp(this.term, 'ig');
-        return option.replace(regex, '<strong>$&</strong>');
-
-      },
-      select(type) {
-        if (this.selectedIndex < 0 || this.selectedIndex > this.options.length -1) {
-          this.msg = 'You must select from the available options!'
-          return;
-        }
-
-        if (type !== 'char') {
-          this.show = null;
-          this.fandom = this.options[this.selectedIndex];
-          this.term = '';
-          const fandomKey = this.fandom['.key'];
-          this.options = [];
-
-          if (!this.characters[fandomKey]) {
-            this.charsLoading = true;
-            const data = db.ref('/characters/' + fandomKey)
-            .once('value').then(res => {
+        if (!this.characters[fandomKey]) {
+          this.charsLoading = true;
+          const data = db
+            .ref('/characters/' + fandomKey)
+            .once('value')
+            .then(res => {
               const result = res.val();
               const newVal = { ...this.characters };
               newVal[fandomKey] = result;
               this.$store.commit('setCharacters', {});
               this.$store.commit('setCharacters', newVal);
 
-              this.options = result;
+              this.options = result || [];
               this.charsLoading = false;
             });
-
-          } else {
-            this.options = this.characters[fandomKey] || [];
-          }
-          return;
+        } else {
+          this.options = this.characters[fandomKey] || [];
         }
-
-        if (this.chars.length === this.maxChars) {
-          this.msg = 'You cannot select any more chars!'
-          return;
-        }
-
-        this.chars.push(this.options[this.selectedIndex]);
-        this.term = '';
-        this.options = _.filter(this.options, o => {
-          return !_.includes(this.chars, o);
-        })
-
-      },
-      next() {
-        if (this.selectedIndex === this.options.length - 1) {
-          return;
-        }
-        this.selectedIndex++;
-      },
-      prev() {
-        if (this.selectedIndex <= 0) {
-          this.selectedIndex = -1;
-        }
-        this.selectedIndex--;
+        return;
       }
+
+      if (this.chars.length === this.maxChars) {
+        this.msg = 'You cannot select any more chars!';
+        return;
+      }
+
+      this.chars.push(this.options[this.selectedIndex]);
+      this.term = '';
+      this.options = _.filter(this.options, o => {
+        return !_.includes(this.chars, o);
+      });
+    },
+    next() {
+      if (this.selectedIndex === this.options.length - 1) {
+        return;
+      }
+      this.selectedIndex++;
+    },
+    prev() {
+      if (this.selectedIndex <= 0) {
+        this.selectedIndex = -1;
+      }
+      this.selectedIndex--;
     }
-  };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
 label {
   font-weight: bold;
 }
@@ -325,9 +324,8 @@ input {
   background-color: transparent !important;
   padding: 0;
 
-  &:hover{
+  &:hover {
     font-weight: bold;
   }
 }
-  
 </style>

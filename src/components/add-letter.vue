@@ -7,12 +7,12 @@
 
       <p><small>* <strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</small></p>
 
-      <p><small>* The mods will delete any letter that is locked or otherwise breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit your fixed letter at any time!</small></p>
+      <p><small>* Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</small></p>
 
       <div v-show="!isReview">
         <div :class="['input username', { error: hasError('username')}]">
           <label for="username">Username:</label>
-          <input v-focus id="username" type="text" v-model="username" placeholder="Username"> 
+          <input v-focus id="username" type="text" v-model="username" placeholder="Username">
           <span class="help"><small>AO3 username</small></span>
         </div>
 
@@ -22,7 +22,6 @@
           <span class="help"><small>No locked letters! :(</small></span>
         </div>
 
-          
         <div>
           <fandom-autocomplete
             :hasError="hasError('fandom')"
@@ -33,7 +32,7 @@
             @update="update(i - 1, $event)"
           ></fandom-autocomplete>
         </div>
-        
+
 
       <!--   <div class="input" v-if="mods">
           <label for="pinchhitter">Pinch hitter?</label>
@@ -59,7 +58,7 @@
               <td>{{ fandom.fandom.name }}</td>
               <td>
                   <ul class="chars">
-                    <li v-if="!fandom.characters">Any</li>
+                    <li v-if="!fandom.characters.length">Any</li>
                     <li v-for="char in fandom.characters">{{ char }}</li>
                   </ul>
               </td>
@@ -84,146 +83,149 @@
           </li>
         </ul>
       </div>
-      
-      <button @click="submit" class="submit">{{ submitText }}</button> 
-      <button v-if="isReview" @click="isReview = false" class="submit">Edit Again</button>  
+
+      <button @click="submit" class="submit">{{ submitText }}</button>
+      <button v-if="isReview" @click="isReview = false" class="submit">Edit Again</button>
       <button class="cancel" @click="$emit('close')">(Cancel)</button>
 
-      
+
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import FandomAutocomplete from './fandom-autocomplete.vue';
-  import db from '../db.js';
-  export default {
-    components: {
-      FandomAutocomplete
-    },
-    firebase: {
-      letters: db.ref('/letters')
-    },
-    directives: {
-      focus: {
-        inserted(el) {
-          el.focus();
-        }
+import { mapGetters } from 'vuex';
+import FandomAutocomplete from './fandom-autocomplete.vue';
+import db from '../db.js';
+export default {
+  components: {
+    FandomAutocomplete
+  },
+  firebase: {
+    letters: db.ref('/letters')
+  },
+  directives: {
+    focus: {
+      inserted(el) {
+        el.focus();
       }
-    },
-    beforeMount() {
-      this.availableFandoms = this.fandoms;
-    },
-    data() {
-      return {
-        errors: [],
-        max: 6,
-        min: 3,
-        username: '',
-        selectedFandoms: [],
-        url: '',
-        isReview: false,
-        availableFandoms: []
-      };
-    },
-    computed: {
-      ...mapGetters([
-        'fandoms'
-      ]),
-      submitText() {
-        if (this.isReview) {
-          return 'Add!';
-        }
-
-        return 'Preview!'
-      }
-    },
-    methods: {
-      // https://stackoverflow.com/questions/8667070/javascript-regular-expression-to-validate-url
-      validateUrl(value) {
-        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
-      },
-      submit() {
-        this.errors = [];
-        if (this.isReview) {
-          this.add();
-          return;
-        }
-
-        if (!this.username.length) {
-          this.errors.push('username');
-        }
-
-        if (!this.url.length || !this.validateUrl(this.url)) {
-          this.errors.push('url')
-        }
-
-        if (this.selectedFandoms.length < this.min) {
-          this.errors.push('fandom');
-        }
-
-        if (this.errors.length) {
-          return;
-        }
-
-        this.selectedFandoms = _.compact(this.selectedFandoms);
-        
-
-        this.isReview = true;
-      },
-      edit() {
-        this.isReview = false;
-      },
-      hasError(type) {
-        return _.includes(this.errors, type);
-      },
-      update(index, data) {
-
-        if (!data.fandom || !data.fandom.name) {
-          this.selectedFandoms = this.selectedFandoms.splice(index, 1);
-        } else {
-          this.selectedFandoms[index] = data;
-        }
-
-        const selected = [];
-
-        _.each(this.selectedFandoms, o => {
-          if (!o) {
-            return;
-          }
-          selected.push(o.fandom['.key']);
-        });
-
-        this.availableFandoms = _.filter(this.fandoms, o => {
-          return !_.includes(selected, o['.key']);
-        });
-      },
-      add() {
-
-        _.each(this.selectedFandoms, req => {
-          this.$firebaseRefs.letters.child(req.fandom['.key']).push({
-            username: this.username,
-            url: this.url,
-            characters: req.characters,
-            isPinchhitter: this.pinchhitter || false
-          });
-        });
-
-        this.$emit('close');
-
-      },
     }
-  };
+  },
+  beforeMount() {
+    this.availableFandoms = this.fandoms;
+  },
+  data() {
+    return {
+      errors: [],
+      max: 6,
+      min: 3,
+      username: '',
+      selectedFandoms: [],
+      url: '',
+      isReview: false,
+      availableFandoms: []
+    };
+  },
+  computed: {
+    ...mapGetters(['fandoms']),
+    submitText() {
+      if (this.isReview) {
+        return 'Submit!';
+      }
+
+      return 'Preview!';
+    }
+  },
+  methods: {
+    // https://stackoverflow.com/questions/8667070/javascript-regular-expression-to-validate-url
+    validateUrl(value) {
+      return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
+        value
+      );
+    },
+    submit() {
+      this.errors = [];
+      this.scrubFandoms();
+
+      if (this.isReview) {
+        this.add();
+        return;
+      }
+
+      if (!this.username.length) {
+        this.errors.push('username');
+      }
+
+      if (!this.url.length || !this.validateUrl(this.url)) {
+        this.errors.push('url');
+      }
+
+      console.log('er,', this.selectedFandoms.length);
+
+      if (this.selectedFandoms.length < this.min) {
+        this.errors.push('fandom');
+      }
+
+      if (this.errors.length) {
+        return;
+      }
+
+      this.selectedFandoms = _.compact(this.selectedFandoms);
+
+      this.isReview = true;
+    },
+    scrubFandoms() {
+      this.selectedFandoms = _.filter(this.selectedFandoms, f => {
+        return f !== null;
+      });
+    },
+    edit() {
+      this.isReview = false;
+    },
+    hasError(type) {
+      return _.includes(this.errors, type);
+    },
+    update(index, data) {
+      if (!data.fandom || !data.fandom.name) {
+        this.selectedFandoms[index] = null;
+      } else {
+        this.selectedFandoms[index] = data;
+      }
+
+      const selected = [];
+
+      _.each(this.selectedFandoms, o => {
+        if (!o) {
+          return;
+        }
+        selected.push(o.fandom['.key']);
+      });
+
+      this.availableFandoms = _.filter(this.fandoms, o => {
+        return !_.includes(selected, o['.key']);
+      });
+    },
+    add() {
+      _.each(this.selectedFandoms, req => {
+        this.$firebaseRefs.letters.child(req.fandom['.key']).push({
+          username: this.username,
+          url: this.url,
+          characters: req.characters,
+          isPinchhitter: this.pinchhitter || false
+        });
+      });
+
+      this.$emit('close');
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
 .fandom-autocomplete {
   border-top: 1px solid grey;
   padding: 10px 0;
 }
-
 
 .submit {
   padding: 7px 20px;
@@ -259,5 +261,4 @@ li {
   margin-left: 25px;
   list-style-type: square;
 }
-  
 </style>
