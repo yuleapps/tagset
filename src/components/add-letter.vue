@@ -53,7 +53,7 @@
               <th>Letter Link</th>
               <td>{{ url }}</td>
             </tr>
-            <tr v-for="(fandom, i) in selectedFandoms">
+            <tr v-for="(fandom, i) in scrubbedFandoms">
               <th>Fandom {{i + 1}}</th>
               <td>{{ fandom.fandom.name }}</td>
               <td>
@@ -121,6 +121,7 @@ export default {
       min: 3,
       username: '',
       selectedFandoms: [],
+      scrubbedFandoms: [],
       url: '',
       isReview: false,
       availableFandoms: []
@@ -160,7 +161,7 @@ export default {
         this.errors.push('url');
       }
 
-      if (this.selectedFandoms.length < this.min) {
+      if (this.scrubbedFandoms.length < this.min) {
         this.errors.push('fandom');
       }
 
@@ -168,14 +169,16 @@ export default {
         return;
       }
 
-      this.selectedFandoms = _.compact(this.selectedFandoms);
-
       this.isReview = true;
     },
     scrubFandoms() {
-      this.selectedFandoms = _.filter(this.selectedFandoms, f => {
-        return f !== null && f !== undefined;
-      });
+      // put things into a separate array so that index order is preserved
+      // if users want to go back and edit
+      this.scrubbedFandoms = _.compact(
+        _.filter(this.selectedFandoms, f => {
+          return f !== null && f !== undefined;
+        })
+      );
     },
     edit() {
       this.isReview = false;
@@ -184,7 +187,6 @@ export default {
       return _.includes(this.errors, type);
     },
     update(index, data) {
-      console.log(index);
       let newVal = this.selectedFandoms;
 
       if (!data.fandom || !data.fandom.name) {
@@ -195,8 +197,6 @@ export default {
 
       this.selectedFandoms = [];
       this.selectedFandoms = newVal;
-
-      console.log('updated selected to', this.selectedFandoms);
 
       const selected = [];
 
@@ -212,7 +212,7 @@ export default {
       });
     },
     add() {
-      _.each(this.selectedFandoms, req => {
+      _.each(this.scrubbedFandoms, req => {
         this.$firebaseRefs.letters.child(req.fandom['.key']).push({
           username: this.username,
           url: this.url,

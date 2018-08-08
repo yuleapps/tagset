@@ -17,8 +17,8 @@
         <button class="submit-letter" @click="showLetterModal = true">
           Submit Your Letter
         </button>
-
-        <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact Us</a>
+        <button class="contact">Contact Us</button>
+        <!-- <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact Us</a> -->
       </div>
 
       <add-letter
@@ -916,10 +916,6 @@ $muted: #e4a6a6;
 
   .contact {
     background-color: $active;
-    color: #ffffff;
-    text-decoration: none;
-    vertical-align: top;
-    line-height: 35px;
   }
 }
 </style>
