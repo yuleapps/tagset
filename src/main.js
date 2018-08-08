@@ -12,7 +12,6 @@ import db from './db.js';
 let fandomsRef = db.ref('/fandomsonly');
 let metaRef = db.ref('/meta');
 
-
 Vue.config.productionTip = false;
 Vue.use(VueFire);
 Vue.use(VueLocalStorage);
@@ -20,14 +19,26 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store(appStore);
 
-
 /* eslint-disable no-new */
 new Vue({
   store,
   el: '#app',
   template: '<app></app>',
-  components: { 
-    App 
+  components: {
+    App
+  },
+  watch: {
+    letters: {
+      deep: true,
+      handler(val) {
+        store.commit('setLetters', val);
+      }
+    }
+  },
+  data() {
+    return {
+      letters: {}
+    };
   },
   firebase: {
     fandoms: {
@@ -35,7 +46,14 @@ new Vue({
       readyCallback() {
         store.commit('setDbLoaded', true);
         store.commit('setFandoms', this.fandoms);
-        store.commit('setCategories', _.uniq(_.map(this.fandoms, o => { return o.category; })));
+        store.commit(
+          'setCategories',
+          _.uniq(
+            _.map(this.fandoms, o => {
+              return o.category;
+            })
+          )
+        );
       }
     },
     characters: {

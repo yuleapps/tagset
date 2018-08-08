@@ -40,7 +40,7 @@
     <span class="label">Tools:</span>
     <div class="option">
       <input type="checkbox" id="load-all" v-model="options.loadAll">
-      <label for="load-all">Load everything!**</label>
+      <label for="load-all">Load everything!<sup><span class="fas fa-exclamation-circle warn" @click="showMsg = !showMsg"></span></sup></label>
     </div>
     <div class="option">
       <input type="checkbox" id="hide-chars" v-model="options.hideCharacters">
@@ -51,8 +51,7 @@
       <label for="journal-style">Mobile letters<span v-if="unlock">*</span></label>
     </div>
 
-    <!-- TODO: make tooltip -->
-    <div class="clear">
+    <div class="clear" v-if="showMsg">
       <small>** <strong :style="{ color: 'red'}">This may take your browser a bit.</strong></small>
     </div>
   </div>
@@ -92,6 +91,7 @@ export default {
   },
   data() {
     return {
+      showMsg: false,
       options: {
         filter: {
           category: '',
@@ -134,5 +134,10 @@ export default {
     line-height: 14px;
     margin-bottom: 3px;
   }
+}
+
+.warn {
+  color: #e4a95c;
+  padding-left: 2px;
 }
 </style>

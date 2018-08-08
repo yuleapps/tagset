@@ -1,13 +1,18 @@
 <template>
 	<div id="app">
-		<h1>Yuletide 2018 App</h1>
+		<h1>Yuletide 2018 App
+      <sup>
+        <span class="fas fa-question-circle fa-sm help" @click="showHelp = true"></span>
+      </sup>
+    </h1>
+
+    <help v-if="showHelp" @close="showHelp = false"></help>
 
     <div v-if="!loaded ||!loadedChars" class="loader">Loading...</div>
 
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <p>Fandoms are loaded in increments of 100 as you scroll. </p>
       <button class="submit-letter" @click="showLetterModal = true">
         Submit Your Letter
       </button>
@@ -48,8 +53,11 @@
           <td class="fandom">
             {{ fandom.name }}
             <button
-                :class="['bookmark', { bookmarked: hasBookmark(fandom) }]"
-                @click="toggle(fandom)">&hearts;
+                class="bookmark"
+                @click="toggle(fandom)"
+                >
+                  <span v-if="hasBookmark(fandom)" class="fas fa-heart"></span>
+                  <span v-else class="far fa-heart"></span>
               </button>
             <div class="meta">
               <div v-if="maintenance">
@@ -81,9 +89,12 @@
                     :href="formatUrl(letter.url)" target="_blank"
                   >{{ letter.username }}</a>
                   <button
-                    :class="['bookmark-letter', { bookmarked: hasLettermark(letter, fandom)}]"
+                    class="bookmark-letter"
                     @click="toggleLettermark(letter, fandom)"
-                  >&hearts;</button>
+                  >
+                    <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
+                  <span v-else class="far fa-heart"></span>
+                  </button>
                   <div class="meta">
                     <!-- TODO: consolidate prolific and easter eggs -->
                     <span v-if="isProlific(letter.username)">*</span>
@@ -158,6 +169,7 @@ import AddLetter from './components/add-letter.vue';
 import Bookmarks from './components/bookmarks.vue';
 import Caveats from './components/caveats.vue';
 import EasterEggs from './components/easter-eggs.vue';
+import Help from './components/help.vue';
 import Maintenance from './components/maintenance.vue';
 import Options from './components/options.vue';
 import UserLookup from './components/user-lookup.vue';
@@ -187,6 +199,7 @@ export default {
     Bookmarks,
     Caveats,
     EasterEggs,
+    Help,
     Maintenance,
     Options,
     UserLookup
@@ -224,6 +237,7 @@ export default {
       showLetterModal: false,
       maintenance: false,
       showEggHelp: false,
+      showHelp: false,
       hasPrompts,
       down: {},
       mods: false,
@@ -462,6 +476,10 @@ $muted: #e4a6a6;
   text-align: left;
   color: $primary-body;
 
+  .fas {
+    cursor: pointer;
+  }
+
   input {
     line-height: 20px;
     padding: 0 3px;
@@ -472,6 +490,16 @@ $muted: #e4a6a6;
     cursor: pointer;
     border: 0;
     border-radius: 2px;
+  }
+
+  .button-primary {
+    background-color: $primary-body;
+    color: #ffffff;
+  }
+
+  .button-warn {
+    background-color: $active;
+    color: #ffffff;
   }
 
   a,
@@ -648,14 +676,12 @@ $muted: #e4a6a6;
   .bookmark-letter,
   .bookmark-prompt,
   .remove-prompt {
-    color: $muted;
-    font-size: 14px;
+    color: $active;
     background-color: transparent;
     padding: 0;
 
-    &.bookmarked,
     &:hover {
-      color: $active;
+      color: $muted;
     }
   }
 
@@ -807,6 +833,9 @@ $muted: #e4a6a6;
   .contact {
     background-color: $active;
     text-decoration: none;
+  }
+
+  .help {
   }
 }
 </style>

@@ -84,8 +84,8 @@
         </ul>
       </div>
 
-      <button @click="submit" class="submit">{{ submitText }}</button>
-      <button v-if="isReview" @click="isReview = false" class="submit">Edit Again</button>
+      <button @click="submit" class="submit button-primary">{{ submitText }}</button>
+      <button v-if="isReview" @click="isReview = false" class="submit button-warn">Edit</button>
       <button class="cancel" @click="$emit('close')">(Cancel)</button>
 
 
@@ -159,8 +159,6 @@ export default {
       if (!this.url.length || !this.validateUrl(this.url)) {
         this.errors.push('url');
       }
-
-      console.log('er,', this.selectedFandoms.length);
 
       if (this.selectedFandoms.length < this.min) {
         this.errors.push('fandom');

@@ -153,7 +153,7 @@ export default {
         });
         return;
       } else {
-        const fandomKey = fandom['.key'];
+        const fandomKey = this.fandom['.key'];
 
         if (!this.characters[fandomKey]) {
           db
