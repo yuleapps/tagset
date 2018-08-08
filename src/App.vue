@@ -34,7 +34,7 @@
 
       <user-lookup></user-lookup>
 
-      <!-- <bookmarks></bookmarks> -->
+      <bookmarks></bookmarks>
 
       <options></options>
 
@@ -514,6 +514,7 @@ $muted: #e4a6a6;
 
 * {
   box-sizing: border-box;
+  vertical-align: baseline;
 }
 
 #app {
@@ -665,18 +666,19 @@ $muted: #e4a6a6;
     background-color: rgba(255, 255, 255, 0.5);
   }
 
+  .meta-tag {
+    font-size: 13px;
+    font-weight: normal;
+    border: 1px solid $outline;
+    background-color: #ffffff;
+    padding: 2px 3px;
+    border-radius: 2px;
+    margin-right: 5px;
+    color: $muted-body;
+  }
+
   table.main .meta {
     font-weight: normal;
-
-    .meta-tag {
-      font-size: 0.9em;
-      border: 1px solid $outline;
-      background-color: #ffffff;
-      padding: 2px 3px;
-      border-radius: 2px;
-      margin-right: 5px;
-      color: $muted-body;
-    }
   }
 
   .fandom {
@@ -684,6 +686,26 @@ $muted: #e4a6a6;
 
     .meta {
       margin-top: 5px;
+    }
+  }
+
+  .characters {
+    li {
+      margin: 0;
+      padding: 4px 0;
+      border-bottom: 1px solid $outline-light;
+      &:last-child {
+        border: 0;
+      }
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+  .odd .characters li {
+    border-bottom: 1px solid #ffffff;
+    &:last-child {
+      border: 0;
     }
   }
 
@@ -708,30 +730,6 @@ $muted: #e4a6a6;
 
   .buttons {
     margin: 10px 0;
-  }
-
-  .bookmarks {
-    position: fixed;
-    top: 40px;
-    padding: 10px;
-    right: 0;
-    background: #fff;
-    width: 60%;
-    border: 1px solid #cfcfcf;
-    max-height: 600px;
-    overflow-y: auto;
-
-    h4 {
-      margin: 0;
-    }
-
-    &.large {
-      width: 95%;
-    }
-
-    &.collapsed {
-      width: 100px;
-    }
   }
 
   .warn {

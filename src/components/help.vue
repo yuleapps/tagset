@@ -3,6 +3,8 @@
     <div class="modal-content">
       <h2>FAQ</h2>
 
+      <span class="close fas fa-times-circle" @click="$emit('close')"></span>
+
       <h3>What is this?</h3>
       <p>The app contains the tagset for Yuletide, along with a voluntarily list of participant-submitted
         letters (before Madness) and a full list of the prompts (after Madness).</p>
@@ -52,3 +54,12 @@
 <script>
 export default {};
 </script>
+
+<style scoped>
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+</style>
+

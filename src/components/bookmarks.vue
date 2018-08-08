@@ -1,10 +1,24 @@
 <template>
   <div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
-    <h4>Bookmarks (L: {{ lettermarks.length }}, F: {{ bookmarks.length }}<template v-if="unlock">, P: {{ promptmarks.length }}</template>)
-      <a @click="expand = !expand">
-        {{ expand ? '(Collapse)' : '(Expand)' }}
-      </a>
-    </h4>
+    <span
+        @click="expand = !expand"
+        :class="['fas', { 'fa-arrow-circle-right': expand, 'fa-arrow-circle-left': !expand }]"
+      >
+      </span>
+    <h2 class="title">Bookmarks</h2>
+    <div class="counts" v-if="!expand">
+      <ul>
+        <li>
+          Letters: {{ lettermarks.length }}
+        </li>
+        <li>
+          Fandoms: {{ bookmarks.length }}
+        </li>
+        <li v-if="unlock">
+          Prompts: {{ promptmarks.length }}
+        </li>
+      </ul>
+    </div>
     <div v-show="expand">
       <div class="option">
         <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
@@ -19,7 +33,7 @@
             <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
 
-            (<a @click="removeLettermark(letter)">remove</a>)
+            <span @click="removeLettermark(letter)" class="remove fas fa-trash-alt"></span>
           </li>
         </ul>
         <span v-else>You haven't bookmarked any letters yet ):</span>
@@ -33,7 +47,6 @@
         <thead>
           <tr>
             <th class="fandom">Fandom</th>
-            <th class="category"  v-if="!options.hideCategory">Category</th>
             <th class="characters" v-if="!options.hideCharacters">Characters</th>
             <th class="letters">Letters</th>
             <th class="prompts" v-if="unlock">Prompts</th>
@@ -45,28 +58,48 @@
         >
           <td class="fandom">
             {{ fandom.name }}
-            <a @click="remove(fandom)">(Remove)</a>
+            <span @click="remove(fandom)" class="remove fas fa-trash-alt"></span>
+            <div class="meta">
+              <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
+            </div>
           </td>
-          <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
+
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
-              <li v-for="char in getCharacters(fandom['.key'])" :class="{ highlight: letterHasChar(char) }">{{char}}</li>
+              <li v-for="char in getCharacters(fandom['.key'])"
+                :class="{ highlight: letterHasChar(fandom['.key'], char) }">
+                {{char}}
+              </li>
             </ul>
           </td>
           <td class="letters">
-            <ul v-for="letter in letters[fandom['.key']]">
-              <li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
-                <template v-if="letter.isPinchhitter">(</template>
-                <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
-                <span v-if="isProlific(letter.username)">*</span>
-              <template v-if="letter.isPinchhitter">)</template>
-
-                <button class="bookmark-letter" @click="toggleLettermark(letter, fandom)">
-                  <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
+             <ul
+                v-for="letter in letters[fandom['.key']]"
+                :key="letter.username"
+              >
+                <li class="letter">
+                  <a
+                    class="user"
+                    :href="formatUrl(letter.url)" target="_blank"
+                  >{{ letter.username }}</a>
+                  <button
+                    class="bookmark-letter"
+                    @click="toggleLettermark(letter, fandom)"
+                  >
+                    <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
                   <span v-else class="far fa-heart"></span>
-                </button>
-              </li>
-            </ul>
+                  </button>
+                  <div class="meta">
+                    <!-- TODO: meta stuff -->
+                    <span v-if="isProlific(letter.username)">*</span>
+                    <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+                    <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
+                      Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
+                    </button>
+                  </div>
+
+                </li>
+              </ul>
           </td>
           <td v-if="unlock" class="prompts">
             <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
@@ -112,44 +145,47 @@
         </tr>
       </table>
       <span v-else>You haven't bookmarked any fandoms yet ):</span>
+      <template v-if="unlock">
+        <hr />
+        <h3>Prompts</h3>
 
-      <hr />n
+        <div v-if="promptmarks.length">
+          <strong>Prompts:</strong>
 
-      <div v-if="unlock && promptmarks.length">
-        <strong>Prompts:</strong>
-
-          <table class="prompts">
-            <thead>
-              <tr>
-                <th class="fave">&hearts;</th>
-                <th class="username">Username</th>
-                <th class="characters">Characters</th>
-                <th class="prompts">Prompts</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="prompt in promptmarks">
-                <td>
-                  <button
-                    class="remove-prompt"
-                    @click="removePromptmark(prompt)">x
-                  </button>
-                </td>
-                <td>
-                  {{ prompt.username }}
-                  <span v-if="isProlific(prompt.username)">*</span>
-                  <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-                </td>
-                <td>
-                  <ul v-if="prompt.characters">
-                    <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-                  </ul>
-                </td>
-                <td class="prompt" v-html="prompt.prompt"></td>
-              </tr>
-            </tbody>
-          </table>
-      </div>
+            <table class="prompts">
+              <thead>
+                <tr>
+                  <th class="fave">&hearts;</th>
+                  <th class="username">Username</th>
+                  <th class="characters">Characters</th>
+                  <th class="prompts">Prompts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="prompt in promptmarks">
+                  <td>
+                    <button
+                      class="remove-prompt"
+                      @click="removePromptmark(prompt)">x
+                    </button>
+                  </td>
+                  <td>
+                    {{ prompt.username }}
+                    <span v-if="isProlific(prompt.username)">*</span>
+                    <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+                  </td>
+                  <td>
+                    <ul v-if="prompt.characters">
+                      <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                    </ul>
+                  </td>
+                  <td class="prompt" v-html="prompt.prompt"></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <span v-else>You haven't bookmarked any prompts yet ):</span>
+      </template>
     </div>
   </div>
 </template>
@@ -220,3 +256,55 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.bookmarks {
+  z-index: 2;
+  position: fixed;
+  top: 40px;
+  padding: 10px;
+  right: 0;
+  background: #fff;
+  width: 60%;
+  border: 1px solid #cfcfcf;
+  max-height: 600px;
+  overflow-y: auto;
+
+  .title {
+    display: inline-block;
+    margin: 0;
+  }
+
+  &.large {
+    width: 95%;
+  }
+
+  &.collapsed {
+    width: 130px;
+
+    .title {
+      font-size: 16px;
+    }
+  }
+
+  th.fandom {
+    width: auto !important;
+  }
+
+  th.characters {
+    width: 200px !important;
+  }
+
+  .counts {
+    font-size: 13px;
+    margin-left: 22px;
+  }
+
+  .remove {
+    color: #a02b2b;
+    &:hover {
+      color: #c94444;
+    }
+  }
+}
+</style>
