@@ -78,7 +78,7 @@
             <ul>
               <li
                 v-for="char in getCharacters(fandom['.key'], 'char li')"
-                :class="{ highlight: letterChars.fandom === fandom['.key'] && letterHasChar(char) }"
+                :class="{ highlight: letterHasChar(fandom['.key'], char) }"
                 :key="char"
               >
                 {{char}}
@@ -106,7 +106,7 @@
                     <!-- TODO: meta stuff -->
                     <span v-if="isProlific(letter.username)">*</span>
                     <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
-                    <button class="char-count meta-tag" @click="highlightChars(letter)" @mouseleave="letterChars = []">
+                    <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
                       Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
                     </button>
                   </div>
@@ -173,7 +173,6 @@
 
 <script>
 // TODO: pinchitters
-// components
 import AddLetter from './components/add-letter.vue';
 import Bookmarks from './components/bookmarks.vue';
 import Caveats from './components/caveats.vue';
@@ -187,7 +186,7 @@ import UserLookup from './components/user-lookup.vue';
 import _ from 'lodash';
 import db from './db.js';
 import { mapGetters } from 'vuex';
-// import fdata from './data/fandoms.js';
+
 // internal
 // import hasPrompts from './data/prompts.js';
 import utils from './components/utils.js';
@@ -203,10 +202,6 @@ function removeArticlesCompare(o) {
   }
   return o.name.toLowerCase().replace(regex, '');
 }
-
-// let scrubbed = _.map(_.filter(fdata.fandoms, f => f !== null), f => {
-  // return f ? f.characters : [];
-// });
 
 export default {
   name: 'app',
@@ -258,7 +253,10 @@ export default {
       down: {},
       mods: false,
       scrollPosition: 100,
-      letterChars: {},
+      letterChars: {
+        fandom: '',
+        characters: []
+      },
       timesCalled: 0,
       filtered: [],
       updating: true
@@ -849,7 +847,7 @@ $muted: #e4a6a6;
     animation: load7 1.8s infinite ease-in-out;
   }
   .loader {
-    color: #c90d14;
+    color: $outline-light;
     font-size: 10px;
     margin: 80px auto;
     position: relative;
@@ -922,9 +920,6 @@ $muted: #e4a6a6;
     text-decoration: none;
     vertical-align: top;
     line-height: 35px;
-  }
-
-  .help {
   }
 }
 </style>

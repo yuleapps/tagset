@@ -22,13 +22,13 @@ export default {
         return result;
       });
   },
-  letterHasChar(char) {
-    return _.includes(this.letterChars, char);
+  letterHasChar(key, char) {
+    return this.letterChars.fandom === key && _.includes(this.letterChars.characters, char);
   },
-  highlightChars(letter) {
+  highlightChars(letter, key) {
     this.letterChars = {
-      fandomKey: letter.fandom['.key'],
-      characters: letters.characters
+      fandom: key,
+      characters: letter.characters
     };
   },
   toggle(fandom) {

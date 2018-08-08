@@ -174,7 +174,7 @@ export default {
     },
     scrubFandoms() {
       this.selectedFandoms = _.filter(this.selectedFandoms, f => {
-        return f !== null;
+        return f !== null && f !== undefined;
       });
     },
     edit() {
@@ -184,11 +184,19 @@ export default {
       return _.includes(this.errors, type);
     },
     update(index, data) {
+      console.log(index);
+      let newVal = this.selectedFandoms;
+
       if (!data.fandom || !data.fandom.name) {
-        this.selectedFandoms[index] = null;
+        newVal[index] = null;
       } else {
-        this.selectedFandoms[index] = data;
+        newVal[index] = data;
       }
+
+      this.selectedFandoms = [];
+      this.selectedFandoms = newVal;
+
+      console.log('updated selected to', this.selectedFandoms);
 
       const selected = [];
 

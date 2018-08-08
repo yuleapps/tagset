@@ -50,7 +50,7 @@
 
       <span v-if="charsLoading">Loading character options...</span>
 
-      <div v-if="options.length && chars && chars.length < maxChars">
+      <div v-if="Object.keys(options).length && chars && chars.length < maxChars">
         <p><em>Available selections:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]"
@@ -154,43 +154,14 @@ export default {
         return;
       } else {
         const fandomKey = this.fandom['.key'];
+        const results = _.filter(this.characters[fandomKey], o => {
+          if (!o) {
+            o = '';
+          }
+          return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
+        });
 
-        if (!this.characters[fandomKey]) {
-          db
-            .ref('/characters/' + fandomKey)
-            .once('value')
-            .then(res => {
-              const result = res.val();
-              const newVal = { ...this.characters };
-              newVal[fandomKey] = result;
-
-              this.$store.commit('setCharacters', {});
-              this.$store.commit('setCharacters', newVal);
-
-              if (!result) {
-                this.options = [];
-                return;
-              }
-
-              const results = _.filter(result, o => {
-                if (!o) {
-                  o = '';
-                }
-                return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-              });
-
-              this.options = _.difference(results, this.chars) || [];
-            });
-        } else {
-          const results = _.filter(this.characters[fandomKey], o => {
-            if (!o) {
-              o = '';
-            }
-            return o.toLowerCase().indexOf(this.term.toLowerCase()) > -1;
-          });
-
-          this.options = _.difference(results, this.chars) || [];
-        }
+        this.options = _.difference(results, this.chars) || [];
       }
     },
     removeFandom() {
@@ -230,15 +201,13 @@ export default {
 
         if (!this.characters[fandomKey]) {
           this.charsLoading = true;
-          const data = db
+
+          db
             .ref('/characters/' + fandomKey)
             .once('value')
             .then(res => {
-              const result = res.val();
-              const newVal = { ...this.characters };
-              newVal[fandomKey] = result;
-              this.$store.commit('setCharacters', {});
-              this.$store.commit('setCharacters', newVal);
+              const result = res.toJSON();
+              this.$store.commit('addChar', { key: fandomKey, result });
 
               this.options = result || [];
               this.charsLoading = false;
