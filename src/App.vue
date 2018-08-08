@@ -467,11 +467,13 @@ export default {
 $primary-body: #2c3e50;
 $muted-body: #798086;
 $outline: #cfcfcf;
+$outline-light: #e7e6e6;
 $active: #d63939;
 $muted: #e4a6a6;
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
@@ -490,6 +492,10 @@ $muted: #e4a6a6;
   input {
     line-height: 20px;
     padding: 0 3px;
+  }
+
+  select {
+    height: 20px;
   }
 
   button {
@@ -611,6 +617,7 @@ $muted: #e4a6a6;
     .meta-tag {
       font-size: 0.9em;
       border: 1px solid $outline;
+      background-color: #ffffff;
       padding: 2px 3px;
       border-radius: 2px;
       margin-right: 5px;
@@ -626,9 +633,32 @@ $muted: #e4a6a6;
     }
   }
 
+  .characters {
+    li {
+      font-size: 0.9em;
+      padding: 4px 0;
+      border-bottom: 1px solid $outline-light;
+      &:last-child {
+        border: 0;
+      }
+    }
+  }
+
+  .odd .characters li {
+    border-bottom: 1px solid #ffffff;
+    &:last-child {
+      border: 0;
+    }
+  }
+
   .letters {
     .letter {
       margin-bottom: 10px;
+      margin-right: 5px;
+    }
+
+    .meta {
+      margin-top: 2px;
     }
 
     .user {
@@ -697,6 +727,7 @@ $muted: #e4a6a6;
   }
 
   table {
+    margin-top: 20px;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
@@ -718,11 +749,11 @@ $muted: #e4a6a6;
     }
 
     th.fandom {
-      width: 40%;
+      width: 25%;
     }
 
     th.characters {
-      width: 35%;
+      width: 300px;
     }
 
     th.letters {
@@ -734,7 +765,7 @@ $muted: #e4a6a6;
     font-weight: bold;
 
     tr > th {
-      border-bottom: 1px solid #cfcfcf;
+      border-bottom: 1px solid $outline-light;
     }
   }
 
@@ -744,7 +775,7 @@ $muted: #e4a6a6;
 
   td {
     word-break: break-word;
-    padding: 10px 5px;
+    padding: 10px 10px;
     vertical-align: top;
   }
 

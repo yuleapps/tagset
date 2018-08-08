@@ -1,6 +1,8 @@
 <template>
 <div class="options">
   <div class="filters">
+    <span class="label">Filter By:</span>
+
     <label for="fandom-filter">Fandom:</label>
     <input id="fandom-filter" type="text" placeholder="Filter..." v-model='options.filter.term'>
 
