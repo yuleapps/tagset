@@ -17,7 +17,8 @@
         <button class="submit-letter" @click="showLetterModal = true">
           Submit Your Letter
         </button>
-        <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact/Donate</a>
+
+        <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact Us</a>
       </div>
 
       <add-letter
@@ -472,6 +473,10 @@ $active: #d63939;
 $muted: #e4a6a6;
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+* {
+  box-sizing: border-box;
+}
+
 #app {
   font-family: 'Nunito', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -499,7 +504,6 @@ $muted: #e4a6a6;
   }
 
   button {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     cursor: pointer;
     border: 0;
     border-radius: 2px;
@@ -865,6 +869,8 @@ $muted: #e4a6a6;
 
   .contact,
   .submit-letter {
+    display: inline-block;
+    height: 35px;
     font-size: 16px;
     margin: 10px 0;
     padding: 3px 5px;
@@ -878,7 +884,10 @@ $muted: #e4a6a6;
 
   .contact {
     background-color: $active;
+    color: #ffffff;
     text-decoration: none;
+    vertical-align: top;
+    line-height: 35px;
   }
 
   .help {
