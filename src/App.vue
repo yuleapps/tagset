@@ -13,62 +13,86 @@
         Submit Your Letter
       </button>
 
-      <add-letter 
-        v-if="showLetterModal" 
-        @close="showLetterModal = false"> 
+      <add-letter
+        v-if="showLetterModal"
+        @close="showLetterModal = false">
       </add-letter>
-      
-      <easter-eggs 
-        class="modal" 
-        v-if="showEggHelp" 
+
+      <easter-eggs
+        class="modal"
+        v-if="showEggHelp"
         @hide="showEggHelp = false"
       ></easter-eggs>
-      
+
       <user-lookup></user-lookup>
-      
+
       <bookmarks></bookmarks>
-      
+
       <options></options>
 
       <table class="main">
         <thead>
           <tr>
             <th class="fandom">Fandom</th>
-            <th class="category" v-if="!options.hideCategory">Category</th>
             <th class="characters" v-if="!options.hideCharacters">Characters</th>
             <th class="letters">Letters</th>
             <th v-if="unlock" class="prompts">Prompts</th>
           </tr>
         </thead>
-        <tr v-for="(fandom, index) in filtered" v-if="options.loadAll || index <= scrollPosition" :class="{odd: index % 2 !== 0 }">
+        <tr
+          v-if="options.loadAll || index <= scrollPosition"
+          v-for="(fandom, index) in filtered"
+          :key="index"
+          :class="{odd: index % 2 !== 0 }"
+        >
           <td class="fandom">
-            {{ fandom.name }} 
-            <div class="hide">
-              {{ fandom['.key'] }}
+            {{ fandom.name }}
+            <button
+                :class="['bookmark', { bookmarked: hasBookmark(fandom) }]"
+                @click="toggle(fandom)">&hearts;
+              </button>
+            <div class="meta">
+              <div v-if="maintenance">
+                Key: {{ fandom['.key'] }}
+              </div>
+              <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
+
             </div>
-            <button class="bookmark" v-if="!hasBookmark(fandom)" @click="add(fandom)">Bookmark</button>
           </td>
-          <td class="category" v-if="!options.hideCategory">{{fandom.category}}</td>
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
-              <li 
+              <li
                 v-for="char in getCharacters(fandom['.key'])"
                 :class="{ highlight: letterHasChar(char) }"
+                :key="char"
               >
                 {{char}}
               </li>
             </ul>
           </td>
           <td class="letters">
-              <ul v-for="letter in letters[fandom['.key']]">
-                <li @mouseenter="highlightChars(letter)" @mouseleave="letterChars = []">
-                  <template v-if="letter.isPinchhitter">(</template>
-                  <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a>
+              <ul
+                v-for="letter in letters[fandom['.key']]"
+                :key="letter.username"
+              >
+                <li class="letter">
+                  <a
+                    class="user"
+                    :href="formatUrl(letter.url)" target="_blank"
+                  >{{ letter.username }}</a>
+                  <button
+                    :class="['bookmark-letter', { bookmarked: hasLettermark(letter, fandom)}]"
+                    @click="toggleLettermark(letter, fandom)"
+                  >&hearts;</button>
+                  <div class="meta">
+                    <!-- TODO: consolidate prolific and easter eggs -->
+                    <span v-if="isProlific(letter.username)">*</span>
+                    <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+                    <button class="char-count meta-tag" @click="highlightChars(letter)" @mouseleave="letterChars = []">
+                      Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
+                    </button>
+                  </div>
 
-                  <span v-if="isProlific(letter.username)">*</span>
-                  <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
-                  <template v-if="letter.isPinchhitter">)</template>
-                  <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
                 </li>
               </ul>
           </td>
@@ -77,7 +101,7 @@
             <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
             <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
             <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-              <a href="javascript:void(0);" @click="collapse">Collapse</a>  
+              <a href="javascript:void(0);" @click="collapse">Collapse</a>
               <table class="prompts">
                 <thead>
                   <tr>
@@ -88,10 +112,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="prompt in prompts[fandom['.key']]">
+                  <tr
+                    v-for="(prompt, index) in prompts[fandom['.key']]"
+                    :key="index"
+                  >
                     <td>
-                      <button 
-                        class="bookmark-prompt" 
+                      <button
+                        class="bookmark-prompt"
                         v-if="!hasPromptmark(prompt)"
                         @click="addPromptmark(prompt)">&hearts;
                       </button>
@@ -120,621 +147,670 @@
       <caveats></caveats>
     </template>
 
-    <maintenance v-else="maintenance"></maintenance>
+    <maintenance v-else></maintenance>
 	</div>
 </template>
 
 <script>
+// TODO: pinchitters
 // components
-  import AddLetter from './components/add-letter.vue';
-  import Bookmarks from './components/bookmarks.vue';
-  import Caveats from './components/caveats.vue';
-  import EasterEggs from './components/easter-eggs.vue';
-  import Maintenance from './components/maintenance.vue';
-  import Options from './components/options.vue';
-  import UserLookup from './components/user-lookup.vue';
+import AddLetter from './components/add-letter.vue';
+import Bookmarks from './components/bookmarks.vue';
+import Caveats from './components/caveats.vue';
+import EasterEggs from './components/easter-eggs.vue';
+import Maintenance from './components/maintenance.vue';
+import Options from './components/options.vue';
+import UserLookup from './components/user-lookup.vue';
 
-  // third party
-  import _ from 'lodash';
-  import db from './db.js';
-  import { mapGetters } from 'vuex'
+// third party
+import _ from 'lodash';
+import db from './db.js';
+import { mapGetters } from 'vuex';
 
-  // internal
-  import hasPrompts from './data/prompts.js';
-  import utils from './components/utils.js';
+// internal
+import hasPrompts from './data/prompts.js';
+import utils from './components/utils.js';
 
-  // Remove english articles from fandom names
-  function removeArticlesCompare(o) {
-    const regex = /^(the\s|a\s|an\s)/i;
-    if (!o.name) {
-      return o;  
-    }
-    return o.name.toLowerCase().replace(regex, '');
+// Remove english articles from fandom names
+function removeArticlesCompare(o) {
+  const regex = /^(the\s|a\s|an\s)/i;
+  if (!o.name) {
+    return o;
   }
+  return o.name.toLowerCase().replace(regex, '');
+}
 
-  export default {
-  	name: 'app',
-  	components: {
-  		AddLetter,
-  		Bookmarks,
-  		Caveats,
-  		EasterEggs,
-  		Maintenance,
-  		Options,
-  		UserLookup
-  	},
-  	beforeMount() {
-  		const bookmarksJson = this.$localStorage.get('bookmarks');
-  		if (bookmarksJson) {
-  			this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
-  		}
+export default {
+  name: 'app',
+  components: {
+    AddLetter,
+    Bookmarks,
+    Caveats,
+    EasterEggs,
+    Maintenance,
+    Options,
+    UserLookup
+  },
+  beforeMount() {
+    const bookmarksJson = this.$localStorage.get('bookmarks');
+    if (bookmarksJson) {
+      this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
+    }
 
-  		const lettermarksJson = this.$localStorage.get('lettermarks');
-  		if (lettermarksJson) {
-  			this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
-  		}
+    const lettermarksJson = this.$localStorage.get('lettermarks');
+    if (lettermarksJson) {
+      this.$store.commit('setLettermarks', JSON.parse(lettermarksJson));
+    }
 
-  		const promptmarksJson = this.$localStorage.get('promptmarks');
-  		if (promptmarksJson) {
-  			this.$store.commit('setPromptmarks',JSON.parse(promptmarksJson));
-  		}
-  	},
-  	created() {
-  		document.addEventListener('keydown', this.easterEggs);
-  		document.addEventListener('keydown', this.unlockModTools);
-  		document.addEventListener('keyup', this.unlockModTools);
-  		window.addEventListener('scroll', this.lazyload);
-  	},
-  	beforeDestroy() {
-  		document.removeEventListener('keydown', this.easterEggs);
-  		document.removeEventListener('keydown', this.unlockModTools);
-  		document.removeEventListener('keyup', this.unlockModTools);
-  		window.removeEventListener('scroll', this.lazyload);
-  	},
-  	data() {
-  		return {
-  			showLetterModal: false,
-  			maintenance: false,
-  			showEggHelp: false,
-  			hasPrompts,
-  			down: {},
-  			mods: false,
-  			scrollPosition: 100,
-  			letterChars: [],
-        timesCalled: 0,
-        filtered: []
-  		};
-  	},
-  	computed: {
-  		lastUpdated() {
-  			const data = _.find(this.meta, { '.key': 'lastUpdated'});
+    const promptmarksJson = this.$localStorage.get('promptmarks');
+    if (promptmarksJson) {
+      this.$store.commit('setPromptmarks', JSON.parse(promptmarksJson));
+    }
+  },
+  created() {
+    document.addEventListener('keydown', this.easterEggs);
+    document.addEventListener('keydown', this.unlockModTools);
+    document.addEventListener('keyup', this.unlockModTools);
+    window.addEventListener('scroll', this.lazyload);
+  },
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.easterEggs);
+    document.removeEventListener('keydown', this.unlockModTools);
+    document.removeEventListener('keyup', this.unlockModTools);
+    window.removeEventListener('scroll', this.lazyload);
+  },
+  data() {
+    return {
+      showLetterModal: false,
+      maintenance: false,
+      showEggHelp: false,
+      hasPrompts,
+      down: {},
+      mods: false,
+      scrollPosition: 100,
+      letterChars: [],
+      timesCalled: 0,
+      filtered: []
+    };
+  },
+  computed: {
+    lastUpdated() {
+      const data = _.find(this.meta, { '.key': 'lastUpdated' });
 
-  			if (!data) {
-  				return '';
-  			}
+      if (!data) {
+        return '';
+      }
 
-  			return new Date(data['.value']).toString();
-  		},
-  		...mapGetters([
-  			'letters',
-  			'fandoms',
-  			'loaded',
-  			'bookmarks',
-        'characters',
-  			'categories',
-  			'lettermarks',
-  			'promptmarks',
-  			'unlock',
-  			'options',
-  			'user',
-  			'prompts',
-  			'showEasterEggs',
-        'loadedChars'
-  		])
-  	},
-    watch: {
-      options: {
-        deep: true,
-        handler() {
-          this.updateFilter();
-        }
-      },
-      loaded() {
-        this.updateFilter();
-      },
-      scrollPosition() {
+      return new Date(data['.value']).toString();
+    },
+    ...mapGetters([
+      'letters',
+      'fandoms',
+      'loaded',
+      'bookmarks',
+      'characters',
+      'categories',
+      'lettermarks',
+      'promptmarks',
+      'unlock',
+      'options',
+      'user',
+      'prompts',
+      'showEasterEggs',
+      'loadedChars'
+    ])
+  },
+  watch: {
+    options: {
+      deep: true,
+      handler() {
         this.updateFilter();
       }
     },
-  	methods: {
-  		...utils,
-      updateFilter() {
-        if (!this.options.onlyLetters && 
-          !this.options.onlyPrompts &&
-          !this.options.filter.term.length && 
-          !this.options.onlyBookmarks &&
-          !this.options.onlyPHs &&
-          !this.options.filter.category.length) {
-          this.filtered = _.take(_.sortBy(this.fandoms, ['category', removeArticlesCompare]), this.scrollPosition);
-        }
+    loaded() {
+      this.updateFilter();
+    },
+    scrollPosition() {
+      this.updateFilter();
+    }
+  },
+  methods: {
+    ...utils,
+    updateFilter() {
+      if (
+        !this.options.onlyLetters &&
+        !this.options.onlyPrompts &&
+        !this.options.filter.term.length &&
+        !this.options.onlyBookmarks &&
+        !this.options.onlyPHs &&
+        !this.options.filter.category.length
+      ) {
+        this.filtered = _.take(
+          _.sortBy(this.fandoms, ['category', removeArticlesCompare]),
+          this.scrollPosition
+        );
+      }
 
-        let arr = this.fandoms;
+      let arr = this.fandoms;
 
-        if (this.options.onlyPrompts) {
-          arr = _.filter(arr, o => {
-            return this.hasPrompts[o['.key']];
+      if (this.options.onlyPrompts) {
+        arr = _.filter(arr, o => {
+          return this.hasPrompts[o['.key']];
+        });
+      }
+
+      if (this.options.onlyLetters) {
+        arr = _.filter(arr, o => {
+          return this.letters[o['.key']] !== undefined;
+        });
+      }
+
+      if (this.options.onlyBookmarks) {
+        const bookmarkedFandoms = [];
+        _.each(this.bookmarks, b => {
+          bookmarkedFandoms.push(b['.key']);
+        });
+
+        arr = _.filter(arr, o => {
+          return _.includes(bookmarkedFandoms, o['.key']);
+        });
+      }
+
+      if (this.options.onlyPHs) {
+        arr = _.filter(arr, o => {
+          return _.filter(o.letters, l => {
+            return l.isPinchhitter;
+          }).length;
+        });
+      }
+
+      if (this.options.filter.category.length) {
+        arr = _.filter(arr, o => {
+          return o.category === this.options.filter.category;
+        });
+      }
+
+      if (this.options.filter.term.length) {
+        arr = _.filter(arr, o => {
+          return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
+        });
+      }
+
+      // If filtering by term, preload a bunch of characters if there are more than a few
+      if (
+        this.options.filter.term.length &&
+        Object.keys(this.characters).length < this.fandoms.length &&
+        arr.length > 5
+      ) {
+        const data = db
+          .ref('/characters')
+          .orderByKey()
+          .startAt(arr[0]['.key'])
+          .endAt(arr[arr.length - 1]['.key'])
+          .once('value')
+          .then(res => {
+            const backFill = res.val();
+            const newVal = { ...this.characters, ...backFill };
+            this.$store.commit('setCharacters', {});
+            this.$store.commit('setCharacters', newVal);
+
+            this.filtered = _.take(
+              _.sortBy(arr, ['category', removeArticlesCompare]),
+              this.scrollPosition
+            );
+          });
+        // Otherwise, just take the i/o hit
+      } else {
+        this.filtered = _.take(
+          _.sortBy(arr, ['category', removeArticlesCompare]),
+          this.scrollPosition
+        );
+      }
+    },
+    lazyload() {
+      const y = window.scrollY;
+      const totalHeight = document.body.scrollHeight;
+
+      if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
+        if (this.scrollPosition < this.fandoms.length) {
+          const prevPosition = this.scrollPosition + 1 || 101;
+          const newPosition = this.scrollPosition + 100;
+
+          const data = db
+            .ref('/characters')
+            .orderByKey()
+            .startAt(String(prevPosition))
+            .endAt(String(newPosition))
+            .once('value');
+
+          data.then(res => {
+            const backFill = res.val();
+            const newVal = { ...this.characters, ...backFill };
+            this.$store.commit('setCharacters', {});
+            this.$store.commit('setCharacters', newVal);
+            this.scrollPosition = newPosition;
           });
         }
+      }
+    },
+    collapse(e) {
+      e.target.innerText = e.target.innerText === 'Expand' ? 'Collapse' : 'Expand';
+      e.target.nextElementSibling.classList.toggle('hide');
+    },
+    getUserPrompts(username) {
+      this.$store.commit('setUser', 'Loading');
 
-        if (this.options.onlyLetters) {
+      db
+        .ref('/users/' + username)
+        .once('value')
+        .then(snapshot => {
+          let results = snapshot.val();
 
+          this.$store.commit('setUser', username);
 
-          arr = _.filter(arr, o => {
-            return this.letters[o['.key']] !== undefined;
-          });
+          if (results && results.length) {
+            this.$store.commit('setUserPrompts', results);
+          } else {
+            this.$store.commit('setUserPrompts', []);
+          }
+        });
+    },
+    unlockModTools(e) {
+      if (e.type === 'keydown') {
+        this.down[e.keyCode] = true;
+
+        // shift + 1 + 2
+        if (this.down[16] && this.down[49] && this.down[50]) {
+          this.mods = !this.mods;
         }
+      }
 
-        if (this.options.onlyBookmarks) {
-          const bookmarkedFandoms = [];
-          _.each(this.bookmarks, b => {
-            bookmarkedFandoms.push(b['.key']);
-          });
+      if (e.type === 'keyup') {
+        this.down[e.keyCode] = false;
+      }
+    },
+    // show easter eggs on F1
+    easterEggs(e) {
+      if (e.keyCode !== 112) {
+        return;
+      }
 
-          arr = _.filter(arr, o => {
-            return _.includes(bookmarkedFandoms, o['.key']);
-          });
-        }
-
-        if (this.options.onlyPHs) {
-          arr = _.filter(arr, o => {
-            return _.filter(o.letters, l => {
-              return l.isPinchhitter; 
-            }).length;
-          })
-        }
-
-        if (this.options.filter.category.length) {
-          arr = _.filter(arr, o => {
-            return o.category === this.options.filter.category;
-          });
-        }
-
-        if (this.options.filter.term.length) {
-          arr = _.filter(arr, o => {
-            return o.name.toLowerCase().indexOf(this.options.filter.term.toLowerCase()) > -1;
-          });
-        }
-
-        // If filtering by term, preload a bunch of characters if there are more than a few
-        if (this.options.filter.term.length 
-          && Object.keys(this.characters).length < this.fandoms.length 
-          && arr.length > 5) {
-
-           const data = db.ref('/characters').orderByKey()
-             .startAt(arr[0]['.key'])
-             .endAt(arr[arr.length-1]['.key'])
-             .once('value')
-             .then(res => {
-               const backFill = res.val();
-               const newVal = { ... this.characters, ...backFill };
-               this.$store.commit('setCharacters', {});
-               this.$store.commit('setCharacters', newVal);
-
-             this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
-
-           });
-          // Otherwise, just take the i/o hit
-         } else {
-           this.filtered = _.take(_.sortBy(arr, ['category', removeArticlesCompare]), this.scrollPosition);
-         }
-      },
-  		lazyload() {
-  			const y = window.scrollY;
-  			const totalHeight = document.body.scrollHeight;
-
-  			if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
-  				if (this.scrollPosition < this.fandoms.length) {
-            const prevPosition = this.scrollPosition + 1 || 101;
-  					const newPosition = this.scrollPosition + 100;
-
-            const data = db.ref('/characters').orderByKey()
-              .startAt(String(prevPosition))
-              .endAt(String(newPosition))
-              .once('value');
-
-            data.then(res => {
-              const backFill = res.val();
-              const newVal = { ... this.characters, ...backFill };
-              this.$store.commit('setCharacters', {});
-              this.$store.commit('setCharacters', newVal);
-              this.scrollPosition = newPosition;
-            });
-
-  				}
-  			}
-  		},
-  		collapse(e) {
-  			e.target.innerText = e.target.innerText === 'Expand' 
-  				? 'Collapse'
-  				: 'Expand'; 
-  			e.target.nextElementSibling.classList.toggle('hide');
-  		},
-  		getUserPrompts(username) {
-  			this.$store.commit('setUser', 'Loading');
-
-  			db.ref('/users/' + username).once('value').then(snapshot => {
-  				let results = snapshot.val();
-
-  				this.$store.commit('setUser', username);
-  				
-  				if (results && results.length) {
-  					this.$store.commit('setUserPrompts', results);
-  				} else {
-  					this.$store.commit('setUserPrompts', []);
-  				}
-  			});
-  		},
-  		unlockModTools(e) {
-  			if (e.type === 'keydown') {
-  				this.down[e.keyCode] = true;
-
-  				// shift + 1 + 2
-  				if (this.down[16] && this.down[49] && this.down[50]) {
-  					this.mods = !this.mods;
-  				}
-  			} 
-
-  			if (e.type === 'keyup') {
-  				this.down[e.keyCode] = false;
-  			}
-
-  		},
-  		// show easter eggs on F1
-  		easterEggs(e) {
-  			if (e.keyCode !== 112) {
-  				return;
-  			}
-
-  			this.$store.commit('setEggs', !this.showEasterEggs);
-  			this.showEggHelp = true;
-  		},
-  		// utilities
-  		scrollToTop() {
-  			document.body.scrollTop = 0; 
-  			document.documentElement.scrollTop = 0; 
-  		}
-  	}
-  };
+      this.$store.commit('setEggs', !this.showEasterEggs);
+      this.showEggHelp = true;
+    },
+    // utilities
+    scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
+$primary-body: #2c3e50;
+$muted-body: #798086;
+$outline: #cfcfcf;
+$active: #d63939;
+$muted: #e4a6a6;
+
 #app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  text-align: left;
+  color: $primary-body;
 
-	font-family: 'Avenir', Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: left;
-	color: #2c3e50;
+  .highlight {
+    font-weight: bold;
+  }
 
-	.highlight {
-		font-weight: bold;
-	}
+  a,
+  .cancel {
+    cursor: pointer;
+    color: #e74c3c;
+  }
 
-	a,
-	.cancel {
-		cursor: pointer;
-		color: #e74c3c;
-	}
+  .cancel {
+    border: 0;
+    background-color: transparent;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+  }
 
-	.cancel {
-		border: 0;
-		background-color: transparent;
-		position: absolute;
-		bottom: 10px;
-		right: 10px;
-		font-size: 14px;
-	}
+  .options {
+    overflow: hidden;
 
-	.options {
-		overflow: hidden;
+    .option {
+      float: left;
+      width: 250px;
+    }
 
-		.option {
-			float: left;
-			width: 250px;
-		}
+    .clear {
+      max-width: 750px;
+      color: rgba(0, 0, 0, 0.5);
+      line-height: 14px;
+      margin-bottom: 3px;
+    }
+  }
 
-		.clear {
-			max-width: 750px;
-			color: rgba(0,0,0, 0.5);
-			line-height: 14px;
-			margin-bottom: 3px;
-		}
-	}
+  .clear {
+    clear: both;
+  }
 
-	.clear {
-		clear: both;
-	}
+  .scroll-top {
+    position: fixed;
+    z-index: 1;
+    right: 10px;
+    bottom: 5px;
+    background-color: #fff;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 5px;
+    font-weight: bold;
+    border: 1px solid #cfcfcf;
+  }
 
-	.scroll-top {
-		position: fixed; 
-		z-index: 1;
-		right: 10px;
-		bottom: 5px;
-		background-color: #fff;
-		color: #e74c3c;
-		cursor: pointer;
-		padding: 5px;
-		font-weight: bold;
-		border: 1px solid #cfcfcf;
-	}
+  .meta {
+    font-size: smaller;
+  }
 
-	.meta {
-		font-size: smaller;
-	}
+  .modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
 
-	.modal {
-			position: fixed; /* Stay in place */
-			z-index: 1; /* Sit on top */
-			left: 0;
-			top: 0;
-			width: 100%; /* Full width */
-			height: 100%; /* Full height */
-			overflow: auto; /* Enable scroll if needed */
-			background-color: rgb(0,0,0); /* Fallback color */
-			background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	}
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 20px auto;
+    padding: 20px;
+    padding-bottom: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    position: relative;
 
-	/* Modal Content/Box */
-	.modal-content {
-			background-color: #fefefe;
-			margin: 20px auto; 
-			padding: 20px;
-			padding-bottom: 30px;
-			border: 1px solid #888;
-			width: 80%; 
-      max-width: 800px;
-			position: relative;
+    .input {
+      margin-bottom: 5px;
+    }
+  }
 
-			.input {
-				margin-bottom: 5px;
-			}
-	}
+  input {
+    line-height: 20px;
+    padding: 0 3px;
+  }
 
-	input {
-		line-height: 20px;
-		padding: 0 3px;
-	}
+  button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+  }
 
-	.user-lookup {
-		position: fixed;
-		top: 40px;
-		left: 0;
-		background: #fff;
-		width: 40%;
-		border: 1px solid #cfcfcf;
-		max-height: 600px;
-		overflow-y: auto;
-		padding: 10px;
+  .user-lookup {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    background: #fff;
+    width: 40%;
+    border: 1px solid #cfcfcf;
+    max-height: 600px;
+    overflow-y: auto;
+    padding: 10px;
 
-		.heading {
-			margin-bottom: 10px;
-		}
+    .heading {
+      margin-bottom: 10px;
+    }
 
-		&.collapsed {
-			display: none;
-		}
+    &.collapsed {
+      display: none;
+    }
 
-		.close-lookup {
-			position: absolute;
-			top: 10px;
-			right: 15px;
-		}
-	}
+    .close-lookup {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+  }
 
-	.bookmarks {
-		position: fixed; 
-		top: 40px;
-		padding: 10px;
-		right: 0;
-		background: #fff;
-		width: 60%;
-		border: 1px solid #cfcfcf;
-		max-height: 600px;
-		overflow-y: auto;
+  // Table styles
 
-		h4 {
-			margin: 0;
-		}
+  table.main .meta {
+    font-weight: normal;
 
-		&.large {
-			width: 95%;
-		}
+    .meta-tag {
+      font-size: 0.9em;
+      border: 1px solid $outline;
+      padding: 2px 3px;
+      border-radius: 2px;
+      margin-right: 5px;
+      color: $muted-body;
+    }
+  }
 
-		&.collapsed {
-			width: 100px;
-		}
-	}
+  .fandom {
+    font-weight: bold;
 
-	.warn {
-		margin-bottom: 10px;
-	}
+    .meta {
+      margin-top: 5px;
+    }
+  }
 
-	.input {
-		label {
-			display: inline-block;
-			width: 90px;
-		}
-	}
+  .letters {
+    .letter {
+      margin-bottom: 10px;
+    }
 
-	.add {
-		margin-top: 15px;
-	}
+    .user {
+      font-weight: bold;
+    }
 
-	.bookmark, button, .bookmark-letter, .bookmark-prompt {
-		cursor: pointer;
-		color: #fff;
-		background-color: #34495e;
-		border: 0;
-		border-radius: 2px;
-	}
+    .char-count {
+      background: transparent;
+    }
+  }
 
-	.bookmark-letter,
-	.bookmark-prompt,
-	.remove-prompt {
-		color: #d63939;
-		font-size: 14px;
-		background-color: transparent;
-		padding: 0;
+  .bookmarks {
+    position: fixed;
+    top: 40px;
+    padding: 10px;
+    right: 0;
+    background: #fff;
+    width: 60%;
+    border: 1px solid #cfcfcf;
+    max-height: 600px;
+    overflow-y: auto;
 
-		&:hover{
-			color: #e4a6a6;
-		}
-	}
+    h4 {
+      margin: 0;
+    }
 
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-		width: 100%;
-		table-layout: fixed;
+    &.large {
+      width: 95%;
+    }
 
-		&.prompts {
-			font-size: smaller;
+    &.collapsed {
+      width: 100px;
+    }
+  }
 
-			th.username,
-			th.characters {
-				width: 20%;				
-			}
+  .warn {
+    margin-bottom: 10px;
+  }
 
-			td {
+  .input {
+    label {
+      display: inline-block;
+      width: 90px;
+    }
+  }
 
-				&.prompt {
-					word-break: break-word;
-				}
-			}
-		}
+  .add {
+    margin-top: 15px;
+  }
 
-		th.fave {
-			width: 20px;
-		}
+  .bookmark,
+  .bookmark-letter,
+  .bookmark-prompt,
+  .remove-prompt {
+    color: $muted;
+    font-size: 14px;
+    background-color: transparent;
+    padding: 0;
 
-		th.fandom {
-			width: 20%;
-		}
+    &.bookmarked,
+    &:hover {
+      color: $active;
+    }
+  }
 
-		th.category,
-		th.characters,
-		th.letters {
-			width: 15%;
-		}
-	}
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
 
-	thead {
-		font-weight: bold;
+    &.prompts {
+      font-size: smaller;
 
-		tr > th {
-			border-bottom: 1px solid #cfcfcf;
-		}
+      th.username,
+      th.characters {
+        width: 20%;
+      }
 
-	}
+      td {
+        &.prompt {
+          word-break: break-word;
+        }
+      }
+    }
 
-	tr.odd {
-		background-color: rgba(0, 0, 0, 0.1);
-	}
+    th.fave {
+      width: 20px;
+    }
 
-	td {
-		word-break: break-word;
-		padding: 10px 5px;
-		vertical-align: top;
+    th.fandom {
+      width: 20%;
+    }
 
-		.characters {
-			max-width: 300px;
-		}
-	}
+    th.category,
+    th.characters,
+    th.letters {
+      width: 15%;
+    }
+  }
 
-	ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
+  thead {
+    font-weight: bold;
 
-		li {
-			margin-bottom: 3px;
-		}
-	}
+    tr > th {
+      border-bottom: 1px solid #cfcfcf;
+    }
+  }
 
-	.caveats {
-		text-decoration: italic;
-		margin-bottom: 10px;
-	}
+  tr.odd {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
-	/* https://projects.lukehaas.me/css-loaders/ */
-	.loader,
-	.loader:before,
-	.loader:after {
-		border-radius: 50%;
-		width: 2.5em;
-		height: 2.5em;
-		-webkit-animation-fill-mode: both;
-		animation-fill-mode: both;
-		-webkit-animation: load7 1.8s infinite ease-in-out;
-		animation: load7 1.8s infinite ease-in-out;
-	}
-	.loader {
-		color: #c90d14;
-		font-size: 10px;
-		margin: 80px auto;
-		position: relative;
-		text-indent: -9999em;
-		-webkit-transform: translateZ(0);
-		-ms-transform: translateZ(0);
-		transform: translateZ(0);
-		-webkit-animation-delay: -0.16s;
-		animation-delay: -0.16s;
-	}
-	.loader:before,
-	.loader:after {
-		content: '';
-		position: absolute;
-		top: 0;
-	}
-	.loader:before {
-		left: -3.5em;
-		-webkit-animation-delay: -0.32s;
-		animation-delay: -0.32s;
-	}
-	.loader:after {
-		left: 3.5em;
-	}
-	@-webkit-keyframes load7 {
-		0%,
-		80%,
-		100% {
-			box-shadow: 0 2.5em 0 -1.3em;
-		}
-		40% {
-			box-shadow: 0 2.5em 0 0;
-		}
-	}
-	@keyframes load7 {
-		0%,
-		80%,
-		100% {
-			box-shadow: 0 2.5em 0 -1.3em;
-		}
-		40% {
-			box-shadow: 0 2.5em 0 0;
-		}
-	}
+  td {
+    word-break: break-word;
+    padding: 10px 5px;
+    vertical-align: top;
+  }
 
-	.hide {
-		display: none;
-		font-size: 10px;
-		color: rgba(0,0,0,0.35);
-	}
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 
-	.submit-letter {
-		font-size: 16px;
-		margin: 10px 0;
-	}
+    li {
+      margin-bottom: 3px;
+    }
+  }
 
+  .caveats {
+    text-decoration: italic;
+    margin-bottom: 10px;
+  }
+
+  /* https://projects.lukehaas.me/css-loaders/ */
+  .loader,
+  .loader:before,
+  .loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+  }
+  .loader {
+    color: #c90d14;
+    font-size: 10px;
+    margin: 80px auto;
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+  .loader:before,
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+  .loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+  .loader:after {
+    left: 3.5em;
+  }
+  @-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+  @keyframes load7 {
+    0%,
+    80%,
+    100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+      box-shadow: 0 2.5em 0 0;
+    }
+  }
+
+  .hide {
+    display: none;
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.35);
+  }
+
+  .submit-letter {
+    font-size: 16px;
+    margin: 10px 0;
+  }
 }
 </style>

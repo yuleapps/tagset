@@ -8,7 +8,7 @@
     <div v-show="expand">
       <div class="option">
         <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
-        <label for="expand-bookmarks">Make this wider</label>  
+        <label for="expand-bookmarks">Make this wider</label>
       </div>
 
       <div>
@@ -16,7 +16,7 @@
         <ul>
           <li v-for="letter in lettermarks">
             <template v-if="letter.isPinchhitter">(</template>
-            <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }}) 
+            <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
 
             (<a @click="removeLettermark(letter)">x</a>)
@@ -36,8 +36,8 @@
             <th class="prompts" v-if="unlock">Prompts</th>
           </tr>
         </thead>
-        <tr 
-          v-for="(fandom, index) in bookmarksData" 
+        <tr
+          v-for="(fandom, index) in bookmarksData"
           :class="{ odd: index % 2 !== 0 }"
         >
           <td class="fandom">
@@ -58,7 +58,7 @@
                 <span v-if="isProlific(letter.username)">*</span>
               <template v-if="letter.isPinchhitter">)</template>
 
-                <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="addLettermark(letter, fandom)">&hearts;</button>
+                <button class="bookmark-letter" v-if="!hasLettermark(letter, fandom)" @click="toggleLettermark(letter, fandom)">&hearts;</button>
               </li>
             </ul>
           </td>
@@ -66,7 +66,7 @@
             <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
             <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
             <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-              <a href="javascript:void(0);" @click="collapse">Collapse</a>  
+              <a href="javascript:void(0);" @click="collapse">Collapse</a>
               <table class="prompts">
                 <thead>
                   <tr>
@@ -79,8 +79,8 @@
                 <tbody>
                   <tr v-for="prompt in prompts[fandom['.key']]">
                     <td>
-                      <button 
-                        class="bookmark-prompt" 
+                      <button
+                        class="bookmark-prompt"
                         v-if="!hasPromptmark(prompt)"
                         @click="addPromptmark(prompt)">&hearts;
                       </button>
@@ -123,8 +123,8 @@
             <tbody>
               <tr v-for="prompt in promptmarks">
                 <td>
-                  <button 
-                    class="remove-prompt" 
+                  <button
+                    class="remove-prompt"
                     @click="removePromptmark(prompt)">x
                   </button>
                 </td>
@@ -143,74 +143,72 @@
             </tbody>
           </table>
       </div>
-    </div>  
+    </div>
   </div>
 </template>
 
 <script>
-  import _ from 'lodash';
-  import hasPrompts from '../data/prompts.js';
-  import { mapGetters } from 'vuex';
-  import utils from './utils.js';
-  export default {
-    beforeMount() {
-        const data = [];
-        _.each(this.bookmarks, o => {
-          const fandom = _.find(this.fandoms, fandom => {
-            return fandom['.key'] === o['.key'];
-          });
+import _ from 'lodash';
+import hasPrompts from '../data/prompts.js';
+import { mapGetters } from 'vuex';
+import utils from './utils.js';
+export default {
+  beforeMount() {
+    const data = [];
+    _.each(this.bookmarks, o => {
+      const fandom = _.find(this.fandoms, fandom => {
+        return fandom['.key'] === o['.key'];
+      });
 
-          if (fandom) {
-            data.push(fandom);
-          }
-
-        });
-
-        this.bookmarksData = data;
-    },
-    watch: {
-      bookmarks() {
-        console.log('hello');
-        const data = [];
-        _.each(this.bookmarks, o => {
-          const fandom = _.find(this.fandoms, fandom => {
-            return fandom['.key'] === o['.key'];
-          });
-
-          if (fandom) {
-            data.push(fandom);
-          }
-
-        });
-
-        this.bookmarksData = data;
+      if (fandom) {
+        data.push(fandom);
       }
-    },
-    computed: {
-      ...mapGetters([
-        'letters',
-        'options',
-        'fandoms',
-        'bookmarks',
-        'characters',
-        'promptmarks',
-        'lettermarks',
-        'prompts',
-        'unlock',
-        'showEasterEggs'
-      ]),
-    },
-    data() {
-      return {
-        letterChars: [],
-        hasPrompts,
-        expand: false,
-        bookmarksData: [],
-        largeBookmarks: false
-      };
-    },
-    methods: {
-      ...utils
+    });
+
+    this.bookmarksData = data;
+  },
+  watch: {
+    bookmarks() {
+      console.log('hello');
+      const data = [];
+      _.each(this.bookmarks, o => {
+        const fandom = _.find(this.fandoms, fandom => {
+          return fandom['.key'] === o['.key'];
+        });
+
+        if (fandom) {
+          data.push(fandom);
+        }
+      });
+
+      this.bookmarksData = data;
     }
-  };
+  },
+  computed: {
+    ...mapGetters([
+      'letters',
+      'options',
+      'fandoms',
+      'bookmarks',
+      'characters',
+      'promptmarks',
+      'lettermarks',
+      'prompts',
+      'unlock',
+      'showEasterEggs'
+    ])
+  },
+  data() {
+    return {
+      letterChars: [],
+      hasPrompts,
+      expand: false,
+      bookmarksData: [],
+      largeBookmarks: false
+    };
+  },
+  methods: {
+    ...utils
+  }
+};
 </script>
