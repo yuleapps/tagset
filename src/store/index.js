@@ -1,6 +1,11 @@
 const state = {
   loadedChars: false,
   loaded: false,
+  loadAll: {
+    characters: false,
+    fandoms: false,
+    letters: false
+  },
   characters: {},
   fandoms: [],
   letters: {},
@@ -23,13 +28,22 @@ const state = {
     onlyPrompts: false,
     onlyPHs: false,
     destyle: false,
-    loadAll: false,
     hideCharacters: false,
     hideCategory: false
   }
 };
 
 const mutations = {
+  addChar(state, payload) {
+    const old = Object.keys(state.characters).length;
+    const newVal = state.characters;
+    newVal[payload.key] = payload.result;
+    state.characters = {};
+    state.characters = newVal;
+  },
+  loadAllChars(state, val) {
+    state.loadAll.characters = true;
+  },
   setCharsLoaded(state, val) {
     state.loadedChars = true;
   },
@@ -91,6 +105,7 @@ const mutations = {
 };
 
 const getters = {
+  loadAll: state => state.loadAll,
   loadedChars: state => state.loadedChars,
   characters: state => state.characters,
   letters: state => state.letters,

@@ -8,7 +8,7 @@
 
     <help v-if="showHelp" @close="showHelp = false"></help>
 
-    <div v-if="!loaded ||!loadedChars" class="loader">Loading...</div>
+    <div v-if="!loaded || !loadedChars" class="loader">Loading...</div>
 
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
@@ -34,7 +34,7 @@
 
       <user-lookup></user-lookup>
 
-      <bookmarks></bookmarks>
+      <!-- <bookmarks></bookmarks> -->
 
       <options></options>
 
@@ -47,7 +47,11 @@
             <th v-if="unlock" class="prompts">Prompts</th>
           </tr>
         </thead>
-        <tr
+        <tbody>
+          <tr class="overlay" v-if="updating">
+            <td><div></div></td>
+          </tr>
+          <tr
           v-if="options.loadAll || index <= scrollPosition"
           v-for="(fandom, index) in filtered"
           :key="index"
@@ -73,8 +77,8 @@
           <td class="characters" v-if="!options.hideCharacters">
             <ul>
               <li
-                v-for="char in getCharacters(fandom['.key'])"
-                :class="{ highlight: letterHasChar(char) }"
+                v-for="char in getCharacters(fandom['.key'], 'char li')"
+                :class="{ highlight: letterChars.fandom === fandom['.key'] && letterHasChar(char) }"
                 :key="char"
               >
                 {{char}}
@@ -99,7 +103,7 @@
                   <span v-else class="far fa-heart"></span>
                   </button>
                   <div class="meta">
-                    <!-- TODO: consolidate prolific and easter eggs -->
+                    <!-- TODO: meta stuff -->
                     <span v-if="isProlific(letter.username)">*</span>
                     <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
                     <button class="char-count meta-tag" @click="highlightChars(letter)" @mouseleave="letterChars = []">
@@ -156,6 +160,8 @@
             <span v-else-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
           </td>
         </tr>
+        </tbody>
+
       </table>
 
       <caveats></caveats>
@@ -181,19 +187,26 @@ import UserLookup from './components/user-lookup.vue';
 import _ from 'lodash';
 import db from './db.js';
 import { mapGetters } from 'vuex';
-
+// import fdata from './data/fandoms.js';
 // internal
-import hasPrompts from './data/prompts.js';
+// import hasPrompts from './data/prompts.js';
 import utils from './components/utils.js';
 
 // Remove english articles from fandom names
 function removeArticlesCompare(o) {
+  if (!o) {
+    return;
+  }
   const regex = /^(the\s|a\s|an\s)/i;
   if (!o.name) {
     return o;
   }
   return o.name.toLowerCase().replace(regex, '');
 }
+
+// let scrubbed = _.map(_.filter(fdata.fandoms, f => f !== null), f => {
+  // return f ? f.characters : [];
+// });
 
 export default {
   name: 'app',
@@ -241,13 +254,14 @@ export default {
       maintenance: false,
       showEggHelp: false,
       showHelp: false,
-      hasPrompts,
+      // hasPrompts,
       down: {},
       mods: false,
       scrollPosition: 100,
-      letterChars: [],
+      letterChars: {},
       timesCalled: 0,
-      filtered: []
+      filtered: [],
+      updating: true
     };
   },
   computed: {
@@ -274,14 +288,35 @@ export default {
       'user',
       'prompts',
       'showEasterEggs',
-      'loadedChars'
+      'loadedChars',
+      'loadAll'
     ])
   },
   watch: {
     options: {
       deep: true,
-      handler() {
-        this.updateFilter();
+      handler(val) {
+        this.updating = true;
+        if (val.loadAll && !this.loadAll.characters) {
+          const data = db
+            .ref('/characters')
+            .orderByKey()
+            .startAt(String(0))
+            .endAt(String(this.fandoms.length - 1))
+            .once('value')
+            .then(res => {
+              const backFill = res.val();
+              // TODO: backfill null values in JSON in chars that should exist in fandoms
+              // so that the characters database.length === fandoms.length
+              const newVal = { ...this.characters, ...backFill };
+              this.$store.commit('loadAllChars', true);
+              this.$store.commit('setCharacters', {});
+              this.$store.commit('setCharacters', newVal);
+              return (this.scrollPosition = this.fandoms.length);
+            });
+        } else {
+          this.updateFilter();
+        }
       }
     },
     loaded() {
@@ -294,6 +329,8 @@ export default {
   methods: {
     ...utils,
     updateFilter() {
+      this.updating = true;
+
       if (
         !this.options.onlyLetters &&
         !this.options.onlyPrompts &&
@@ -306,6 +343,7 @@ export default {
           _.sortBy(this.fandoms, ['category', removeArticlesCompare]),
           this.scrollPosition
         );
+        this.updating = false;
       }
 
       let arr = this.fandoms;
@@ -353,28 +391,31 @@ export default {
         });
       }
 
-      // If filtering by term, preload a bunch of characters if there are more than a few
+      // If filtering by term, preload everything if there are more than a few
       if (
-        this.options.filter.term.length &&
-        Object.keys(this.characters).length < this.fandoms.length &&
+        (this.options.filter.term.length || this.options.filter.category.length) &&
+        !this.loadAll.characters &&
         arr.length > 5
       ) {
         const data = db
           .ref('/characters')
           .orderByKey()
-          .startAt(arr[0]['.key'])
-          .endAt(arr[arr.length - 1]['.key'])
+          .startAt(String(0))
+          .endAt(String(this.fandoms.length - 1))
           .once('value')
           .then(res => {
             const backFill = res.val();
+            // TODO: backfill null values in JSON in chars that should exist in fandoms
+            // so that the characters database.length === fandoms.length
             const newVal = { ...this.characters, ...backFill };
+            this.$store.commit('loadAllChars', true);
             this.$store.commit('setCharacters', {});
             this.$store.commit('setCharacters', newVal);
-
             this.filtered = _.take(
               _.sortBy(arr, ['category', removeArticlesCompare]),
               this.scrollPosition
             );
+            this.updating = false;
           });
         // Otherwise, just take the i/o hit
       } else {
@@ -382,6 +423,7 @@ export default {
           _.sortBy(arr, ['category', removeArticlesCompare]),
           this.scrollPosition
         );
+        this.updating = false;
       }
     },
     lazyload() {
@@ -471,14 +513,13 @@ $outline: #cfcfcf;
 $outline-light: #e7e6e6;
 $active: #d63939;
 $muted: #e4a6a6;
-@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 * {
   box-sizing: border-box;
 }
 
 #app {
-  font-family: 'Nunito', 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, 'Segoe UI', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
@@ -615,6 +656,17 @@ $muted: #e4a6a6;
 
   // Table styles
 
+  .main {
+    position: relative;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
   table.main .meta {
     font-weight: normal;
 
@@ -634,24 +686,6 @@ $muted: #e4a6a6;
 
     .meta {
       margin-top: 5px;
-    }
-  }
-
-  .characters {
-    li {
-      font-size: 0.9em;
-      padding: 4px 0;
-      border-bottom: 1px solid $outline-light;
-      &:last-child {
-        border: 0;
-      }
-    }
-  }
-
-  .odd .characters li {
-    border-bottom: 1px solid #ffffff;
-    &:last-child {
-      border: 0;
     }
   }
 

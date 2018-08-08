@@ -9,18 +9,16 @@ export default {
       return chars;
     }
 
+    if (this.loadAll.characters) {
+      return null;
+    }
+
     db
       .ref('/characters/' + fandomKey)
       .once('value')
       .then(res => {
-        this.timesCalled++;
-        const result = res.val();
-        const newVal = { ...this.characters };
-        newVal[fandomKey] = result;
-
-        this.$store.commit('setCharacters', {});
-        this.$store.commit('setCharacters', newVal);
-
+        const result = res.toJSON();
+        this.$store.commit('addChar', { key: fandomKey, result });
         return result;
       });
   },
@@ -28,7 +26,10 @@ export default {
     return _.includes(this.letterChars, char);
   },
   highlightChars(letter) {
-    this.letterChars = letter.characters;
+    this.letterChars = {
+      fandomKey: letter.fandom['.key'],
+      characters: letters.characters
+    };
   },
   toggle(fandom) {
     if (_.includes(this.bookmarks, fandom)) {

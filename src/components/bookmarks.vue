@@ -113,7 +113,7 @@
       </table>
       <span v-else>You haven't bookmarked any fandoms yet ):</span>
 
-      <hr />
+      <hr />n
 
       <div v-if="unlock && promptmarks.length">
         <strong>Prompts:</strong>
@@ -202,7 +202,8 @@ export default {
       'lettermarks',
       'prompts',
       'unlock',
-      'showEasterEggs'
+      'showEasterEggs',
+      'loadAll'
     ])
   },
   data() {

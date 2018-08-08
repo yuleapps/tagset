@@ -40,30 +40,43 @@ new Vue({
       letters: {}
     };
   },
-  firebase: {
-    fandoms: {
-      source: fandomsRef,
-      readyCallback() {
+  beforeMount() {
+    db
+      .ref('/characters')
+      .limitToFirst(100)
+      .once('value')
+      .then(res => {
+        const result = res.toJSON();
+        store.commit('setCharsLoaded', true);
+        store.commit('setCharacters', result);
+      });
+    db
+      .ref('/fandomsonly')
+      .once('value')
+      .then(res => {
+        let result = res.val();
         store.commit('setDbLoaded', true);
-        store.commit('setFandoms', this.fandoms);
+        result = _.map(result, (o, i) => {
+          return {
+            ...o,
+            '.key': i
+          };
+        });
+        store.commit('setFandoms', result);
         store.commit(
           'setCategories',
           _.uniq(
-            _.map(this.fandoms, o => {
+            _.map(result, o => {
+              if (!o) {
+                return {};
+              }
               return o.category;
             })
           )
         );
-      }
-    },
-    characters: {
-      source: db.ref('/characters').limitToFirst(100),
-      asObject: true,
-      readyCallback() {
-        store.commit('setCharsLoaded', true);
-        store.commit('setCharacters', this.characters['.value']);
-      }
-    },
+      });
+  },
+  firebase: {
     letters: {
       source: db.ref('/letters'),
       asObject: true,

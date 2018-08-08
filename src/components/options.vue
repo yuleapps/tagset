@@ -41,7 +41,8 @@
     <span class="label">Tools:</span>
     <div class="option">
       <input type="checkbox" id="load-all" v-model="options.loadAll">
-      <label for="load-all">Load everything!<sup><span class="fas fa-exclamation-circle warn" @click="showMsg = !showMsg"></span></sup></label>
+      <label for="load-all">Load everything!</label>
+      <sup><span class="fas fa-exclamation-circle warn" @click="showMsg = !showMsg"></span></sup>
     </div>
     <div class="option">
       <input type="checkbox" id="hide-chars" v-model="options.hideCharacters">
@@ -66,26 +67,18 @@ import db from '../db.js';
 import _ from 'lodash';
 export default {
   computed: {
-    ...mapGetters(['unlock', 'categories'])
+    ...mapGetters([
+      'unlock',
+      'categories',
+      'loadAll'
+    ])
   },
   watch: {
     options: {
       handler(val) {
         _.debounce(() => {
           this.$store.commit('setOptions', val);
-
-          if (val.loadAll && !this.loadedAll) {
-            db
-              .ref('/characters')
-              .once('value')
-              .then(res => {
-                const result = res.val();
-                this.$store.commit('setCharacters', {});
-                this.$store.commit('setCharacters', result);
-                this.loadedAll = true;
-              });
-          }
-        }, 900)();
+        }, 400)();
       },
       deep: true
     }
@@ -98,7 +91,6 @@ export default {
           category: '',
           term: ''
         },
-        loadedAll: false,
         onlyLetters: false,
         onlyBookmarks: false,
         onlyPrompts: false,
