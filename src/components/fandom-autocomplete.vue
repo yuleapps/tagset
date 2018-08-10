@@ -277,7 +277,6 @@ input {
 
 .character {
   cursor: pointer;
-
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   padding: 2px;

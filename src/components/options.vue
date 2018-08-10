@@ -141,6 +141,9 @@ export default {
     .label {
       vertical-align: top;
     }
+
+    .option {
+    }
   }
 }
 

@@ -11,6 +11,14 @@
       }
     }
 
+    .options {
+      .filters {
+        .option:last-child {
+          margin-top: 5px;
+        }
+      }
+    }
+
     // BOOKMARKS
     .bookmarks {
       bottom: 0;
