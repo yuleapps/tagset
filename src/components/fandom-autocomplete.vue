@@ -68,7 +68,7 @@
       <p v-else-if="Object.keys(options).length === 0 && !chars.length">No characters were nominated</p>
     </div>
 
-    <p class="msg"> {{ msg }}</p>
+    <p class="msg" v-if="msg"> {{ msg }}</p>
 
   </div>
 </template>

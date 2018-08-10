@@ -10,7 +10,6 @@
         Go and do that first <a href="#TODO">on AO3</a>.
       </p>
 
-
       <div v-show="!isReview">
         <div :class="['input username', { error: hasError('username')}]">
           <label for="username">AO3 Username:</label>
@@ -238,6 +237,7 @@ label {
 }
 
 .fandom-autocomplete {
+  margin: 10px 0;
   border-top: 1px solid #cfcfcf;
   padding: 10px 0;
 }

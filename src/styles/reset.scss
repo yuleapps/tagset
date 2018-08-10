@@ -64,9 +64,8 @@ input[type='text'] {
   height: 30px;
   line-height: 30px;
   padding: 0.5em 0.3em;
-  border-radius: 2px;
   border: 1px solid $outline;
-  // background-color: rgba(0, 0, 0, 0.02);
+  width: 180px;
   color: #333;
   border: 0;
   border-bottom: 2px solid $muted-body;
