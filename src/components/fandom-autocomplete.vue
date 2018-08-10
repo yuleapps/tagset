@@ -250,13 +250,8 @@ export default {
 <style lang="scss" scoped>
 label {
   font-weight: bold;
-  width: 130px;
+  width: 90px;
   display: inline-block;
-}
-
-input {
-  height: 24px;
-  font-size: 14px;
 }
 
 .msg,
