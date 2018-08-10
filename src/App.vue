@@ -24,7 +24,6 @@
         </ul>
       </div>
 
-
       <bookmarks :force-expand="expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
@@ -37,8 +36,6 @@
       ></easter-eggs>
 
       <user-lookup></user-lookup>
-
-
       <options></options>
 
       <table class="main">

@@ -7,13 +7,15 @@
 
       <h3>What is this?</h3>
       <p>The app contains the tagset for Yuletide, along with a voluntarily list of participant-submitted
-        letters (before Madness) and a full list of the prompts (after Madness).</p>
+        letters (before Madness) and a full list of the prompts (after Madness TODO: add date).</p>
 
       <h3>Does submitting a letter mean I'm signed up?</h3>
-      <p>No. You have to sign up for Yuletide on AO3.</p>
+      <p>No. You have to sign up for Yuletide on AO3 (TODO: add link). Conversely, you do not have to submit a letter to this
+         app if you don't want to.
+      </p>
 
       <h3>Help! I messed up submitting my letter!</h3>
-      <p>Hit up the big red Contact Us button and let a mod know; they will help you out!</p>
+      <p>Hit up the Contact link on the menu and let a mod know; they will help you out!</p>
 
       <h3>What? A nominated fandom isn't listed the big table!</h3>
       <p>Fandoms are loaded in increments of 100 to save data. If you tried using your in-browser search (Ctrl-F),

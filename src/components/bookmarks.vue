@@ -3,7 +3,7 @@
     <div class="header">
       <span
           @click="expand = !expand"
-          :class="['fas', { 'fa-arrow-circle-right': expand, 'fa-arrow-circle-left': !expand }]"
+          :class="['fas', { 'fa-angle-double-right': expand, 'fa-angle-double-left': !expand }]"
         >
         </span>
       <h2 class="title">Bookmarks</h2>

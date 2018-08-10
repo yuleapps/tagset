@@ -25,7 +25,7 @@ $muted: #e4a6a6;
   z-index: 1;
   background-color: #ffffff;
   &.sticky {
-    border-bottom: 1px solid $muted-body;
+    border-bottom: 1px solid $outline;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,24 +36,22 @@ $muted: #e4a6a6;
 
   ul {
     list-style-type: none;
+    display: inline;
   }
 
   li {
     cursor: pointer;
+    color: $active;
+
     display: inline-block;
     height: 28px;
     line-height: 28px;
     font-weight: bold;
     margin-right: 0.5em;
     &:hover {
-      border-bottom: 2px solid $primary-body;
+      border-bottom: 2px solid $active;
     }
   }
-
-  .contact {
-    color: $active;
-  }
-
   .bookmarks {
     display: none;
   }
