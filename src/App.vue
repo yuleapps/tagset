@@ -89,33 +89,30 @@
             </ul>
           </td>
           <td class="letters">
-              <ul
-                v-for="letter in letters[fandom['.key']]"
-                :key="letter.username"
-              >
-                <li class="letter">
-                  <a
-                    class="user"
-                    :href="formatUrl(letter.url)" target="_blank"
-                  >{{ letter.username }}</a>
-                  <button
-                    class="bookmark-letter"
-                    @click="toggleLettermark(letter, fandom)"
-                  >
-                    <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
-                  <span v-else class="far fa-heart"></span>
+            <ul>
+              <li v-for="letter in letters[fandom['.key']]" :key="letter.username" class="letter">
+                <a
+                  class="user"
+                  :href="formatUrl(letter.url)" target="_blank"
+                >{{ letter.username }}</a>
+                <button
+                  class="bookmark-letter"
+                  @click="toggleLettermark(letter, fandom)"
+                >
+                  <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
+                <span v-else class="far fa-heart"></span>
+                </button>
+                <div class="meta">
+                  <!-- TODO: meta stuff -->
+                  <span v-if="isProlific(letter.username)">*</span>
+                  <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+                  <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
+                    Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
                   </button>
-                  <div class="meta">
-                    <!-- TODO: meta stuff -->
-                    <span v-if="isProlific(letter.username)">*</span>
-                    <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
-                    <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
-                      Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
-                    </button>
-                  </div>
+                </div>
 
-                </li>
-              </ul>
+              </li>
+            </ul>
           </td>
           <!-- HERE BE PROMPTS -->
           <td v-if="unlock" class="prompts">

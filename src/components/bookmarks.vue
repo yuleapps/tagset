@@ -1,12 +1,14 @@
 <template>
   <div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
-    <div class="bookmarks-meta">
+    <div class="header">
       <span
           @click="expand = !expand"
           :class="['fas', { 'fa-arrow-circle-right': expand, 'fa-arrow-circle-left': !expand }]"
         >
         </span>
       <h2 class="title">Bookmarks</h2>
+    </div>
+    <div class="bookmarks-meta">
       <div class="counts" v-if="!expand">
         <ul>
           <li>
