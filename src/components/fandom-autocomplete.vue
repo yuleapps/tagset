@@ -1,6 +1,10 @@
 <template>
   <div class="fandom-autocomplete">
-    <label :class="{ error: hasError }" for="fandom">Fandom {{ number }}:</label> <span v-if="fandom.name">{{ fandom.name }} <button class="remove" @click="removeFandom">(X)</button></span>
+    <label :class="{ error: hasError }" for="fandom">Fandom {{ number }}:</label>
+    <span v-if="fandom.name">
+      {{ fandom.name }}
+      <button class="remove" @click="removeFandom"><span class="far fa-times-circle"></span></button>
+    </span>
 
     <template v-if="!fandom.name">
       <input type="text"
@@ -13,7 +17,7 @@
       >
 
       <div v-if="options.length">
-        <p><em>Available selections:</em></p>
+        <p><em>Available options:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]"
           v-for="(option, i) in options"
@@ -27,8 +31,7 @@
       </div>
     </template>
 
-    <template v-else>
-      <br>
+    <div v-else>
       <label for="chars">Characters:</label>
 
       <input type="text"
@@ -43,15 +46,14 @@
       <div class="badges">
         <span class="character" v-for="char in chars" >
           {{ char }}
-          <button class="remove" @click="removeChar(char)">(X)</button>
+          <button class="remove" @click="removeChar(char)"><span class="far fa-times-circle"></span></button>
         </span>
       </div>
-      <br>
 
-      <span v-if="charsLoading">Loading character options...</span>
+      <p v-if="charsLoading">Loading character options...</p>
 
       <div v-if="Object.keys(options).length && chars && chars.length < maxChars">
-        <p><em>Available selections:</em></p>
+        <p><em>Available options:</em></p>
         <span
           :class="['option', { focused: i === selectedIndex }]"
           v-for="(option, i) in options"
@@ -62,10 +64,9 @@
           @click="select('char')"
         >
         </span>
-
       </div>
-      <span v-else-if="!fandom.chars && !chars.length">No characters were nominated</span>
-    </template>
+      <p v-else-if="Object.keys(options).length === 0 && !chars.length">No characters were nominated</p>
+    </div>
 
     <p class="msg"> {{ msg }}</p>
 
@@ -142,6 +143,10 @@ export default {
       });
     },
     autocomplete(type) {
+      if (this.chars.length === this.maxChars) {
+        this.msg = 'You cannot select any more characters!';
+        return;
+      }
       if (!this.term.length && !this.fandom.name) {
         this.options = [];
         return;
@@ -218,10 +223,7 @@ export default {
         return;
       }
 
-      if (this.chars.length === this.maxChars) {
-        this.msg = 'You cannot select any more chars!';
-        return;
-      }
+
 
       this.chars.push(this.options[this.selectedIndex]);
       this.term = '';
@@ -248,6 +250,8 @@ export default {
 <style lang="scss" scoped>
 label {
   font-weight: bold;
+  width: 130px;
+  display: inline-block;
 }
 
 input {
@@ -258,7 +262,7 @@ input {
 .msg,
 .error {
   font-weight: bold;
-  color: #d63939;
+  color: #e74c3c;
 }
 
 .option {
@@ -267,7 +271,7 @@ input {
   margin-bottom: 3px;
   &.focused {
     font-weight: bold;
-    background-color: #fcfc;
+    background-color: rgba($color: #e4a6a6, $alpha: 0.3);
   }
 }
 
@@ -278,7 +282,7 @@ input {
   border-radius: 2px;
   padding: 2px;
   display: inline-block;
-  margin: 3px;
+  margin: 5px 5px 5px 0;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.1) !important;
@@ -288,7 +292,7 @@ input {
 .remove {
   border: 0;
   border-radius: 2px;
-  color: #d63939 !important;
+  color: #e74c3c !important;
   font-size: 14px;
   background-color: transparent !important;
   padding: 0;

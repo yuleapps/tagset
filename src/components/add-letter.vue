@@ -3,25 +3,23 @@
     <div class="modal-content">
       <h2>Submit Your Letter</h2>
       <span class="close fas fa-times-circle" @click="$emit('close')"></span>
+      <p>Traditionally, participants in Yuletide may voluntarily submit their public Dear Author letters
+        to 'tide everyone through until all requests are made public during Madness (TODO: DATE).</p>
+      <p>
+        Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong>
+        Go and do that first <a href="#TODO">on AO3</a>.
+      </p>
 
-
-      <p>Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong> Go and do that first <a href="#">on AO3</a>. This is a voluntary list to 'tide us through until requests are made public during Madness (DATE).</p>
-
-      <p><small>* <strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</small></p>
-
-      <p><small>* Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</small></p>
 
       <div v-show="!isReview">
         <div :class="['input username', { error: hasError('username')}]">
-          <label for="username">Username:</label>
-          <input v-focus id="username" type="text" v-model="username" placeholder="Username">
-          <span class="help"><small>AO3 username</small></span>
+          <label for="username">AO3 Username:</label>
+          <input v-focus id="username" type="text" v-model="username" placeholder="AO3 Username">
         </div>
 
         <div :class="['input link', , { error: hasError('url')}]">
           <label for="letter">Letter Link:</label>
-          <input type="text" id="letter" v-model="url" placeholder="Letter link">
-          <span class="help"><small>No locked letters! :(</small></span>
+          <input type="text" id="letter" v-model="url" placeholder="Letter link - must be public!">
         </div>
 
         <div>
@@ -70,7 +68,6 @@
 
       </template>
 
-
       <div class="error list" v-if="errors.length">
         <p>Uh oh, looks like you need to fix some things...</p>
         <ul>
@@ -88,9 +85,13 @@
 
       <button @click="submit" class="submit button-primary">{{ submitText }}</button>
       <button v-if="isReview" @click="isReview = false" class="submit button-warn">Edit</button>
+
+      <ul class="notices small">
+        <li><strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</li>
+        <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
+      </ul>
+
       <button class="cancel" @click="$emit('close')">(Cancel)</button>
-
-
     </div>
   </div>
 </template>
@@ -230,8 +231,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+label {
+  font-weight: bold;
+  width: 130px;
+  display: inline-block;
+}
+
 .fandom-autocomplete {
-  border-top: 1px solid grey;
+  border-top: 1px solid #cfcfcf;
   padding: 10px 0;
 }
 
@@ -262,5 +269,9 @@ table {
 li {
   margin-left: 25px;
   list-style-type: square;
+}
+
+.notices {
+  margin: 10px 0;
 }
 </style>

@@ -37,7 +37,7 @@
             <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
 
-            <span @click="removeLettermark(letter)" class="remove fas fa-trash-alt"></span>
+            <span @click="removeLettermark(letter)" class="remove far fa-times-circle"></span>
           </li>
         </ul>
         <span v-else>You haven't bookmarked any letters yet ):</span>
@@ -62,7 +62,7 @@
         >
           <td class="fandom">
             {{ fandom.name }}
-            <span @click="remove(fandom)" class="remove fas fa-trash-alt"></span>
+            <span @click="remove(fandom)" class="remove far fa-times-circle"></span>
             <div class="meta">
               <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
             </div>
@@ -310,9 +310,9 @@ export default {
   }
 
   .remove {
-    color: #a02b2b;
+    color: #e74c3c;
     &:hover {
-      color: #c94444;
+      color: #e4a6a6;
     }
   }
 }

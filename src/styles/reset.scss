@@ -15,10 +15,11 @@ body {
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 10px;
 }
 
 p {
-  margin-bottom: 1em;
+  margin: 0.7em 0;
 }
 
 h1,
@@ -96,5 +97,13 @@ select {
   &:focus {
     outline: none;
     border-bottom: 2px solid $active;
+  }
+}
+
+a {
+  color: $active;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
   }
 }
