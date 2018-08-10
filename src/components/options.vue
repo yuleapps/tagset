@@ -103,7 +103,6 @@ export default {
 
 <style lang="scss" scoped>
 .options {
-  padding: 0 10px;
   overflow: hidden;
   margin-bottom: 10px;
 

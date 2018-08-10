@@ -1,5 +1,24 @@
 #app {
   @media screen and (max-width: 767px) {
+    // MENU
+
+    .menu {
+      .bookmarks {
+        display: initial;
+      }
+    }
+
+    // BOOKMARKS
+    .bookmarks {
+      &.collapsed {
+        display: none;
+      }
+      .bookmarks-meta {
+        display: none;
+      }
+    }
+
+    // TABLE
     thead {
       display: none;
     }

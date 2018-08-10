@@ -1,32 +1,34 @@
 <template>
   <div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
-    <span
-        @click="expand = !expand"
-        :class="['fas', { 'fa-arrow-circle-right': expand, 'fa-arrow-circle-left': !expand }]"
-      >
-      </span>
-    <h2 class="title">Bookmarks</h2>
-    <div class="counts" v-if="!expand">
-      <ul>
-        <li>
-          Letters: {{ lettermarks.length }}
-        </li>
-        <li>
-          Fandoms: {{ bookmarks.length }}
-        </li>
-        <li v-if="unlock">
-          Prompts: {{ promptmarks.length }}
-        </li>
-      </ul>
+    <div class="bookmarks-meta">
+      <span
+          @click="expand = !expand"
+          :class="['fas', { 'fa-arrow-circle-right': expand, 'fa-arrow-circle-left': !expand }]"
+        >
+        </span>
+      <h2 class="title">Bookmarks</h2>
+      <div class="counts" v-if="!expand">
+        <ul>
+          <li>
+            Letters: {{ lettermarks.length }}
+          </li>
+          <li>
+            Fandoms: {{ bookmarks.length }}
+          </li>
+          <li v-if="unlock">
+            Prompts: {{ promptmarks.length }}
+          </li>
+        </ul>
+      </div>
     </div>
-    <div v-show="expand">
+    <div class="content" v-show="expand">
       <div class="option">
         <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
         <label for="expand-bookmarks">Make this wider</label>
       </div>
 
       <div>
-        <h3>Letters:</h3>
+        <h3>Letters</h3>
         <ul v-if="lettermarks.length">
           <li v-for="letter in lettermarks">
             <template v-if="letter.isPinchhitter">(</template>
@@ -212,7 +214,6 @@ export default {
   },
   watch: {
     bookmarks() {
-      console.log('hello');
       const data = [];
       _.each(this.bookmarks, o => {
         const fandom = _.find(this.fandoms, fandom => {
@@ -225,6 +226,9 @@ export default {
       });
 
       this.bookmarksData = data;
+    },
+    forceExpand(val) {
+      this.expand = val;
     }
   },
   computed: {
@@ -242,6 +246,9 @@ export default {
       'loadAll'
     ])
   },
+  props: {
+    forceExpand: false
+  },
   data() {
     return {
       letterChars: [],
@@ -257,13 +264,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .bookmarks {
   z-index: 2;
-  display: inline-block;
-  // position: fixed;
-  // top: 40px;
-  // right: 0;
+  position: fixed;
+  top: 130px;
+  right: 0;
   padding: 10px;
   background: #fff;
   width: 60%;
@@ -307,5 +313,8 @@ export default {
       color: #c94444;
     }
   }
+}
+
+@media screen and (max-width: 767px) {
 }
 </style>

@@ -8,6 +8,7 @@ $active: #e74c3c;
 $muted: #e4a6a6;
 
 #app {
+  padding: 10px;
   .button-primary {
     background-color: $primary-body;
     color: #ffffff;
@@ -21,13 +22,45 @@ $muted: #e4a6a6;
   .cancel {
     cursor: pointer;
   }
-  .submit-letter {
-    background-color: $primary-body;
-    margin-left: 10px;
+
+  .menu {
+    z-index: 1;
+    background-color: #ffffff;
+    border-bottom: 1px solid $muted-body;
+    &.sticky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      width: 100%;
+      margin-right: 10px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      cursor: pointer;
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      font-weight: bold;
+      margin-right: 1em;
+      &:hover {
+        border-bottom: 2px solid $primary-body;
+      }
+    }
+
+    .contact {
+      color: $active;
+    }
+
+    .bookmarks {
+      display: none;
+    }
   }
-  .contact {
-    background-color: $active;
-  }
+
   .fas.close {
     position: absolute;
     top: 20px;
@@ -228,16 +261,7 @@ $muted: #e4a6a6;
       background: transparent;
     }
   }
-  .menu {
-    z-index: 1;
-    background-color: #ffffff;
-    &.sticky {
-      position: fixed;
-      top: 0;
-      width: 100%;
-    }
-    padding: 10px 0;
-  }
+
   .warn {
     margin-bottom: 10px;
   }
@@ -330,15 +354,5 @@ $muted: #e4a6a6;
     display: none;
     font-size: 10px;
     color: rgba(0, 0, 0, 0.35);
-  }
-  .contact,
-  .submit-letter {
-    display: inline-block;
-    height: 35px;
-    font-size: 16px;
-    margin: 10px 0;
-    padding: 3px 5px;
-    border-radius: 2px;
-    color: #ffffff;
   }
 }

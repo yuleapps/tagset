@@ -10,19 +10,26 @@
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
       <div :class="['menu', { sticky: sticky }]">
-        <button class="submit-letter" @click="showLetterModal = true">
-          Submit Your Letter
-        </button>
-        <button class="contact">Contact Us</button>
-        <bookmarks></bookmarks>
-        <span class="fas fa-question-circle fa-xxl help" @click="showHelp = true"></span>
+        <ul>
+          <li class="submit-letter"  @click="showLetterModal = true">
+            Submit Letter
+          </li>
+          <li class="bookmarks" @click="expandBookmarks = !expandBookmarks">
+            Bookmarks
+          </li>
+          <li class="contact">Contact</li>
+          <li class="help" @click="showHelp = true">
+            <span class="fas fa-question-circle fa-xxl" ></span>
+          </li>
+        </ul>
       </div>
 
+
+      <bookmarks :force-expand="expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
         @close="showLetterModal = false">
       </add-letter>
-
       <easter-eggs
         class="modal"
         v-if="showEggHelp"
@@ -246,6 +253,7 @@ export default {
       showEggHelp: false,
       showHelp: false,
       // hasPrompts,
+      expandBookmarks: false,
       down: {},
       mods: false,
       scrollPosition: 100,
