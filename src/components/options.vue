@@ -1,20 +1,23 @@
 <template>
 <div class="options">
-  <div class="filters">
+  <div class="filters row">
     <span class="label">Filter By:</span>
 
-    <label for="fandom-filter">Fandom:</label>
-    <input id="fandom-filter" type="text" placeholder="Filter..." v-model='options.filter.term'>
+    <div class="option">
+      <input id="fandom-filter" type="text" placeholder="Fandom name..." v-model='options.filter.term'>
+    </div>
 
-    <label for="category-filter">Category:</label>
-    <select id="category-filter" v-model="options.filter.category">
-      <option value=''>All</option>
-      <option v-for="category in categories">{{ category }}</option>
-    </select>
+    <div class="option">
+      <select id="category-filter" v-model="options.filter.category">
+        <option value=''>All Categories</option>
+        <option v-for="category in categories">{{ category }}</option>
+      </select>
+    </div>
+
   </div>
-  <div>
-
+  <div class="row">
     <span class="label">Show Only:</span>
+
     <div class="option" v-if="unlock">
       <input type="checkbox" id="prompts-fandoms" v-model="options.onlyPrompts">
       <label for="prompts-fandoms">Fandoms with prompts</label>
@@ -37,9 +40,9 @@
     </div>
   </div>
 
-  <div>
+  <div class="row">
     <span class="label">Tools:</span>
-    <div class="option">
+    <div class="option" v-if="!loadAll.characters">
       <input type="checkbox" id="load-all" v-model="options.loadAll">
       <label for="load-all">Load everything!</label>
       <sup><span class="fas fa-exclamation-circle warn" @click="showMsg = !showMsg"></span></sup>
@@ -115,6 +118,12 @@ export default {
   .option {
     display: inline-block;
     width: 180px;
+    height: 30px;
+    vertical-align: top;
+  }
+
+  select {
+    max-width: 180px;
   }
 
   .clear {
@@ -122,6 +131,16 @@ export default {
     color: rgba(0, 0, 0, 0.5);
     line-height: 14px;
     margin-bottom: 3px;
+  }
+
+  .row {
+    margin-bottom: 5px;
+  }
+
+  .filters {
+    .label {
+      vertical-align: top;
+    }
   }
 }
 

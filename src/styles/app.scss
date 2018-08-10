@@ -1,11 +1,11 @@
-@import './reset.scss';
-
 $primary-body: #2c3e50;
 $muted-body: #798086;
 $outline: #cfcfcf;
 $outline-light: #e7e6e6;
 $active: #e74c3c;
 $muted: #e4a6a6;
+
+@import './reset.scss';
 
 #app {
   padding: 10px;
@@ -150,6 +150,7 @@ $muted: #e4a6a6;
     }
   } // Table styles
   table {
+    text-align: left;
     margin-top: 20px;
     border-collapse: collapse;
     border-spacing: 0;
@@ -168,7 +169,7 @@ $muted: #e4a6a6;
       }
     }
     th.fandom {
-      width: 25%;
+      width: 33%;
     }
     th.characters {
       width: 300px;

@@ -238,7 +238,6 @@ export default {
 .submit {
   padding: 7px 20px;
   font-weight: bold;
-  font-size: 14px;
 }
 
 label {
@@ -258,11 +257,6 @@ table {
     vertical-align: top;
     padding: 10px 5px;
   }
-}
-
-input {
-  height: 24px;
-  font-size: 14px;
 }
 
 li {
