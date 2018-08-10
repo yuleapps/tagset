@@ -19,7 +19,9 @@
       &.collapsed {
         display: none;
       }
-      .option,
+
+      .header .expand,
+      .options,
       .bookmarks-meta {
         display: none;
       }

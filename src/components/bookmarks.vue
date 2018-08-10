@@ -3,10 +3,10 @@
     <div class="header">
       <span
           @click="expand = !expand"
-          :class="['fas', { 'fa-angle-double-right': expand, 'fa-angle-double-left': !expand }]"
+          :class="['fas expand', { 'fa-angle-double-right': expand, 'fa-angle-double-left': !expand }]"
         >
         </span>
-      <h2 class="title">Bookmarks</h2>
+      <h2 class="title">Bookmarks <span v-if="expand" @click="showHelp = !showHelp" class="fas fa-question-circle"></span></h2>
     </div>
     <div class="bookmarks-meta">
       <div class="counts" v-if="!expand">
@@ -24,131 +24,134 @@
       </div>
     </div>
     <div class="content" v-show="expand">
-      <div class="option">
+      <div class="options" v-if="!forceExpand">
         <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
         <label for="expand-bookmarks">Make this wider</label>
       </div>
+      <p v-if="showHelp">You can bookmark fandoms, letters, and - when they become available after Madness - individual
+        prompts by clicking on the <span class="far fa-heart"></span> icon. This data is saved in your browser,
+        and will remain for as long as you do not clear the cache.
+      </p>
 
-      <div>
+      <div class="letters">
         <h3>Letters</h3>
         <ul v-if="lettermarks.length">
           <li v-for="letter in lettermarks">
             <template v-if="letter.isPinchhitter">(</template>
             <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
-
             <span @click="removeLettermark(letter)" class="remove far fa-times-circle"></span>
           </li>
         </ul>
         <span v-else>You haven't bookmarked any letters yet ):</span>
       </div>
 
-      <hr />
+      <div class="fandoms">
+        <h3>Fandoms</h3>
+        <table v-if="bookmarksData.length">
+          <thead>
+            <tr>
+              <th class="fandom">Fandom</th>
+              <th class="characters" v-if="!options.hideCharacters">Characters</th>
+              <th class="letters">Letters</th>
+              <th class="prompts" v-if="unlock">Prompts</th>
+            </tr>
+          </thead>
+          <tr
+            v-for="(fandom, index) in bookmarksData"
+            :class="{ odd: index % 2 !== 0 }"
+          >
+            <td class="fandom">
+              {{ fandom.name }}
+              <span @click="remove(fandom)" class="remove far fa-times-circle"></span>
+              <div class="meta">
+                <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
+              </div>
+            </td>
 
-      <h3>Fandoms</h3>
-
-      <table v-if="bookmarksData.length">
-        <thead>
-          <tr>
-            <th class="fandom">Fandom</th>
-            <th class="characters" v-if="!options.hideCharacters">Characters</th>
-            <th class="letters">Letters</th>
-            <th class="prompts" v-if="unlock">Prompts</th>
-          </tr>
-        </thead>
-        <tr
-          v-for="(fandom, index) in bookmarksData"
-          :class="{ odd: index % 2 !== 0 }"
-        >
-          <td class="fandom">
-            {{ fandom.name }}
-            <span @click="remove(fandom)" class="remove far fa-times-circle"></span>
-            <div class="meta">
-              <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
-            </div>
-          </td>
-
-          <td class="characters" v-if="!options.hideCharacters">
-            <ul>
-              <li v-for="char in getCharacters(fandom['.key'])"
-                :class="{ highlight: letterHasChar(fandom['.key'], char) }">
-                {{char}}
-              </li>
-            </ul>
-          </td>
-          <td class="letters">
-             <ul
-                v-for="letter in letters[fandom['.key']]"
-                :key="letter.username"
-              >
-                <li class="letter">
-                  <a
-                    class="user"
-                    :href="formatUrl(letter.url)" target="_blank"
-                  >{{ letter.username }}</a>
-                  <button
-                    class="bookmark-letter"
-                    @click="toggleLettermark(letter, fandom)"
-                  >
-                    <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
-                  <span v-else class="far fa-heart"></span>
-                  </button>
-                  <div class="meta">
-                    <!-- TODO: meta stuff -->
-                    <span v-if="isProlific(letter.username)">*</span>
-                    <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
-                    <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
-                      Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
-                    </button>
-                  </div>
-
+            <td class="characters" v-if="!options.hideCharacters">
+              <ul>
+                <li v-for="char in getCharacters(fandom['.key'])"
+                  :class="{ highlight: letterHasChar(fandom['.key'], char) }">
+                  {{char}}
                 </li>
               </ul>
-          </td>
-          <td v-if="unlock" class="prompts">
-            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
-            <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
-            <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-              <a href="javascript:void(0);" @click="collapse">Collapse</a>
-              <table class="prompts">
-                <thead>
-                  <tr>
-                    <th class="fave">&hearts;</th>
-                    <th class="username">Username</th>
-                    <th class="characters">Characters</th>
-                    <th class="prompts">Prompts</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="prompt in prompts[fandom['.key']]">
-                    <td>
-                      <button
-                        class="bookmark-prompt"
-                        v-if="!hasPromptmark(prompt)"
-                        @click="addPromptmark(prompt)">&hearts;
+            </td>
+            <td class="letters">
+              <ul
+                  v-for="letter in letters[fandom['.key']]"
+                  :key="letter.username"
+                >
+                  <li class="letter">
+                    <a
+                      class="user"
+                      :href="formatUrl(letter.url)" target="_blank"
+                    >{{ letter.username }}</a>
+                    <button
+                      class="bookmark-letter"
+                      @click="toggleLettermark(letter, fandom)"
+                    >
+                      <span v-if="hasLettermark(letter, fandom)" class="fas fa-heart"></span>
+                    <span v-else class="far fa-heart"></span>
+                    </button>
+                    <div class="meta">
+                      <!-- TODO: meta stuff -->
+                      <span v-if="isProlific(letter.username)">*</span>
+                      <sup v-if="showEasterEggs">{{ challenges(letter.username).join(' ') }}</sup>
+                      <button class="char-count meta-tag" @click="highlightChars(letter, fandom['.key'])" @mouseleave="letterChars = []">
+                        Chars: {{ letter.characters === undefined ? 'Any' : letter.characters.length }}
                       </button>
-                    </td>
-                    <td>
-                      {{ prompt.username }}
-                      <span v-if="isProlific(prompt.username)">*</span>
-                      <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
-                      <a @click="getUserPrompts(prompt.username)"> (see all)</a>
-                    </td>
-                    <td>
-                      <ul v-if="prompt.characters">
-                        <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
-                      </ul>
-                    </td>
-                    <td class="prompt" v-html="prompt.prompt"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </template>
-            <span v-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
-          </td>
-        </tr>
-      </table>
-      <span v-else>You haven't bookmarked any fandoms yet ):</span>
+                    </div>
+
+                  </li>
+                </ul>
+            </td>
+            <td v-if="unlock" class="prompts">
+              <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
+              <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
+              <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
+                <a href="javascript:void(0);" @click="collapse">Collapse</a>
+                <table class="prompts">
+                  <thead>
+                    <tr>
+                      <th class="fave">&hearts;</th>
+                      <th class="username">Username</th>
+                      <th class="characters">Characters</th>
+                      <th class="prompts">Prompts</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="prompt in prompts[fandom['.key']]">
+                      <td>
+                        <button
+                          class="bookmark-prompt"
+                          v-if="!hasPromptmark(prompt)"
+                          @click="addPromptmark(prompt)">&hearts;
+                        </button>
+                      </td>
+                      <td>
+                        {{ prompt.username }}
+                        <span v-if="isProlific(prompt.username)">*</span>
+                        <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
+                        <a @click="getUserPrompts(prompt.username)"> (see all)</a>
+                      </td>
+                      <td>
+                        <ul v-if="prompt.characters">
+                          <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                        </ul>
+                      </td>
+                      <td class="prompt" v-html="prompt.prompt"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </template>
+              <span v-if="!hasPrompts[fandom['.key']]">No prompts ):</span>
+            </td>
+          </tr>
+        </table>
+        <span v-else>You haven't bookmarked any fandoms yet ):</span>
+      </div>
+
       <template v-if="unlock">
         <hr />
         <h3>Prompts</h3>
@@ -255,6 +258,7 @@ export default {
     return {
       letterChars: [],
       hasPrompts,
+      showHelp: false,
       expand: false,
       bookmarksData: [],
       largeBookmarks: false
@@ -279,6 +283,12 @@ export default {
   max-height: 600px;
   overflow-y: auto;
 
+  .mobile-expand,
+  .expand {
+    color: #e74c3c;
+    font-size: 20px;
+  }
+
   .title {
     display: inline-block;
     margin: 0;
@@ -291,7 +301,8 @@ export default {
   &.collapsed {
     width: 130px;
 
-    .title {
+    .title,
+    .expand {
       font-size: 16px;
     }
   }
@@ -302,6 +313,18 @@ export default {
 
   th.characters {
     width: 200px !important;
+  }
+
+  .letters {
+    li {
+      padding-left: 10px;
+    }
+  }
+
+  .options,
+  .letters,
+  .fandoms {
+    margin-top: 10px;
   }
 
   .counts {

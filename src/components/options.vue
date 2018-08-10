@@ -57,7 +57,7 @@
     </div>
 
     <div class="clear" v-if="showMsg">
-      <small>** <strong :style="{ color: 'red'}">Load all the fandoms at once instead of as you scroll. This may take your browser a bit!</strong></small>
+      <small><strong :style="{ color: 'red'}">Load all the fandoms at once instead of as you scroll. This may take your browser a bit!</strong></small>
     </div>
   </div>
 </div>

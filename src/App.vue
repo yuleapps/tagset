@@ -24,7 +24,7 @@
         </ul>
       </div>
 
-      <bookmarks :force-expand="expandBookmarks"></bookmarks>
+      <bookmarks :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
         @close="showLetterModal = false">
