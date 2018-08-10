@@ -1,0 +1,368 @@
+$primary-body: #2c3e50;
+$muted-body: #798086;
+$outline: #cfcfcf;
+$outline-light: #e7e6e6;
+$active: #e74c3c;
+$muted: #e4a6a6;
+* {
+    box-sizing: border-box;
+    vertical-align: baseline;
+}
+
+#app {
+    font-family: 'Avenir', Helvetica, 'Segoe UI', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    text-align: left;
+    color: $primary-body;
+    h1 {
+        margin-bottom: 10px;
+    }
+    input {
+        line-height: 20px;
+        padding: 0 3px;
+    }
+    select {
+        height: 20px;
+    }
+    button {
+        cursor: pointer;
+        border: 0;
+        border-radius: 2px;
+    }
+    .button-primary {
+        background-color: $primary-body;
+        color: #ffffff;
+    }
+    .button-warn {
+        background-color: $active;
+        color: #ffffff;
+    }
+    .fas,
+    .far,
+    .cancel {
+        cursor: pointer;
+    }
+    .submit-letter {
+        background-color: $primary-body;
+        margin-left: 10px;
+    }
+    .contact {
+        background-color: $active;
+    }
+    .fas.close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    a,
+    .cancel {
+        color: $active;
+    }
+    .highlight {
+        font-weight: bold;
+    }
+    .cancel {
+        border: 0;
+        background-color: transparent;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 14px;
+    }
+    .clear {
+        clear: both;
+    }
+    .scroll-top {
+        position: fixed;
+        z-index: 1;
+        right: 10px;
+        bottom: 5px;
+        background-color: #fff;
+        color: #e74c3c;
+        cursor: pointer;
+        padding: 5px;
+        font-weight: bold;
+        border: 1px solid #cfcfcf;
+    }
+    .meta {
+        font-size: smaller;
+    }
+    .modal {
+        position: fixed;
+        /* Stay in place */
+        z-index: 99;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow: auto;
+        /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/ opacity */
+    }
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 20px auto;
+        padding: 20px;
+        padding-bottom: 30px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+        position: relative;
+        .input {
+            margin-bottom: 5px;
+        }
+    }
+    .user-lookup {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        background: #fff;
+        width: 40%;
+        border: 1px solid #cfcfcf;
+        max-height: 600px;
+        overflow-y: auto;
+        padding: 10px;
+        .heading {
+            margin-bottom: 10px;
+        }
+        &.collapsed {
+            display: none;
+        }
+        .close-lookup {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+        }
+    } // Table styles
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        table-layout: fixed;
+        &.prompts {
+            font-size: smaller;
+            th.username,
+            th.characters {
+                width: 20%;
+            }
+            td {
+                &.prompt {
+                    word-break: break-word;
+                }
+            }
+        }
+        th.fandom {
+            width: 25%;
+        }
+        th.characters {
+            width: 300px;
+        }
+        th.letters {
+            width: auto;
+        }
+    }
+    thead {
+        font-weight: bold;
+        tr>th {
+            border-bottom: 1px solid $outline-light;
+        }
+    }
+    tr.odd {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    td,
+    th {
+        padding: 10px 10px;
+    }
+    td {
+        word-break: break-word;
+        vertical-align: top;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            margin-bottom: 3px;
+        }
+    }
+    .main {
+        position: relative;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    .meta-tag {
+        font-size: 13px;
+        font-weight: normal;
+        border: 1px solid $outline;
+        background-color: #ffffff;
+        padding: 2px 3px;
+        border-radius: 2px;
+        margin-right: 5px;
+        color: $muted-body;
+    }
+    table.main .meta {
+        font-weight: normal;
+    }
+    .fandom {
+        font-weight: bold;
+        .meta {
+            margin-top: 5px;
+        }
+    }
+    .characters {
+        li {
+            margin: 0;
+            padding: 4px 0;
+            border-bottom: 1px solid $outline-light;
+            &:last-child {
+                border: 0;
+            }
+            &:first-child {
+                padding-top: 0;
+            }
+        }
+    }
+    .odd .characters li {
+        border-bottom: 1px solid #ffffff;
+        &:last-child {
+            border: 0;
+        }
+    }
+    .letters {
+        .letter {
+            margin-bottom: 10px;
+            margin-right: 5px;
+        }
+        .meta {
+            margin-top: 2px;
+        }
+        .user {
+            font-weight: bold;
+        }
+        .char-count {
+            background: transparent;
+        }
+    }
+    .buttons {
+        margin: 10px 0;
+    }
+    .warn {
+        margin-bottom: 10px;
+    }
+    .input {
+        label {
+            display: inline-block;
+            width: 90px;
+        }
+    }
+    .add {
+        margin-top: 15px;
+    }
+    .bookmark,
+    .bookmark-letter,
+    .bookmark-prompt,
+    .remove-prompt {
+        span {
+            font-size: 14px;
+        }
+        color: $active;
+        background-color: transparent;
+        padding: 0;
+        &:hover {
+            color: $muted;
+        }
+    }
+    .caveats {
+        text-decoration: italic;
+        margin-bottom: 10px;
+    }
+    /* https://projects.lukehaas.me/css-loaders/ */
+    .loader,
+    .loader:before,
+    .loader:after {
+        border-radius: 50%;
+        width: 2.5em;
+        height: 2.5em;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation: load7 1.8s infinite ease-in-out;
+        animation: load7 1.8s infinite ease-in-out;
+    }
+    .loader {
+        color: $outline-light;
+        font-size: 10px;
+        margin: 80px auto;
+        position: relative;
+        text-indent: -9999em;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+    }
+    .loader:before,
+    .loader:after {
+        content: '';
+        position: absolute;
+        top: 0;
+    }
+    .loader:before {
+        left: -3.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+    }
+    .loader:after {
+        left: 3.5em;
+    }
+    @-webkit-keyframes load7 {
+        0%,
+        80%,
+        100% {
+            box-shadow: 0 2.5em 0 -1.3em;
+        }
+        40% {
+            box-shadow: 0 2.5em 0 0;
+        }
+    }
+    @keyframes load7 {
+        0%,
+        80%,
+        100% {
+            box-shadow: 0 2.5em 0 -1.3em;
+        }
+        40% {
+            box-shadow: 0 2.5em 0 0;
+        }
+    }
+    .hide {
+        display: none;
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.35);
+    }
+    .contact,
+    .submit-letter {
+        display: inline-block;
+        height: 35px;
+        font-size: 16px;
+        margin: 10px 0;
+        padding: 3px 5px;
+        border-radius: 2px;
+        color: #ffffff;
+    }
+}
