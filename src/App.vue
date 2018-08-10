@@ -1,10 +1,6 @@
 <template>
 	<div id="app">
-		<h1>Yuletide 2018 App
-      <sup>
-        <span class="fas fa-question-circle fa-sm help" @click="showHelp = true"></span>
-      </sup>
-    </h1>
+		<h1>Yuletide 2018 App</h1>
 
     <help v-if="showHelp" @close="showHelp = false"></help>
 
@@ -13,12 +9,13 @@
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <div class="buttons">
+      <div :class="['menu', { sticky: sticky }]">
         <button class="submit-letter" @click="showLetterModal = true">
           Submit Your Letter
         </button>
         <button class="contact">Contact Us</button>
-        <!-- <a class="contact" href="https://yuletide.dreamwidth.org/97965.html" target="_blank">Contact Us</a> -->
+        <bookmarks></bookmarks>
+        <span class="fas fa-question-circle fa-xxl help" @click="showHelp = true"></span>
       </div>
 
       <add-letter
@@ -34,7 +31,6 @@
 
       <user-lookup></user-lookup>
 
-      <bookmarks></bookmarks>
 
       <options></options>
 
@@ -259,7 +255,8 @@ export default {
       },
       timesCalled: 0,
       filtered: [],
-      updating: true
+      updating: true,
+      sticky: false
     };
   },
   computed: {
@@ -427,6 +424,12 @@ export default {
     lazyload() {
       const y = window.scrollY;
       const totalHeight = document.body.scrollHeight;
+
+      if (window.pageYOffset > 100) {
+        this.sticky = true;
+      } else {
+        this.sticky = false;
+      }
 
       if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {
         if (this.scrollPosition < this.fandoms.length) {

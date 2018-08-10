@@ -260,10 +260,11 @@ export default {
 <style lang="scss">
 .bookmarks {
   z-index: 2;
-  position: fixed;
-  top: 40px;
+  display: inline-block;
+  // position: fixed;
+  // top: 40px;
+  // right: 0;
   padding: 10px;
-  right: 0;
   background: #fff;
   width: 60%;
   border: 1px solid #cfcfcf;
