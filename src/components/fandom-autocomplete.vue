@@ -252,11 +252,6 @@ label {
   display: inline-block;
 }
 
-input {
-  height: 24px;
-  font-size: 14px;
-}
-
 .msg,
 .error {
   font-weight: bold;
