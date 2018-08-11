@@ -225,9 +225,7 @@ export default {
 
       this.chars.push(this.options[this.selectedIndex]);
       this.term = '';
-      this.options = _.filter(this.options, o => {
-        return !_.includes(this.chars, o);
-      });
+      this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
     next() {
       if (this.selectedIndex === this.options.length - 1) {
