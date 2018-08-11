@@ -181,7 +181,7 @@ export default {
         return o !== char;
       });
 
-      this.options = _.difference(this.characters[this.fandom['.key']], this.chars);
+      this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
     highlight(option, type) {
       if (!option) {
@@ -222,8 +222,6 @@ export default {
         }
         return;
       }
-
-
 
       this.chars.push(this.options[this.selectedIndex]);
       this.term = '';
