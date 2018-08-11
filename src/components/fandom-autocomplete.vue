@@ -181,6 +181,8 @@ export default {
         return o !== char;
       });
 
+      this.term = ''; // reset the search to be explicit
+
       this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
     highlight(option, type) {
