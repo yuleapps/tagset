@@ -14,6 +14,9 @@
           <li class="submit-letter"  @click="showLetterModal = true">
             Submit Letter
           </li>
+          <li class="edit-letter"  @click="showEditModal = true">
+            Edit Letter
+          </li>
           <li class="bookmarks" @click="expandBookmarks = !expandBookmarks">
             Bookmarks
           </li>
@@ -29,6 +32,10 @@
         v-if="showLetterModal"
         @close="showLetterModal = false">
       </add-letter>
+      <edit-letter
+        v-if="showEditModal"
+        @close="showEditModal = false">
+      </edit-letter>
       <easter-eggs
         class="modal"
         v-if="showEggHelp"
@@ -171,6 +178,7 @@
 <script>
 // TODO: pinchitters
 import AddLetter from './components/add-letter.vue';
+import EditLetter from './components/edit-letter.vue';
 import Bookmarks from './components/bookmarks.vue';
 import Caveats from './components/caveats.vue';
 import EasterEggs from './components/easter-eggs.vue';
@@ -204,6 +212,7 @@ export default {
   name: 'app',
   components: {
     AddLetter,
+    EditLetter,
     Bookmarks,
     Caveats,
     EasterEggs,
@@ -243,6 +252,7 @@ export default {
   data() {
     return {
       showLetterModal: false,
+      showEditModal: false,
       maintenance: false,
       showEggHelp: false,
       showHelp: false,

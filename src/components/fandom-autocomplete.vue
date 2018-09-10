@@ -79,6 +79,12 @@ import db from '../db.js';
 import { mapGetters } from 'vuex';
 export default {
   props: {
+    savedData: {
+      type: Object,
+      default() {
+        return null
+      }
+    },
     hasError: {
       type: Boolean,
       default: false
@@ -130,9 +136,26 @@ export default {
       handler() {
         this.update();
       }
+    },
+    savedData: {
+      deep: true,
+      handler() {
+        this.loadSaved();
+      }
+    }
+  },
+  beforeMount() {
+    if (this.savedData !== null) {
+      this.loadSaved();
     }
   },
   methods: {
+    loadSaved() {
+      console.log('ho')
+      this.chars = this.savedData.characters || [];
+      this.fandom = this.fandoms[this.savedData.key];
+      this.autocomplete();
+    },
     update() {
       this.$emit('update', {
         fandom: {

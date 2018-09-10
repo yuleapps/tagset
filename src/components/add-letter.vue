@@ -4,10 +4,10 @@
       <h2>Submit Your Letter</h2>
       <span class="close fas fa-times-circle" @click="$emit('close')"></span>
       <p>Traditionally, participants in Yuletide may voluntarily submit their public Dear Author letters
-        to 'tide everyone through until all requests are made public during Madness (TODO: DATE).</p>
+        to 'tide everyone through until all requests are made public after assignments go out.</p>
       <p>
         Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong>
-        Go and do that first <a href="#TODO">on AO3</a>.
+        Go and do that first <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">on AO3</a>.
       </p>
 
       <div v-show="!isReview">
@@ -40,9 +40,11 @@
          -->
       </div>
 
-      <template v-if="isReview">
+      <template v-if="isReview && !userKey.length">
 
-        <table class="table">
+        <div class="error" v-if="userExists">This username has already submitted a letter to the app! Please edit it with your key. If you don't remember your key, contact a mod.</div>
+
+        <table class="table" v-else>
           <tbody>
             <tr>
               <th>Username</th>
@@ -67,6 +69,11 @@
 
       </template>
 
+      <div v-show="userKey.length">
+        <hr>
+        Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong>: REMEMBER THIS and use it if you want to edit your letter later.
+      </div>
+
       <div class="error list" v-if="errors.length">
         <p>Uh oh, looks like you need to fix some things...</p>
         <ul>
@@ -82,11 +89,10 @@
         </ul>
       </div>
 
-      <button @click="submit" class="submit button-primary">{{ submitText }}</button>
-      <button v-if="isReview" @click="isReview = false" class="submit button-warn">Edit</button>
+      <button @click="submit" v-if="!userExists" class="submit button-primary">{{ submitText }}</button>
+      <button v-if="isReview && !userExists" @click="isReview = false" class="submit button-warn">Edit</button>
 
       <ul class="notices small">
-        <li><strong>Made a mistake in an earlier submission?</strong> Or found an app bug? Contact us at SOMEPLACE.</li>
         <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
       </ul>
 
@@ -126,7 +132,9 @@ export default {
       scrubbedFandoms: [],
       url: '',
       isReview: false,
-      availableFandoms: []
+      availableFandoms: [],
+      userExists: false,
+      userKey: ''
     };
   },
   computed: {
@@ -214,16 +222,34 @@ export default {
       });
     },
     add() {
-      _.each(this.scrubbedFandoms, req => {
-        this.$firebaseRefs.letters.child(req.fandom['.key']).push({
-          username: this.username,
-          url: this.url,
-          characters: req.characters,
-          isPinchhitter: this.pinchhitter || false
-        });
-      });
+      db.ref('/letterindex').child(this.username).once('value').then(res => {
 
-      this.$emit('close');
+        if (!res.val()) {
+          this.userKey = (Math.random() + 1).toString(36).substring(7);
+
+           db.ref('/letterkeys').child(this.username).set({ key: this.userKey })
+          _.each(this.scrubbedFandoms, req => {
+            this.$firebaseRefs.letters.child(req.fandom['.key']).child(this.username).set({
+              username: this.username,
+              url: this.url,
+              characters: req.characters,
+              isPinchhitter: this.pinchhitter || false
+            });
+
+            db.ref('/letterkeys').child(this.username).child('fandoms').child(req.fandom['.key']).set({
+              url: this.url,
+              key: req.fandom['.key'],
+              characters: req.characters,
+              isPinchhitter: this.pinchhitter || false
+            });
+          });
+
+          // this.$emit('close');
+        } else {
+          this.userExists = true;
+          return;
+        }
+      });
     }
   }
 };
@@ -253,6 +279,7 @@ label {
 
 .error {
   color: red !important;
+  padding: 10px 0;
 }
 
 .list {
