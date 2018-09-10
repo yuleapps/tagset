@@ -13,8 +13,7 @@ export default {
       return null;
     }
 
-    db
-      .ref('/characters/' + fandomKey)
+    db.ref('/characters/' + fandomKey)
       .once('value')
       .then(res => {
         const result = res.toJSON();
@@ -92,7 +91,7 @@ export default {
     this.$store.commit(
       'setLettermarks',
       _.filter(this.lettermarks, o => {
-        return o.username !== letter.username && o.key !== letter.key;
+        return !(o.username === letter.username && o.key === letter.key);
       })
     );
     this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
@@ -176,8 +175,7 @@ export default {
     this.$store.commit('setPrompts', {});
     this.$store.commit('setPrompts', newVal);
 
-    db
-      .ref('/prompts/' + fandomKey)
+    db.ref('/prompts/' + fandomKey)
       .once('value')
       .then(snapshot => {
         let results = snapshot.val();
