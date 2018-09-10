@@ -6,12 +6,13 @@
       <span class="close fas fa-times-circle" @click="$emit('close')"></span>
 
       <h3>What is this?</h3>
-      <p>The app contains the tagset for Yuletide, along with a voluntarily list of participant-submitted
-        letters (before Madness) and a full list of the prompts (after Madness TODO: add date).</p>
+      <p>The app contains the tagset for Yuletide. Before assignments are released, participants can
+         submit their letter to this app for public listing, as is tradition! 
+        Once assignments go out, the full list of the prompts will be available as well.</p>
 
       <h3>Does submitting a letter mean I'm signed up?</h3>
-      <p>No. You have to sign up for Yuletide on AO3 (TODO: add link). Conversely, you do not have to submit a letter to this
-         app if you don't want to.
+      <p><strong>No</strong>. You have to <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">sign up for Yuletide on AO3</a>. 
+      Conversely, you do not have to submit a letter to this app if you don't want to.
       </p>
 
       <h3>Help! I messed up submitting my letter!</h3>
@@ -34,16 +35,18 @@
       </p>
 
       <h3>Bookmarks: How do bookmarks work?</h3>
-      <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. An already-bookmarked thing
-      is denoted by a solid <span class="fas fa-heart bookmark"></span>. That can be a whole fandom, an individual letter, or
-         - once they're published - an individual prompt. Bookmarks are saved <em>in your browser memory</em>,
+      <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. Those become available 
+      in the Bookmarks tab. You can bookmark fandoms, letters, and prompts (once available). An already-bookmarked thing
+      is denoted by a solid <span class="fas fa-heart bookmark"></span>.</p>
+      <p>Bookmarks are saved <em>in your browser memory</em>,
          so they should persist unless you clear your cache. However, that means you <strong>cannot sync</strong> bookmarks
          between browsers or devices.
       </p>
 
       <h3>I found a problem!</h3>
       <p>Whether it's an app bug, a typo, a problem with the tagset, or an issue with a letter or prompt,
-        all problems should be reported to the official post HERE.
+        all problems should be reported to the official post on <a href="http://yuletide-admin.dreamwidth.org" target="blank">
+         the Yuletide Admin DW community</a>.
       </p>
 
 

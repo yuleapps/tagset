@@ -10,7 +10,7 @@
     <div class="option">
       <select id="category-filter" v-model="options.filter.category">
         <option value=''>All Categories</option>
-        <option v-for="category in categories">{{ category }}</option>
+        <option v-for="category in categories" :key="category">{{ category }}</option>
       </select>
     </div>
 
@@ -140,9 +140,6 @@ export default {
   .filters {
     .label {
       vertical-align: top;
-    }
-
-    .option {
     }
   }
 }
