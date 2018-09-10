@@ -274,7 +274,7 @@ export default {
 .bookmarks {
   z-index: 2;
   position: fixed;
-  top: 130px;
+  top: 100px;
   right: 0;
   padding: 10px;
   background: #fff;

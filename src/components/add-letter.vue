@@ -222,7 +222,7 @@ export default {
       });
     },
     add() {
-      db.ref('/letterindex').child(this.username).once('value').then(res => {
+      db.ref('/letterkeys').child(this.username).once('value').then(res => {
 
         if (!res.val()) {
           this.userKey = (Math.random() + 1).toString(36).substring(7);
