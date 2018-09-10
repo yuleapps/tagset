@@ -248,6 +248,9 @@ export default {
        });
     },
     add() {
+      // clean out the user's fandom references
+      db.ref('/letterkeys').child(this.username).child('fandoms').remove();
+      // write any updates
       _.each(this.scrubbedFandoms, req => {
         this.$firebaseRefs.letters.child(req.fandom['.key']).child(this.username).set({
           username: this.username,
@@ -264,7 +267,20 @@ export default {
         });
       });
 
-      // TODO: HANDLE DELETES TOO
+      // delete any removes
+      const newFandoms = _.map(this.scrubbedFandoms, f => {
+        return f.fandom['.key'];
+      });
+      const oldFandoms = _.map(this.userData, f => {
+        if (!f) { return }
+        return f.key;
+      });
+      const deletedFandoms = _.difference(oldFandoms, newFandoms);
+
+      _.each(deletedFandoms, index => {
+        this.$firebaseRefs.letters.child(index).child(this.username).remove();
+      });
+
       this.$emit('close');
     }
 

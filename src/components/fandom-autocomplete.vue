@@ -151,7 +151,6 @@ export default {
   },
   methods: {
     loadSaved() {
-      console.log('ho')
       this.chars = this.savedData.characters || [];
       this.fandom = this.fandoms[this.savedData.key];
       this.autocomplete();
@@ -198,6 +197,7 @@ export default {
       this.options = [];
       this.selectedIndex = -1;
       this.term = '';
+      this.msg = '';
     },
     removeChar(char) {
       this.chars = _.filter(this.chars, o => {
