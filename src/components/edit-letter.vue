@@ -2,16 +2,21 @@
   <div class="modal">
     <div class="modal-content">
       <h2>Edit Your Letter</h2>
-      <span class="close fas fa-times-circle" @click="$emit('close')"></span>
+      <span class="close fas fa-times-circle" @click="success = false; $emit('close')"></span>
 
-      <div v-if="!unlocked">
+      <div class="creds" v-if="!unlocked">
+        <label for="u">Username:</label>
         <input type="text"
+          id="u"
           placeholder="Username"
           v-model="username"
         >
+        <label for="key">Letter Key:</label>
         <input type="password"
           placeholder="Your letter key..."
           v-model="userKey"
+          id="key"
+          @keydown.enter="loadUser"
         >
 
         <div class="error" v-if="error.length">{{ error }}</div>
@@ -20,7 +25,7 @@
 
       </div>
 
-      <template v-else>
+      <template v-else-if="!success">
         <div v-show="!isReview">
             <div :class="['input username', { error: hasError('username')}]">
             <label for="username">AO3 Username:</label>
@@ -101,7 +106,12 @@
         </ul>
         </template>
 
-      <button class="cancel" @click="$emit('close')">(Cancel)</button>
+       <div v-show="success">
+        <hr>
+        Your letter has been successfully edited!
+      </div>
+
+      <button class="cancel" @click="success = false; $emit('close')">({{ success ? 'Close' : 'Cancel' }})</button>
     </div>
   </div>
 </template>
@@ -143,7 +153,8 @@ export default {
       userKey: '',
       userData: {},
       unlocked: false,
-      error: ''
+      error: '',
+      success: false
     };
   },
   computed: {
@@ -235,7 +246,7 @@ export default {
         const user = res.val();
 
         if (!user) {
-          this.error = 'Could not find a letter under this username. Check case-sensitivity!'
+          this.error = 'Could not find a letter for this username. Check case-sensitivity!'
         } else {
           if (user.key !== this.userKey) {
             this.error = 'Wrong letter key!'
@@ -281,7 +292,7 @@ export default {
         this.$firebaseRefs.letters.child(index).child(this.username).remove();
       });
 
-      this.$emit('close');
+      this.success = true;
     }
 
   }
@@ -289,6 +300,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.creds {
+  input {
+    display: block;
+    margin: 10px 0;
+  }
+}
 label {
   font-weight: bold;
   width: 130px;
