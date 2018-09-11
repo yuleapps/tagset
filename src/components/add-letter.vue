@@ -7,7 +7,7 @@
         to 'tide everyone through until all requests are made public after assignments go out.</p>
       <p>
         Submitting your letter to the app does <strong>not count as signing up for Yuletide!</strong>
-        Go and do that first <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">on AO3</a>.
+        Go and do that <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">on AO3</a> between October 12 - 21.
       </p>
 
       <div v-show="!isReview">
