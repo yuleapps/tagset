@@ -277,7 +277,8 @@ export default {
   top: 100px;
   right: 0;
   padding: 10px;
-  background: #fff;
+  padding-top: 30px;
+  background: #fafafa;
   width: 60%;
   border: 1px solid #cfcfcf;
   max-height: 600px;
@@ -294,16 +295,33 @@ export default {
     margin: 0;
   }
 
+  .header {
+    position: fixed;
+    z-index: 1;
+    top: 131px;
+    padding-top: 10px;
+    height: 40px;
+    width: 100%;
+    background-color: #fafafa;
+  }
+
   &.large {
     width: 95%;
   }
 
   &.collapsed {
     width: 130px;
+    padding-top: 10px;
 
     .title,
     .expand {
       font-size: 16px;
+    }
+
+    .header {
+      position: unset;
+      height: auto;
+      z-index: 0;
     }
   }
 

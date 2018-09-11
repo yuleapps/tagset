@@ -204,7 +204,9 @@ export default {
         return o !== char;
       });
 
-      this.options = _.difference(this.characters[this.fandom['.key']], this.chars);
+      this.term = ''; // reset the search to be explicit
+
+      this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
     highlight(option, type) {
       if (!option) {
@@ -246,13 +248,9 @@ export default {
         return;
       }
 
-
-
       this.chars.push(this.options[this.selectedIndex]);
       this.term = '';
-      this.options = _.filter(this.options, o => {
-        return !_.includes(this.chars, o);
-      });
+      this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
     next() {
       if (this.selectedIndex === this.options.length - 1) {
