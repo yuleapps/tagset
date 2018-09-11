@@ -229,7 +229,8 @@ export default {
           this.userKey = (Math.random() + 1).toString(36).substring(7);
           this.showSubmit = false;
 
-           db.ref('/letterkeys').child(this.username).set({ key: this.userKey })
+           db.ref('/letterkeys').child(this.username).set({ key: this.userKey, timestamp: (new Date()).toISOString() });
+
           _.each(this.scrubbedFandoms, req => {
             this.$firebaseRefs.letters.child(req.fandom['.key']).child(this.username).set({
               username: this.username,
