@@ -98,8 +98,8 @@
             </ul>
         </div>
 
-        <button @click="submit" v-if="!userExists" class="submit button-primary">{{ submitText }}</button>
-        <button v-if="isReview && !userExists" @click="isReview = false" class="submit button-warn">Edit</button>
+        <button @click="submit" v-if="showSubmit" class="submit button-primary">{{ submitText }}</button>
+        <button v-if="isReview && showSubmit" @click="isReview = false" class="submit button-warn">Edit</button>
 
         <ul class="notices small">
             <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
@@ -154,7 +154,8 @@ export default {
       userData: {},
       unlocked: false,
       error: '',
-      success: false
+      success: false,
+      showSubmit: true
     };
   },
   computed: {
@@ -293,6 +294,7 @@ export default {
       });
 
       this.success = true;
+      this.showSubmit = false;
     }
 
   }

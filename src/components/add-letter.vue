@@ -89,8 +89,8 @@
         </ul>
       </div>
 
-      <button @click="submit" v-if="!userExists" class="submit button-primary">{{ submitText }}</button>
-      <button v-if="isReview && !userExists" @click="isReview = false" class="submit button-warn">Edit</button>
+      <button @click="submit" v-if="showSubmit" class="submit button-primary">{{ submitText }}</button>
+      <button v-if="isReview && showSubmit" @click="isReview = false" class="submit button-warn">Edit</button>
 
       <ul class="notices small">
         <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
@@ -134,6 +134,7 @@ export default {
       isReview: false,
       availableFandoms: [],
       userExists: false,
+      showSubmit: true,
       userKey: ''
     };
   },
@@ -226,6 +227,7 @@ export default {
 
         if (!res.val()) {
           this.userKey = (Math.random() + 1).toString(36).substring(7);
+          this.showSubmit = false;
 
            db.ref('/letterkeys').child(this.username).set({ key: this.userKey })
           _.each(this.scrubbedFandoms, req => {
@@ -247,6 +249,7 @@ export default {
           // this.$emit('close');
         } else {
           this.userExists = true;
+          this.showSubmit = false;
           return;
         }
       });
