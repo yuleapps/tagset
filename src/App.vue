@@ -77,7 +77,7 @@
               <div v-if="maintenance">
                 Key: {{ fandom['.key'] }}
               </div>
-              <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
+              <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category.join(', ')}}</span>
 
             </div>
           </td>
@@ -399,7 +399,7 @@ export default {
 
       if (this.options.filter.category.length) {
         arr = _.filter(arr, o => {
-          return o.category === this.options.filter.category;
+          return _.includes(o.category, this.options.filter.category);
         });
       }
 

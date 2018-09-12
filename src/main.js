@@ -61,17 +61,16 @@ new Vue({
           };
         });
         store.commit('setFandoms', result);
-        store.commit(
-          'setCategories',
-          _.uniq(
-            _.map(result, o => {
-              if (!o) {
-                return {};
-              }
-              return o.category;
-            })
-          )
-        );
+        const categories = [];
+        _.each(result, o => {
+          if (!o) {
+            return;
+          }
+          _.each(o.category, cat => {
+            categories.push(cat);
+          });
+        });
+        store.commit('setCategories', _.uniq(categories));
       });
   },
   firebase: {

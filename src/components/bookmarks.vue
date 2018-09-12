@@ -66,7 +66,7 @@
               {{ fandom.name }}
               <span @click="remove(fandom)" class="remove far fa-times-circle"></span>
               <div class="meta">
-                <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category}}</span>
+                <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category.join(', ')}}</span>
               </div>
             </td>
 
