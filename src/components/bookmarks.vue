@@ -299,7 +299,7 @@ export default {
   .header {
     position: fixed;
     z-index: 1;
-    top: 131px;
+    top: 101px;
     padding-top: 10px;
     height: 40px;
     width: 100%;

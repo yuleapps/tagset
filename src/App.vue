@@ -300,6 +300,17 @@ export default {
     ])
   },
   watch: {
+    letters: {
+      deep: true,
+      handler(val) {
+        if (!Object.keys(val).length) {
+          return;
+        }
+        const scrubbed = this.scrubLettermarks(this.lettermarks, val);
+        this.$store.commit('setLettermarks', scrubbed);
+        this.$localStorage.set('lettermarks', JSON.stringify(scrubbed));
+      }
+    },
     options: {
       deep: true,
       handler(val) {
@@ -514,6 +525,13 @@ export default {
     scrollToTop() {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+    },
+    // scrub bookmarks in case letters have changed
+    scrubLettermarks(lettermarks, letters) {
+      return _.filter(lettermarks, l => {
+        const fandom = letters[l.key]//[l.username];
+        return l && fandom && fandom[l.username];
+      })
     }
   }
 };
