@@ -7,11 +7,11 @@
 
       <h3>What is this?</h3>
       <p>The app contains the tagset for Yuletide. Before assignments are released, participants can
-         submit their letter to this app for public listing, as is tradition! 
+         submit their letter to this app for public listing, as is tradition!
         Once assignments go out, the full list of the prompts will be available as well.</p>
 
       <h3>Does submitting a letter mean I'm signed up?</h3>
-      <p><strong>No</strong>. You have to <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">sign up for Yuletide on AO3</a>. 
+      <p><strong>No</strong>. You have to <a href="http://archiveofourown.org/collections/yuletide2018/profile" target="blank">sign up for Yuletide on AO3</a>.
       Conversely, you do not have to submit a letter to this app if you don't want to.
       </p>
 
@@ -24,6 +24,9 @@
         everything. Still not there? Report a bug!
       </p>
 
+      <h3>What happened to the spreadsheet?</h3>
+      <p>This app replaces the old spreadsheet, but for those who want this information in spreadsheet format, you can get a magically synced one (excluding characters for brevity) <a href="https://docs.google.com/spreadsheets/d/10uywj4_eDDARH6ykh2uXB5yujfrAXnYa8Jhl-6vWB-Y/edit#gid=0" target="blank">here</a>. The sync happens every 15 minutes.</p>
+
       <h3>Tools: what does checking Mobile Letter Format do?</h3>
       <p>Where possible, it gives you the "most readable" URLs for letters - e.g. mobile for Google Docs,
          and Tumblr and DW/LJ light themes.
@@ -35,7 +38,7 @@
       </p>
 
       <h3>Bookmarks: How do bookmarks work?</h3>
-      <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. Those become available 
+      <p>Click on a <span class="far fa-heart bookmark"></span> icon to bookmark something. Those become available
       in the Bookmarks tab. You can bookmark fandoms, letters, and prompts (once available). An already-bookmarked thing
       is denoted by a solid <span class="fas fa-heart bookmark"></span>.</p>
       <p>Bookmarks are saved <em>in your browser memory</em>,
