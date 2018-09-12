@@ -36,7 +36,7 @@
       <div class="letters">
         <h3>Letters</h3>
         <ul v-if="lettermarks.length">
-          <li v-for="letter in lettermarks">
+          <li v-for="letter in lettermarks" :key="letter.url">
             <template v-if="letter.isPinchhitter">(</template>
             <a :href="formatUrl(letter.url)" target="_blank">{{ letter.username }}</a> ({{ letter.name }})
             <template v-if="letter.isPinchhitter">)</template>
@@ -60,6 +60,7 @@
           <tr
             v-for="(fandom, index) in bookmarksData"
             :class="{ odd: index % 2 !== 0 }"
+            :key="fandom.name"
           >
             <td class="fandom">
               {{ fandom.name }}

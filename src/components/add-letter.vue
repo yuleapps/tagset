@@ -54,7 +54,7 @@
               <th>Letter Link</th>
               <td>{{ url }}</td>
             </tr>
-            <tr v-for="(fandom, i) in scrubbedFandoms">
+            <tr v-for="(fandom, i) in scrubbedFandoms" :key="fandom.name">
               <th>Fandom {{i + 1}}</th>
               <td>{{ fandom.fandom.name }}</td>
               <td>
@@ -70,8 +70,8 @@
       </template>
 
       <div v-show="userKey.length">
-        <hr>
-        Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong>: REMEMBER THIS and use it if you want to edit your letter later.
+        <hr class="separator">
+        Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong> - NOTE THIS DOWN. You will need it if you want to edit your letter later.
       </div>
 
       <div class="error list" v-if="errors.length">
@@ -96,7 +96,7 @@
         <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
       </ul>
 
-      <button class="cancel" @click="$emit('close')">(Cancel)</button>
+      <button class="cancel" @click="$emit('close')">({{ userKey.length ? 'Close' : 'Cancel' }})</button>
     </div>
   </div>
 </template>
@@ -303,6 +303,10 @@ li {
 }
 
 .notices {
+  margin: 10px 0;
+}
+
+.separator {
   margin: 10px 0;
 }
 </style>
