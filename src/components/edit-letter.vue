@@ -267,7 +267,7 @@ export default {
         .ref('/letterkeys')
         .child(this.username)
         .once('value')
-        .then(res => {
+        .then(async res => {
           const user = res.val();
 
           if (!user) {
@@ -277,7 +277,19 @@ export default {
               this.error = 'Wrong letter key!';
             } else {
               this.userData = user.fandoms;
+
+              // load the character lists
+              for (let key in user.fandoms) {
+                await db
+                  .ref('/characters/' + key)
+                  .once('value')
+                  .then(async res => {
+                    const result = res.toJSON();
+                    this.$store.commit('addChar', { key: key, result });
+                  });
+              }
               this.url = this.userData[Object.keys(this.userData)[0]].url;
+
               this.unlocked = true;
             }
           }
