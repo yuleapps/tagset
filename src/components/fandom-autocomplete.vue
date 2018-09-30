@@ -82,7 +82,7 @@ export default {
     savedData: {
       type: Object,
       default() {
-        return null
+        return null;
       }
     },
     hasError: {
@@ -116,7 +116,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['characters'])
+    ...mapGetters({ characters: 'characters', allFandoms: 'fandoms' })
   },
   watch: {
     term(val, oldVal) {
@@ -152,7 +152,7 @@ export default {
   methods: {
     loadSaved() {
       this.chars = this.savedData.characters || [];
-      this.fandom = this.fandoms[this.savedData.key];
+      this.fandom = this.allFandoms[this.savedData.key];
       this.autocomplete();
     },
     update() {
