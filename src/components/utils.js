@@ -65,7 +65,7 @@ export default {
   addPromptmark(prompt) {
     if (
       _.find(this.promptmarks, o => {
-        return o.username === prompt.username && o.fandom === prompt.fandom;
+        return o.username === prompt.ousername && o.fandom === prompt.fandom;
       })
     ) {
       return false;
@@ -89,6 +89,10 @@ export default {
     this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
   },
   removeLettermark(letter, key) {
+    if (!key && letter.key !== undefined) {
+      key = letter.key;
+    }
+
     this.$store.commit(
       'setLettermarks',
       _.filter(this.lettermarks, o => {
