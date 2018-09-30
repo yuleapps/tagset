@@ -100,6 +100,7 @@
 
         <button @click="submit" v-if="showSubmit" class="submit button-primary">{{ submitText }}</button>
         <button v-if="isReview && showSubmit" @click="isReview = false" class="submit button-warn">Edit</button>
+        <button v-if="showSubmit" @click="deleteLetter" class="submit button-warn">Delete</button>
 
         <ul class="notices small">
             <li>Mods will delete any letter that is locked or breaks rules; your AO3 email will be sent a courtesy notice. You may resubmit a fixed letter at any time!</li>
@@ -175,6 +176,25 @@ export default {
         value
       );
     },
+    deleteLetter() {
+      if (!confirm('Are you sure you want to delete your letter?')) {
+        return;
+      }
+      db
+        .ref('/letterkeys')
+        .child(this.username)
+        .remove();
+
+      this.scrubFandoms();
+      _.each(this.scrubbedFandoms, req => {
+        this.$firebaseRefs.letters
+          .child(req.fandom['.key'])
+          .child(this.username)
+          .remove();
+      });
+
+      this.$emit('close');
+    },
     submit() {
       this.errors = [];
       this.scrubFandoms();
@@ -243,40 +263,56 @@ export default {
       });
     },
     loadUser() {
-      db.ref('/letterkeys').child(this.username).once('value').then(res => {
-        const user = res.val();
+      db
+        .ref('/letterkeys')
+        .child(this.username)
+        .once('value')
+        .then(res => {
+          const user = res.val();
 
-        if (!user) {
-          this.error = 'Could not find a letter for this username. Check case-sensitivity!'
-        } else {
-          if (user.key !== this.userKey) {
-            this.error = 'Wrong letter key!'
+          if (!user) {
+            this.error = 'Could not find a letter for this username. Check case-sensitivity!';
           } else {
-            this.userData = user.fandoms;
-            this.url = this.userData[Object.keys(this.userData)[0]].url
-            this.unlocked = true;
+            if (user.key !== this.userKey) {
+              this.error = 'Wrong letter key!';
+            } else {
+              this.userData = user.fandoms;
+              this.url = this.userData[Object.keys(this.userData)[0]].url;
+              this.unlocked = true;
+            }
           }
-        }
-       });
+        });
     },
     add() {
       // clean out the user's fandom references
-      db.ref('/letterkeys').child(this.username).child('fandoms').remove();
+      db
+        .ref('/letterkeys')
+        .child(this.username)
+        .child('fandoms')
+        .remove();
       // write any updates
       _.each(this.scrubbedFandoms, req => {
-        this.$firebaseRefs.letters.child(req.fandom['.key']).child(this.username).set({
-          username: this.username,
-          url: this.url,
-          characters: req.characters,
-          isPinchhitter: this.pinchhitter || false
-        });
+        this.$firebaseRefs.letters
+          .child(req.fandom['.key'])
+          .child(this.username)
+          .set({
+            username: this.username,
+            url: this.url,
+            characters: req.characters,
+            isPinchhitter: this.pinchhitter || false
+          });
 
-        db.ref('/letterkeys').child(this.username).child('fandoms').child(req.fandom['.key']).set({
-          url: this.url,
-          key: req.fandom['.key'],
-          characters: req.characters,
-          isPinchhitter: this.pinchhitter || false
-        });
+        db
+          .ref('/letterkeys')
+          .child(this.username)
+          .child('fandoms')
+          .child(req.fandom['.key'])
+          .set({
+            url: this.url,
+            key: req.fandom['.key'],
+            characters: req.characters,
+            isPinchhitter: this.pinchhitter || false
+          });
       });
 
       // delete any removes
@@ -284,19 +320,23 @@ export default {
         return f.fandom['.key'];
       });
       const oldFandoms = _.map(this.userData, f => {
-        if (!f) { return }
+        if (!f) {
+          return;
+        }
         return f.key;
       });
       const deletedFandoms = _.difference(oldFandoms, newFandoms);
 
       _.each(deletedFandoms, index => {
-        this.$firebaseRefs.letters.child(index).child(this.username).remove();
+        this.$firebaseRefs.letters
+          .child(index)
+          .child(this.username)
+          .remove();
       });
 
       this.success = true;
       this.showSubmit = false;
     }
-
   }
 };
 </script>

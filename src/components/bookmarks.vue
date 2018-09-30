@@ -73,6 +73,7 @@
             <td class="characters" v-if="!options.hideCharacters">
               <ul>
                 <li v-for="char in getCharacters(fandom['.key'])"
+                  :key="char"
                   :class="{ highlight: letterHasChar(fandom['.key'], char) }">
                   {{char}}
                 </li>

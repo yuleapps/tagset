@@ -153,7 +153,7 @@
                     </td>
                     <td>
                       <ul v-if="prompt.characters">
-                        <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                        <li v-for="c in prompt.characters.split(',')" :key="c">{{ c }}</li>
                       </ul>
                     </td>
                     <td class="prompt" v-html="prompt.prompt"></td>
@@ -529,9 +529,9 @@ export default {
     // scrub bookmarks in case letters have changed
     scrubLettermarks(lettermarks, letters) {
       return _.filter(lettermarks, l => {
-        const fandom = letters[l.key]//[l.username];
+        const fandom = letters[l.key]; //[l.username];
         return l && fandom && fandom[l.username];
-      })
+      });
     }
   }
 };
