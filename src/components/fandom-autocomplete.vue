@@ -205,6 +205,7 @@ export default {
       });
 
       this.term = ''; // reset the search to be explicit
+      this.msg = '';
 
       this.options = _.difference(_.toArray(this.characters[this.fandom['.key']]), this.chars);
     },
