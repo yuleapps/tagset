@@ -13,7 +13,8 @@ export default {
       return null;
     }
 
-    db.ref('/characters/' + fandomKey)
+    db
+      .ref('/characters/' + fandomKey)
       .once('value')
       .then(res => {
         const result = res.toJSON();
@@ -46,7 +47,7 @@ export default {
         return o.username === letter.username && o.key === fandom['.key'];
       })
     ) {
-      this.removeLettermark(letter);
+      this.removeLettermark(letter, fandom['.key']);
       return false;
     }
 
@@ -87,11 +88,11 @@ export default {
     );
     this.$localStorage.set('bookmarks', JSON.stringify(this.bookmarks));
   },
-  removeLettermark(letter) {
+  removeLettermark(letter, key) {
     this.$store.commit(
       'setLettermarks',
       _.filter(this.lettermarks, o => {
-        return !(o.username === letter.username && o.key === letter.key);
+        return !(o.username === letter.username && o.key === key);
       })
     );
     this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
@@ -175,7 +176,8 @@ export default {
     this.$store.commit('setPrompts', {});
     this.$store.commit('setPrompts', newVal);
 
-    db.ref('/prompts/' + fandomKey)
+    db
+      .ref('/prompts/' + fandomKey)
       .once('value')
       .then(snapshot => {
         let results = snapshot.val();
