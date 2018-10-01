@@ -304,7 +304,7 @@ export default {
         return;
       }
 
-      const pasta = [];
+      const pasta = [`<p><strong>${this.username}</strong><br>${this.url}</p>`];
 
       _.each(this.scrubbedFandoms, f => {
         const fandom = f.fandom;
