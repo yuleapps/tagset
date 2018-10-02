@@ -52,7 +52,7 @@
           <tr>
             <th class="fandom">Fandom</th>
             <th class="characters" v-if="!options.hideCharacters">Characters</th>
-            <th class="letters">Letters</th>
+            <th class="letters" v-if="unlock">Letters</th>
             <th v-if="unlock" class="prompts">Prompts</th>
           </tr>
         </thead>
@@ -95,7 +95,7 @@
               </li>
             </ul>
           </td>
-          <td class="letters">
+          <td class="letters" v-if="unlock">
             <ul>
               <li v-for="letter in letters[fandom['.key']]" :key="letter.username" class="letter">
                 <a
