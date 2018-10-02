@@ -924,6 +924,12 @@
     "Takasu Ryuuji"
   ],
   [
+    "Blacker (Transformers)",
+    "Deathsaurus (Transformers)",
+    "Star Saber (Transformers)",
+    "Victory Leo"
+  ],
+  [
     "Alessandro XVIII",
     "Brother Petros (Trinity Blood)",
     "Esther Blanchett",
@@ -1220,6 +1226,12 @@
     "Senshi (Dungeon Meshi)"
   ],
   [
+    "Kisaragi Nanao",
+    "Narumiya Minato",
+    "Onogi Kaito",
+    "Takehaya Seiya"
+  ],
+  [
     "Dr. Karigari (Drive Head)",
     "Yuri Sasagawa (Drive Head)"
   ],
@@ -1398,6 +1410,11 @@
   [
     "Kanbara Akihito",
     "Nase Hiroomi"
+  ],
+  [
+    "Elephantus | Tonzra",
+    "Leopard | Doronjo",
+    "Voltkatze | Boyacky"
   ],
   [
     "Mikhail (Sirius the Jaeger)",
@@ -2099,6 +2116,11 @@
     "Natasha Wyatt"
   ],
   [
+    "Hohiro Kurita (31st c.) (Battletech)",
+    "Shin Yodama (Battletech)",
+    "Theodore Kurita (31st c.) (Battletech)"
+  ],
+  [
     "Ana (Beartown)",
     "Benjamin Ovich",
     "Kira (Beartown)",
@@ -2409,6 +2431,7 @@
     "Miryam Carlisle (Changeover - Mahy)",
     "Sorenson Carlisle (Changeover - Mahy)"
   ],
+  [],
   [
     "Alec Deacon",
     "Andrew Raynes",
@@ -2550,6 +2573,12 @@
     "Antillar Maximus",
     "Kitai (Codex Alera)",
     "Tavi | Gaius Octavian (Codex Alera)"
+  ],
+  [
+    "Charles Fairford (Cold Comfort Farm - Gibbons)",
+    "Flora Poste (Cold Comfort Farm - Gibbons)",
+    "Reuben Starkadder (Cold Comfort Farm - Gibbons)",
+    "Seth Starkadder (Cold Comfort Farm - Gibbons)"
   ],
   [
     "The Patriarch of the East",
@@ -2843,6 +2872,7 @@
   ],
   [
     "Farin Cook",
+    "Aesil Mdierra",
     "Dorrin Verrakai",
     "Kolya Ministierra",
     "Marshal-General Arianya"
@@ -2872,7 +2902,9 @@
   [
     "Blade (Derkholm)",
     "Callette (Derkholm)",
+    "Claudia (Derkholm)",
     "Elda (Derkholm)",
+    "Flury (Derkholm)",
     "Kit (Derkholm)"
   ],
   [
@@ -3631,6 +3663,10 @@
     "Alexios Flavius Aquila",
     "Cunorix (Frontier Wolf)",
     "Hilarion (Frontier Wolf)"
+  ],
+  [
+    "Fah lo Suee (Fu Manchu Series - Rohmer)",
+    "Kâramanèh (Fu Manchu Series - Rohmer)"
   ],
   [
     "Alastair Crenn",
@@ -5101,6 +5137,22 @@
     "Isabella Thorpe (Northanger Abbey - Jane Austen)"
   ],
   [
+    "Bruce Wayne Carmody (NOS4A2)",
+    "Charlie Manx (NOS4A2)",
+    "Maggie Leigh (NOS4A2)",
+    "Vic McQueen (NOS4A2)"
+  ],
+  [
+    "Logan (Not If I Save You First - Carter)",
+    "Maddie Manchester (Not If I Save You First - Carter)",
+    "Michael Manchester (Not If I Save You First - Carter)",
+    "Stefan (Not If I Save You First - Carter)"
+  ],
+  [
+    "Bryony Asquith",
+    "Leo Marsden"
+  ],
+  [
     "Dameon (Obernewtyn Chronicles)",
     "Dragon (Obernewtyn Chronicles)",
     "Elspeth Gordie",
@@ -5164,6 +5216,7 @@
     "Miko Sheikh",
     "Will Dando"
   ],
+  [],
   [
     "Iskinder (Order of the Air)",
     "Lewis Segura",
@@ -5246,6 +5299,12 @@
     "Professor Randolph Lyall (Parasol Protectorate - Carriger)"
   ],
   [
+    "Ariadne Oliver (Parker Pyne - Christie)",
+    "Claude Luttrell (Parker Pyne - Christie)",
+    "Madeleine de Sara (Parker Pyne - Christie)",
+    "Parker Pyne (Parker Pyne - Christie)"
+  ],
+  [
     "Amy Harper Bellafonte",
     "Bradford Wolgast",
     "Lucius Greer",
@@ -5298,6 +5357,7 @@
     "Henry Wotton (TPoDG - Oscar Wilde)",
     "Sibyl Vane (TPoDG - Oscar Wilde)"
   ],
+  [],
   [
     "Camille Desmoulins (PGS - Mantel)",
     "Georges Jacques Danton (PGS - Mantel)",
@@ -5340,6 +5400,10 @@
   [
     "Katharine Vaughn Powers",
     "Meghan Powers"
+  ],
+  [
+    "Knight (Prince & Knight)",
+    "Prince (Prince & Knight)"
   ],
   [
     "Buttercup (Princess Bride - Goldman)",
@@ -5438,6 +5502,12 @@
     "Gloria Denton"
   ],
   [
+    "Aefa Thornhill",
+    "Ban the Fox (The Queens of Innis Lear)",
+    "Elia Lear",
+    "Morimaros (The Queens of Innis Lear)"
+  ],
+  [
     "Dowager Countess of St Erth",
     "Drusilla Morville",
     "Gervase Frant Earl of St Erth",
@@ -5472,6 +5542,12 @@
     "Rebecca de Winter (Rebecca - du Maurier)"
   ],
   [
+    "Amani Al'Hiza",
+    "The First Hero (Rebel of the Sands)",
+    "Jin (Rebel of the Sands)",
+    "Zaahir (Rebel of the Sands)"
+  ],
+  [
     "Christian Colby",
     "Frankie Boyd",
     "Grant Holloway",
@@ -5484,6 +5560,7 @@
     "Thomas (Red Queen)",
     "Tiberias \"Cal\" Calore VII"
   ],
+  [],
   [
     "Anatoly Kerensky",
     "Maia Duvall"
@@ -5672,6 +5749,10 @@
     "Mark Petrie (Salem's Lot Book)"
   ],
   [
+    "John Blake (Salt Magic Skin Magic)",
+    "Soren Thornby"
+  ],
+  [
     "Miguel Garza",
     "Loup Garron",
     "Pilar Ecchevarria"
@@ -5810,6 +5891,12 @@
     "Ros Vortalis"
   ],
   [
+    "Barrick Eddon",
+    "Briony Eddon",
+    "Eneas",
+    "Qinnitan"
+  ],
+  [
     "Rosa | Rose (Shamer Chronicles)",
     "Dina Tonerre",
     "Melli Tonerre",
@@ -5926,6 +6013,7 @@
   ],
   [
     "Galatea (Soon I Will Be Invincible)",
+    "Elphin (Soon I Will Be Invincible)",
     "Fatale (Soon I Will Be Invincible)",
     "Lily | Erica Lowenstein"
   ],
@@ -5934,6 +6022,11 @@
     "Kestral (Sorrow's Knot)",
     "Orca (Sorrow's Knot)",
     "Otter (Sorrow's Knot)"
+  ],
+  [
+    "Ilan Eliav",
+    "John Cullinane",
+    "Vered Bar-El"
   ],
   [
     "Chad Rutledge",
@@ -5947,6 +6040,13 @@
     "Ghost Bird (Southern Reach)",
     "The Psychologist (Southern Reach)",
     "The Surveyor (Southern Reach)"
+  ],
+  [
+    "Danesh Jalo | Decibel Jones",
+    "Marvin (Space Opera - Catherynne M. Valente)",
+    "Mira Wonderful Star",
+    "Omar Calişkan | Oort St. Ultraviolet",
+    "Öo (Space Opera)"
   ],
   [
     "Anne Edwards",
@@ -6073,6 +6173,12 @@
   ],
   [],
   [
+    "Casamir (The Stars Are Legion)",
+    "Jayd (The Stars Are Legion)",
+    "Sabita (The Stars Are Legion)",
+    "Zan (The Stars Are Legion)"
+  ],
+  [
     "The Clarinet | Sidney (Station Eleven)",
     "Clark Thompson",
     "The Conductor (Station Eleven)",
@@ -6136,6 +6242,12 @@
     "Firoz Khan",
     "Maan Kapoor",
     "Saeeda Bai"
+  ],
+  [
+    "Billy Bronner (Summer Song - Louise Blaydon)",
+    "Caitlyn (Summer Song - Louise Blaydon)",
+    "Kit O'Reilly (Summer Song - Louise Blaydon)",
+    "Leonard Nachman (Summer Song - Louise Blaydon)"
   ],
   [
     "Abe Aronson",
@@ -6242,6 +6354,9 @@
     "Train (Tay Bridge Disaster)"
   ],
   [
+    "Lian Kaitio"
+  ],
+  [
     "Diana Delaney",
     "Dylan Clearwater",
     "Rudy Clearwater",
@@ -6292,6 +6407,9 @@
   [
     "Mateo Torrez",
     "Rufus Emeterio"
+  ],
+  [
+    "The Dragon (The Thing In the Walls Wants Your Small Change)"
   ],
   [
     "Archie Curtis",
@@ -6489,6 +6607,12 @@
     "Robert St. Clare"
   ],
   [
+    "Catherine Helstone (Under The Pendulum Sun)",
+    "Laon Helstone (Under The Pendulum Sun)",
+    "Mr Benjamin (Under The Pendulum Sun)",
+    "The Salamander (Under The Pendulum Sun)"
+  ],
+  [
     "Culin Wei",
     "Jace (Undermarket Data)"
   ],
@@ -6586,7 +6710,10 @@
     "Ginevra Fanshawe",
     "Lucy Snowe"
   ],
-  [],
+  [
+    "Barbara (Vinegar Hill)",
+    "Ellen Schumaker"
+  ],
   [
     "Capitaine Nemo | Captain Nemo (Twenty Thousand Leagues - Verne)",
     "Conseil (Twenty Thousand Leagues - Verne)",
@@ -6615,6 +6742,7 @@
     "Fyodor \"Fedya\" Ivanovich Dolokhov (War and Peace - Tolstoy)",
     "Sofia \"Sonya\" Alexandrovna Rostova (War and Peace - Tolstoy)"
   ],
+  [],
   [
     "Daisy Bowman",
     "Lillian Bowman",
@@ -7069,7 +7197,7 @@
     "Dante Hicks (Askewniverse)",
     "Holden McNeil (Askewniverse)",
     "Hooper X (Askewniverse)",
-    "Randall Graves (Askewniverse)",
+    "Randal Graves (Askewniverse)",
     "Silent Bob (Askewniverse)",
     "Jay (Askewniverse)"
   ],
@@ -7189,7 +7317,7 @@
   ],
   [
     "Ben Urich (Daredevil Comics)",
-    "Elektra Natchios (Daredevil comics)",
+    "Elektra Natchios (Daredevil Comics)",
     "Frank Castle (Daredevil Comics)",
     "Franklin \"Foggy\" Nelson (Daredevil Comics)",
     "Karen Page (Daredevil Comics)",
@@ -7541,6 +7669,12 @@
     "Radiant Goddess (Lady of the Shard)"
   ],
   [
+    "Mona (The Last Halloween)",
+    "Robert (The Last Halloween)",
+    "Slugger (The Last Halloween)",
+    "Splitter (The Last Halloween)"
+  ],
+  [
     "Adrian Velba (Lastman BD)",
     "Cristo Canyon (Lastman BD)",
     "Elorna Morgan (Lastman BD)",
@@ -7628,8 +7762,7 @@
     "Mary Jane Watson (Marvel Noir)",
     "May Parker (Marvel Noir)",
     "Peter Parker (Marvel Noir)",
-    "Tony Stark (Marvel Noir)",
-    "Tony Stark (Ultimates)"
+    "Tony Stark (Marvel Noir)"
   ],
   [
     "America Chavez (Marvel Rising: Secret Warriors)",
@@ -7646,15 +7779,15 @@
     "Victor von Doom | God-Emperor Doom"
   ],
   [
-    "Steve Rogers (Ultimates)",
-    "Tony Stark (Ultimates)"
+    "Tony Stark (Marvel Ultimates)",
+    "Steve Rogers (Ultimates)"
   ],
   [
     "Apollo (Midnighter and Apollo)",
     "Midnighter (Midnighter and Apollo)"
   ],
   [
-    "Grin Hardwing",
+    "Check \"Grin\" Hardwing",
     "Lucretia DeCoy",
     "Mallory McMallard",
     "Tanya Vanderflock"
@@ -7722,6 +7855,10 @@
     "Declan (Nothing Special)",
     "Lasser",
     "Radish (Nothing Special)"
+  ],
+  [
+    "Raziol Qamar (Novae)",
+    "Sulvain (Novae)"
   ],
   [
     "Bokutachi-san | Kidnapper-kun",
@@ -7898,7 +8035,7 @@
   [
     "Anya Corazon (Spider-Man (Cartoon 2017))",
     "Harry Osborn (Spider-Man (Cartoon 2017))",
-    "Miles Morales Spider-Gwen (Spider-Man (Cartoon 2017))",
+    "Miles Morales (Spider-Man (Cartoon 2017))",
     "Spider-Gwen (Spider-Man (Cartoon 2017))"
   ],
   [
@@ -7929,6 +8066,10 @@
     "Winloss (Doctor Aphra)"
   ],
   [
+    "Edward Hyde | Henry Jekyll",
+    "Thomas Adye"
+  ],
+  [
     "Kara Zor-El (Supergirl Comics 2011)"
   ],
   [
@@ -7956,7 +8097,8 @@
     "Megatron (Transformers: Shattered Glass)",
     "Optimus Prime (Transformers: Shattered Glass)",
     "Ratchet (Transformers: Shattered Glass)",
-    "Starscream (Transformers: Shattered Glass)"
+    "Starscream (Transformers: Shattered Glass)",
+    "Star Saber (Transformers)"
   ],
   [
     "Aaarrrgghh (Trollhunters)",
@@ -7975,9 +8117,9 @@
     "Phoenix Witch (Fabulous Killjoys Comic)"
   ],
   [
+    "EBE1 (Trying Human)",
     "Phillis Lennox (Trying Human)",
     "Rose Williams (Trying Human)",
-    "(EBE-1)",
     "Hue (Trying Human)"
   ],
   [
@@ -7988,7 +8130,8 @@
   ],
   [
     "Doreen Green (The Unbeatable Squirrel Girl)",
-    "Kraven the Hunter (The Unbeatable Squirrel Girl)"
+    "Kraven the Hunter (The Unbeatable Squirrel Girl)",
+    "Nancy Whitehead"
   ],
   [
     "Elizabeth Braddock (Uncanny X-Force)",
@@ -8003,6 +8146,7 @@
     "Paul Robinson (Unhinged)"
   ],
   [
+    "Bridget (Vampirina)",
     "Demi (Vampirina)",
     "Poppy (Vampirina)",
     "Vampirina \"Vee\" Hauntley (Vampirina)"
@@ -8480,6 +8624,12 @@
     "Maximilien Robespierre (French Revolution RPF)"
   ],
   [
+    "Endō Shōzō",
+    "Matsumoto Hitoshi",
+    "Tanaka Naoki",
+    "Tsukitei Hōsei"
+  ],
+  [
     "Albrecht Dürer (German Renaissance RPF)",
     "Hans Baldung Grien (German Renaissance RPF)",
     "Willibald Pirckheimer (German Renaissance RPF)"
@@ -8701,6 +8851,10 @@
     "Tobias Menzies (Outlander (TV) RPF)"
   ],
   [
+    "Charlie Hunnam (Papillon (2017) RPF)",
+    "Rami Malek (Papillon (2017) RPF)"
+  ],
+  [
     "Claude Giroux (Philadelphia Flyers RPF)",
     "Danny Briere (Philadelphia Flyers RPF)",
     "Jeff Carter (Philadelphia Flyers RPF)",
@@ -8711,6 +8865,12 @@
     "Jacques Laffitte (Political RPF - France 19th c.)",
     "Jacques-Antoine Manuel (Political RPF - France 19th c.)",
     "Pierre-Jean de Béranger (Political RPF - France 19th c.)"
+  ],
+  [
+    "Benjamin \"Bibi\" Netanyahu (Political RPF - Israel 20th c.)",
+    "Ehud Barak (Political RPF - Israel 20th c.)",
+    "Moshe Dayan (Political RPF - Israel 20th c.)",
+    "Yonatan Netanyahu (Political RPF - Israel 20th c.)"
   ],
   [
     "Alessandro Di Battista (Political RPF - Italian 21st c.)",
@@ -8767,10 +8927,27 @@
     "Empress Dowager Cixi (Qing Dynasty RPF)"
   ],
   [
+    "Antoni Porowski (Queer Eye RPF)",
+    "Bobby Berk (Queer Eye RPF)",
+    "Jonathan Van Ness (Queer Eye RPF)",
+    "Karamo Brown (Queer Eye RPF)",
+    "Tan France (Queer Eye RPF)"
+  ],
+  [
     "Isco (Real Madrid RPF)",
     "Luka Modrić (Real Madrid RPF)",
     "Marcelo Vieira (Real Madrid RPF)",
     "Marco Asensio (Real Madrid RPF)"
+  ],
+  [
+    "Chris (The Renovators)",
+    "Christie (The Renovators)",
+    "Jarrad (The Renovators)",
+    "Lisa (The Renovators)",
+    "Mel (The Renovators)",
+    "Michael Lynch (The Renovators)",
+    "Natalia Broadhead (The Renovators)",
+    "Peter (The Renovators)"
   ],
   [
     "David Chang (Restaurant Critic RPF)",
@@ -8943,17 +9120,34 @@
     "Trea Turner (Washington Nationals RPF)"
   ],
   [
+    "Chip Esten (Whose Line UK RPF)",
+    "John Sessions (Whose Line UK RPF)",
+    "Paul Merton (Whose Line UK RPF)",
+    "Tony Slattery (Whose Line UK RPF)"
+  ],
+  [
     "Jacob Trouba (Winnipeg Jets RPF)",
     "Mark Scheifele (Winnipeg Jets RPF)",
     "Nikolaj Ehlers (Winnipeg Jets RPF)",
     "Patrik Laine (Winnipeg Jets RPF)"
   ],
-  [],
+  [
+    "Debbie Black (Women's Basketball RPF)",
+    "Diana Taurasi (Women's Basketball RPF)",
+    "Kia Nurse (Women's Basketball RPF)",
+    "Sue Bird (Women's Basketball RPF)"
+  ],
   [
     "Amanda Kessel",
     "Hilary Knight",
     "Marie-Philip Poulin",
     "Taylor Crosby"
+  ],
+  [
+    "Madison Keys (WTRPF)",
+    "Naomi Osaka (WTRPF)",
+    "Serena Williams (WTRPF)",
+    "Sloane Stephens (WTRPF)"
   ],
   [
     "Derek Hough (World of Dance RPF)",
@@ -8964,6 +9158,10 @@
     "Jon Pertwee (WWII RPF)",
     "Julia Child (WWII RPF)",
     "Roald Dahl (WWII RPF)"
+  ],
+  [
+    "Diego Luna (Y Tu Mamá También RPF)",
+    "Gael García Bernal (Y Tu Mamá También RPF)"
   ],
   [
     "Ino Hiroki (Haikyuu!! RPF)",
@@ -9694,7 +9892,6 @@
     "Tommy (Dunkirk)"
   ],
   [
-    "Cottia (Eagle of the Ninth)",
     "Cradoc (Eagle of the Ninth)",
     "Esca Mac Cunoval",
     "Marcus Flavius Aquila",
@@ -10772,6 +10969,14 @@
     "Nick Palmer"
   ],
   [
+    "Eileen Flax",
+    "Veronique Pommier"
+  ],
+  [
+    "Crane (North Mountain)",
+    "Wolf (North Mountain)"
+  ],
+  [
     "Conall (Northmen - A Viking Saga)",
     "Asbjorn (Northmen - A Viking Saga)",
     "Inghean (Northmen - A Viking Saga)"
@@ -10836,6 +11041,10 @@
     "Sy Lombrok"
   ],
   [
+    "Jeannie (Out at the Wedding 2007)",
+    "Risa (Out at the Wedding 2007)"
+  ],
+  [
     "Henri \"Papillon\" Charrière (Papillon 2018)",
     "Louis Dega (Papillon 2018)"
   ],
@@ -10894,6 +11103,12 @@
     "George Parker"
   ],
   [
+    "Deborah Vaughn",
+    "Joe Positano",
+    "Kate Mackay",
+    "Laurence Mackay"
+  ],
+  [
     "Mary (Plunkett and Macleane)",
     "Will Plunkett (Plunkett and Macleane)",
     "James Macleane",
@@ -10907,6 +11122,12 @@
   [
     "Jess (Possession (2008))",
     "Roman (Possession (2008))"
+  ],
+  [
+    "Baxley (The Predator (2018))",
+    "Casey Brackey (The Predator (2018))",
+    "Coyle (The Predator (2018))",
+    "Nebraska Williams (The Predator (2018))"
   ],
   [
     "Cliff (Pride)",
@@ -11030,6 +11251,10 @@
     "Mitch Taylor"
   ],
   [
+    "Maxim de Winter (Rebecca 1940)",
+    "Narrator | Mrs de Winter (Rebecca 1940)"
+  ],
+  [
     "Aram Finklestein (The Rebound 2009)",
     "Sandy (The Rebound 2009)"
   ],
@@ -11054,6 +11279,9 @@
   [
     "Mr. Orange (Reservoir Dogs)",
     "Mr. White (Reservoir Dogs)"
+  ],
+  [
+    "Xia Tian (Reset 2017)"
   ],
   [
     "Margot (Restless Natives)",
@@ -11159,6 +11387,12 @@
   [
     "Captain Gavin Stewart",
     "Colonel Lewis Henry Owain Pugh"
+  ],
+  [
+    "David Kim (Searching (2018))",
+    "Margot Kim (Searching (2018))",
+    "Pamela Kim (Searching (2018))",
+    "Peter Kim (Searching (2018))"
   ],
   [
     "Colonel Brandon (S&S 1995)",
@@ -11287,6 +11521,12 @@
     "Don Lockwood",
     "Kathy Selden",
     "Lina Lamont"
+  ],
+  [
+    "Charlie Sisters (Sisters Brothers Movie)",
+    "Eli Sisters (Sisters Brothers Movie)",
+    "Hermann Kermit Warm",
+    "John Morris (Sisters Brothers Movie)"
   ],
   [
     "Dex (Sky Captain & the World of Tomorrow)",
@@ -11574,6 +11814,9 @@
     "Ray Levoi",
     "Sam Reaches",
     "Walter Crow Horse"
+  ],
+  [
+    "Max Walker (Timecop 1994)"
   ],
   [
     "Bill Haydon (TTSS Movie 2011)",
@@ -11938,6 +12181,10 @@
     "Peter (Mary to Majo no Hana)"
   ],
   [
+    "Ah Chi",
+    "Yen Shih-San"
+  ],
+  [
     "Cat | Man (This Summer)",
     "First Man (This Summer)"
   ],
@@ -12055,6 +12302,11 @@
     "Shin Junki (Buzz RPF)",
     "Son Sunghee (Buzz RPF)",
     "Yoon Woohyun (Buzz RPF)"
+  ],
+  [
+    "California (California - Joni Mitchell)",
+    "Rogue (California - Joni Mitchell)",
+    "Singer (California - Joni Mitchell)"
   ],
   [
     "Female guitarist (Call It Dreaming)",
@@ -12326,6 +12578,11 @@
     "Vivi (Mystery Skulls Animated)"
   ],
   [
+    "Girl (Nevereverland)",
+    "Protagonist (Nevereverland)"
+  ],
+  [],
+  [
     "Cai Xukun (NINE PERCENT RPF)",
     "Chen Linong (NINE PERCENT RPF)",
     "Fan Chengcheng (NINE PERCENT RPF)",
@@ -12353,6 +12610,7 @@
     "Kim Jiho (Oh My Girl RPF)",
     "Yoo Shiah | YooA (Oh My Girl RPF)"
   ],
+  [],
   [
     "Adachi Yuto (Pentagon RPF)",
     "Jung Wooseok (Pentagon RPF)",
@@ -12370,6 +12628,7 @@
     "Janelle Monáe (Q.U.E.E.N.)",
     "Time Council Representative (Q.U.E.E.N.)"
   ],
+  [],
   [
     "Adakias (Razia's Shadow)",
     "Anhura (Razia's Shadow)",
@@ -12382,6 +12641,7 @@
   [
     "Ziggy Stardust"
   ],
+  [],
   [],
   [
     "Narrator (Rock N Roleplay Baby)",
@@ -12398,6 +12658,7 @@
     "Barista (She Keeps Me Warm)",
     "Reading Customer (She Keeps Me Warm)"
   ],
+  [],
   [
     "Male Singer (Some Velvet Morning)",
     "Phaedra (Some Velvet Morning)"
@@ -12412,6 +12673,13 @@
     "The Preacher (The Source)",
     "TH-1 (The Source)"
   ],
+  [
+    "Earthquake Weather (song)",
+    "Follow Me Down (song)",
+    "River Lies (song)",
+    "Take Advantage of Me (Song)"
+  ],
+  [],
   [
     "Queenie (Strip Polka)"
   ],
@@ -12430,6 +12698,11 @@
   [
     "Nick McCabe (The Verve RPF)",
     "Richard Ashcroft (The Verve RPF)"
+  ],
+  [
+    "The Emerald Star (Vide Noir Album)",
+    "The Fortune Teller (Vide Noir Album)",
+    "The Narrator (Vide Noir Album)"
   ],
   [
     "Boy Watching Rockets (We Go Up)",
@@ -13170,6 +13443,10 @@
     "Tony (Nescafé Gold Blend Commercials)"
   ],
   [
+    "New York Times (Newspaper)",
+    "Washington Post (Newspaper)"
+  ],
+  [
     "Knight of Wands (Night Sun Tarot)",
     "Page of Swords (Night Sun Tarot)",
     "Three of Pentacles (Night Sun Tarot)",
@@ -13178,6 +13455,12 @@
   [
     "Skout (Nomad of Nowhere)",
     "Toth (Nomad of Nowhere)"
+  ],
+  [
+    "Beverly Toegold",
+    "Erlin Kindleaf",
+    "Hardwon Surefoot",
+    "Moonshine Cybin"
   ],
   [
     "The Attic (Nutshell Studies of Unexplained Death)",
@@ -13195,6 +13478,12 @@
     "Ricochet | Prince Puma (NXT)",
     "Tommaso Ciampa (NXT)",
     "Velveteen Dream (NXT)"
+  ],
+  [
+    "Cephalopods (Anthropomorphic)",
+    "Puffer Fish (Anthropomorphic)",
+    "Sharks (Anthropomorphic)",
+    "Turtles (Anthropomorphic)"
   ],
   [
     "Father Grumbler (Omar Rayyan)",
@@ -13314,6 +13603,7 @@
     "True Neutral (Sapphic Stereotypes Alignment Chart)"
   ],
   [],
+  [],
   [
     "Dan Sinker (Says Who)",
     "Maureen Johnson (Says Who)"
@@ -13344,8 +13634,21 @@
     "The Tower (Shadowscapes)"
   ],
   [
+    "Elandi Rue",
+    "Junil Rue",
+    "Qolar",
+    "Throlo Sh'shirros"
+  ],
+  [],
+  [
     "Diana Potter | Magnolia Badminton",
     "Gerald C Potter"
+  ],
+  [
+    "Cane (Spanking Implement - BDSM Anthropomorfic)",
+    "Hand (Spanking Implement - BDSM Anthropomorfic)",
+    "Paddle (Spanking Implement - BDSM Anthropomorfic)",
+    "Switch (Spanking Implement - BDSM Anthropomorfic)"
   ],
   [
     "Croach the Tracker (Sparks Nevada Marshal on Mars)",
@@ -13375,6 +13678,12 @@
     "Nic Silver (Tanis Podcast)",
     "Geoff Van Sant",
     "Veronika Pilman"
+  ],
+  [
+    "Fox (Tea House Gmail Theme)",
+    "Ghosts (Tea House Gmail Theme)",
+    "Hungry Turtle (Tea House Gmail Theme)",
+    "Small Chicken (Tea House Gmail Theme)"
   ],
   [
     "Captain Laserbeam",
@@ -13439,6 +13748,10 @@
   [],
   [
     "Writer (Writer Automaton)"
+  ],
+  [
+    "Chaimie (Yidlife Crisis)",
+    "Leizer (Yidlife Crisis)"
   ],
   [
     "Carla Monteleone",
@@ -13622,6 +13935,12 @@
     "Veronica Sawyer (Heathers: The Musical)"
   ],
   [
+    "David Posner (HB - Bennett)",
+    "Donald Scripps (HB - Bennett)",
+    "Stuart Dakin (HB - Bennett)",
+    "Tom Irwin (HB - Bennett)"
+  ],
+  [
     "Conte di Almaviva (Barber of Seville - Rossini)",
     "Dr. Bartolo (Barber of Seville - Rossini)",
     "Figaro (Barber of Seville - Rossini)",
@@ -13645,6 +13964,11 @@
   [
     "Jennet Jourdemayne (Fry)",
     "Thomas Mendip (Fry)"
+  ],
+  [
+    "Adèle (Le Comte Ory 2011)",
+    "Comte Ory (Le Comte Ory 2011)",
+    "Isolier (Le Comte Ory 2011)"
   ],
   [],
   [
@@ -16884,6 +17208,10 @@
     "Angie (Strange Luck)"
   ],
   [
+    "Major Lynne Reese",
+    "Paul Turner"
+  ],
+  [
     "Chuck Noblet",
     "Geoffrey Jellineck",
     "Jerri Blank",
@@ -16989,10 +17317,22 @@
     "Maurice Boscorelli"
   ],
   [
+    "Danny (This Close)",
+    "Ryan (This Close)"
+  ],
+  [
     "Jack Pearson",
     "Kate Pearson",
     "Kevin Pearson",
     "Randall Pearson"
+  ],
+  [
+    "EOS (Thunderbirds Are Go! (TV 2015))",
+    "Fuse (Thunderbirds Are Go! (TV 2015))",
+    "Havoc (Thunderbirds Are Go! (TV 2015))",
+    "John Tracy (Thunderbirds Are Go! (TV 2015))",
+    "Penelope Creighton-Ward (Thunderbirds Are Go! (TV 2015))",
+    "Tanusha \"Kayo\" Kyrano (Thunderbirds Are Go! (TV 2015))"
   ],
   [
     "Kei Gai | Xíng Hài",
@@ -17164,6 +17504,12 @@
     "Lee Crane (Voyage to the Bottom of the Sea (TV))"
   ],
   [
+    "Nora Bloom",
+    "Duncan (VR.5)",
+    "Oliver Sampson",
+    "Sydney Bloom"
+  ],
+  [
     "Jason Nichols",
     "Josh Randall"
   ],
@@ -17180,6 +17526,12 @@
   [
     "Apo (Water Boyy: The Series)",
     "Waii (Water Boyy: The Series)"
+  ],
+  [
+    "Nick (WP (TV))",
+    "Officer Kyle Minogue (WP (TV))",
+    "Officer O'Leary (WP (TV))",
+    "Sergeant Maaka (WP (TV))"
   ],
   [
     "Bridget Westfall",
@@ -17372,6 +17724,10 @@
     "Tum (Love By Chance)"
   ],
   [
+    "Ametani Kantaro (Kantaro: The Sweet Tooth Salaryman)",
+    "Dobashi Kanako (Kantaro: The Sweet Tooth Salaryman)"
+  ],
+  [
     "Fukuide Kei (Ultraman Geed)",
     "Igaguri Leito (Ultraman Geed)",
     "Ultraman Belial (Ultraman Geed)",
@@ -17411,6 +17767,12 @@
     "Murata Masako",
     "Murata Yukari",
     "Sana (Tenchuu)"
+  ],
+  [
+    "Ayumi Kohinata",
+    "Koshiro Mizumoto",
+    "Shunpei Kaga",
+    "Zenko Umine"
   ],
   [
     "Balance (Uchu Sentai Kyuranger)",
@@ -17676,333 +18038,9 @@
     "Yu Eun-sung"
   ],
   [
-    "Endō Shōzō",
-    "Matsumoto Hitoshi",
-    "Tanaka Naoki",
-    "Tsukitei Hōsei"
-  ],
-  [
-    "Mona (The Last Halloween)",
-    "Robert (The Last Halloween)",
-    "Slugger (The Last Halloween)",
-    "Splitter (The Last Halloween)"
-  ],
-  [
-    "Adèle (Le Comte Ory 2011)",
-    "Comte Ory (Le Comte Ory 2011)",
-    "Isolier (Le Comte Ory 2011)"
-  ],
-  [
-    "Adrian van de Nachtigal (Nachtigal)",
-    "Luca Faveaux (Nachtigal)",
-    "Miranda Namatgira (Nachtigal)"
-  ],
-  [
-    "Girl (Nevereverland)",
-    "Protagonist (Nevereverland)"
-  ],
-  [
-    "New York Times (Newspaper)",
-    "Washington Post (Newspaper)"
-  ],
-  [],
-  [
-    "Eileen Flax",
-    "Veronique Pommier"
-  ],
-  [
-    "Crane (North Mountain)",
-    "Wolf (North Mountain)"
-  ],
-  [
-    "Bruce Wayne Carmody (NOS4A2)",
-    "Charlie Manx (NOS4A2)",
-    "Maggie Leigh (NOS4A2)",
-    "Vic McQueen (NOS4A2)"
-  ],
-  [
-    "Beverly Toegold",
-    "Erlin Kindleaf",
-    "Hardwon Surefoot",
-    "Moonshine Cybin"
-  ],
-  [
-    "Logan (Not If I Save You First - Carter)",
-    "Maddie Manchester (Not If I Save You First - Carter)",
-    "Michael Manchester (Not If I Save You First - Carter)",
-    "Stefan (Not If I Save You First - Carter)"
-  ],
-  [
-    "Bryony Asquith",
-    "Leo Marsden"
-  ],
-  [
-    "Raziol Qamar (Novae)",
-    "Sulvain (Novae)"
-  ],
-  [
-    "Cephalopods (Anthropomorphic)",
-    "Puffer Fish (Anthropomorphic)",
-    "Sharks (Anthropomorphic)",
-    "Turtles (Anthropomorphic)"
-  ],
-  [],
-  [],
-  [
-    "Jeannie (Out at the Wedding 2007)",
-    "Risa (Out at the Wedding 2007)"
-  ],
-  [
-    "Charlie Hunnam (Papillon (2017) RPF)",
-    "Rami Malek (Papillon (2017) RPF)"
-  ],
-  [
-    "Ariadne Oliver (Parker Pyne - Christie)",
-    "Claude Luttrell (Parker Pyne - Christie)",
-    "Madeleine de Sara (Parker Pyne - Christie)",
-    "Parker Pyne (Parker Pyne - Christie)"
-  ],
-  [],
-  [
-    "Deborah Vaughn",
-    "Joe Positano",
-    "Kate Mackay",
-    "Laurence Mackay"
-  ],
-  [
-    "Baxley (The Predator (2018))",
-    "Casey Brackey (The Predator (2018))",
-    "Coyle (The Predator (2018))",
-    "Nebraska Williams (The Predator (2018))"
-  ],
-  [
-    "Knight (Prince & Knight)",
-    "Prince (Prince & Knight)"
-  ],
-  [
-    "Aefa Thornhill",
-    "Ban the Fox (The Queens of Innis Lear)",
-    "Elia Lear",
-    "Morimaros (The Queens of Innis Lear)"
-  ],
-  [
-    "Antoni Porowski (Queer Eye RPF)",
-    "Bobby Berk (Queer Eye RPF)",
-    "Jonathan Van Ness (Queer Eye RPF)",
-    "Karamo Brown (Queer Eye RPF)",
-    "Tan France (Queer Eye RPF)"
-  ],
-  [],
-  [
-    "Maxim de Winter (Rebecca 1940)",
-    "Narrator | Mrs de Winter (Rebecca 1940)"
-  ],
-  [
-    "Amani Al'Hiza",
-    "The First Hero (Rebel of the Sands)",
-    "Jin (Rebel of the Sands)",
-    "Zaahir (Rebel of the Sands)"
-  ],
-  [],
-  [
-    "Chris (The Renovators)",
-    "Christie (The Renovators)",
-    "Jarrad (The Renovators)",
-    "Lisa (The Renovators)",
-    "Mel (The Renovators)",
-    "Michael Lynch (The Renovators)",
-    "Natalia Broadhead (The Renovators)",
-    "Peter (The Renovators)"
-  ],
-  [
-    "Xia Tian (Reset 2017)"
-  ],
-  [],
-  [
-    "John Blake (Salt Magic Skin Magic)",
-    "Soren Thornby"
-  ],
-  [
-    "David Kim (Searching (2018))",
-    "Margot Kim (Searching (2018))",
-    "Pamela Kim (Searching (2018))",
-    "Peter Kim (Searching (2018))"
-  ],
-  [
-    "Seedship AI"
-  ],
-  [
-    "Barrick Eddon",
-    "Briony Eddon",
-    "Eneas",
-    "Qinnitan"
-  ],
-  [
-    "Elandi Rue",
-    "Junil Rue",
-    "Qolar",
-    "Throlo Sh'shirros"
-  ],
-  [
-    "Agnum Bulletheart",
-    "Marion le Sheila",
-    "Rinna Mayfield",
-    "Yuma Ilvern"
-  ],
-  [],
-  [
-    "Charlie Sisters (Sisters Brothers Movie)",
-    "Eli Sisters (Sisters Brothers Movie)",
-    "Hermann Kermit Warm",
-    "John Morris (Sisters Brothers Movie)"
-  ],
-  [],
-  [
-    "Ilan Eliav",
-    "John Cullinane",
-    "Vered Bar-El"
-  ],
-  [
-    "Danesh Jalo | Decibel Jones",
-    "Marvin (Space Opera - Catherynne M. Valente)",
-    "Mira Wonderful Star",
-    "Omar Calişkan | Oort St. Ultraviolet",
-    "Öo (Space Opera)"
-  ],
-  [
-    "Cane (Spanking Implement - BDSM Anthropomorfic)",
-    "Hand (Spanking Implement - BDSM Anthropomorfic)",
-    "Paddle (Spanking Implement - BDSM Anthropomorfic)",
-    "Switch (Spanking Implement - BDSM Anthropomorfic)"
-  ],
-  [
-    "Casamir (The Stars Are Legion)",
-    "Jayd (The Stars Are Legion)",
-    "Sabita (The Stars Are Legion)",
-    "Zan (The Stars Are Legion)"
-  ],
-  [
-    "Earthquake Weather (song)",
-    "Follow Me Down (song)",
-    "River Lies (song)",
-    "Take Advantage of Me (Song)"
-  ],
-  [
-    "Edward Hyde | Henry Jekyll",
-    "Thomas Adye"
-  ],
-  [
-    "Major Lynne Reese",
-    "Paul Turner"
-  ],
-  [],
-  [
-    "Billy Bronner (Summer Song - Louise Blaydon)",
-    "Caitlyn (Summer Song - Louise Blaydon)",
-    "Kit O'Reilly (Summer Song - Louise Blaydon)",
-    "Leonard Nachman (Summer Song - Louise Blaydon)"
-  ],
-  [
-    "Fox (Tea House Gmail Theme)",
-    "Ghosts (Tea House Gmail Theme)",
-    "Hungry Turtle (Tea House Gmail Theme)",
-    "Small Chicken (Tea House Gmail Theme)"
-  ],
-  [
-    "Lian Kaitio"
-  ],
-  [
-    "The Dragon (The Thing In the Walls Wants Your Small Change)"
-  ],
-  [
-    "Danny (This Close)",
-    "Ryan (This Close)"
-  ],
-  [
-    "EOS (Thunderbirds Are Go! (TV 2015))",
-    "Fuse (Thunderbirds Are Go! (TV 2015))",
-    "Havoc (Thunderbirds Are Go! (TV 2015))",
-    "John Tracy (Thunderbirds Are Go! (TV 2015))",
-    "Penelope Creighton-Ward (Thunderbirds Are Go! (TV 2015))",
-    "Tanusha \"Kayo\" Kyrano (Thunderbirds Are Go! (TV 2015))"
-  ],
-  [
-    "Max Walker (Timecop 1994)"
-  ],
-  [
-    "Catherine Helstone (Under The Pendulum Sun)",
-    "Laon Helstone (Under The Pendulum Sun)",
-    "Mr Benjamin (Under The Pendulum Sun)",
-    "The Salamander (Under The Pendulum Sun)"
-  ],
-  [],
-  [
-    "The Emerald Star (Vide Noir Album)",
-    "The Fortune Teller (Vide Noir Album)",
-    "The Narrator (Vide Noir Album)"
-  ],
-  [],
-  [
-    "Nick (WP (TV))",
-    "Officer Kyle Minogue (WP (TV))",
-    "Officer O'Leary (WP (TV))",
-    "Sergeant Maaka (WP (TV))"
-  ],
-  [
-    "Chip Esten (Whose Line UK RPF)",
-    "John Sessions (Whose Line UK RPF)",
-    "Paul Merton (Whose Line UK RPF)",
-    "Tony Slattery (Whose Line UK RPF)"
-  ],
-  [
-    "Female Main Character (Winterstrike)",
-    "The Ironbird (Winterstrike)",
-    "The Melancholy Violinist",
-    "The Player (Winterstrike)",
-    "The Swan Thief (Winterstrike)",
-    "The Unsmiling Thief (Winterstrike)",
-    "The Vision-Reaver (Winterstrike)"
-  ],
-  [
-    "Madison Keys (WTRPF)",
-    "Naomi Osaka (WTRPF)",
-    "Serena Williams (WTRPF)",
-    "Sloane Stephens (WTRPF)"
-  ],
-  [
-    "Diego Luna (Y Tu Mamá También RPF)",
-    "Gael García Bernal (Y Tu Mamá También RPF)"
-  ],
-  [
-    "Ametani Kantaro (Kantaro: The Sweet Tooth Salaryman)",
-    "Dobashi Kanako (Kantaro: The Sweet Tooth Salaryman)"
-  ],
-  [
-    "Kuramochi Kyoko",
-    "Main Character (Liar! Scheming Socialites)",
-    "Suo Sosuke",
-    "Yagami Haruki"
-  ],
-  [
-    "Kisaragi Nanao",
-    "Narumiya Minato",
-    "Onogi Kaito",
-    "Takehaya Seiya"
-  ],
-  [
-    "Ah Chi",
-    "Yen Shih-San"
-  ],
-  [
-    "Elephantus | Tonzra",
-    "Leopard | Doronjo",
-    "Voltkatze | Boyacky"
-  ],
-  [],
-  [
     "Mizuno Kaya",
     "Minagi Tsuzuru",
-    "Takatoo Tasuku",
+    "Takato Tasuku",
     "Yukishiro Azuma"
   ],
   [
@@ -18329,8 +18367,8 @@
     "Oceana Louvier"
   ],
   [
+    "Jake McKenzie (Endless Summer)",
     "Diego Soto (Endless Summer)",
-    "Jake McKenzie",
     "Main Character (Endless Summer)",
     "Varyyn (Endless Summer)"
   ],
@@ -18928,6 +18966,11 @@
     "Yeesha (Myst)"
   ],
   [
+    "Adrian van de Nachtigal (Nachtigal)",
+    "Luca Faveaux (Nachtigal)",
+    "Miranda Namatgira (Nachtigal)"
+  ],
+  [
     "??? (Nameless)",
     "Eri (Nameless)",
     "Lance (Nameless)",
@@ -19179,6 +19222,9 @@
     "Sandy \"Moose\" Jansen"
   ],
   [
+    "Seedship AI"
+  ],
+  [
     "Pokiehl (Legend of Mana)",
     "Daena (Legend of Mana)",
     "Escad (Legend of Mana)",
@@ -19230,6 +19276,12 @@
   [
     "Max",
     "Anri"
+  ],
+  [
+    "Agnum Bulletheart",
+    "Marion le Sheila",
+    "Rinna Mayfield",
+    "Yuma Ilvern"
   ],
   [
     "The High Priest (The Shrouded Isle)"
@@ -19444,6 +19496,7 @@
     "Mandana (Unavowed)",
     "Vicki Santina"
   ],
+  [],
   [
     "Anna (Valiant Hearts)",
     "Emile Chaillon (Valiant Hearts)",
@@ -19502,6 +19555,15 @@
     "Vernon Roche (The Witcher (Video Game))",
     "Ves (The Witcher (Video Game))",
     "Yennefer z Vengerbergu | Yennefer of Vengerberg (The Witcher (Video Game))"
+  ],
+  [
+    "Female Main Character (Winterstrike)",
+    "The Ironbird (Winterstrike)",
+    "The Melancholy Violinist",
+    "The Player (Winterstrike)",
+    "The Swan Thief (Winterstrike)",
+    "The Unsmiling Thief (Winterstrike)",
+    "The Vision-Reaver (Winterstrike)"
   ],
   [
     "Alvis (Xenoblade Chronicles)",
@@ -19595,6 +19657,12 @@
     "Kusunoki Kouhei",
     "Main Character (Liar! Office Deception)",
     "Miyata Reina"
+  ],
+  [
+    "Kuramochi Kyoko",
+    "Main Character (Liar! Scheming Socialites)",
+    "Suo Sosuke",
+    "Yagami Haruki"
   ],
   [
     "Kagami Kazumi",

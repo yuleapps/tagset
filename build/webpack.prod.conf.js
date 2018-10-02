@@ -55,7 +55,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 		new HtmlWebpackPlugin({
 			filename: config.build.index,
 			template: 'index.html',
-			chunks: ['locked'],
+			excludeChunks: ['locked'],
 			inject: true,
 			minify: {
 				removeComments: true,
@@ -69,7 +69,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 		}),
 		new HtmlWebpackPlugin({
 			filename: config.build.unlocked,
-			chunks: ['app'],
+			excludeChunks: ['app'],
 			template: 'index.html',
 			inject: true,
 			minify: {

@@ -27,6 +27,8 @@
         </ul>
       </div>
 
+      <div>While the tagset is being corrected, bookmarks and letter submission are disabled! Please report any corrections that need to happen to the corrections post on <a href="https://yuletide-admin.dreamwidth.org/57790.html" target="blank">DW</a> or  <a href="https://yuletide-admin.livejournal.com/228349.html" target="blank">LJ</a>.</div>
+
       <bookmarks  v-if="unlock" :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
