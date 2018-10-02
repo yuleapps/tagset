@@ -9,7 +9,7 @@
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <div :class="['menu', { sticky: sticky }]" v-if="unlock">
+      <div :class="['menu', { sticky: sticky }]">
         <ul>
           <li class="submit-letter"  @click="showLetterModal = true">
             Submit Letter
@@ -27,7 +27,7 @@
         </ul>
       </div>
 
-      <bookmarks  v-if="unlock" :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
+      <bookmarks :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
         @close="showLetterModal = false">
@@ -67,7 +67,6 @@
           <td class="fandom" data-label="Fandom">
             {{ fandom.name }}
             <button
-                 v-if="unlock"
                 class="bookmark"
                 @click="toggle(fandom)"
                 >
@@ -101,7 +100,6 @@
                   :href="formatUrl(letter.url)" target="_blank"
                 >{{ letter.username }}</a>
                 <button
-                   v-if="unlock"
                   class="bookmark-letter"
                   @click="toggleLettermark(letter, fandom)"
                 >
