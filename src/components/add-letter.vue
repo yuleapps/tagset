@@ -60,7 +60,7 @@
               <td>
                   <ul class="chars">
                     <li v-if="!fandom.characters.length">Any</li>
-                    <li v-for="char in fandom.characters">{{ char }}</li>
+                    <li v-for="char in fandom.characters" :key="char">{{ char }}</li>
                   </ul>
               </td>
             </tr>
@@ -71,7 +71,10 @@
 
       <div v-show="userKey.length">
         <hr class="separator">
-        Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong> - NOTE THIS DOWN. You will need it if you want to edit your letter later.
+        <p>Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong> - NOTE THIS DOWN. You will need it if you want to edit your letter later.</p>
+
+        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="#" target="blank">Letters Post</a>? </p>
+        <textarea>{{ getCopypasta() }}</textarea>
       </div>
 
       <div class="error list" v-if="errors.length">
@@ -221,6 +224,24 @@ export default {
       this.availableFandoms = _.filter(this.fandoms, o => {
         return !_.includes(selected, o['.key']);
       });
+    },
+    getCopypasta() {
+
+      if (!this.scrubbedFandoms.length) {
+        return;
+      }
+
+      const pasta = [`<p><strong>${this.username}</strong><br>${this.url}</p>`];
+
+      _.each(this.scrubbedFandoms, f => {
+        const fandom = f.fandom;
+        const chars = f.characters;
+        const s = `<p><strong>${fandom.name}</strong><br>${chars.join(', ')}</p>`;
+        pasta.push(s);
+      });
+
+      return pasta.join('\n');
+
     },
     add() {
       db.ref('/letterkeys').child(this.username).once('value').then(res => {

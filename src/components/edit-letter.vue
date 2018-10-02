@@ -110,6 +110,9 @@
        <div v-show="success">
         <hr>
         Your letter has been successfully edited!
+
+        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="#" target="blank">Letters Post</a>? </p>
+        <textarea>{{ getCopypasta() }}</textarea>
       </div>
 
       <button class="cancel" @click="success = false; $emit('close')">({{ success ? 'Close' : 'Cancel' }})</button>
@@ -294,6 +297,24 @@ export default {
             }
           }
         });
+    },
+    getCopypasta() {
+
+      if (!this.scrubbedFandoms.length) {
+        return;
+      }
+
+      const pasta = [`<p><strong>${this.username}</strong><br>${this.url}</p>`];
+
+      _.each(this.scrubbedFandoms, f => {
+        const fandom = f.fandom;
+        const chars = f.characters;
+        const s = `<p><strong>${fandom.name}</strong><br>${chars.join(', ')}</p>`;
+        pasta.push(s);
+      });
+
+      return pasta.join('\n');
+
     },
     add() {
       // clean out the user's fandom references
