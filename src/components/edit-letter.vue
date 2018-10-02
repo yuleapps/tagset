@@ -299,7 +299,6 @@ export default {
         });
     },
     getCopypasta() {
-
       if (!this.scrubbedFandoms.length) {
         return;
       }
@@ -308,13 +307,15 @@ export default {
 
       _.each(this.scrubbedFandoms, f => {
         const fandom = f.fandom;
-        const chars = f.characters;
+        let chars = f.characters;
+        if (!chars.length) {
+          chars = ['Any (see tagset)'];
+        }
         const s = `<p><strong>${fandom.name}</strong><br>${chars.join(', ')}</p>`;
         pasta.push(s);
       });
 
       return pasta.join('\n');
-
     },
     add() {
       // clean out the user's fandom references

@@ -226,7 +226,6 @@ export default {
       });
     },
     getCopypasta() {
-
       if (!this.scrubbedFandoms.length) {
         return;
       }
@@ -235,46 +234,63 @@ export default {
 
       _.each(this.scrubbedFandoms, f => {
         const fandom = f.fandom;
-        const chars = f.characters;
+        let chars = f.characters;
+        if (!chars.length) {
+          chars = ['Any (see tagset)'];
+        }
         const s = `<p><strong>${fandom.name}</strong><br>${chars.join(', ')}</p>`;
+
         pasta.push(s);
       });
 
       return pasta.join('\n');
-
     },
     add() {
-      db.ref('/letterkeys').child(this.username).once('value').then(res => {
+      db
+        .ref('/letterkeys')
+        .child(this.username)
+        .once('value')
+        .then(res => {
+          if (!res.val()) {
+            this.userKey = (Math.random() + 1).toString(36).substring(7);
+            this.showSubmit = false;
 
-        if (!res.val()) {
-          this.userKey = (Math.random() + 1).toString(36).substring(7);
-          this.showSubmit = false;
+            db
+              .ref('/letterkeys')
+              .child(this.username)
+              .set({ key: this.userKey, timestamp: new Date().toISOString() });
 
-           db.ref('/letterkeys').child(this.username).set({ key: this.userKey, timestamp: (new Date()).toISOString() });
+            _.each(this.scrubbedFandoms, req => {
+              this.$firebaseRefs.letters
+                .child(req.fandom['.key'])
+                .child(this.username)
+                .set({
+                  username: this.username,
+                  url: this.url,
+                  characters: req.characters,
+                  isPinchhitter: this.pinchhitter || false
+                });
 
-          _.each(this.scrubbedFandoms, req => {
-            this.$firebaseRefs.letters.child(req.fandom['.key']).child(this.username).set({
-              username: this.username,
-              url: this.url,
-              characters: req.characters,
-              isPinchhitter: this.pinchhitter || false
+              db
+                .ref('/letterkeys')
+                .child(this.username)
+                .child('fandoms')
+                .child(req.fandom['.key'])
+                .set({
+                  url: this.url,
+                  key: req.fandom['.key'],
+                  characters: req.characters,
+                  isPinchhitter: this.pinchhitter || false
+                });
             });
 
-            db.ref('/letterkeys').child(this.username).child('fandoms').child(req.fandom['.key']).set({
-              url: this.url,
-              key: req.fandom['.key'],
-              characters: req.characters,
-              isPinchhitter: this.pinchhitter || false
-            });
-          });
-
-          // this.$emit('close');
-        } else {
-          this.userExists = true;
-          this.showSubmit = false;
-          return;
-        }
-      });
+            // this.$emit('close');
+          } else {
+            this.userExists = true;
+            this.showSubmit = false;
+            return;
+          }
+        });
     }
   }
 };
