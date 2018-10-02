@@ -162,7 +162,8 @@
   [
     "Faye Valentine (Cowboy Bebop)",
     "Jet Black (Cowboy Bebop)",
-    "Spike Spiegel (Cowboy Bebop)"
+    "Spike Spiegel (Cowboy Bebop)",
+    "Vicious (Cowboy Bebop)"
   ],
   [
     "Halvir \"Havi\" Hroptr",
@@ -719,10 +720,10 @@
     "Seto Ageha"
   ],
   [
-    "Olga (Ristorante Paradiso)",
-    "Gian Luigi \"Gigi\" Orsini",
-    "Lorenzo Orsini",
-    "Luciano de Luca"
+    "Gian Luigi \"Gigi\" Orsini (Ristorante Paradiso (Manga))",
+    "Lorenzo Orsini (Ristorante Paradiso (Manga))",
+    "Luciano de Luca (Ristorante Paradiso (Manga))",
+    "Olga (Ristorante Paradiso (Manga))"
   ],
   [
     "Akaboshi Shouji (Rookies (Manga))",
@@ -884,6 +885,12 @@
     "Kohiruimaki Karen | LLENN (Gun Gale Online)"
   ],
   [
+    "Asuna (SAO: Abridged)",
+    "Don Fluffles",
+    "Kirito (SAO: Abridged)",
+    "Tiffany (SAO: Abridged)"
+  ],
+  [
     "Dryden Fassa (Escaflowne - Anime)",
     "Kanzaki Hitomi (Escaflowne - Anime)",
     "Merle (Escaflowne - Anime)",
@@ -895,6 +902,7 @@
     "Ivan Karelin (Tiger & Bunny)",
     "Kaburagi Kaede (Tiger & Bunny)",
     "Kaburagi T. Kotetsu (Tiger & Bunny)",
+    "Kaburagi Tomoe (Tiger & Bunny)",
     "Karina Lyle (Tiger & Bunny)",
     "Keith Goodman (Tiger & Bunny)",
     "Yuri Petrov (Tiger & Bunny)"
@@ -1024,6 +1032,10 @@
     "Ooki Futaba"
   ],
   [
+    "Misaki Onoda",
+    "Takumi Onoda"
+  ],
+  [
     "Ooishi Rinko",
     "Nakajima Shinobu",
     "Poco (Poco's Udon World)",
@@ -1091,6 +1103,12 @@
     "Sugihara Kouhei"
   ],
   [
+    "Houjou Ayaka (Hitorijime My Hero (Manga))",
+    "Ooshiba Kousuke (Hitorijime My Hero (Manga))",
+    "Setagawa Masahiro (Hitorijime My Hero (Manga))",
+    "Setagawa Megumi (Hitorijime My Hero (Manga))"
+  ],
+  [
     "Kuramoto Chinatsu",
     "Kuramoto Kei",
     "Ishiwatari Nao",
@@ -1110,6 +1128,11 @@
     "Washimi (Aggressive Retsuko)"
   ],
   [
+    "Fraw (Asterisk)",
+    "Green (Asterisk)",
+    "Kio (Asterisk)"
+  ],
+  [
     "Dana Icarusia",
     "Hugo Fact",
     "Adol Christin",
@@ -1126,7 +1149,10 @@
     "Tatsumi (Orenchi no Furo Jijou)",
     "Wakasa (Orenchi no Furo Jijou)"
   ],
-  [],
+  [
+    "Kirahoshi Ciel | Kirarin",
+    "Kuroki Rio | Pikario"
+  ],
   [
     "Inaba Himeko",
     "Nagase Iori",
@@ -2162,6 +2188,14 @@
     "Okwu (Binti - Okorafor)"
   ],
   [
+    "Daemon Sadi",
+    "Jaenelle Angelline | Witch",
+    "Karla (Black Jewels)",
+    "Lucivar Yaslana",
+    "Surreal SaDiablo",
+    "Wilhelmina Benedict"
+  ],
+  [
     "Aeneas (Black Ships)",
     "Ashterah (Black Ships)",
     "Gull (Black Ships)",
@@ -2244,6 +2278,7 @@
     "Sal Brooks"
   ],
   [
+    "Consolation's Kethel (Books of the Raksura)",
     "Balm (Books of the Raksura)",
     "Bitter (Books of the Raksura)",
     "Chime (Books of the Raksura)",
@@ -2252,7 +2287,6 @@
     "First (Books of the Raksura)",
     "Frost (Books of the Raksura)",
     "Jade (Books of the Raksura)",
-    "Kethel (Books of the Raksura)",
     "Malachite (Books of the Raksura)",
     "Moon (Books of the Raksura)",
     "Pearl (Books of the Raksura)",
@@ -2368,6 +2402,12 @@
     "March dy Palliar (Chalion Saga)",
     "Nikys Khatai (Chalion Saga)",
     "Penric kin Jurald (Chalion Saga)"
+  ],
+  [
+    "Jacko Chant (Changeover - Mahy)",
+    "Laura Chant (Changeover - Mahy)",
+    "Miryam Carlisle (Changeover - Mahy)",
+    "Sorenson Carlisle (Changeover - Mahy)"
   ],
   [
     "Alec Deacon",
@@ -2893,7 +2933,9 @@
   ],
   [
     "Eighth Doctor (EDAs)",
-    "Fitz Kreiner (EDAs)"
+    "Fitz Kreiner (EDAs)",
+    "Samantha Jones (EDA)",
+    "Sarah Jane Smith (EDA)"
   ],
   [
     "Felix Harrowgate",
@@ -3077,6 +3119,8 @@
     "Quintus Licinius Cato"
   ],
   [
+    "Jarra Tell Morrath (grandmother)",
+    "Nia Stone",
     "Riak Torrek",
     "Jarra Tell Morrath"
   ],
@@ -3533,6 +3577,11 @@
     "Elaith Craulnober (Forgotten Realms: Songs and Swords Series)"
   ],
   [
+    "Pharaun Mizzrym (The War of the Spider Queen)",
+    "Ryld Argith (The War of the Spider Queen)",
+    "Valas Hune (The War of the Spider Queen)"
+  ],
+  [
     "Barrakkêth",
     "Tristen Sihhë"
   ],
@@ -3644,13 +3693,16 @@
     "Csethiro Ceredin",
     "Csevet Aisava",
     "Deret Beshelar",
+    "Eshevis Tethimar",
     "Holitho Sevraseched",
+    "Idra Drazhar",
     "Kiru Athmaza",
     "Maia Drazhar",
     "Shaleän Sevraseched",
     "Teru Tethimar",
     "Thara Celehar",
-    "Thever Sevraseched"
+    "Thever Sevraseched",
+    "Vedero Drazhin"
   ],
   [
     "Goblins (Goblin Market)",
@@ -4437,8 +4489,10 @@
   ],
   [
     "Comte de Guiche (Le Trois Mousquetaires - Dumas)",
+    "d'Artagnan (Le Trois Mousquetaires - Dumas)",
     "Duc de Beaufort (Le Trois Mousquetaires - Dumas)",
     "Grimaud (Le Trois Mousquetaires - Dumas)",
+    "Jussac (Le Trois Mousquetaires - Dumas)",
     "Raoul de Bragelonne (Le Trois Mousquetaires - Dumas)"
   ],
   [
@@ -4854,6 +4908,12 @@
     "Polly \"Ozzer\" Perks (Monstrous Regiment - Pratchett)"
   ],
   [
+    "Frances Schofield (Moon-Spinners - Stewart)",
+    "Lambis (Moon-Spinners - Stewart)",
+    "Mark (Moon-Spinners - Stewart)",
+    "Nicola (Moon-Spinners - Stewart)"
+  ],
+  [
     "Ezra Jennings (The Moonstone - Wilkie Collins)",
     "Mr. Candy (The Moonstone— Wilkie Collins)",
     "Rachel Verrinder",
@@ -5099,6 +5159,12 @@
     "Simon Kelleher"
   ],
   [
+    "Hamza Sheikh",
+    "Leigh Shore",
+    "Miko Sheikh",
+    "Will Dando"
+  ],
+  [
     "Iskinder (Order of the Air)",
     "Lewis Segura",
     "Alma Gilchrist",
@@ -5170,6 +5236,12 @@
     "Amaya Sei"
   ],
   [
+    "Glencora Palliser (Palliser Series)",
+    "Laura Standish (Palliser Series)",
+    "Phineas Finn (Palliser Series)",
+    "Plantagenet Palliser (Palliser Series)"
+  ],
+  [
     "Biffy (Parasol Protectorate - Carriger)",
     "Professor Randolph Lyall (Parasol Protectorate - Carriger)"
   ],
@@ -5180,6 +5252,12 @@
     "Alicia Donadio"
   ],
   [
+    "Artemisia Gentileschi (The Passion of Artemisia)",
+    "Palmira Stiattesi",
+    "Sister Graziela (The Passion of Artemisia)",
+    "Umiliana (The Passion of Artemisia)"
+  ],
+  [
     "Jean Czerny (Pawns and Symbols)",
     "Tirax (Pawns and Symbols)"
   ],
@@ -5187,6 +5265,10 @@
     "King (Donkey Skin)",
     "Prince (Donkey Skin)",
     "Peau-d'Âne | Donkey Skin"
+  ],
+  [
+    "The Fairy Queen | The Lady in Green (Perilous Gard)",
+    "Kate Sutton"
   ],
   [
     "Meech Hannigan",
@@ -5224,6 +5306,10 @@
   ],
   [],
   [
+    "Phil Morrison",
+    "Tom Paretski"
+  ],
+  [
     "Count Andrenyi (Poirot - Christie)",
     "Countess Andrenyi (Poirot - Christie)"
   ],
@@ -5244,6 +5330,12 @@
     "Gary Hallet (Practical Magic - Alice Hoffman)",
     "Gillian Owens (Practical Magic - Alice Hoffman)",
     "Sally Owens (Practical Magic - Alice Hoffman)"
+  ],
+  [
+    "Elizabeth Greenfield",
+    "Jonathan Lincoln Duncan",
+    "Katherine Brandt",
+    "Lester Rhodes"
   ],
   [
     "Katharine Vaughn Powers",
@@ -5476,8 +5568,19 @@
   ],
   [],
   [
+    "Henry Dodd (Robert Carey Mysteries)",
+    "Janet Dodd (Robert Carey Mysteries)",
+    "Robert Carey (Robert Carey Mysteries)"
+  ],
+  [
     "Elijah Baley",
     "R. Daneel Olivaw"
+  ],
+  [
+    "Kyo (Rocannon's World - Le Guin)",
+    "Mogien of Hallan (Rocannon's World - Le Guin)",
+    "Rocannon (Rocannon's World - Le Guin)",
+    "Yahan (Rocannon's World - Le Guin)"
   ],
   [
     "Bethesda (Roma sub Rosa)",
@@ -5489,6 +5592,12 @@
     "Emily Grierson",
     "Homer Barron",
     "The Narrator (A Rose for Emily - Faulkner)"
+  ],
+  [
+    "Hengest Strimmer",
+    "Jonah Oblong",
+    "Orelia Roc",
+    "Vixen Valourhand"
   ],
   [
     "Big Bad Wolf (Little Red Riding Hood)",
@@ -5566,6 +5675,11 @@
     "Miguel Garza",
     "Loup Garron",
     "Pilar Ecchevarria"
+  ],
+  [
+    "David Claus (Santa's Husband)",
+    "Elf Union Negotiator (Santa's Husband)",
+    "Santa Claus (Santa's Husband)"
   ],
   [
     "Andrew Ffoulkes (The Scarlet Pimpernel - Orczy)",
@@ -5724,6 +5838,10 @@
     "Richard Grahame"
   ],
   [
+    "Dan Velasquez",
+    "Kirby Mazrachi"
+  ],
+  [
     "Caroline Helstone",
     "Shirley Keeldar"
   ],
@@ -5779,6 +5897,12 @@
     "The Hero (Snow and Dirty Rain)"
   ],
   [
+    "Cordelia Williams",
+    "Lavinia Williams",
+    "Louise Wilson",
+    "Mimi (Social Creature - Tara Isabella Burton)"
+  ],
+  [
     "William Quex",
     "David Cyprian",
     "Dominic Frey",
@@ -5810,6 +5934,11 @@
     "Kestral (Sorrow's Knot)",
     "Orca (Sorrow's Knot)",
     "Otter (Sorrow's Knot)"
+  ],
+  [
+    "Chad Rutledge",
+    "Leopold Bloom King",
+    "Molly Huger"
   ],
   [
     "Jessica Hsyu",
@@ -6009,6 +6138,12 @@
     "Saeeda Bai"
   ],
   [
+    "Abe Aronson",
+    "Joanna Delvecchio",
+    "Lily Delvecchio",
+    "Lyonesse Lazos | Persephone"
+  ],
+  [
     "Coriel Halsing",
     "Elisandra Halsing",
     "Kent Ouvrelet",
@@ -6056,6 +6191,10 @@
     "Tiger (Sword-Dancer)"
   ],
   [
+    "Guardsman (Swords & Shields)",
+    "Knight-Captain (Swords & Shields)"
+  ],
+  [
     "Alec Campion",
     "Artemisia Fitz-Levi",
     "Diane Tremontaine",
@@ -6097,6 +6236,12 @@
     "Lucrio (A Taste of Honey)"
   ],
   [
+    "Passengers (Tay Bridge Disaster)",
+    "Sensible Men (Tay Bridge Disaster)",
+    "Storm Fiend (Tay Bridge Disaster)",
+    "Train (Tay Bridge Disaster)"
+  ],
+  [
     "Diana Delaney",
     "Dylan Clearwater",
     "Rudy Clearwater",
@@ -6136,6 +6281,11 @@
     "Mycroft Canner"
   ],
   [
+    "August Callahan",
+    "Helena Marcus",
+    "Victoria-Margaret (That Inevitable Victorian Thing)"
+  ],
+  [
     "Aphrodite (Theogony - Hesiod)",
     "Hephaestus (Theogony - Hesiod)"
   ],
@@ -6153,6 +6303,11 @@
     "Jamisia (This Alien Shore)",
     "Kio Masada",
     "Phoenix (This Alien Shore)"
+  ],
+  [
+    "The Earl of Clarendon (Thomas Chaloner Series)",
+    "Hannah Chalenor",
+    "Thomas Chaloner"
   ],
   [
     "Ashleigh Griffen",
@@ -6238,9 +6393,31 @@
     "Tom Corbett (Tom Corbett: Space Cadet)"
   ],
   [
+    "Caroline of Ansbach",
+    "Kitty Sparks",
+    "Sam Fleet",
+    "Tom Hawkins"
+  ],
+  [
+    "Cassandra Devlin",
+    "Nils Sayate",
+    "Zan Namara",
+    "Zee Annan"
+  ],
+  [
     "Aminata (The Traitor Baru Cormorant)",
     "Baru Cormorant",
     "Tain Hu"
+  ],
+  [
+    "Anita Moody",
+    "David (The Trickster Trilogy)",
+    "George | Crashpad",
+    "Jared Martin (Son of a Trickster)",
+    "Jwa'sins (Son of a Trickster)",
+    "Maggie Moody",
+    "Mavis Moody",
+    "Wee'git (The Trickster Trilogy)"
   ],
   [
     "Alianne Cooper (Tricksters)",
@@ -6286,6 +6463,12 @@
     "Roger \"Sam\" Starrett"
   ],
   [
+    "Delia (The Truth About Forever)",
+    "Kristy Palmetto",
+    "Macy Queen",
+    "Wes (The Truth About Forever)"
+  ],
+  [
     "Edward Standish",
     "Eleanor Standish",
     "Georgie Turner",
@@ -6304,6 +6487,19 @@
     "Andrej Koscuisko",
     "Joslire Curran",
     "Robert St. Clare"
+  ],
+  [
+    "Culin Wei",
+    "Jace (Undermarket Data)"
+  ],
+  [
+    "Death (Menzel Painting)"
+  ],
+  [
+    "Astrid Glyn",
+    "Glory | Fenris Wolf",
+    "Signy Valborn",
+    "Soren Bearskin"
   ],
   [
     "Elizabeth Rodney",
@@ -6390,6 +6586,7 @@
     "Ginevra Fanshawe",
     "Lucy Snowe"
   ],
+  [],
   [
     "Capitaine Nemo | Captain Nemo (Twenty Thousand Leagues - Verne)",
     "Conseil (Twenty Thousand Leagues - Verne)",
@@ -6399,6 +6596,12 @@
   [
     "Sobran Jodeau (Vintner's Luck - Knox)",
     "Xas (Vintner's Luck - Knox)"
+  ],
+  [
+    "Circular Knitting Needle (Anthropomorphic)",
+    "Knitting Needle (Anthropomorphic)",
+    "Stitch Holder (Anthropomorphic)",
+    "Yarn (Anthropomorphic)"
   ],
   [
     "Clarissa Dalloway (VO - W)",
@@ -6440,11 +6643,17 @@
     "Yuri Kirov"
   ],
   [
+    "Emika Chen (Warcross)",
+    "Hideo Tanaka (Warcross)",
+    "Sasuke Tanaka | Zero (Warcross)"
+  ],
+  [
     "Henry Beaufort (Waringham Series)",
     "John of Gaunt (Waringham Series)",
     "John of Waringham (Waringham Series)",
     "Robert (Robin) of Waringham (Waringham Series)"
   ],
+  [],
   [
     "Alfred the Great (The Warrior Chronicles)",
     "Earl Ragnar (The Warrior Chronicles)",
@@ -6500,6 +6709,11 @@
     "Merricat Blackwood"
   ],
   [
+    "Dolph Haertel",
+    "Mrs. Haertel (Welcome to Mars)",
+    "Nanette Ford"
+  ],
+  [
     "Ángel Cruz (Welcome to PHU)",
     "Chris Stone (Welcome to PHU)",
     "Mac Palmer",
@@ -6514,6 +6728,20 @@
     "Elijah Raymond",
     "Miranda Ellenby",
     "Taryn Forrester"
+  ],
+  [
+    "Duncan Spark",
+    "Elliott Clay",
+    "Hawthorn Graves",
+    "Random Hazard"
+  ],
+  [
+    "Alice Love",
+    "Nick Love"
+  ],
+  [
+    "Arthur Seuss",
+    "Ben Alejo"
   ],
   [
     "Ned Worthington",
@@ -6551,6 +6779,12 @@
     "The Pretty Maid (Where Are You Going To My Pretty Maid?)"
   ],
   [
+    "Arriman Canker",
+    "Belladonna (Which Witch)",
+    "Terrence Mugg",
+    "Wizard Watcher"
+  ],
+  [
     "Harriet Johnson",
     "Lalla Moore"
   ],
@@ -6585,6 +6819,12 @@
     "Kehera irinè Elin Raëhema",
     "Tirovay arrin Elin Raëhema",
     "Verè Deconniy"
+  ],
+  [
+    "Elayne (Winter Solstice Camelot Station)",
+    "Galahad (Winter Solstice Camelot Station)",
+    "Kay (Winter Solstice Camelot Station)",
+    "Pellinore (Winter Solstice Camelot Station)"
   ],
   [
     "Morozko (Winternight Series)",
@@ -6772,6 +7012,11 @@
     "Bucky Bear"
   ],
   [
+    "Alison Blaire (A-Force)",
+    "Carol Danvers (A-Force)",
+    "Jennifer Walters (A-Force)"
+  ],
+  [
     "Archie Andrews (Afterlife With Archie (Comics))",
     "Betty Cooper (Afterlife With Archie (Comics))"
   ],
@@ -6805,6 +7050,12 @@
     "Anya Borzakovskaya",
     "Elizabeth Standard",
     "Siobhan (Anya's Ghost)"
+  ],
+  [
+    "Betty Cooper (Archie Comics Classic)",
+    "Jughead Jones (Archie Comics Classic)",
+    "Kevin Keller (Archie Comics Classic)",
+    "Veronica Lodge (Archie Comics Classic)"
   ],
   [
     "Archie Andrews (Archie 2015 Reboot)",
@@ -7019,6 +7270,9 @@
     "Hank \"the Ranger\"",
     "Sheila \"the Thief\"",
     "Venger \"the Force of Evil\""
+  ],
+  [
+    "Jay Garrick (Earth 2 Comics 2012)"
   ],
   [
     "Elena Castillo Flores",
@@ -7430,6 +7684,10 @@
   ],
   [],
   [
+    "Nancy Ritz",
+    "Sluggo Smith"
+  ],
+  [
     "Dave Davenport (Victorian Era)",
     "Dr. Pim (Narbonic)",
     "Helen Narbon (Victorian Era)"
@@ -7441,6 +7699,12 @@
     "Koriand'r (New Teen Titans)",
     "Raven (New Teen Titans)",
     "Victor Stone (New Teen Titans)"
+  ],
+  [
+    "Faira Sar Namora (New Warriors (Comics))",
+    "Namorita Prentiss (New Warriors (Comics))",
+    "Robert Baldwin (New Warriors (Comics))",
+    "Vance Astrovik (New Warriors (Comics))"
   ],
   [
     "Ashida Noriko (New X-Men: Academy X)",
@@ -7532,6 +7796,11 @@
     "Ruu (Raruurien)"
   ],
   [
+    "Molly (Realm (Comics))",
+    "Nolan (Realm (Comics))",
+    "Rook (Realm (Comics))"
+  ],
+  [
     "Hannu Viitanen (A Redtail's Dream)",
     "Samuli Tiira (A Redtail's Dream)"
   ],
@@ -7606,6 +7875,10 @@
     "Lisa Simpson",
     "Marge Simpson",
     "Rod Flanders"
+  ],
+  [
+    "Jennifer Chu (Slam!)",
+    "Maise Huff (Slam!)"
   ],
   [
     "Anemone (Sleepless Domain)",
@@ -7859,6 +8132,12 @@
     "Kim Dohyun"
   ],
   [
+    "Go Yohan",
+    "Kang Soohwa",
+    "Oh Byung",
+    "Oh Gyoon"
+  ],
+  [
     "Shin Hyukjoon",
     "Shin Minjae"
   ],
@@ -7983,6 +8262,12 @@
     "Amy Johnson (Aviation Pioneers RPF)",
     "Jacqueline Cochran (Aviation Pioneers RPF)",
     "Pauline Gower (Aviation Pioneers RPF)"
+  ],
+  [
+    "Edward the Confessor (Hastings - Bayeux Tapestry)",
+    "Harold Godwinson | Harold II (Hastings - Bayeux Tapestry)",
+    "Man with arrow in eye (Hastings - Bayeux Tapestry)",
+    "William the Conqueror (Hastings - Bayeux Tapestry)"
   ],
   [],
   [
@@ -8314,6 +8599,11 @@
     "Song \"Smeb\" Kyung-ho (League of Legends RPF)"
   ],
   [
+    "Jürgen Klopp (Liverpool Celebrities RPF)",
+    "Paul Hollywood (Liverpool Celebrities RPF)",
+    "Steven Gerrard (Liverpool Celebrities RPF)"
+  ],
+  [
     "Chase Utley (Los Angeles Dodgers RPF)",
     "Chris Taylor (Los Angeles Dodgers RPF)",
     "Clayton Kershaw (Los Angeles Dodgers RPF)",
@@ -8322,6 +8612,12 @@
     "Enrique Hernández (Los Angeles Dodgers RPF)",
     "Matt Kemp (Los Angeles Dodgers RPF)",
     "Yasiel Puig (Los Angeles Dodgers RPF)"
+  ],
+  [
+    "Albrecht Dürer (Machiavelli & Friends RPF)",
+    "Micheletto Corella (Machiavelli & Friends RPF)",
+    "Niccolò Machiavelli (Machiavelli & Friends RPF)",
+    "Thomas Cromwell (Machiavelli & Friends RPF)"
   ],
   [
     "DeMarcus Cousins (Men's Basketball RPF)",
@@ -8511,6 +8807,10 @@
     "Neil deGrasse Tyson (Space Exploration RPF)"
   ],
   [
+    "Tom Holland (Spider-Man: Homecoming RPF)",
+    "Zendaya Coleman (Spider-Man: Homecoming RPF)"
+  ],
+  [
     "Ben Mendelsohn (Star Wars RPF)",
     "Daisy Ridley (Star Wars RPF)",
     "Domhnall Gleeson (Star Wars RPF)",
@@ -8576,6 +8876,10 @@
     "Noah Centineo (To All The Boys I've Loved Before RPF)"
   ],
   [
+    "Evgenia Medvedeva (Toronto Cricket Skating and Curling Club RPF)",
+    "Javier Fernández (Toronto Cricket Skating and Curling Club RPF)"
+  ],
+  [
     "Aramaki Yoshihiko (Touken Ranbu 2.5D RPF)",
     "Iwasaki Daisuke (Touken Ranbu 2.5D RPF)",
     "Suzuki Hiroki (Touken Ranbu 2.5D RPF)",
@@ -8596,6 +8900,10 @@
   [
     "Chocotaco (Twitch Streamer)",
     "Shroud (Twitch Streamer)"
+  ],
+  [
+    "Chelsea Jiang (Ultra Rich Asian Girls RPF)",
+    "Coco Paris (Ultra Rich Asian Girls RPF)"
   ],
   [
     "Adam Rippon (US Olympians 2018 RPF)",
@@ -8629,11 +8937,18 @@
     "Sergei Shumakov (Washington Capitals RPF)"
   ],
   [
+    "Anthony Rendon (Washington Nationals RPF)",
+    "Bryce Harper (Washington Nationals RPF)",
+    "Jayson Werth (Washington Nationals RPF)",
+    "Trea Turner (Washington Nationals RPF)"
+  ],
+  [
     "Jacob Trouba (Winnipeg Jets RPF)",
     "Mark Scheifele (Winnipeg Jets RPF)",
     "Nikolaj Ehlers (Winnipeg Jets RPF)",
     "Patrik Laine (Winnipeg Jets RPF)"
   ],
+  [],
   [
     "Amanda Kessel",
     "Hilary Knight",
@@ -9064,8 +9379,7 @@
   ],
   [
     "Kelly Frears",
-    "Chuck Noland",
-    "Wilson (Cast Away)"
+    "Chuck Noland"
   ],
   [
     "Fritz Messing",
@@ -10167,6 +10481,10 @@
     "Robert Fauchelevent (Les Misérables (1952))"
   ],
   [
+    "Lorna Cole (Lethal Weapon 3)",
+    "Martin Riggs (Lethal Weapon 3)"
+  ],
+  [
     "Clive Candy",
     "Edith Hunter",
     "Theo Kretschmar-Schuldorff"
@@ -10431,10 +10749,19 @@
     "Jackson Healy"
   ],
   [
+    "Dani (Nico and Dani)",
+    "Julian (Nico and Dani)"
+  ],
+  [
     "Alice Johnson (A Nightmare on Elm Street (Movies 1984-1994))",
     "Freddy Krueger (A Nightmare on Elm Street (Movies 1984-1994))",
     "Kristen Parker (A Nightmare on Elm Street (Movies 1984-1994))",
     "Nancy Thompson (A Nightmare on Elm Street (Movies 1984-1994))"
+  ],
+  [
+    "Holly (Nina Forever (2015))",
+    "Nina (Nina Forever (2015))",
+    "Rob (Nina Forever (2015))"
   ],
   [
     "Lisa Mackinlay",
@@ -10729,6 +11056,11 @@
     "Mr. White (Reservoir Dogs)"
   ],
   [
+    "Margot (Restless Natives)",
+    "Ronnie (Restless Natives)",
+    "Will (Restless Natives)"
+  ],
+  [
     "Blue Eyes (Planet of the Apes 2011)",
     "Caesar (Planet of the Apes 2011)",
     "Cornelia (Planet of the Apes 2011)",
@@ -10823,6 +11155,10 @@
     "Gale Weathers",
     "Sidney Prescott",
     "Tatum Riley"
+  ],
+  [
+    "Captain Gavin Stewart",
+    "Colonel Lewis Henry Owain Pugh"
   ],
   [
     "Colonel Brandon (S&S 1995)",
@@ -10990,6 +11326,10 @@
     "Cinderella (Slipper and the Rose)"
   ],
   [
+    "Nick Snowden (Snow (2004))",
+    "Sandy Brooks (Snow (2004))"
+  ],
+  [
     "Curtis Everett",
     "Edgar (Snowpiercer)",
     "Grey (Snowpiercer)",
@@ -11076,10 +11416,20 @@
     "Terry Randall (Stage Door 1937)"
   ],
   [
+    "Clarence Harvey \"Cookie\" Cook",
+    "Harry Shapiro",
+    "J.J. Sefton",
+    "Stanislas \"Animal\" Kuzawa"
+  ],
+  [
     "Chris Chambers",
     "Gordie LaChance",
     "Teddy Duchamp",
     "Vern Tessio"
+  ],
+  [
+    "Ally (A Star is Born)",
+    "Jackson Maine (A Star is Born)"
   ],
   [
     "Captain Shakespeare (Stardust 2007)",
@@ -11160,6 +11510,14 @@
     "McKenzie (Teen Beach Movie)"
   ],
   [
+    "John Connor (Terminator Movies 1984-2003)",
+    "Kate Brewster (Terminator Movies 1984-2003)",
+    "Kyle Reese (Terminator Movies 1984-2003)",
+    "Miles Dyson (Terminator Movies 1984-2003)",
+    "Peter Silberman (Terminator Movies 1984-2003)",
+    "Sarah Connor (Terminator Movies 1984-2003)"
+  ],
+  [
     "Kyle Reese (Terminator Salvation)",
     "Marcus Wright (Terminator Salvation)"
   ],
@@ -11238,6 +11596,11 @@
     "Lara Jean Song-Covey (To All the Boys I’ve Loved Before 2018)",
     "Margot Song-Covey (To All the Boys I’ve Loved Before 2018)",
     "Peter Kavinsky (To All the Boys I’ve Loved Before 2018)"
+  ],
+  [
+    "Anne Brontë (To Walk Invisible)",
+    "Charlotte Brontë (To Walk Invisible)",
+    "Emily Brontë (To Walk Invisible)"
   ],
   [
     "Noxeema Jackson",
@@ -11338,6 +11701,10 @@
     "Rydal Keener (TFJ 2014)"
   ],
   [
+    "Older Prisoner (Un chant d'amour)",
+    "Younger Prisoner (Un chant d'amour)"
+  ],
+  [
     "Andreas Tanis",
     "David (Underworld)",
     "Eve (Underworld)",
@@ -11352,6 +11719,12 @@
     "DCI Cassie Stuart",
     "DS Sunny Khan",
     "Martin Hughes (Unforgotten)"
+  ],
+  [
+    "Dr. Scott (The Uninvited (1944))",
+    "Pamela Fitzgerald (The Uninvited (1944))",
+    "Roderick Fitzgerald",
+    "Stella Meredith"
   ],
   [
     "Fisk Brantner",
@@ -11460,6 +11833,10 @@
     "Raymond Greenwood"
   ],
   [
+    "\"Murder\" Legendre",
+    "Charles Beaumont (White Zombie)"
+  ],
+  [
     "Lord Summerisle (The Wicker Man 1973)"
   ],
   [
@@ -11472,6 +11849,10 @@
     "Ray Duquette",
     "Sam Lombardo",
     "Suzie Toller"
+  ],
+  [
+    "Mackenzie (Wildlike)",
+    "Rene Bartlett"
   ],
   [
     "Airk Thaughbaer",
@@ -11495,6 +11876,11 @@
   [
     "Johnny (Wonderkid 2016)",
     "Wonderkid | Bradley McGuire (Wonderkid 2016)"
+  ],
+  [
+    "Benson Thacker",
+    "Ralph Burton",
+    "Sarah Crandall"
   ],
   [
     "Calvin O'Keefe (A Wrinkle in Time (2018))",
@@ -11618,6 +12004,11 @@
     "Qin Fen (Awaken-F RPF)"
   ],
   [
+    "Cheating Husband (Babe)",
+    "Mistress (Babe)",
+    "Wife (Babe)"
+  ],
+  [
     "Arsyn (Bad Blood)",
     "Catastrophe (Bad Blood)",
     "Destructa X (Bad Blood)",
@@ -11625,6 +12016,12 @@
     "The Trinity (Bad Blood)"
   ],
   [],
+  [
+    "Chaeyoung (BDZ)",
+    "Dahyun (BDZ)",
+    "Jeongyeon (BDZ)",
+    "Nayeon (BDZ)"
+  ],
   [
     "Arizona Ranger (Big Iron)",
     "Texas Red (Big Iron)"
@@ -11665,6 +12062,7 @@
     "Hiker (Call It Dreaming)",
     "Male guitarist (Call It Dreaming)"
   ],
+  [],
   [],
   [
     "Bae Yoobin | Binnie (Closer)",
@@ -11886,6 +12284,11 @@
     "Viian Wong | ViVi (LOONA)"
   ],
   [
+    "Her | You (Love Yourself [Answer])",
+    "Narrator (Love Yourself [Answer])",
+    "They | Them | Versions of Me (Love Yourself [Answer])"
+  ],
+  [
     "Ahn Hyejin | Hwasa (Mamamoo RPF)",
     "Jung Wheein (Mamamoo RPF)",
     "Kim Yongsun | Solar (Mamamoo RPF)",
@@ -11957,6 +12360,10 @@
     "Yan An (Pentagon RPF)"
   ],
   [
+    "Milo (Prozzäk)",
+    "Simon (Prozzäk)"
+  ],
+  [
     "Badoula Oblongata (Q.U.E.E.N.)",
     "Girl in Black Shirt (Q.U.E.E.N.)",
     "Girl in Ying Yang Shirt (Q.U.E.E.N.)",
@@ -11977,6 +12384,10 @@
   ],
   [],
   [
+    "Narrator (Rock N Roleplay Baby)",
+    "Rock N Roleplay Baby"
+  ],
+  [
     "Durango Black",
     "The Violinist (Roundtable Rival)"
   ],
@@ -11988,8 +12399,18 @@
     "Reading Customer (She Keeps Me Warm)"
   ],
   [
+    "Male Singer (Some Velvet Morning)",
+    "Phaedra (Some Velvet Morning)"
+  ],
+  [
     "Belle Boyd",
     "Priscilla Parker"
+  ],
+  [
+    "The Biologist (The Source)",
+    "The Counselor (The Source)",
+    "The Preacher (The Source)",
+    "TH-1 (The Source)"
   ],
   [
     "Queenie (Strip Polka)"
@@ -12001,6 +12422,10 @@
   ],
   [
     "Clancy (Trench)"
+  ],
+  [
+    "Amelia Earhart (True Story of Amelia Earhart)",
+    "Frederick Noonan (True Story of Amelia Earhart)"
   ],
   [
     "Nick McCabe (The Verve RPF)",
@@ -12024,6 +12449,10 @@
   [
     "Hayley Kiyoko (What I Need)",
     "Kehlani Parrish (What I Need)"
+  ],
+  [
+    "Minami Takayama (White Reflection)",
+    "Shiina Nagano (White Reflection)"
   ],
   [
     "Anna Nicole | Younger woman (WYSLMT)",
@@ -12093,6 +12522,10 @@
     "Tempest (Reunification)"
   ],
   [
+    "Luc Chantal (Superstition)",
+    "Oliver Jackson (Superstition)"
+  ],
+  [
     "Strix Beestinger",
     "Waffles (DCA)",
     "Diath Woodrow",
@@ -12132,6 +12565,11 @@
     "Minerva (TAZ Amnesty)"
   ],
   [
+    "Anne Mathis (TAZ: Dust)",
+    "Dylan Mathis (TAZ: Dust)",
+    "Jeremiah Blackwell (TAZ: Dust)"
+  ],
+  [
     "Lucy Cunningham-Schultz",
     "Regis Blackgaard",
     "Richard Maxwell"
@@ -12165,9 +12603,9 @@
   ],
   [
     "Christine Anderson",
+    "Dan (Archive 81 (Podcast))",
     "Nicholas Waters",
-    "Static Man",
-    "Dan (archive 81)"
+    "Static Man"
   ],
   [
     "Empress Celestia III",
@@ -12201,6 +12639,11 @@
     "Nic Silver (The Black Tapes Podcast)",
     "Richard Strand",
     "Tannis Braun"
+  ],
+  [
+    "Baszo Baz",
+    "Lady Thorn",
+    "Mylera Klev"
   ],
   [
     "The Bodyguard (Body)",
@@ -12247,6 +12690,10 @@
     "Minister Blue | Lord Adnau Wrengan (Campaign (Podcast))",
     "Tap Chitra (Campaign (Podcast))",
     "Trystan \"Tryst\" Valentine"
+  ],
+  [
+    "Pasqui (Casa Surace)",
+    "Ricky (Casa Surace)"
   ],
   [
     "Catherine (Catherine (Web Series))",
@@ -12334,7 +12781,19 @@
     "Kori Schake",
     "Rosa Brooks"
   ],
+  [
+    "Fletch Stormtail (D&D&D)",
+    "Juno Greenpoint (D&D&D)",
+    "Margarine Sticks (D&D&D)",
+    "Zabbas (D&D&D)"
+  ],
   [],
+  [
+    "Dunkin' Donuts (Donut Anthropomorfic)",
+    "Krispy Kreme (Donut Anthropomorfic)",
+    "Tim Hortons (Donut Anthropomorfic)",
+    "Voodoo Doughnut (Donut Anthropomorfic)"
+  ],
   [
     "Doris Delaney",
     "Lord Gangrok the Destroyer (Doris & Mary-Anne Are Breaking Out Of Prison)",
@@ -12388,6 +12847,12 @@
     "Swan (Exalted)"
   ],
   [
+    "Betty Capozzi",
+    "Eddie O'Malley",
+    "Lily Anastasia",
+    "Marty Spano"
+  ],
+  [
     "Bogsneak Dragons (Flight Rising)",
     "The Earthshaker (Flight Rising)",
     "The Gladekeeper (Flight Rising)",
@@ -12412,9 +12877,21 @@
     "⸢Signet⸣ (Friends at the Table)"
   ],
   [
+    "Ace McShane (Gallifrey)",
+    "Irving Braxiatel (Gallifrey)",
+    "Leela (Gallifrey)",
+    "Romana II (Gallifrey)"
+  ],
+  [
     "Man in a Grey Suit (The Garden Door)",
     "Man in a Hat (The Garden Door)",
     "Man With Flowers (The Garden Door)"
+  ],
+  [
+    "Chung Sol",
+    "Five (Ghostverse)",
+    "Hyeon",
+    "Ji Hae"
   ],
   [
     "Allegra Frank (Gill & Gilbert (Web Series))",
@@ -12557,6 +13034,12 @@
     "Sammy Stevens"
   ],
   [
+    "Woman #1 (Las Vegas \"Let's Get Married\" Commercial)",
+    "Woman #2 (Las Vegas \"Let's Get Married\" Commercial)",
+    "Woman #2's Father (Las Vegas \"Let's Get Married\" Commercial)",
+    "Woman #2's Mother (Las Vegas \"Let's Get Married\" Commercial)"
+  ],
+  [
     "And Then We Saw the Daughter of the Minotaur (Leonora Carrington)",
     "The House Opposite (Leonora Carrington)",
     "How Doth the Little Crocodile... (Leonora Carrington)",
@@ -12660,9 +13143,21 @@
     "Frank Muir (My Word!)"
   ],
   [
+    "Boston Breakers (Anthropomorphic)",
+    "Chicago Red Stars (Anthropomorphic)",
+    "Portland Thorns FC (Anthropomorphic)",
+    "Utah Royals FC (Anthropomorphic)"
+  ],
+  [
     "Chase Owens (NWA)",
     "Cody Rhodes (NWA)",
     "Jason Kincaid (NWA)"
+  ],
+  [
+    "Grear (Near and Far)",
+    "Riza (Near and Far)",
+    "Shardling (Near and Far)",
+    "Tanian (Near and Far)"
   ],
   [
     "Dak Rambo (Neoscum)",
@@ -12716,6 +13211,10 @@
     "Gregg Turkington",
     "Mark Proksch",
     "Tim Heidecker"
+  ],
+  [
+    "Hew Draper (Outliers: Strange Stars)",
+    "Narrator | Chaplin of the Tower of London (Outliers: Strange Stars)"
   ],
   [],
   [],
@@ -12853,6 +13352,18 @@
     "Sparks Nevada (Sparks Nevada Marshal on Mars)"
   ],
   [
+    "Bringer of Dreams and Nightmares (Spirit Island (Board Game))",
+    "Ocean's Hungry Grasp (Spirit Island (Board Game))",
+    "Serpent Slumbering Beneath the Island (Spirit Island (Board Game))",
+    "Shadows Flicker Like Flame (Spirit Island (Board Game))"
+  ],
+  [
+    "Jonathan Costello",
+    "Miranda Quan",
+    "Nelly Cochrane",
+    "Reva Santiago"
+  ],
+  [
     "Arkady Patel",
     "Brian Jeeter",
     "Krejjh (Strange Case of Starship Iris)",
@@ -12928,6 +13439,10 @@
   [],
   [
     "Writer (Writer Automaton)"
+  ],
+  [
+    "Carla Monteleone",
+    "Tolerant Justine"
   ],
   [
     "Adam Page (NJPW)",
@@ -13022,6 +13537,12 @@
     "Frederick Trumper",
     "Svetlana Sergievsky",
     "Walter de Courcey"
+  ],
+  [
+    "The Angel (Cinderella - Bourne)",
+    "Cinderella (Cinderella - Bourne)",
+    "The Fashionable Stepbrother (Cinderella - Bourne)",
+    "The Pilot (Cinderella - Bourne)"
   ],
   [
     "Niels Bohr (Copenhagen)",
@@ -13256,6 +13777,14 @@
     "Georg Nowack"
   ],
   [
+    "Anne Boleyn (Six)",
+    "Anne of Cleves (Six)",
+    "Catherine Howard (Six)",
+    "Catherine Parr (Six)",
+    "Jane Seymour (Six)",
+    "Katherine of Aragon (Six)"
+  ],
+  [
     "Agnes Naismith",
     "Banquo (Sleep No More)",
     "Hecate (Sleep No More)",
@@ -13320,6 +13849,16 @@
     "Oscar (Un Ballo In Maschera)",
     "Renato | Count Anckarström",
     "Riccardo | Gustavo"
+  ],
+  [
+    "Bob Mortimer (Big Night Out)",
+    "Graham Lister (Big Night Out)",
+    "Mr. Dennis (Big Night Out)",
+    "Vic Reeves (Big Night Out)"
+  ],
+  [
+    "Alice Sycamore (YCTIWY - play)",
+    "Tony Kirby (YCTIWY - play)"
   ],
   [
     "Imanotsurugi (ミュージカル『刀剣乱舞』～つはものどもがゆめのあと～ | Musical Touken Ranbu: Tsuhamonodomo ga Yume no Ato)",
@@ -14765,6 +15304,12 @@
     "Zero | Gideon"
   ],
   [
+    "Byun Kangchul (Hogu's Love (TV))",
+    "Do Dohee (Hogu's Love (TV))",
+    "Kang Hogu (Hogu's Love (TV))",
+    "Kang Hokyung (Hogu's Love (TV))"
+  ],
+  [
     "Bruce the Ocelot (Honey West)",
     "Honey West",
     "Sam Bolt"
@@ -14888,6 +15433,12 @@
     "Kurdy Malloy",
     "Markus Alexander",
     "Theo Coleridge"
+  ],
+  [
+    "JWoww (JS: Family Vacation)",
+    "Mike \"The Situation\" (JS: Family Vacation)",
+    "Pauly D (JS: Family Vacation)",
+    "Vinny (JS: Family Vacation)"
   ],
   [
     "Jessica Jones (Jessica Jones (TV))",
@@ -15753,6 +16304,11 @@
     "Sara Waybourne (Picnic at Hanging Rock (TV 2018))"
   ],
   [
+    "Annika Settergreen (Pippi Longstocking (TV 1969))",
+    "Miss Prysselius (Pippi Longstocking (TV 1969))",
+    "Pippi Långstrump | Pippi Longstocking (Pippi Longstocking (TV 1969))"
+  ],
+  [
     "Amelia Slater",
     "Blip Sanders",
     "Cara (Pitch)",
@@ -15907,7 +16463,7 @@
     "Marty Hopkirk"
   ],
   [
-    "Chelsea Daniels (Raven’s Home)",
+    "Chelsea Daniels | Chelsea Grayson (Raven's Home)",
     "Raven Baxter (Raven’s Home)"
   ],
   [
@@ -16010,6 +16566,11 @@
   [
     "Laura Thyme",
     "Rosemary Boxer"
+  ],
+  [
+    "Armstrong Wedgewood (Round Planet)",
+    "Garth de la Spong (Round Planet)",
+    "Tabitha Pippit-Whistle (Round Planet)"
   ],
   [
     "Boris Kuester von Jurgens-Ratenicz",
@@ -16596,6 +17157,10 @@
     "William Lamb 2nd Viscount Melbourne (Victoria (TV))"
   ],
   [
+    "Orm (Norsemen)",
+    "Rufus Theodosius Claudianus (Norsemen)"
+  ],
+  [
     "Lee Crane (Voyage to the Bottom of the Sea (TV))"
   ],
   [
@@ -16611,6 +17176,10 @@
   [
     "John Feely (Warriors 1999)",
     "Neil Loughrey (Warriors 1999)"
+  ],
+  [
+    "Apo (Water Boyy: The Series)",
+    "Waii (Water Boyy: The Series)"
   ],
   [
     "Bridget Westfall",
@@ -16716,6 +17285,12 @@
     "Jim Hacker (Yes Minister)"
   ],
   [
+    "Benji (You (TV))",
+    "Guinevere Beck",
+    "Joe Goldberg",
+    "Peach Salinger"
+  ],
+  [
     "Bela (Youkai Ningen Bem)",
     "Belo (Youkai Ningen Bem)",
     "Bem (Youkai Ningen Bem)",
@@ -16764,6 +17339,10 @@
     "Iakov Platonovich Shtolman",
     "Nina Neginskaya",
     "Piotr Ivanovich Mironov"
+  ],
+  [
+    "Dmitri Pavlovich Romanov (Grigoriy R)",
+    "Felix Felixovich Yusupov (Grigoriy R)"
   ],
   [
     "Christian August von Brockdorff (Екатерина | Catherine (TV 2014))",
@@ -16826,6 +17405,12 @@
   [
     "Ken’ichirou “Ken\" (Nobunaga no Chef)",
     "Oda Nobunaga (Nobunaga no Chef)"
+  ],
+  [
+    "Matsuda Ryuji",
+    "Murata Masako",
+    "Murata Yukari",
+    "Sana (Tenchuu)"
   ],
   [
     "Balance (Uchu Sentai Kyuranger)",
@@ -16991,6 +17576,10 @@
     "Liu Bei (Legend Hero)"
   ],
   [
+    "Chisoo (Long Time No See)",
+    "Gitae (Long Time No See)"
+  ],
+  [
     "Hyun Woo | Irene (마보이 | Ma Boy)",
     "Jang Geu Rim (마보이 | Ma Boy)"
   ],
@@ -17087,107 +17676,10 @@
     "Yu Eun-sung"
   ],
   [
-    "Alison Blaire (A-Force)",
-    "Carol Danvers (A-Force)",
-    "Jennifer Walters (A-Force)"
-  ],
-  [
-    "Anne Mathis (TAZ: Dust)",
-    "Dylan Mathis (TAZ: Dust)",
-    "Jeremiah Blackwell (TAZ: Dust)"
-  ],
-  [
-    "Betty Cooper (Archie Comics Classic)",
-    "Jughead Jones (Archie Comics Classic)",
-    "Kevin Keller (Archie Comics Classic)",
-    "Veronica Lodge (Archie Comics Classic)"
-  ],
-  [
-    "Cheating Husband (Babe)",
-    "Mistress (Babe)",
-    "Wife (Babe)"
-  ],
-  [
-    "Edward the Confessor (Hastings - Bayeux Tapestry)",
-    "Harold Godwinson | Harold II (Hastings - Bayeux Tapestry)",
-    "Man with arrow in eye (Hastings - Bayeux Tapestry)",
-    "William the Conqueror (Hastings - Bayeux Tapestry)"
-  ],
-  [
-    "Alexander Madeira (BattleTech Video Game)",
-    "Kamea Arano (BattleTech Video Game)",
-    "Victoria Espinosa (Battle Tech Video Game)"
-  ],
-  [
-    "Chaeyoung (BDZ)",
-    "Dahyun (BDZ)",
-    "Jeongyeon (BDZ)",
-    "Nayeon (BDZ)"
-  ],
-  [
-    "Baszo Baz",
-    "Lady Thorn",
-    "Mylera Klev"
-  ],
-  [
-    "Pasqui (Casa Surace)",
-    "Ricky (Casa Surace)"
-  ],
-  [
-    "The Angel (Cinderella - Bourne)",
-    "Cinderella (Cinderella - Bourne)",
-    "The Fashionable Stepbrother (Cinderella - Bourne)",
-    "The Pilot (Cinderella - Bourne)"
-  ],
-  [
-    "Fletch Stormtail (D&D&D)",
-    "Juno Greenpoint (D&D&D)",
-    "Margarine Sticks (D&D&D)",
-    "Zabbas (D&D&D)"
-  ],
-  [
-    "Jay Garrick (Earth 2 Comics 2012)"
-  ],
-  [
-    "Betty Capozzi",
-    "Eddie O'Malley",
-    "Lily Anastasia",
-    "Marty Spano"
-  ],
-  [
-    "Pharaun Mizzrym (The War of the Spider Queen)",
-    "Ryld Argith (The War of the Spider Queen)",
-    "Valas Hune (The War of the Spider Queen)"
-  ],
-  [
     "Endō Shōzō",
     "Matsumoto Hitoshi",
     "Tanaka Naoki",
     "Tsukitei Hōsei"
-  ],
-  [
-    "Chung Sol",
-    "Five (Ghostverse)",
-    "Hyeon",
-    "Ji Hae"
-  ],
-  [
-    "Byun Kangchul (Hogu's Love (TV))",
-    "Do Dohee (Hogu's Love (TV))",
-    "Kang Hogu (Hogu's Love (TV))",
-    "Kang Hokyung (Hogu's Love (TV))"
-  ],
-  [
-    "JWoww (JS: Family Vacation)",
-    "Mike \"The Situation\" (JS: Family Vacation)",
-    "Pauly D (JS: Family Vacation)",
-    "Vinny (JS: Family Vacation)"
-  ],
-  [
-    "Woman #1 (Las Vegas \"Let's Get Married\" Commercial)",
-    "Woman #2 (Las Vegas \"Let's Get Married\" Commercial)",
-    "Woman #2's Father (Las Vegas \"Let's Get Married\" Commercial)",
-    "Woman #2's Mother (Las Vegas \"Let's Get Married\" Commercial)"
   ],
   [
     "Mona (The Last Halloween)",
@@ -17201,71 +17693,19 @@
     "Isolier (Le Comte Ory 2011)"
   ],
   [
-    "Lorna Cole (Lethal Weapon 3)",
-    "Martin Riggs (Lethal Weapon 3)"
-  ],
-  [
-    "Jürgen Klopp (Liverpool Celebrities RPF)",
-    "Paul Hollywood (Liverpool Celebrities RPF)",
-    "Steven Gerrard (Liverpool Celebrities RPF)"
-  ],
-  [
-    "Albrecht Dürer (Machiavelli & Friends RPF)",
-    "Micheletto Corella (Machiavelli & Friends RPF)",
-    "Niccolò Machiavelli (Machiavelli & Friends RPF)",
-    "Thomas Cromwell (Machiavelli & Friends RPF)"
-  ],
-  [
-    "Frances Schofield (Moon-Spinners - Stewart)",
-    "Lambis (Moon-Spinners - Stewart)",
-    "Mark (Moon-Spinners - Stewart)",
-    "Nicola (Moon-Spinners - Stewart)"
-  ],
-  [
     "Adrian van de Nachtigal (Nachtigal)",
     "Luca Faveaux (Nachtigal)",
     "Miranda Namatgira (Nachtigal)"
-  ],
-  [
-    "Nancy Ritz",
-    "Sluggo Smith"
-  ],
-  [
-    "Boston Breakers (Anthropomorphic)",
-    "Chicago Red Stars (Anthropomorphic)",
-    "Portland Thorns FC (Anthropomorphic)",
-    "Utah Royals FC (Anthropomorphic)"
-  ],
-  [
-    "Grear (Near and Far)",
-    "Riza (Near and Far)",
-    "Shardling (Near and Far)",
-    "Tanian (Near and Far)"
   ],
   [
     "Girl (Nevereverland)",
     "Protagonist (Nevereverland)"
   ],
   [
-    "Faira Sar Namora (New Warriors (Comics))",
-    "Namorita Prentiss (New Warriors (Comics))",
-    "Robert Baldwin (New Warriors (Comics))",
-    "Vance Astrovik (New Warriors (Comics))"
-  ],
-  [
     "New York Times (Newspaper)",
     "Washington Post (Newspaper)"
   ],
-  [
-    "Dani (Nico and Dani)",
-    "Julian (Nico and Dani)"
-  ],
   [],
-  [
-    "Holly (Nina Forever (2015))",
-    "Nina (Nina Forever (2015))",
-    "Rob (Nina Forever (2015))"
-  ],
   [
     "Eileen Flax",
     "Veronique Pommier"
@@ -17306,27 +17746,11 @@
     "Sharks (Anthropomorphic)",
     "Turtles (Anthropomorphic)"
   ],
-  [
-    "Hamza Sheikh",
-    "Leigh Shore",
-    "Miko Sheikh",
-    "Will Dando"
-  ],
   [],
   [],
   [
     "Jeannie (Out at the Wedding 2007)",
     "Risa (Out at the Wedding 2007)"
-  ],
-  [
-    "Hew Draper (Outliers: Strange Stars)",
-    "Narrator | Chaplin of the Tower of London (Outliers: Strange Stars)"
-  ],
-  [
-    "Glencora Palliser (Palliser Series)",
-    "Laura Standish (Palliser Series)",
-    "Phineas Finn (Palliser Series)",
-    "Plantagenet Palliser (Palliser Series)"
   ],
   [
     "Charlie Hunnam (Papillon (2017) RPF)",
@@ -17338,31 +17762,12 @@
     "Madeleine de Sara (Parker Pyne - Christie)",
     "Parker Pyne (Parker Pyne - Christie)"
   ],
-  [
-    "Artemisia Gentileschi (The Passion of Artemisia)",
-    "Palmira Stiattesi",
-    "Sister Graziela (The Passion of Artemisia)",
-    "Umiliana (The Passion of Artemisia)"
-  ],
-  [
-    "The Fairy Queen | The Lady in Green (Perilous Gard)",
-    "Kate Sutton"
-  ],
   [],
-  [
-    "Annika Settergreen (Pippi Longstocking (TV 1969))",
-    "Miss Prysselius (Pippi Longstocking (TV 1969))",
-    "Pippi Långstrump | Pippi Longstocking (Pippi Longstocking (TV 1969))"
-  ],
   [
     "Deborah Vaughn",
     "Joe Positano",
     "Kate Mackay",
     "Laurence Mackay"
-  ],
-  [
-    "Phil Morrison",
-    "Tom Paretski"
   ],
   [
     "Baxley (The Predator (2018))",
@@ -17371,18 +17776,8 @@
     "Nebraska Williams (The Predator (2018))"
   ],
   [
-    "Elizabeth Greenfield",
-    "Jonathan Lincoln Duncan",
-    "Katherine Brandt",
-    "Lester Rhodes"
-  ],
-  [
     "Knight (Prince & Knight)",
     "Prince (Prince & Knight)"
-  ],
-  [
-    "Milo (Prozzäk)",
-    "Simon (Prozzäk)"
   ],
   [
     "Aefa Thornhill",
@@ -17398,11 +17793,6 @@
     "Tan France (Queer Eye RPF)"
   ],
   [],
-  [
-    "Molly (Realm (Comics))",
-    "Nolan (Realm (Comics))",
-    "Rook (Realm (Comics))"
-  ],
   [
     "Maxim de Winter (Rebecca 1940)",
     "Narrator | Mrs de Winter (Rebecca 1940)"
@@ -17427,50 +17817,10 @@
   [
     "Xia Tian (Reset 2017)"
   ],
-  [
-    "Margot (Restless Natives)",
-    "Ronnie (Restless Natives)",
-    "Will (Restless Natives)"
-  ],
   [],
-  [
-    "Henry Dodd (Robert Carey Mysteries)",
-    "Janet Dodd (Robert Carey Mysteries)",
-    "Robert Carey (Robert Carey Mysteries)"
-  ],
-  [
-    "Kyo (Rocannon's World - Le Guin)",
-    "Mogien of Hallan (Rocannon's World - Le Guin)",
-    "Rocannon (Rocannon's World - Le Guin)",
-    "Yahan (Rocannon's World - Le Guin)"
-  ],
-  [
-    "Narrator (Rock N Roleplay Baby)",
-    "Rock N Roleplay Baby"
-  ],
-  [
-    "Hengest Strimmer",
-    "Jonah Oblong",
-    "Orelia Roc",
-    "Vixen Valourhand"
-  ],
-  [
-    "Armstrong Wedgewood (Round Planet)",
-    "Garth de la Spong (Round Planet)",
-    "Tabitha Pippit-Whistle (Round Planet)"
-  ],
   [
     "John Blake (Salt Magic Skin Magic)",
     "Soren Thornby"
-  ],
-  [
-    "David Claus (Santa's Husband)",
-    "Elf Union Negotiator (Santa's Husband)",
-    "Santa Claus (Santa's Husband)"
-  ],
-  [
-    "Captain Gavin Stewart",
-    "Colonel Lewis Henry Owain Pugh"
   ],
   [
     "David Kim (Searching (2018))",
@@ -17494,10 +17844,6 @@
     "Throlo Sh'shirros"
   ],
   [
-    "Dan Velasquez",
-    "Kirby Mazrachi"
-  ],
-  [
     "Agnum Bulletheart",
     "Marion le Sheila",
     "Rinna Mayfield",
@@ -17510,48 +17856,11 @@
     "Hermann Kermit Warm",
     "John Morris (Sisters Brothers Movie)"
   ],
-  [
-    "Anne Boleyn (Six)",
-    "Anne of Cleves (Six)",
-    "Catherine Howard (Six)",
-    "Catherine Parr (Six)",
-    "Jane Seymour (Six)",
-    "Katherine of Aragon (Six)"
-  ],
   [],
-  [
-    "Jennifer Chu (Slam!)",
-    "Maise Huff (Slam!)"
-  ],
-  [
-    "Nick Snowden (Snow (2004))",
-    "Sandy Brooks (Snow (2004))"
-  ],
-  [
-    "Cordelia Williams",
-    "Lavinia Williams",
-    "Louise Wilson",
-    "Mimi (Social Creature - Tara Isabella Burton)"
-  ],
-  [
-    "Male Singer (Some Velvet Morning)",
-    "Phaedra (Some Velvet Morning)"
-  ],
   [
     "Ilan Eliav",
     "John Cullinane",
     "Vered Bar-El"
-  ],
-  [
-    "The Biologist (The Source)",
-    "The Counselor (The Source)",
-    "The Preacher (The Source)",
-    "TH-1 (The Source)"
-  ],
-  [
-    "Chad Rutledge",
-    "Leopold Bloom King",
-    "Molly Huger"
   ],
   [
     "Danesh Jalo | Decibel Jones",
@@ -17561,36 +17870,10 @@
     "Öo (Space Opera)"
   ],
   [
-    "Ayana Kwena",
-    "Lycus Dion",
-    "Schneider (Spacelords)",
-    "Uras-Beherit"
-  ],
-  [
     "Cane (Spanking Implement - BDSM Anthropomorfic)",
     "Hand (Spanking Implement - BDSM Anthropomorfic)",
     "Paddle (Spanking Implement - BDSM Anthropomorfic)",
     "Switch (Spanking Implement - BDSM Anthropomorfic)"
-  ],
-  [
-    "Tom Holland (Spider-Man: Homecoming RPF)",
-    "Zendaya Coleman (Spider-Man: Homecoming RPF)"
-  ],
-  [
-    "Bringer of Dreams and Nightmares (Spirit Island (Board Game))",
-    "Ocean's Hungry Grasp (Spirit Island (Board Game))",
-    "Serpent Slumbering Beneath the Island (Spirit Island (Board Game))",
-    "Shadows Flicker Like Flame (Spirit Island (Board Game))"
-  ],
-  [
-    "Clarence Harvey \"Cookie\" Cook",
-    "Harry Shapiro",
-    "J.J. Sefton",
-    "Stanislas \"Animal\" Kuzawa"
-  ],
-  [
-    "Ally (A Star is Born)",
-    "Jackson Maine (A Star is Born)"
   ],
   [
     "Casamir (The Stars Are Legion)",
@@ -17603,12 +17886,6 @@
     "Follow Me Down (song)",
     "River Lies (song)",
     "Take Advantage of Me (Song)"
-  ],
-  [
-    "Jonathan Costello",
-    "Miranda Quan",
-    "Nelly Cochrane",
-    "Reva Santiago"
   ],
   [
     "Edward Hyde | Henry Jekyll",
@@ -17626,32 +17903,6 @@
     "Leonard Nachman (Summer Song - Louise Blaydon)"
   ],
   [
-    "Abe Aronson",
-    "Joanna Delvecchio",
-    "Lily Delvecchio",
-    "Lyonesse Lazos | Persephone"
-  ],
-  [
-    "Luc Chantal (Superstition)",
-    "Oliver Jackson (Superstition)"
-  ],
-  [
-    "Asuna (SAO: Abridged)",
-    "Don Fluffles",
-    "Kirito (SAO: Abridged)",
-    "Tiffany (SAO: Abridged)"
-  ],
-  [
-    "Guardsman (Swords & Shields)",
-    "Knight-Captain (Swords & Shields)"
-  ],
-  [
-    "Passengers (Tay Bridge Disaster)",
-    "Sensible Men (Tay Bridge Disaster)",
-    "Storm Fiend (Tay Bridge Disaster)",
-    "Train (Tay Bridge Disaster)"
-  ],
-  [
     "Fox (Tea House Gmail Theme)",
     "Ghosts (Tea House Gmail Theme)",
     "Hungry Turtle (Tea House Gmail Theme)",
@@ -17661,29 +17912,11 @@
     "Lian Kaitio"
   ],
   [
-    "John Connor (Terminator Movies 1984-2003)",
-    "Kate Brewster (Terminator Movies 1984-2003)",
-    "Kyle Reese (Terminator Movies 1984-2003)",
-    "Miles Dyson (Terminator Movies 1984-2003)",
-    "Peter Silberman (Terminator Movies 1984-2003)",
-    "Sarah Connor (Terminator Movies 1984-2003)"
-  ],
-  [
-    "August Callahan",
-    "Helena Marcus",
-    "Victoria-Margaret (That Inevitable Victorian Thing)"
-  ],
-  [
     "The Dragon (The Thing In the Walls Wants Your Small Change)"
   ],
   [
     "Danny (This Close)",
     "Ryan (This Close)"
-  ],
-  [
-    "The Earl of Clarendon (Thomas Chaloner Series)",
-    "Hannah Chalenor",
-    "Thomas Chaloner"
   ],
   [
     "EOS (Thunderbirds Are Go! (TV 2015))",
@@ -17697,127 +17930,18 @@
     "Max Walker (Timecop 1994)"
   ],
   [
-    "Anne Brontë (To Walk Invisible)",
-    "Charlotte Brontë (To Walk Invisible)",
-    "Emily Brontë (To Walk Invisible)"
-  ],
-  [
-    "Caroline of Ansbach",
-    "Kitty Sparks",
-    "Sam Fleet",
-    "Tom Hawkins"
-  ],
-  [
-    "Evgenia Medvedeva (Toronto Cricket Skating and Curling Club RPF)",
-    "Javier Fernández (Toronto Cricket Skating and Curling Club RPF)"
-  ],
-  [
-    "Cassandra Devlin",
-    "Nils Sayate",
-    "Zan Namara",
-    "Zee Annan"
-  ],
-  [
-    "Anita Moody",
-    "David (The Trickster Trilogy)",
-    "George | Crashpad",
-    "Jared Martin (Son of a Trickster)",
-    "Jwa'sins (Son of a Trickster)",
-    "Maggie Moody",
-    "Mavis Moody",
-    "Wee'git (The Trickster Trilogy)"
-  ],
-  [
-    "Amelia Earhart (True Story of Amelia Earhart)",
-    "Frederick Noonan (True Story of Amelia Earhart)"
-  ],
-  [
-    "Delia (The Truth About Forever)",
-    "Kristy Palmetto",
-    "Macy Queen",
-    "Wes (The Truth About Forever)"
-  ],
-  [
-    "Chelsea Jiang (Ultra Rich Asian Girls RPF)",
-    "Coco Paris (Ultra Rich Asian Girls RPF)"
-  ],
-  [
-    "Older Prisoner (Un chant d'amour)",
-    "Younger Prisoner (Un chant d'amour)"
-  ],
-  [
     "Catherine Helstone (Under The Pendulum Sun)",
     "Laon Helstone (Under The Pendulum Sun)",
     "Mr Benjamin (Under The Pendulum Sun)",
     "The Salamander (Under The Pendulum Sun)"
   ],
-  [
-    "Culin Wei",
-    "Jace (Undermarket Data)"
-  ],
-  [
-    "Dr. Scott (The Uninvited (1944))",
-    "Pamela Fitzgerald (The Uninvited (1944))",
-    "Roderick Fitzgerald",
-    "Stella Meredith"
-  ],
-  [
-    "Death (Menzel Painting)"
-  ],
-  [
-    "Astrid Glyn",
-    "Glory | Fenris Wolf",
-    "Signy Valborn",
-    "Soren Bearskin"
-  ],
   [],
-  [
-    "Bob Mortimer (Big Night Out)",
-    "Graham Lister (Big Night Out)",
-    "Mr. Dennis (Big Night Out)",
-    "Vic Reeves (Big Night Out)"
-  ],
   [
     "The Emerald Star (Vide Noir Album)",
     "The Fortune Teller (Vide Noir Album)",
     "The Narrator (Vide Noir Album)"
   ],
-  [
-    "Orm (Norsemen)",
-    "Rufus Theodosius Claudianus (Norsemen)"
-  ],
-  [
-    "Barbara (Vinegar Hill)",
-    "Ellen Schumaker"
-  ],
-  [
-    "Circular Knitting Needle (Anthropomorphic)",
-    "Knitting Needle (Anthropomorphic)",
-    "Stitch Holder (Anthropomorphic)",
-    "Yarn (Anthropomorphic)"
-  ],
   [],
-  [
-    "Emika Chen (Warcross)",
-    "Hideo Tanaka (Warcross)",
-    "Sasuke Tanaka | Zero (Warcross)"
-  ],
-  [],
-  [
-    "Anthony Rendon (Washington Nationals RPF)",
-    "Bryce Harper (Washington Nationals RPF)",
-    "Jayson Werth (Washington Nationals RPF)",
-    "Trea Turner (Washington Nationals RPF)"
-  ],
-  [
-    "Apo (Water Boyy: The Series)",
-    "Waii (Water Boyy: The Series)"
-  ],
-  [
-    "Dolph Haertel",
-    "Mrs. Haertel (Welcome to Mars)",
-    "Nanette Ford"
-  ],
   [
     "Nick (WP (TV))",
     "Officer Kyle Minogue (WP (TV))",
@@ -17825,48 +17949,10 @@
     "Sergeant Maaka (WP (TV))"
   ],
   [
-    "Duncan Spark",
-    "Elliott Clay",
-    "Hawthorn Graves",
-    "Random Hazard"
-  ],
-  [
-    "Alice Love",
-    "Nick Love"
-  ],
-  [
-    "Arthur Seuss",
-    "Ben Alejo"
-  ],
-  [
-    "Arriman Canker",
-    "Belladonna (Which Witch)",
-    "Terrence Mugg",
-    "Wizard Watcher"
-  ],
-  [
-    "Minami Takayama (White Reflection)",
-    "Shiina Nagano (White Reflection)"
-  ],
-  [
-    "\"Murder\" Legendre",
-    "Charles Beaumont (White Zombie)"
-  ],
-  [
     "Chip Esten (Whose Line UK RPF)",
     "John Sessions (Whose Line UK RPF)",
     "Paul Merton (Whose Line UK RPF)",
     "Tony Slattery (Whose Line UK RPF)"
-  ],
-  [
-    "Mackenzie (Wildlike)",
-    "Rene Bartlett"
-  ],
-  [
-    "Elayne (Winter Solstice Camelot Station)",
-    "Galahad (Winter Solstice Camelot Station)",
-    "Kay (Winter Solstice Camelot Station)",
-    "Pellinore (Winter Solstice Camelot Station)"
   ],
   [
     "Female Main Character (Winterstrike)",
@@ -17878,67 +17964,18 @@
     "The Vision-Reaver (Winterstrike)"
   ],
   [
-    "Debbie Black (Women's Basketball RPF)",
-    "Diana Taurasi (Women's Basketball RPF)",
-    "Kia Nurse (Women's Basketball RPF)",
-    "Sue Bird (Women's Basketball RPF)"
-  ],
-  [
     "Madison Keys (WTRPF)",
     "Naomi Osaka (WTRPF)",
     "Serena Williams (WTRPF)",
     "Sloane Stephens (WTRPF)"
   ],
   [
-    "Benson Thacker",
-    "Ralph Burton",
-    "Sarah Crandall"
-  ],
-  [
     "Diego Luna (Y Tu Mamá También RPF)",
     "Gael García Bernal (Y Tu Mamá También RPF)"
   ],
   [
-    "Benji (You (TV))",
-    "Guinevere Beck",
-    "Joe Goldberg",
-    "Peach Salinger"
-  ],
-  [
-    "Alice Sycamore (YCTIWY - play)",
-    "Tony Kirby (YCTIWY - play)"
-  ],
-  [
-    "Carla Monteleone",
-    "Tolerant Justine"
-  ],
-  [
-    "August Richter",
-    "Leslie Clark",
-    "Meyer Eastman"
-  ],
-  [
-    "Dmitri Pavlovich Romanov (Grigoriy R)",
-    "Felix Felixovich Yusupov (Grigoriy R)"
-  ],
-  [
-    "Misaki Onoda",
-    "Takumi Onoda"
-  ],
-  [
     "Ametani Kantaro (Kantaro: The Sweet Tooth Salaryman)",
     "Dobashi Kanako (Kantaro: The Sweet Tooth Salaryman)"
-  ],
-  [
-    "Houjou Ayaka (Hitorijime My Hero (Manga))",
-    "Ooshiba Kousuke (Hitorijime My Hero (Manga))",
-    "Setagawa Masahiro (Hitorijime My Hero (Manga))",
-    "Setagawa Megumi (Hitorijime My Hero (Manga))"
-  ],
-  [
-    "Fraw (Asterisk)",
-    "Green (Asterisk)",
-    "Kio (Asterisk)"
   ],
   [
     "Kuramochi Kyoko",
@@ -17961,28 +17998,7 @@
     "Leopard | Doronjo",
     "Voltkatze | Boyacky"
   ],
-  [
-    "Matsuda Ryuji",
-    "Murata Masako",
-    "Murata Yukari",
-    "Sana (Tenchuu)"
-  ],
-  [
-    "Ayumi Kohinata",
-    "Koshiro Mizumoto",
-    "Shunpei Kaga",
-    "Zenko Umine"
-  ],
-  [
-    "Chisoo (Long Time No See)",
-    "Gitae (Long Time No See)"
-  ],
-  [
-    "Go Yohan",
-    "Kang Soohwa",
-    "Oh Byung",
-    "Oh Gyoon"
-  ],
+  [],
   [
     "Mizuno Kaya",
     "Minagi Tsuzuru",
@@ -18082,6 +18098,11 @@
     "Folon (Baten Kaitos)",
     "Giacomo (Baten Kaitos)",
     "Lyude (Baten Kaitos)"
+  ],
+  [
+    "Alexander Madeira (BattleTech Video Game)",
+    "Kamea Arano (BattleTech Video Game)",
+    "Victoria Espinosa (Battle Tech Video Game)"
   ],
   [
     "Alex Wake (Beyond Eden)",
@@ -18747,6 +18768,7 @@
   ],
   [
     "Happy Mask Salesman (Legend of Zelda: Majora's Mask)",
+    "Link (Legend of Zelda: Majora's Mask)",
     "Majora (Legend of Zelda: Majora's Mask)",
     "Skull Kid (Legend of Zelda: Majora's Mask)"
   ],
@@ -18759,7 +18781,8 @@
   [
     "Ezlo (Legend of Zelda: The Minish Cap)",
     "Link (Legend of Zelda: The Minish Cap)",
-    "Minish | Picori (Legend of Zelda: The Minish Cap)"
+    "Minish | Picori (Legend of Zelda: The Minish Cap)",
+    "Vaati (Legend of Zelda: The Minish Cap)"
   ],
   [
     "Ashton Frey",
@@ -18821,6 +18844,12 @@
     "Hieronymous Grabiner",
     "Main Character (Magical Diary)",
     "Virginia Danson"
+  ],
+  [
+    "Devil (Magical Drop V)",
+    "Empress (Magical Drop V)",
+    "Star (Magical Drop V)",
+    "World (Magical Drop V)"
   ],
   [
     "Roxis Rosenkrantz",
@@ -19234,6 +19263,12 @@
     "Gig (Soul Nomad)"
   ],
   [
+    "Ayana Kwena",
+    "Lycus Dion",
+    "Schneider (Spacelords)",
+    "Uras-Beherit"
+  ],
+  [
     "Ashton Anchors",
     "Leon D. S. Gehste",
     "Michael | Decus",
@@ -19416,6 +19451,12 @@
     "Karl (Valiant Hearts)"
   ],
   [
+    "Claude Wallace",
+    "Kai Schulen | Leena Schulen",
+    "Raz (Valkyria Chronicles 4)",
+    "Riley Miller"
+  ],
+  [
     "Edgar Swansea",
     "Elisabeth Ashbury",
     "Geoffrey McCullum",
@@ -19488,6 +19529,11 @@
     "Citan Uzuki",
     "Fei Fong Wong",
     "Sigurd Harcourt"
+  ],
+  [
+    "August Richter",
+    "Leslie Clark",
+    "Meyer Eastman"
   ],
   [
     "Carlos (Zero Escape)",
@@ -19668,6 +19714,12 @@
     "Ellen (The Witch's House)",
     "Viola (The Witch's House)",
     "Viola's Dad (The Witch's House)"
+  ],
+  [
+    "Escha Malier",
+    "Keithgriff Hazeldine",
+    "Logix \"Logy\" Fiscario",
+    "Miruca Crotze"
   ],
   [
     "Kiryu Kazuma (Yakuza (Video Games))",
