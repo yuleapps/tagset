@@ -1255,6 +1255,7 @@
   ],
   [],
   [
+    "Cure Ange (Heartcatch Precure!)",
     "Dune (Heartcatch Precure!)",
     "Baron Salamander (Heartcatch Precure!)",
     "Sabaku (Heartcatch Precure!)"
@@ -2135,10 +2136,6 @@
   [
     "Merrick Tremayne",
     "Raphael (The Bedlam Stacks)"
-  ],
-  [
-    "Katsumi Hosokawa (Bel Canto novel)",
-    "Roxane Coss (Bel Canto novel)"
   ],
   [
     "Garion (Belgariad/Malloreon)",
@@ -7340,7 +7337,7 @@
     "Launchpad McQuack (Darkwing Duck Cartoon)"
   ],
   [
-    "Barbara Gorden (DC Super Hero Girls)",
+    "Barbara Gordon (DC Super Hero Girls)",
     "Big Barda (DC Super Hero Girls)",
     "Carol Ferris (DC Super Hero Girls)",
     "Jessica Cruz (DC Super Hero Girls)",
@@ -8041,7 +8038,7 @@
     "Barbara Rodriguez (Spider-Man Comics 2016)",
     "Ganke Lee (Spider-Man Comics 2016)",
     "Miles Morales (Earth 616) (Spider-Man Comics 2016)",
-    "Miles Morales (Spider-Man Comics 2016)"
+    "Miles Morales | Spider-Man (Spider-Man Comics 2016)"
   ],
   [
     "Addison Merrick",
@@ -8264,6 +8261,7 @@
   ],
   [
     "Hán Wénqīng (King's Avatar)",
+    "Táng Róu (King's Avatar)",
     "Yè Xiū (King's Avatar)"
   ],
   [
@@ -8419,7 +8417,7 @@
   ],
   [
     "Brad Leone (Bon Appétit Test Kitchen RPF)",
-    "Carla Music (Bon Appétit Test Kitchen RPF)",
+    "Carla Lalli Music (Bon Appétit Test Kitchen RPF)",
     "Claire Saffitz (Bon Appétit Test Kitchen RPF)",
     "Vincent Cross (Bon Appétit Test Kitchen RPF)"
   ],
@@ -10729,6 +10727,15 @@
     "Elizabeth Cole (Losing Chase)"
   ],
   [
+    "Shane Powers (Lost Boys)",
+    "Dwayne (Lost Boys)",
+    "Lucy Emerson (Lost Boys)",
+    "Maria (Lost Boys)",
+    "Michael Emerson (Lost Boys)",
+    "Paul (Lost Boys)",
+    "Star (Lost Boys)"
+  ],
+  [
     "Olivia Dunne (The Magic of Ordinary Days (2005))",
     "Ray Singleton (The Magic of Ordinary Days (2005))"
   ],
@@ -11501,7 +11508,7 @@
     "Chris (A Simple Favor (2018))",
     "Darren (A Simple Favor (2018))",
     "Emily Nelson (A Simple Favor (2018))",
-    "Sean Townsend-Nelson (A Simple Favor (2018))",
+    "Sean Townsend (A Simple Favor (2018))",
     "Sona (A Simple Favor (2018))",
     "Stephanie Smothers (A Simple Favor (2018))"
   ],
@@ -11954,12 +11961,6 @@
     "Selene (Underworld)",
     "Sonja (Underworld)",
     "Viktor (Underworld)"
-  ],
-  [
-    "Adam Stuart (Unforgotten)",
-    "DCI Cassie Stuart",
-    "DS Sunny Khan",
-    "Martin Hughes (Unforgotten)"
   ],
   [
     "Dr. Scott (The Uninvited (1944))",
@@ -12531,7 +12532,8 @@
     "Kim Jungeun | Kim Lip (LOONA)",
     "Park Chaewon | Go Won (LOONA)",
     "Son Hyejoo | Olivia Hye (LOONA)",
-    "Viian Wong | ViVi (LOONA)"
+    "Viian Wong | ViVi (LOONA)",
+    "Kim Hyunjin (LOONA)"
   ],
   [
     "Her | You (Love Yourself [Answer])",
@@ -13501,7 +13503,7 @@
   ],
   [
     "Hew Draper (Outliers: Strange Stars)",
-    "Narrator | Chaplin of the Tower of London (Outliers: Strange Stars)"
+    "Narrator | Chaplain of the Tower of London (Outliers: Strange Stars)"
   ],
   [],
   [],
@@ -13630,12 +13632,6 @@
     "Queen of Wands (Shadowscapes)",
     "Seven of Swords (Shadowscapes)",
     "The Tower (Shadowscapes)"
-  ],
-  [
-    "Elandi Rue",
-    "Junil Rue",
-    "Qolar",
-    "Throlo Sh'shirros"
   ],
   [],
   [
@@ -14147,14 +14143,6 @@
   [
     "Liù (Turandot)",
     "Princess Turandot (Turandot)"
-  ],
-  [
-    "Antonio (Twelfth Night (National Theater 2017))",
-    "Malvolia (Twelfth Night (National Theater 2017))",
-    "Olivia (Twelfth Night (National Theater 2017))",
-    "Orsino (Twelfth Night (National Theater 2017))",
-    "Sebastian (Twelfth Night (National Theater 2017))",
-    "Viola | Cesario (Twelfth Night (National Theater 2017))"
   ],
   [
     "Feste (Twelfth Night - Shakespeare)",
@@ -16697,7 +16685,6 @@
   ],
   [
     "Beatriz da Costa (Powerless 2017)",
-    "Green Fury (Powerless 2017)",
     "Emily Locke",
     "Jackie (Powerless)",
     "Ron (Powerless)",
@@ -17339,7 +17326,7 @@
     "Tan Hi | Dān Fěi"
   ],
   [
-    "Aurthur Everest (The Tick 2017)",
+    "Arthur Everest (The Tick 2017)",
     "Ramses IV (The Tick 2017)",
     "The Tick (The Tick 2017)",
     "Overkill (The Tick 2017)"
@@ -17443,6 +17430,12 @@
   [
     "Dale \"Barbie\" Barbara (Under The Dome TV)",
     "Hunter May (Under The Dome TV)"
+  ],
+  [
+    "Adam Stuart (Unforgotten)",
+    "DCI Cassie Stuart",
+    "DS Sunny Khan",
+    "Martin Hughes (Unforgotten)"
   ],
   [
     "Ingo \"Easy\" Winter",
@@ -17960,17 +17953,13 @@
     "Go Ae Shin",
     "Goo Dong Mae",
     "Kim Hee Sung",
-    "Ko Ae-Shin",
-    "Kudo Hina",
     "Kudo Hina | Lee Yang Hwa"
   ],
   [
     "Crown Prince Lee Yoon",
     "Kim Sung Yeol",
-    "Vampire Gwi",
     "Crown Prince Junghyun",
-    "Gwi (vampire)",
-    "Lee Yoon"
+    "Gwi (vampire)"
   ],
   [
     "Bang Eun Ho",
@@ -18034,6 +18023,24 @@
     "Lee Jae-kyu",
     "Park Moo-yul",
     "Yu Eun-sung"
+  ],
+  [
+    "Katsumi Hosokawa (Bel Canto novel)",
+    "Roxane Coss (Bel Canto novel)"
+  ],
+  [
+    "Elandi Rue",
+    "Junil Rue",
+    "Qolar",
+    "Throlo Sh'shirros"
+  ],
+  [
+    "Antonio (Twelfth Night (National Theatre 2017))",
+    "Malvolia (Twelfth Night (National Theatre 2017))",
+    "Olivia (Twelfth Night (National Theatre 2017))",
+    "Orsino (Twelfth Night (National Theatre 2017))",
+    "Sebastian (Twelfth Night (National Theatre 2017))",
+    "Viola | Cesario (Twelfth Night (National Theatre 2017))"
   ],
   [
     "Mizuno Kaya",

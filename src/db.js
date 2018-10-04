@@ -1,6 +1,7 @@
-
 import config from './config';
-import Firebase from 'firebase';
+import Firebase from 'firebase/app';
+import 'firebase/database';
+// require('firebase/database');
 
 let firebaseApp;
 if (!Firebase.apps.length) {
@@ -10,6 +11,5 @@ if (!Firebase.apps.length) {
 }
 
 let db = firebaseApp.database();
-
 
 export default db;

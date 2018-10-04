@@ -9,7 +9,6 @@ import appStore from './store/index.js';
 import VueFire from 'vuefire';
 import VueLocalStorage from 'vue-localstorage';
 import db from './db.js';
-let fandomsRef = db.ref('/fandomsonly');
 let metaRef = db.ref('/meta');
 
 Vue.config.productionTip = false;

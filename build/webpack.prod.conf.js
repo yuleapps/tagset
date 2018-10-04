@@ -8,7 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-// var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var env = config.build.env;
 
@@ -28,9 +28,10 @@ var webpackConfig = merge(baseWebpackConfig, {
 	plugins: [
 		// new BundleAnalyzerPlugin(),
 
-		// http://vuejs.github.io/vue-loader/en/workflow/production.html
 		new webpack.DefinePlugin({
-			'process.env': env
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -49,6 +50,8 @@ var webpackConfig = merge(baseWebpackConfig, {
 				safe: true
 			}
 		}),
+		new BundleAnalyzerPlugin(),
+
 		// generate dist index.html with correct asset hash for caching.
 		// you can customize output by editing /index.html
 		// see https://github.com/ampedandwired/html-webpack-plugin

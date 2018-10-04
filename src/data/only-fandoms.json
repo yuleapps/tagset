@@ -2174,12 +2174,6 @@
     ]
   },
   {
-    "name": "Bel Canto - Ann Pratchett",
-    "category": [
-      "Books & Literature"
-    ]
-  },
-  {
     "name": "Belgariad/Malloreon Series - David & Leigh Eddings",
     "category": [
       "Books & Literature"
@@ -11016,6 +11010,12 @@
     ]
   },
   {
+    "name": "Lost Boys (Movies)",
+    "category": [
+      "Movies"
+    ]
+  },
+  {
     "name": "The Magic of Ordinary Days (2005)",
     "category": [
       "Movies"
@@ -12431,13 +12431,6 @@
     "name": "Underworld (Movies)",
     "category": [
       "Movies"
-    ]
-  },
-  {
-    "name": "Unforgotten (TV)",
-    "category": [
-      "Movies",
-      "TV Shows"
     ]
   },
   {
@@ -14415,12 +14408,6 @@
     ]
   },
   {
-    "name": "Shield of Tomorrow (Web Series)",
-    "category": [
-      "Other Media"
-    ]
-  },
-  {
     "name": "The Shipwreck Arcana (Card Game)",
     "category": [
       "Other Media"
@@ -14989,12 +14976,6 @@
   },
   {
     "name": "Turandot - Puccini",
-    "category": [
-      "Theater"
-    ]
-  },
-  {
-    "name": "Twelfth Night (National Theater 2017)",
     "category": [
       "Theater"
     ]
@@ -18115,6 +18096,12 @@
     ]
   },
   {
+    "name": "Unforgotten (TV)",
+    "category": [
+      "TV Shows"
+    ]
+  },
+  {
     "name": "Unter Uns",
     "category": [
       "TV Shows"
@@ -18694,6 +18681,24 @@
     "name": "화이트 크리스마스 | White Christmas (2011)",
     "category": [
       "TV Shows"
+    ]
+  },
+  {
+    "name": "Bel Canto - Ann Patchett",
+    "category": [
+      "Uncategorized Fandoms"
+    ]
+  },
+  {
+    "name": "Shield of Tomorrow (Web Series)",
+    "category": [
+      "Uncategorized Fandoms"
+    ]
+  },
+  {
+    "name": "Twelfth Night (National Theatre 2017)",
+    "category": [
+      "Uncategorized Fandoms"
     ]
   },
   {

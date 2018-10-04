@@ -184,7 +184,7 @@ import Caveats from './components/caveats.vue';
 import EasterEggs from './components/easter-eggs.vue';
 import Help from './components/help.vue';
 import Maintenance from './components/maintenance.vue';
-import Options from './components/options.vue';
+import Options from './components/optionsLocked.vue';
 import UserLookup from './components/user-lookup.vue';
 
 // third party
