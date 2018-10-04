@@ -365,7 +365,9 @@ export default {
           _.sortBy(this.fandoms, ['category', removeArticlesCompare]),
           this.scrollPosition
         );
-        this.updating = false;
+        setTimeout(() => {
+          this.updating = false;
+        }, 200);
       }
 
       let arr = this.fandoms;
@@ -437,7 +439,9 @@ export default {
               _.sortBy(arr, ['category', removeArticlesCompare]),
               this.scrollPosition
             );
-            this.updating = false;
+            setTimeout(() => {
+              this.updating = false;
+            }, 200);
           });
         // Otherwise, just take the i/o hit
       } else {
@@ -445,7 +449,9 @@ export default {
           _.sortBy(arr, ['category', removeArticlesCompare]),
           this.scrollPosition
         );
-        this.updating = false;
+        setTimeout(() => {
+          this.updating = false;
+        }, 200);
       }
     },
     lazyload() {

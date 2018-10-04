@@ -77,7 +77,7 @@ export default {
       handler(val) {
         _.debounce(() => {
           this.$store.commit('setOptions', val);
-        }, 400)();
+        }, 500)();
       },
       deep: true
     }
