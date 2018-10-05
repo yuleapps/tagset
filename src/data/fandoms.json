@@ -1798,6 +1798,7 @@
     "characters": [
       "Dryden Fassa (Escaflowne - Anime)",
       "Kanzaki Hitomi (Escaflowne - Anime)",
+      "Madison Keys (Tennis RPF)",
       "Merle (Escaflowne - Anime)",
       "Van Fanel (Escaflowne - Anime)"
     ]
@@ -7562,22 +7563,6 @@
     "characters": []
   },
   {
-    "name": "Green Men Series - KJ Charles",
-    "category": [
-      "Books & Literature"
-    ],
-    "characters": [
-      "Hugh Barnaby (Green Men series)",
-      "Max Isaacs (Green Men series)",
-      "Randolph Glyde (Green Men series)",
-      "Robert Caldwell (Green Men series)",
-      "Saul Lazenby (Green Men series)",
-      "Simon Feximal (Green Men series)",
-      "Theodosia Kay (Green Men series)",
-      "Theresa Glyde (Green Men series)"
-    ]
-  },
-  {
     "name": "Green Rider Series - Kristen Britain",
     "category": [
       "Books & Literature"
@@ -8319,19 +8304,6 @@
       "Nadashe Nohamapetan",
       "Naffa Dolg",
       "Vrenna Claremont"
-    ]
-  },
-  {
-    "name": "The Invisible Library - Genevieve Cogman",
-    "category": [
-      "Books & Literature"
-    ],
-    "characters": [
-      "Irene Winters (The Invisible Library)",
-      "Kai Strongrock (The Invisible Library)",
-      "Peregrine Vale (The Invisible Library)",
-      "Zayanna (Invisible Library)",
-      "Bradamant (The Invisible Library)"
     ]
   },
   {
@@ -10821,6 +10793,18 @@
     ]
   },
   {
+    "name": "Provincial Lady - E. M. Delafield",
+    "category": [
+      "Books & Literature"
+    ],
+    "characters": [
+      "The Lady (Provincial Lady - Delafield)",
+      "Robert Delafield (Provincial Lady - Delafield)",
+      "Robin (Provincial Lady - Delafield)",
+      "Vicky (Provincial Lady - Delafield)"
+    ]
+  },
+  {
     "name": "Provost's Dog - Tamora Pierce",
     "category": [
       "Books & Literature"
@@ -12553,8 +12537,7 @@
     "characters": [
       "Delilah (Sword-Dancer)",
       "Sandtiger",
-      "The Stud (Sword-Dancer)",
-      "Tiger (Sword-Dancer)"
+      "The Stud (Sword-Dancer)"
     ]
   },
   {
@@ -14184,9 +14167,9 @@
       "Books & Literature"
     ],
     "characters": [
-      "Jiang Cheng (donghua)",
-      "Lan Wangji (donghua)",
-      "Wei Wuxian (donghua)"
+      "Jiāng Chéng | Jiāng Wǎnyín (donghua)",
+      "Lán Zhàn | Lán Wàngjī (donghua)",
+      "Wèi Yīng | Wèi Wúxiàn (donghua)"
     ]
   },
   {
@@ -15163,11 +15146,11 @@
       "Cartoons & Comics & Graphic Novels"
     ],
     "characters": [
-      "Batman (Injustice)",
+      "Injustice Universe Batman (Injustice)",
+      "Injustice Universe Superman (Injustice)",
       "Jason Blood (Injustice)",
       "John Constantine (Injustice)",
-      "Rose Constantine (Injustice)",
-      "Superman (Injustice)"
+      "Rose Constantine (Injustice)"
     ]
   },
   {
@@ -17006,8 +16989,6 @@
       "Alyssa Mastromonaco (Crooked Media RPF)",
       "Dan Pfeiffer (Crooked Media RPF)",
       "Elijah Cone (Crooked Media RPF)",
-      "Emily Black Favreau (Crooked Media RPF)",
-      "Hanna Koch (Crooked Media RPF)",
       "Ira Madison III (Crooked Media RPF)",
       "Jon Favreau (Crooked Media RPF)",
       "Jon Lovett (Crooked Media RPF)",
@@ -18040,7 +18021,10 @@
       "Courtney Nguyen (Tennis RPF)",
       "Dominic Thiem (Tennis RPF)",
       "Mischa Zverev (Tennis RPF)",
-      "Nick Kyrgios (Tennis RPF)"
+      "Naomi Osaka (Tennis RPF)",
+      "Nick Kyrgios (Tennis RPF)",
+      "Serena Williams (Tennis RPF)",
+      "Sloane Stephens (Tennis RPF)"
     ]
   },
   {
@@ -18262,18 +18246,6 @@
       "Hilary Knight",
       "Marie-Philip Poulin",
       "Taylor Crosby"
-    ]
-  },
-  {
-    "name": "Women's Tennis Real Person Fiction",
-    "category": [
-      "Celebrities & Real People"
-    ],
-    "characters": [
-      "Madison Keys (WTRPF)",
-      "Naomi Osaka (WTRPF)",
-      "Serena Williams (WTRPF)",
-      "Sloane Stephens (WTRPF)"
     ]
   },
   {
@@ -25208,7 +25180,6 @@
       "Music & Bands"
     ],
     "characters": [
-      "Anthony Greendown (Dirty Computer)",
       "Ché (Dirty Computer)",
       "Cleaner #1 (Dirty Computer)",
       "Cleaner #2 (Dirty Computer)",
@@ -25693,6 +25664,7 @@
     ],
     "characters": [
       "6ix Savage",
+      "Anthony Greendown",
       "Cindi Mayweather",
       "DJ Crash Crash"
     ]
@@ -28427,18 +28399,6 @@
       "Fricka (Der Ring des Nibelungen)",
       "Sieglinde (Der Ring des Nibelungen)",
       "Wotan (Der Ring des Nibelungen)"
-    ]
-  },
-  {
-    "name": "The Diary of a Provincial Lady - Hudson/Pearse",
-    "category": [
-      "Theater"
-    ],
-    "characters": [
-      "The Lady (The Diary of a Provincial Lady)",
-      "Robin (The Diary of a Provincial Lady)",
-      "Vicky (The Diary of a Provincial Lady)",
-      "Robert Delafield"
     ]
   },
   {
@@ -31526,7 +31486,7 @@
     ],
     "characters": [
       "Caitlin Strucker (The Gifted (TV 2017))",
-      "Clarice Ferguson | Clarice Fong (The Gifted (TV 2017))",
+      "Clarice Fong (The Gifted (TV 2017))",
       "John Proudstar (The Gifted (TV 2017))",
       "Lorna Dane (The Gifted (TV 2017))",
       "Marcos Diaz (The Gifted (TV 2017))"
@@ -33824,12 +33784,11 @@
       "TV Shows"
     ],
     "characters": [
-      "Hester Appleyard (Picnic at Hanging Rock (TV 2018))",
+      "Hester | Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
       "Irma Leopold (Picnic at Hanging Rock (TV 2018))",
       "Mademoiselle Dianne de Poitiers (Picnic at Hanging Rock (TV 2018))",
       "Marion Quade (Picnic at Hanging Rock (TV 2018))",
       "Miranda Reid (Picnic at Hanging Rock (TV 2018))",
-      "Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
       "Sara Waybourne (Picnic at Hanging Rock (TV 2018))"
     ]
   },
@@ -36629,6 +36588,35 @@
     ]
   },
   {
+    "name": "Green Men Series - K. J. Charles",
+    "category": [
+      "Uncategorized Fandoms"
+    ],
+    "characters": [
+      "Hugh Barnaby (Green Men series)",
+      "Max Isaacs (Green Men series)",
+      "Randolph Glyde (Green Men series)",
+      "Robert Caldwell (Green Men series)",
+      "Saul Lazenby (Green Men series)",
+      "Simon Feximal (Green Men series)",
+      "Theodosia Kay (Green Men series)",
+      "Theresa Glyde (Green Men series)"
+    ]
+  },
+  {
+    "name": "Invisible Library Series - Genevieve Cogman",
+    "category": [
+      "Uncategorized Fandoms"
+    ],
+    "characters": [
+      "Bradamant (Invisible Library Series)",
+      "Irene Winters (Invisible Library Series)",
+      "Kai Strongrock (Invisible Library Series)",
+      "Peregrine Vale (Invisible Library Series)",
+      "Zayanna (Invisible Library Series)"
+    ]
+  },
+  {
     "name": "Shield of Tomorrow (Web Series)",
     "category": [
       "Uncategorized Fandoms"
@@ -37512,6 +37500,7 @@
       "Video Games"
     ],
     "characters": [
+      "Alexander (Fate/Grand Order)",
       "Anastasia Nikolaevna Romanova | Caster (Fate/Grand Order)",
       "Artoria Pendragon | Saber (Fate/Grand Order)",
       "Bedivere | Saber (Fate/Grand Order)",
@@ -39144,6 +39133,7 @@
       "Numismatist (Star Stealing Prince)",
       "Prince Snowe (Star Stealing Prince)",
       "Astra (Star Stealing Prince)",
+      "Erio (Star Stealing Prince)",
       "Xiri (Star Stealing Prince)"
     ]
   },

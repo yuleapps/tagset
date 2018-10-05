@@ -73,7 +73,7 @@
         <hr class="separator">
         <p>Your letter has been successfully submitted! Your letter key is <strong>{{ this.userKey }}</strong> - NOTE THIS DOWN. You will need it if you want to edit your letter later.</p>
 
-        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="#" target="blank">Letters Post</a>? </p>
+        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">Letters Post</a>? </p>
         <textarea>{{ getCopypasta() }}</textarea>
       </div>
 

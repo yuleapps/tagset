@@ -893,6 +893,7 @@
   [
     "Dryden Fassa (Escaflowne - Anime)",
     "Kanzaki Hitomi (Escaflowne - Anime)",
+    "Madison Keys (Tennis RPF)",
     "Merle (Escaflowne - Anime)",
     "Van Fanel (Escaflowne - Anime)"
   ],
@@ -3794,16 +3795,6 @@
   ],
   [],
   [
-    "Hugh Barnaby (Green Men series)",
-    "Max Isaacs (Green Men series)",
-    "Randolph Glyde (Green Men series)",
-    "Robert Caldwell (Green Men series)",
-    "Saul Lazenby (Green Men series)",
-    "Simon Feximal (Green Men series)",
-    "Theodosia Kay (Green Men series)",
-    "Theresa Glyde (Green Men series)"
-  ],
-  [
     "Nyssa (Green Rider Series)",
     "Karigan Gladheon",
     "King Zachary",
@@ -4174,13 +4165,6 @@
     "Nadashe Nohamapetan",
     "Naffa Dolg",
     "Vrenna Claremont"
-  ],
-  [
-    "Irene Winters (The Invisible Library)",
-    "Kai Strongrock (The Invisible Library)",
-    "Peregrine Vale (The Invisible Library)",
-    "Zayanna (Invisible Library)",
-    "Bradamant (The Invisible Library)"
   ],
   [
     "Colonel Ayde (Invisible Man - Wells)",
@@ -5433,6 +5417,12 @@
     "Tic Uisine (Provenance)"
   ],
   [
+    "The Lady (Provincial Lady - Delafield)",
+    "Robert Delafield (Provincial Lady - Delafield)",
+    "Robin (Provincial Lady - Delafield)",
+    "Vicky (Provincial Lady - Delafield)"
+  ],
+  [
     "Beka Cooper (Provost's Dog)",
     "Clara Goodwin (Provost's Dog)",
     "Matthias Tunstall (Provost's Dog)",
@@ -6296,8 +6286,7 @@
   [
     "Delilah (Sword-Dancer)",
     "Sandtiger",
-    "The Stud (Sword-Dancer)",
-    "Tiger (Sword-Dancer)"
+    "The Stud (Sword-Dancer)"
   ],
   [
     "Guardsman (Swords & Shields)",
@@ -7123,9 +7112,9 @@
     "Yú Zǐyuān"
   ],
   [
-    "Jiang Cheng (donghua)",
-    "Lan Wangji (donghua)",
-    "Wei Wuxian (donghua)"
+    "Jiāng Chéng | Jiāng Wǎnyín (donghua)",
+    "Lán Zhàn | Lán Wàngjī (donghua)",
+    "Wèi Yīng | Wèi Wúxiàn (donghua)"
   ],
   [
     "He Tian",
@@ -7610,11 +7599,11 @@
     "Medusalith Amaquelin (Inhumans)"
   ],
   [
-    "Batman (Injustice)",
+    "Injustice Universe Batman (Injustice)",
+    "Injustice Universe Superman (Injustice)",
     "Jason Blood (Injustice)",
     "John Constantine (Injustice)",
-    "Rose Constantine (Injustice)",
-    "Superman (Injustice)"
+    "Rose Constantine (Injustice)"
   ],
   [
     "Jem | Jerrica Benton (Jem Comics)",
@@ -8511,8 +8500,6 @@
     "Alyssa Mastromonaco (Crooked Media RPF)",
     "Dan Pfeiffer (Crooked Media RPF)",
     "Elijah Cone (Crooked Media RPF)",
-    "Emily Black Favreau (Crooked Media RPF)",
-    "Hanna Koch (Crooked Media RPF)",
     "Ira Madison III (Crooked Media RPF)",
     "Jon Favreau (Crooked Media RPF)",
     "Jon Lovett (Crooked Media RPF)",
@@ -9029,7 +9016,10 @@
     "Courtney Nguyen (Tennis RPF)",
     "Dominic Thiem (Tennis RPF)",
     "Mischa Zverev (Tennis RPF)",
-    "Nick Kyrgios (Tennis RPF)"
+    "Naomi Osaka (Tennis RPF)",
+    "Nick Kyrgios (Tennis RPF)",
+    "Serena Williams (Tennis RPF)",
+    "Sloane Stephens (Tennis RPF)"
   ],
   [
     "Devin (Thinking Sideways)",
@@ -9137,12 +9127,6 @@
     "Hilary Knight",
     "Marie-Philip Poulin",
     "Taylor Crosby"
-  ],
-  [
-    "Madison Keys (WTRPF)",
-    "Naomi Osaka (WTRPF)",
-    "Serena Williams (WTRPF)",
-    "Sloane Stephens (WTRPF)"
   ],
   [
     "Derek Hough (World of Dance RPF)",
@@ -12345,7 +12329,6 @@
     "Narrator's Friend (Die perfekte Diktatur)"
   ],
   [
-    "Anthony Greendown (Dirty Computer)",
     "Ché (Dirty Computer)",
     "Cleaner #1 (Dirty Computer)",
     "Cleaner #2 (Dirty Computer)",
@@ -12560,6 +12543,7 @@
   ],
   [
     "6ix Savage",
+    "Anthony Greendown",
     "Cindi Mayweather",
     "DJ Crash Crash"
   ],
@@ -13860,12 +13844,6 @@
     "Fricka (Der Ring des Nibelungen)",
     "Sieglinde (Der Ring des Nibelungen)",
     "Wotan (Der Ring des Nibelungen)"
-  ],
-  [
-    "The Lady (The Diary of a Provincial Lady)",
-    "Robin (The Diary of a Provincial Lady)",
-    "Vicky (The Diary of a Provincial Lady)",
-    "Robert Delafield"
   ],
   [
     "Anhilte (Die Csárdásfürstin)",
@@ -15405,7 +15383,7 @@
   ],
   [
     "Caitlin Strucker (The Gifted (TV 2017))",
-    "Clarice Ferguson | Clarice Fong (The Gifted (TV 2017))",
+    "Clarice Fong (The Gifted (TV 2017))",
     "John Proudstar (The Gifted (TV 2017))",
     "Lorna Dane (The Gifted (TV 2017))",
     "Marcos Diaz (The Gifted (TV 2017))"
@@ -16605,12 +16583,11 @@
     "Danny Wilde"
   ],
   [
-    "Hester Appleyard (Picnic at Hanging Rock (TV 2018))",
+    "Hester | Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
     "Irma Leopold (Picnic at Hanging Rock (TV 2018))",
     "Mademoiselle Dianne de Poitiers (Picnic at Hanging Rock (TV 2018))",
     "Marion Quade (Picnic at Hanging Rock (TV 2018))",
     "Miranda Reid (Picnic at Hanging Rock (TV 2018))",
-    "Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
     "Sara Waybourne (Picnic at Hanging Rock (TV 2018))"
   ],
   [
@@ -18029,6 +18006,23 @@
     "Roxane Coss (Bel Canto novel)"
   ],
   [
+    "Hugh Barnaby (Green Men series)",
+    "Max Isaacs (Green Men series)",
+    "Randolph Glyde (Green Men series)",
+    "Robert Caldwell (Green Men series)",
+    "Saul Lazenby (Green Men series)",
+    "Simon Feximal (Green Men series)",
+    "Theodosia Kay (Green Men series)",
+    "Theresa Glyde (Green Men series)"
+  ],
+  [
+    "Bradamant (Invisible Library Series)",
+    "Irene Winters (Invisible Library Series)",
+    "Kai Strongrock (Invisible Library Series)",
+    "Peregrine Vale (Invisible Library Series)",
+    "Zayanna (Invisible Library Series)"
+  ],
+  [
     "Elandi Rue",
     "Junil Rue",
     "Qolar",
@@ -18469,6 +18463,7 @@
     "Vlad III | Lancer (Fate/Extra)"
   ],
   [
+    "Alexander (Fate/Grand Order)",
     "Anastasia Nikolaevna Romanova | Caster (Fate/Grand Order)",
     "Artoria Pendragon | Saber (Fate/Grand Order)",
     "Bedivere | Saber (Fate/Grand Order)",
@@ -19339,6 +19334,7 @@
     "Numismatist (Star Stealing Prince)",
     "Prince Snowe (Star Stealing Prince)",
     "Astra (Star Stealing Prince)",
+    "Erio (Star Stealing Prince)",
     "Xiri (Star Stealing Prince)"
   ],
   [

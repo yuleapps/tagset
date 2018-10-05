@@ -111,7 +111,7 @@
         <hr>
         Your letter has been successfully edited!
 
-        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="#" target="blank">Letters Post</a>? </p>
+        <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="https://yuletide.dreamwidth.org/139157.html#cutid1" target="blank">Letters Post</a>? </p>
         <textarea>{{ getCopypasta() }}</textarea>
       </div>
 
