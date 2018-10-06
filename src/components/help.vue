@@ -7,7 +7,7 @@
 
       <h3>What is this?</h3>
       <p>The app contains the tagset for Yuletide. Before assignments are released, participants can
-         submit their letter to this app for public listing, as is tradition! The letters post with more information is here on <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">DW</a> and <a href="https://yuletide.livejournal.com/tag/dear%20yuletide%20writer">LJ</a>.
+         submit their letter to this app for public listing, as is tradition! The letters post with more information is here on <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">DW</a> and <a href="https://yuletide.livejournal.com/1315417.html">LJ</a>.
         Once assignments go out, the full list of the prompts will be available as well.</p>
 
       <h3>Does submitting a letter mean I'm signed up?</h3>
@@ -16,10 +16,10 @@
       </p>
 
       <h3>Help! I lost my edit key!</h3>
-      <p>Hit up the <a href="https://yuletide.dreamwidth.org/139157.html#cutid1">letters post</a> and ask a mod for help! You may also have luck finding a mod in Discord.</p>
+      <p>Hit up the <a href="https://yuletide.dreamwidth.org/139157.html">letters post</a> (<a href="https://yuletide.livejournal.com/1315417.html">LJ version</a>) and ask a mod for help! You may also have luck finding a mod in Discord.</p>
 
-      <h3>What? A nominated fandom isn't listed the big table!</h3>
-      <p>Fandoms are loaded in increments of 100 to save data. If you tried using your in-browser search (Ctrl-F), you may not have loaded enough fandoms! Use the in-app Filter By search box instead, or select Load All to load everything. Still not there even though it's in the official <a href="https://archiveofourown.org/tag_sets/2592" target="blank">tagset</a>? Report a bug!
+      <h3>What? A nominated fandom isn't listed in the big table!</h3>
+      <p>Fandoms are loaded in increments of 100 to save data. If you tried using your in-browser search (Ctrl-F), you may not have loaded enough fandoms! Use the in-app Filter By search box instead, or select Load All to load everything. Still not there even though it's in the official <a href="https://archiveofourown.org/tag_sets/2592" target="blank">tagset</a>? Report a bug to the post on <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">DW</a> or <a href="https://yuletide.livejournal.com/1315417.html">LJ</a>!
       </p>
 
       <h3>What happened to the spreadsheet?</h3>
@@ -46,11 +46,8 @@
 
       <h3>I found a problem!</h3>
       <p>Whether it's an app bug, a typo, a problem with the tagset, or an issue with a letter or prompt,
-        all problems should be reported to the letters post on <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">
-         DW</a> or the equivalent post on LJ.
+        all problems should be reported to the letters post on <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">DW</a> or <a href="https://yuletide.livejournal.com/1315417.html">LJ</a>
       </p>
-
-
 
       <button class="cancel" @click="$emit('close')">(Close)</button>
     </div>

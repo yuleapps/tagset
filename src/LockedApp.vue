@@ -20,7 +20,6 @@
           <li class="bookmarks" @click="expandBookmarks = !expandBookmarks">
             Bookmarks
           </li>
-          <li class="contact">Contact</li>
           <li class="help" @click="showHelp = true">
             <span class="fas fa-question-circle fa-xxl" ></span>
           </li>
@@ -411,7 +410,8 @@ export default {
         });
       }
 
-      // If filtering by term, preload everything if there are more than a few
+      // If filtering by term or category, preload everything if there are more than a few
+      // Also sort by alpha name instead of alpha category
       if (
         (this.options.filter.term.length || this.options.filter.category.length) &&
         !this.loadAll.characters &&
@@ -431,15 +431,17 @@ export default {
             this.$store.commit('loadAllChars', true);
             this.$store.commit('setCharacters', {});
             this.$store.commit('setCharacters', newVal);
-            this.filtered = _.take(
-              _.sortBy(arr, ['category', removeArticlesCompare]),
-              this.scrollPosition
-            );
+            this.filtered = _.take(_.sortBy(arr, [removeArticlesCompare]), this.scrollPosition);
             setTimeout(() => {
               this.updating = false;
             }, 200);
           });
         // Otherwise, just take the i/o hit
+      } else if (this.options.filter.term.length) {
+        this.filtered = _.take(_.sortBy(arr, [removeArticlesCompare]), this.scrollPosition);
+        setTimeout(() => {
+          this.updating = false;
+        }, 200);
       } else {
         this.filtered = _.take(
           _.sortBy(arr, ['category', removeArticlesCompare]),
