@@ -411,7 +411,7 @@ export default {
       }
 
       // If filtering by term or category, preload everything if there are more than a few
-      // Also sort by alpha name instead of alpha category
+      // Also sort by alpha name instead of alpha category when there is a search term
       if (
         (this.options.filter.term.length || this.options.filter.category.length) &&
         !this.loadAll.characters &&
