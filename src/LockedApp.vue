@@ -314,7 +314,7 @@ export default {
       deep: true,
       handler(val) {
         this.updating = true;
-        if (val.loadAll && !this.loadAll.characters) {
+        if ((val.loadAll || val.onlyLetters) && !this.loadAll.characters) {
           const data = db
             .ref('/characters')
             .orderByKey()
@@ -460,6 +460,10 @@ export default {
         this.sticky = true;
       } else {
         this.sticky = false;
+      }
+
+      if (this.loadAll.characters) {
+        return;
       }
 
       if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {

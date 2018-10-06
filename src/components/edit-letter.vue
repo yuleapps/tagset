@@ -153,9 +153,9 @@ export default {
       isReview: false,
       availableFandoms: [],
       userExists: false,
-      username: '',
       userKey: '',
       userData: {},
+      userMeta: {},
       unlocked: false,
       error: '',
       success: false,
@@ -266,6 +266,7 @@ export default {
       });
     },
     loadUser() {
+      console.log('am i crazy');
       db
         .ref('/letterkeys')
         .child(this.username)
@@ -273,13 +274,17 @@ export default {
         .then(async res => {
           const user = res.val();
 
+          console.log('hello?', user);
+
           if (!user) {
             this.error = 'Could not find a letter for this username. Check case-sensitivity!';
           } else {
             if (user.key !== this.userKey) {
+              console.log(user, this.userKey);
               this.error = 'Wrong letter key!';
             } else {
               this.userData = user.fandoms;
+              this.userMeta = { username: this.username, key: user.key, timestamp: user.timestamp };
 
               // load the character lists
               for (let key in user.fandoms) {
@@ -318,6 +323,29 @@ export default {
       return pasta.join('\n');
     },
     add() {
+      // if the username got edited, delete the old one
+      // and create a new one that maintains the right metadata
+      if (this.username !== this.userMeta.username) {
+        db
+          .ref('/letterkeys')
+          .child(this.userMeta.username)
+          .remove();
+
+        _.each(this.userData, f => {
+          console.log('removing', f.key, this.userMeta.username);
+          this.$firebaseRefs.letters
+            .child(f.key)
+            .child(this.userMeta.username)
+            .remove();
+        });
+
+        console.log(this.userMeta, 'removed');
+
+        db
+          .ref('/letterkeys')
+          .child(this.username)
+          .set({ key: this.userMeta.key, timestamp: this.userMeta.timestamp });
+      }
       // clean out the user's fandom references
       db
         .ref('/letterkeys')
