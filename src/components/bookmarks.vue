@@ -2,7 +2,7 @@
   <div :class="['bookmarks', { collapsed: !expand, large: largeBookmarks }]">
     <div class="header">
       <span
-          @click="expand = !expand"
+          @click="expand = !expand; $emit('toggle')"
           :class="['fas expand', { 'fa-angle-double-right': expand, 'fa-angle-double-left': !expand }]"
         >
         </span>

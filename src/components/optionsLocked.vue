@@ -51,7 +51,7 @@
       <input type="checkbox" id="hide-chars" v-model="options.hideCharacters">
       <label for="hide-chars">Hide Characters</label>
     </div>
-    <div class="option"  v-if="unlock">
+    <div class="option">
       <input type="checkbox" id="journal-style" v-model="options.destyle">
       <label for="journal-style">Mobile letter format<span v-if="unlock">*</span></label>
     </div>
