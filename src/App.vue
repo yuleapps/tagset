@@ -9,12 +9,12 @@
     <template v-if="loaded && loadedChars && !maintenance">
       <div class="scroll-top" @click="scrollToTop">(^)</div>
 
-      <div :class="['menu', { sticky: sticky }]" v-if="unlock">
+      <div :class="['menu', { sticky: sticky }]">
         <ul>
-          <li class="submit-letter"  @click="showLetterModal = true">
+          <li class="submit-letter"  @click="showLetterModal = true"  v-if="unlock">
             Submit Letter
           </li>
-          <li class="edit-letter"  @click="showEditModal = true">
+          <li class="edit-letter"  @click="showEditModal = true"  v-if="unlock">
             Edit Letter
           </li>
           <li class="bookmarks" @click="expandBookmarks = !expandBookmarks">
@@ -29,7 +29,7 @@
 
       <div>While the tagset is being corrected, bookmarks and letter submission are disabled! Please report any corrections that need to happen to the corrections post on <a href="https://yuletide-admin.dreamwidth.org/57790.html" target="blank">DW</a> or  <a href="https://yuletide-admin.livejournal.com/228349.html" target="blank">LJ</a>.</div>
 
-      <bookmarks  v-if="unlock" :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
+      <bookmarks :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
       <add-letter
         v-if="showLetterModal"
         @close="showLetterModal = false">
@@ -52,7 +52,7 @@
           <tr>
             <th class="fandom">Fandom</th>
             <th class="characters" v-if="!options.hideCharacters">Characters</th>
-            <th class="letters" v-if="unlock">Letters</th>
+            <th class="letters">Letters</th>
             <th v-if="unlock" class="prompts">Prompts</th>
           </tr>
         </thead>
@@ -69,7 +69,6 @@
           <td class="fandom" data-label="Fandom">
             {{ fandom.name }}
             <button
-                 v-if="unlock"
                 class="bookmark"
                 @click="toggle(fandom)"
                 >
@@ -95,7 +94,7 @@
               </li>
             </ul>
           </td>
-          <td class="letters" v-if="unlock">
+          <td class="letters">
             <ul>
               <li v-for="letter in letters[fandom['.key']]" :key="letter.username" class="letter">
                 <a
@@ -103,7 +102,6 @@
                   :href="formatUrl(letter.url)" target="_blank"
                 >{{ letter.username }}</a>
                 <button
-                   v-if="unlock"
                   class="bookmark-letter"
                   @click="toggleLettermark(letter, fandom)"
                 >

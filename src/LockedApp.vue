@@ -431,7 +431,8 @@ export default {
             this.$store.commit('loadAllChars', true);
             this.$store.commit('setCharacters', {});
             this.$store.commit('setCharacters', newVal);
-            this.filtered = _.take(_.sortBy(arr, [removeArticlesCompare]), this.scrollPosition);
+            this.scrollPosition = this.fandoms.length;
+            this.filtered = _.sortBy(arr, [removeArticlesCompare]);
             setTimeout(() => {
               this.updating = false;
             }, 200);

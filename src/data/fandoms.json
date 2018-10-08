@@ -259,18 +259,6 @@
     ]
   },
   {
-    "name": "Captain Harlock",
-    "category": [
-      "Anime & Manga"
-    ],
-    "characters": [
-      "Harlock (Captain Harlock)",
-      "Kei Yuki",
-      "Miime | La Mime",
-      "Yama | Logan"
-    ]
-  },
-  {
     "name": "Cardfight!! Vanguard",
     "category": [
       "Anime & Manga"
@@ -748,16 +736,6 @@
       "Koube Asahi",
       "Koube Shio",
       "Matsuzaka Satou"
-    ]
-  },
-  {
-    "name": "Harlock: Space Pirate (2013 Movie)",
-    "category": [
-      "Anime & Manga"
-    ],
-    "characters": [
-      "Harlock (Harlock: Space Pirate Movie)",
-      "Yama | Logan (Harlock: Space Pirate Movie)"
     ]
   },
   {
@@ -1798,7 +1776,6 @@
     "characters": [
       "Dryden Fassa (Escaflowne - Anime)",
       "Kanzaki Hitomi (Escaflowne - Anime)",
-      "Madison Keys (Tennis RPF)",
       "Merle (Escaflowne - Anime)",
       "Van Fanel (Escaflowne - Anime)"
     ]
@@ -2898,6 +2875,18 @@
       "Kaneko Sharon",
       "Nanba Hibito",
       "Nanba Mutta"
+    ]
+  },
+  {
+    "name": "宇宙海賊キャプテンハーロック | Space Pirate Captain Harlock (2013)",
+    "category": [
+      "Anime & Manga"
+    ],
+    "characters": [
+      "Harlock (Harlock: Space Pirate Movie)",
+      "Kei Yuki (Harlock: Space Pirate Movie)",
+      "Miime | La Mime (Harlock: Space Pirate Movie)",
+      "Yama | Logan (Harlock: Space Pirate Movie)"
     ]
   },
   {
@@ -4269,6 +4258,16 @@
     ]
   },
   {
+    "name": "Bel Canto - Ann Patchett",
+    "category": [
+      "Books & Literature"
+    ],
+    "characters": [
+      "Katsumi Hosokawa (Bel Canto novel)",
+      "Roxane Coss (Bel Canto novel)"
+    ]
+  },
+  {
     "name": "Belgariad/Malloreon Series - David & Leigh Eddings",
     "category": [
       "Books & Literature"
@@ -4492,18 +4491,6 @@
       "Eddie Castile (Bloodlines Series - Richelle Mead)",
       "Jill Mastrano Dragomir (Bloodlines Series - Richelle Mead)",
       "Sydney Sage (Bloodlines Series - Richelle Mead)"
-    ]
-  },
-  {
-    "name": "Bloodlust and Bonnets - Emily McGovern",
-    "category": [
-      "Books & Literature"
-    ],
-    "characters": [
-      "Lady Violet Travesty",
-      "Lord Byron (Bloodlust and Bonnets)",
-      "Lucy (Bloodlust and Bonnets)",
-      "Napoleon (Bloodlust and Bonnets)"
     ]
   },
   {
@@ -7563,6 +7550,22 @@
     "characters": []
   },
   {
+    "name": "Green Men Series - K. J. Charles",
+    "category": [
+      "Books & Literature"
+    ],
+    "characters": [
+      "Hugh Barnaby (Green Men series)",
+      "Max Isaacs (Green Men series)",
+      "Randolph Glyde (Green Men series)",
+      "Robert Caldwell (Green Men series)",
+      "Saul Lazenby (Green Men series)",
+      "Simon Feximal (Green Men series)",
+      "Theodosia Kay (Green Men series)",
+      "Theresa Glyde (Green Men series)"
+    ]
+  },
+  {
     "name": "Green Rider Series - Kristen Britain",
     "category": [
       "Books & Literature"
@@ -8304,6 +8307,19 @@
       "Nadashe Nohamapetan",
       "Naffa Dolg",
       "Vrenna Claremont"
+    ]
+  },
+  {
+    "name": "Invisible Library Series - Genevieve Cogman",
+    "category": [
+      "Books & Literature"
+    ],
+    "characters": [
+      "Bradamant (Invisible Library Series)",
+      "Irene Winters (Invisible Library Series)",
+      "Kai Strongrock (Invisible Library Series)",
+      "Peregrine Vale (Invisible Library Series)",
+      "Zayanna (Invisible Library Series)"
     ]
   },
   {
@@ -9912,6 +9928,13 @@
       "Murderbot (Murderbot Diaries)",
       "Pin-Lee (Murderbot Diaries)"
     ]
+  },
+  {
+    "name": "Murderous Maths Series - Kjartan Poskitt",
+    "category": [
+      "Books & Literature"
+    ],
+    "characters": []
   },
   {
     "name": "The Music of Dolphins - Karen Hesse",
@@ -11565,7 +11588,6 @@
     "characters": [
       "Annie Blackburn (Secret History of Twin Peaks)",
       "Bobby Briggs (Secret History of Twin Peaks)",
-      "Carrie Page (Secret History of Twin Peaks)",
       "Tamara \"Tammy\" Preston (Secret History of Twin Peaks)"
     ]
   },
@@ -11823,13 +11845,13 @@
     ]
   },
   {
-    "name": "Sid Halley - Dick Francis",
+    "name": "Sid Halley Series - Dick Francis",
     "category": [
       "Books & Literature"
     ],
     "characters": [
-      "Charles Roland | Charles Rowland (Sid Halley - Francis)",
-      "Sid Halley (Sid Halley - Francis)"
+      "Charles Roland | Charles Rowland (Sid Halley Series - Francis)",
+      "Sid Halley (Sid Halley Series - Francis)"
     ]
   },
   {
@@ -13803,9 +13825,9 @@
       "Caèr Reiöft",
       "Eäneté",
       "Eöté",
-      "Gerreth Murrel",
+      "Gereth Murrel",
       "Innisth terè Maèr Eänetaì",
-      "Kehera irinè Elin Raëhema",
+      "KehAra irinè Elin Raëhema",
       "Tirovay arrin Elin Raëhema",
       "Verè Deconniy"
     ]
@@ -14411,6 +14433,18 @@
     ]
   },
   {
+    "name": "Bloodlust and Bonnets - Emily McGovern",
+    "category": [
+      "Cartoons & Comics & Graphic Novels"
+    ],
+    "characters": [
+      "Lady Violet Travesty",
+      "Lord Byron (Bloodlust and Bonnets)",
+      "Lucy (Bloodlust and Bonnets)",
+      "Napoleon (Bloodlust and Bonnets)"
+    ]
+  },
+  {
     "name": "Blue Beetle (Comics)",
     "category": [
       "Cartoons & Comics & Graphic Novels"
@@ -14827,7 +14861,6 @@
     "characters": [
       "Jenny Knight (Freedom Fighters: The Ray)",
       "John Trujillo (Freedom Fighters: The Ray)",
-      "Leonard Snart (Freedom Fighters: The Ray)",
       "Ray Terrill (Freedom Fighters: The Ray)"
     ]
   },
@@ -16124,19 +16157,6 @@
     ]
   },
   {
-    "name": "The Transformers (Cartoon Generation One)",
-    "category": [
-      "Cartoons & Comics & Graphic Novels"
-    ],
-    "characters": [
-      "Elita One (The Transformers (Cartoon Generation One))",
-      "Megatron (The Transformers (Cartoon Generation One))",
-      "Nightbird (The Transformers (Cartoon Generation One))",
-      "Optimus Prime (The Transformers (Cartoon Generation One))",
-      "Rodimus Prime (The Transformers (Cartoon Generation One))"
-    ]
-  },
-  {
     "name": "Transformers: Shattered Glass",
     "category": [
       "Cartoons & Comics & Graphic Novels"
@@ -17247,16 +17267,6 @@
     ]
   },
   {
-    "name": "Golden State Warriors RPF",
-    "category": [
-      "Celebrities & Real People"
-    ],
-    "characters": [
-      "Draymond Green (Golden State Warriors RPF)",
-      "Steve Kerr (Golden State Warriors RPF)"
-    ]
-  },
-  {
     "name": "The Great British Bake Off RPF",
     "category": [
       "Celebrities & Real People"
@@ -17502,11 +17512,13 @@
     ],
     "characters": [
       "DeMarcus Cousins (Men's Basketball RPF)",
+      "Draymond Green (Men's Basketball RPF)",
       "Earvin Johnson (Men's Basketball RPF)",
       "Kevin Durant (Men's Basketball RPF)",
       "Klay Thompson (Men's Basketball RPF)",
       "Larry Bird (Men's Basketball RPF)",
-      "Stephen Curry (Men's Basketball RPF)"
+      "Stephen Curry (Men's Basketball RPF)",
+      "Steve Kerr (Men's Basketball RPF)"
     ]
   },
   {
@@ -18020,6 +18032,7 @@
       "Andy Murray (Tennis RPF)",
       "Courtney Nguyen (Tennis RPF)",
       "Dominic Thiem (Tennis RPF)",
+      "Madison Keys (Tennis RPF)",
       "Mischa Zverev (Tennis RPF)",
       "Naomi Osaka (Tennis RPF)",
       "Nick Kyrgios (Tennis RPF)",
@@ -20837,7 +20850,7 @@
     "characters": [
       "Waikiki | Sherman",
       "Everest (Hotel Artemis)",
-      "nice (hotel artemis)",
+      "Nice (Hotel Artemis)",
       "The Wolf King | Orian Franklin"
     ]
   },
@@ -21982,13 +21995,6 @@
       "Edward Masterman (Murder on the Orient Express (2017))",
       "Pilar Estravados (Murder on the Orient Express (2017))"
     ]
-  },
-  {
-    "name": "Murderous Maths Series - Kjartan Poskitt",
-    "category": [
-      "Movies"
-    ],
-    "characters": []
   },
   {
     "name": "My Fair Lady (1964)",
@@ -27928,6 +27934,18 @@
     ]
   },
   {
+    "name": "Shield of Tomorrow (Web Series)",
+    "category": [
+      "Other Media"
+    ],
+    "characters": [
+      "Elandi Rue",
+      "Junil Rue",
+      "Qolar",
+      "Throlo Sh'shirros"
+    ]
+  },
+  {
     "name": "The Shipwreck Arcana (Card Game)",
     "category": [
       "Other Media"
@@ -28994,6 +29012,20 @@
     "characters": [
       "Liù (Turandot)",
       "Princess Turandot (Turandot)"
+    ]
+  },
+  {
+    "name": "Twelfth Night (National Theatre 2017)",
+    "category": [
+      "Theater"
+    ],
+    "characters": [
+      "Antonio (Twelfth Night (National Theatre 2017))",
+      "Malvolia (Twelfth Night (National Theatre 2017))",
+      "Olivia (Twelfth Night (National Theatre 2017))",
+      "Orsino (Twelfth Night (National Theatre 2017))",
+      "Sebastian (Twelfth Night (National Theatre 2017))",
+      "Viola | Cesario (Twelfth Night (National Theatre 2017))"
     ]
   },
   {
@@ -31698,10 +31730,14 @@
       "TV Shows"
     ],
     "characters": [
+      "Alma (The Handmaid's Tale (TV))",
       "Aunt Lydia (Handmaid's Tale TV)",
+      "Brianna (The Handmaid's Tale (TV))",
       "Commander Joseph Lawrence (Handmaid's Tale TV)",
       "Emily (Handmaid's Tale TV)",
-      "Hannah Bankole (Handmaid's Tale TV)"
+      "Hannah Bankole (Handmaid's Tale TV)",
+      "June Osborne | Offred (The Handmaid's Tale (TV)",
+      "Moira (The Handmaid's Tale (TV))"
     ]
   },
   {
@@ -32704,7 +32740,8 @@
     ],
     "characters": [
       "Steve Arnott (Line of Duty)",
-      "Ted Hastings (Line of Duty)"
+      "Ted Hastings (Line of Duty)",
+      "Kate Fleming (Line of Duty)"
     ]
   },
   {
@@ -33784,7 +33821,7 @@
       "TV Shows"
     ],
     "characters": [
-      "Hester | Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
+      "Hester Appleyard (Picnic at Hanging Rock (TV 2018))",
       "Irma Leopold (Picnic at Hanging Rock (TV 2018))",
       "Mademoiselle Dianne de Poitiers (Picnic at Hanging Rock (TV 2018))",
       "Marion Quade (Picnic at Hanging Rock (TV 2018))",
@@ -36575,71 +36612,6 @@
       "Lee Jae-kyu",
       "Park Moo-yul",
       "Yu Eun-sung"
-    ]
-  },
-  {
-    "name": "Bel Canto - Ann Patchett",
-    "category": [
-      "Uncategorized Fandoms"
-    ],
-    "characters": [
-      "Katsumi Hosokawa (Bel Canto novel)",
-      "Roxane Coss (Bel Canto novel)"
-    ]
-  },
-  {
-    "name": "Green Men Series - K. J. Charles",
-    "category": [
-      "Uncategorized Fandoms"
-    ],
-    "characters": [
-      "Hugh Barnaby (Green Men series)",
-      "Max Isaacs (Green Men series)",
-      "Randolph Glyde (Green Men series)",
-      "Robert Caldwell (Green Men series)",
-      "Saul Lazenby (Green Men series)",
-      "Simon Feximal (Green Men series)",
-      "Theodosia Kay (Green Men series)",
-      "Theresa Glyde (Green Men series)"
-    ]
-  },
-  {
-    "name": "Invisible Library Series - Genevieve Cogman",
-    "category": [
-      "Uncategorized Fandoms"
-    ],
-    "characters": [
-      "Bradamant (Invisible Library Series)",
-      "Irene Winters (Invisible Library Series)",
-      "Kai Strongrock (Invisible Library Series)",
-      "Peregrine Vale (Invisible Library Series)",
-      "Zayanna (Invisible Library Series)"
-    ]
-  },
-  {
-    "name": "Shield of Tomorrow (Web Series)",
-    "category": [
-      "Uncategorized Fandoms"
-    ],
-    "characters": [
-      "Elandi Rue",
-      "Junil Rue",
-      "Qolar",
-      "Throlo Sh'shirros"
-    ]
-  },
-  {
-    "name": "Twelfth Night (National Theatre 2017)",
-    "category": [
-      "Uncategorized Fandoms"
-    ],
-    "characters": [
-      "Antonio (Twelfth Night (National Theatre 2017))",
-      "Malvolia (Twelfth Night (National Theatre 2017))",
-      "Olivia (Twelfth Night (National Theatre 2017))",
-      "Orsino (Twelfth Night (National Theatre 2017))",
-      "Sebastian (Twelfth Night (National Theatre 2017))",
-      "Viola | Cesario (Twelfth Night (National Theatre 2017))"
     ]
   },
   {

@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="content" v-show="expand">
-      <div class="options" v-if="!forceExpand">
+      <div class="options">
         <input type="checkbox" id="expand-bookmarks" v-model="largeBookmarks">
         <label for="expand-bookmarks">Make this wider</label>
       </div>

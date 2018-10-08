@@ -129,12 +129,6 @@
     ]
   },
   {
-    "name": "Captain Harlock",
-    "category": [
-      "Anime & Manga"
-    ]
-  },
-  {
     "name": "Cardfight!! Vanguard",
     "category": [
       "Anime & Manga"
@@ -379,12 +373,6 @@
   },
   {
     "name": "Happy Sugar Life (Anime & Manga)",
-    "category": [
-      "Anime & Manga"
-    ]
-  },
-  {
-    "name": "Harlock: Space Pirate (2013 Movie)",
     "category": [
       "Anime & Manga"
     ]
@@ -1490,6 +1478,12 @@
     ]
   },
   {
+    "name": "宇宙海賊キャプテンハーロック | Space Pirate Captain Harlock (2013)",
+    "category": [
+      "Anime & Manga"
+    ]
+  },
+  {
     "name": "宝石の国 | Houseki no Kuni | Land of the Lustrous (Anime & Manga)",
     "category": [
       "Anime & Manga"
@@ -2174,6 +2168,12 @@
     ]
   },
   {
+    "name": "Bel Canto - Ann Patchett",
+    "category": [
+      "Books & Literature"
+    ]
+  },
+  {
     "name": "Belgariad/Malloreon Series - David & Leigh Eddings",
     "category": [
       "Books & Literature"
@@ -2277,12 +2277,6 @@
   },
   {
     "name": "Bloodlines Series - Richelle Mead",
-    "category": [
-      "Books & Literature"
-    ]
-  },
-  {
-    "name": "Bloodlust and Bonnets - Emily McGovern",
     "category": [
       "Books & Literature"
     ]
@@ -3812,6 +3806,12 @@
     ]
   },
   {
+    "name": "Green Men Series - K. J. Charles",
+    "category": [
+      "Books & Literature"
+    ]
+  },
+  {
     "name": "Green Rider Series - Kristen Britain",
     "category": [
       "Books & Literature"
@@ -4180,6 +4180,12 @@
   },
   {
     "name": "Interdependency Series - John Scalzi",
+    "category": [
+      "Books & Literature"
+    ]
+  },
+  {
+    "name": "Invisible Library Series - Genevieve Cogman",
     "category": [
       "Books & Literature"
     ]
@@ -4973,6 +4979,12 @@
   },
   {
     "name": "The Murderbot Diaries - Martha Wells",
+    "category": [
+      "Books & Literature"
+    ]
+  },
+  {
+    "name": "Murderous Maths Series - Kjartan Poskitt",
     "category": [
       "Books & Literature"
     ]
@@ -5947,7 +5959,7 @@
     ]
   },
   {
-    "name": "Sid Halley - Dick Francis",
+    "name": "Sid Halley Series - Dick Francis",
     "category": [
       "Books & Literature"
     ]
@@ -7236,6 +7248,12 @@
     ]
   },
   {
+    "name": "Bloodlust and Bonnets - Emily McGovern",
+    "category": [
+      "Cartoons & Comics & Graphic Novels"
+    ]
+  },
+  {
     "name": "Blue Beetle (Comics)",
     "category": [
       "Cartoons & Comics & Graphic Novels"
@@ -8109,12 +8127,6 @@
     ]
   },
   {
-    "name": "The Transformers (Cartoon Generation One)",
-    "category": [
-      "Cartoons & Comics & Graphic Novels"
-    ]
-  },
-  {
     "name": "Transformers: Shattered Glass",
     "category": [
       "Cartoons & Comics & Graphic Novels"
@@ -8675,12 +8687,6 @@
   },
   {
     "name": "Gimlet Media RPF",
-    "category": [
-      "Celebrities & Real People"
-    ]
-  },
-  {
-    "name": "Golden State Warriors RPF",
     "category": [
       "Celebrities & Real People"
     ]
@@ -11179,12 +11185,6 @@
   },
   {
     "name": "Murder on the Orient Express (2017)",
-    "category": [
-      "Movies"
-    ]
-  },
-  {
-    "name": "Murderous Maths Series - Kjartan Poskitt",
     "category": [
       "Movies"
     ]
@@ -14396,6 +14396,12 @@
     ]
   },
   {
+    "name": "Shield of Tomorrow (Web Series)",
+    "category": [
+      "Other Media"
+    ]
+  },
+  {
     "name": "The Shipwreck Arcana (Card Game)",
     "category": [
       "Other Media"
@@ -14958,6 +14964,12 @@
   },
   {
     "name": "Turandot - Puccini",
+    "category": [
+      "Theater"
+    ]
+  },
+  {
+    "name": "Twelfth Night (National Theatre 2017)",
     "category": [
       "Theater"
     ]
@@ -18663,36 +18675,6 @@
     "name": "화이트 크리스마스 | White Christmas (2011)",
     "category": [
       "TV Shows"
-    ]
-  },
-  {
-    "name": "Bel Canto - Ann Patchett",
-    "category": [
-      "Uncategorized Fandoms"
-    ]
-  },
-  {
-    "name": "Green Men Series - K. J. Charles",
-    "category": [
-      "Uncategorized Fandoms"
-    ]
-  },
-  {
-    "name": "Invisible Library Series - Genevieve Cogman",
-    "category": [
-      "Uncategorized Fandoms"
-    ]
-  },
-  {
-    "name": "Shield of Tomorrow (Web Series)",
-    "category": [
-      "Uncategorized Fandoms"
-    ]
-  },
-  {
-    "name": "Twelfth Night (National Theatre 2017)",
-    "category": [
-      "Uncategorized Fandoms"
     ]
   },
   {

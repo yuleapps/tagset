@@ -4,7 +4,7 @@ import 'babel-polyfill';
 import _ from 'lodash';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import App from './App';
+import App from './LockedApp';
 import appStore from './store/index.js';
 import VueFire from 'vuefire';
 import VueLocalStorage from 'vue-localstorage';

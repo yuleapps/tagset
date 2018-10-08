@@ -133,12 +133,6 @@
     "Sam Murphy"
   ],
   [
-    "Harlock (Captain Harlock)",
-    "Kei Yuki",
-    "Miime | La Mime",
-    "Yama | Logan"
-  ],
-  [
     "Kai Toshiki",
     "Sendou Aichi",
     "Shindou Chrono",
@@ -377,10 +371,6 @@
     "Koube Asahi",
     "Koube Shio",
     "Matsuzaka Satou"
-  ],
-  [
-    "Harlock (Harlock: Space Pirate Movie)",
-    "Yama | Logan (Harlock: Space Pirate Movie)"
   ],
   [
     "Blood Dupre (Heart no Kuni no Alice)",
@@ -893,7 +883,6 @@
   [
     "Dryden Fassa (Escaflowne - Anime)",
     "Kanzaki Hitomi (Escaflowne - Anime)",
-    "Madison Keys (Tennis RPF)",
     "Merle (Escaflowne - Anime)",
     "Van Fanel (Escaflowne - Anime)"
   ],
@@ -1447,6 +1436,12 @@
     "Kaneko Sharon",
     "Nanba Hibito",
     "Nanba Mutta"
+  ],
+  [
+    "Harlock (Harlock: Space Pirate Movie)",
+    "Kei Yuki (Harlock: Space Pirate Movie)",
+    "Miime | La Mime (Harlock: Space Pirate Movie)",
+    "Yama | Logan (Harlock: Space Pirate Movie)"
   ],
   [
     "Aechmea (Houseki no Kuni)",
@@ -2139,6 +2134,10 @@
     "Raphael (The Bedlam Stacks)"
   ],
   [
+    "Katsumi Hosokawa (Bel Canto novel)",
+    "Roxane Coss (Bel Canto novel)"
+  ],
+  [
     "Garion (Belgariad/Malloreon)",
     "Zakath (Belgariad/Malloreon)"
   ],
@@ -2255,12 +2254,6 @@
     "Eddie Castile (Bloodlines Series - Richelle Mead)",
     "Jill Mastrano Dragomir (Bloodlines Series - Richelle Mead)",
     "Sydney Sage (Bloodlines Series - Richelle Mead)"
-  ],
-  [
-    "Lady Violet Travesty",
-    "Lord Byron (Bloodlust and Bonnets)",
-    "Lucy (Bloodlust and Bonnets)",
-    "Napoleon (Bloodlust and Bonnets)"
   ],
   [
     "Antonya Terhune",
@@ -3795,6 +3788,16 @@
   ],
   [],
   [
+    "Hugh Barnaby (Green Men series)",
+    "Max Isaacs (Green Men series)",
+    "Randolph Glyde (Green Men series)",
+    "Robert Caldwell (Green Men series)",
+    "Saul Lazenby (Green Men series)",
+    "Simon Feximal (Green Men series)",
+    "Theodosia Kay (Green Men series)",
+    "Theresa Glyde (Green Men series)"
+  ],
+  [
     "Nyssa (Green Rider Series)",
     "Karigan Gladheon",
     "King Zachary",
@@ -4165,6 +4168,13 @@
     "Nadashe Nohamapetan",
     "Naffa Dolg",
     "Vrenna Claremont"
+  ],
+  [
+    "Bradamant (Invisible Library Series)",
+    "Irene Winters (Invisible Library Series)",
+    "Kai Strongrock (Invisible Library Series)",
+    "Peregrine Vale (Invisible Library Series)",
+    "Zayanna (Invisible Library Series)"
   ],
   [
     "Colonel Ayde (Invisible Man - Wells)",
@@ -4981,6 +4991,7 @@
     "Murderbot (Murderbot Diaries)",
     "Pin-Lee (Murderbot Diaries)"
   ],
+  [],
   [
     "Doctor Beck (The Music of Dolphins)",
     "Justin (The Music of Dolphins)",
@@ -5800,7 +5811,6 @@
   [
     "Annie Blackburn (Secret History of Twin Peaks)",
     "Bobby Briggs (Secret History of Twin Peaks)",
-    "Carrie Page (Secret History of Twin Peaks)",
     "Tamara \"Tammy\" Preston (Secret History of Twin Peaks)"
   ],
   [
@@ -5925,8 +5935,8 @@
     "Kiril Lakota"
   ],
   [
-    "Charles Roland | Charles Rowland (Sid Halley - Francis)",
-    "Sid Halley (Sid Halley - Francis)"
+    "Charles Roland | Charles Rowland (Sid Halley Series - Francis)",
+    "Sid Halley (Sid Halley Series - Francis)"
   ],
   [
     "Abby Suso (Simon - Becky Albertalli)",
@@ -6928,9 +6938,9 @@
     "Caèr Reiöft",
     "Eäneté",
     "Eöté",
-    "Gerreth Murrel",
+    "Gereth Murrel",
     "Innisth terè Maèr Eänetaì",
-    "Kehera irinè Elin Raëhema",
+    "KehAra irinè Elin Raëhema",
     "Tirovay arrin Elin Raëhema",
     "Verè Deconniy"
   ],
@@ -7229,6 +7239,12 @@
     "Wilshire Brentwood"
   ],
   [
+    "Lady Violet Travesty",
+    "Lord Byron (Bloodlust and Bonnets)",
+    "Lucy (Bloodlust and Bonnets)",
+    "Napoleon (Bloodlust and Bonnets)"
+  ],
+  [
     "Brenda Del Vecchio (Blue Beetle (Comics))",
     "Jaime Reyes (Blue Beetle (Comics))",
     "Milagro Reyes (Blue Beetle (Comics))",
@@ -7448,7 +7464,6 @@
   [
     "Jenny Knight (Freedom Fighters: The Ray)",
     "John Trujillo (Freedom Fighters: The Ray)",
-    "Leonard Snart (Freedom Fighters: The Ray)",
     "Ray Terrill (Freedom Fighters: The Ray)"
   ],
   [
@@ -8072,13 +8087,6 @@
     "Thomas \"Tom\" Cat"
   ],
   [
-    "Elita One (The Transformers (Cartoon Generation One))",
-    "Megatron (The Transformers (Cartoon Generation One))",
-    "Nightbird (The Transformers (Cartoon Generation One))",
-    "Optimus Prime (The Transformers (Cartoon Generation One))",
-    "Rodimus Prime (The Transformers (Cartoon Generation One))"
-  ],
-  [
     "Megatron (Transformers: Shattered Glass)",
     "Optimus Prime (Transformers: Shattered Glass)",
     "Ratchet (Transformers: Shattered Glass)",
@@ -8631,10 +8639,6 @@
     "PJ Vogt (Gimlet Media RPF)"
   ],
   [
-    "Draymond Green (Golden State Warriors RPF)",
-    "Steve Kerr (Golden State Warriors RPF)"
-  ],
-  [
     "Mary Berry (GBBO RPF)",
     "Mel Giedroyc (GBBO RPF)",
     "Nadiya Hussain (GBBO RPF)",
@@ -8755,11 +8759,13 @@
   ],
   [
     "DeMarcus Cousins (Men's Basketball RPF)",
+    "Draymond Green (Men's Basketball RPF)",
     "Earvin Johnson (Men's Basketball RPF)",
     "Kevin Durant (Men's Basketball RPF)",
     "Klay Thompson (Men's Basketball RPF)",
     "Larry Bird (Men's Basketball RPF)",
-    "Stephen Curry (Men's Basketball RPF)"
+    "Stephen Curry (Men's Basketball RPF)",
+    "Steve Kerr (Men's Basketball RPF)"
   ],
   [
     "Alexander Vlahos (Merlin (TV) RPF)",
@@ -9015,6 +9021,7 @@
     "Andy Murray (Tennis RPF)",
     "Courtney Nguyen (Tennis RPF)",
     "Dominic Thiem (Tennis RPF)",
+    "Madison Keys (Tennis RPF)",
     "Mischa Zverev (Tennis RPF)",
     "Naomi Osaka (Tennis RPF)",
     "Nick Kyrgios (Tennis RPF)",
@@ -10326,7 +10333,7 @@
   [
     "Waikiki | Sherman",
     "Everest (Hotel Artemis)",
-    "nice (hotel artemis)",
+    "Nice (Hotel Artemis)",
     "The Wolf King | Orian Franklin"
   ],
   [
@@ -10877,7 +10884,6 @@
     "Edward Masterman (Murder on the Orient Express (2017))",
     "Pilar Estravados (Murder on the Orient Express (2017))"
   ],
-  [],
   [
     "Eliza Doolittle (My Fair Lady (1964))",
     "Freddy Eynsford-Hill (My Fair Lady (1964))",
@@ -13617,6 +13623,12 @@
     "Seven of Swords (Shadowscapes)",
     "The Tower (Shadowscapes)"
   ],
+  [
+    "Elandi Rue",
+    "Junil Rue",
+    "Qolar",
+    "Throlo Sh'shirros"
+  ],
   [],
   [
     "Diana Potter | Magnolia Badminton",
@@ -14121,6 +14133,14 @@
   [
     "Liù (Turandot)",
     "Princess Turandot (Turandot)"
+  ],
+  [
+    "Antonio (Twelfth Night (National Theatre 2017))",
+    "Malvolia (Twelfth Night (National Theatre 2017))",
+    "Olivia (Twelfth Night (National Theatre 2017))",
+    "Orsino (Twelfth Night (National Theatre 2017))",
+    "Sebastian (Twelfth Night (National Theatre 2017))",
+    "Viola | Cesario (Twelfth Night (National Theatre 2017))"
   ],
   [
     "Feste (Twelfth Night - Shakespeare)",
@@ -15499,10 +15519,14 @@
     "Nishikado Soujirou (Hana Yori Dango (TV))"
   ],
   [
+    "Alma (The Handmaid's Tale (TV))",
     "Aunt Lydia (Handmaid's Tale TV)",
+    "Brianna (The Handmaid's Tale (TV))",
     "Commander Joseph Lawrence (Handmaid's Tale TV)",
     "Emily (Handmaid's Tale TV)",
-    "Hannah Bankole (Handmaid's Tale TV)"
+    "Hannah Bankole (Handmaid's Tale TV)",
+    "June Osborne | Offred (The Handmaid's Tale (TV)",
+    "Moira (The Handmaid's Tale (TV))"
   ],
   [
     "Brad Williams",
@@ -16031,7 +16055,8 @@
   ],
   [
     "Steve Arnott (Line of Duty)",
-    "Ted Hastings (Line of Duty)"
+    "Ted Hastings (Line of Duty)",
+    "Kate Fleming (Line of Duty)"
   ],
   [
     "Debra-Jo (Little Lunch)",
@@ -16583,7 +16608,7 @@
     "Danny Wilde"
   ],
   [
-    "Hester | Mrs. Appleyard (Picnic at Hanging Rock (TV 2018))",
+    "Hester Appleyard (Picnic at Hanging Rock (TV 2018))",
     "Irma Leopold (Picnic at Hanging Rock (TV 2018))",
     "Mademoiselle Dianne de Poitiers (Picnic at Hanging Rock (TV 2018))",
     "Marion Quade (Picnic at Hanging Rock (TV 2018))",
@@ -18000,41 +18025,6 @@
     "Lee Jae-kyu",
     "Park Moo-yul",
     "Yu Eun-sung"
-  ],
-  [
-    "Katsumi Hosokawa (Bel Canto novel)",
-    "Roxane Coss (Bel Canto novel)"
-  ],
-  [
-    "Hugh Barnaby (Green Men series)",
-    "Max Isaacs (Green Men series)",
-    "Randolph Glyde (Green Men series)",
-    "Robert Caldwell (Green Men series)",
-    "Saul Lazenby (Green Men series)",
-    "Simon Feximal (Green Men series)",
-    "Theodosia Kay (Green Men series)",
-    "Theresa Glyde (Green Men series)"
-  ],
-  [
-    "Bradamant (Invisible Library Series)",
-    "Irene Winters (Invisible Library Series)",
-    "Kai Strongrock (Invisible Library Series)",
-    "Peregrine Vale (Invisible Library Series)",
-    "Zayanna (Invisible Library Series)"
-  ],
-  [
-    "Elandi Rue",
-    "Junil Rue",
-    "Qolar",
-    "Throlo Sh'shirros"
-  ],
-  [
-    "Antonio (Twelfth Night (National Theatre 2017))",
-    "Malvolia (Twelfth Night (National Theatre 2017))",
-    "Olivia (Twelfth Night (National Theatre 2017))",
-    "Orsino (Twelfth Night (National Theatre 2017))",
-    "Sebastian (Twelfth Night (National Theatre 2017))",
-    "Viola | Cesario (Twelfth Night (National Theatre 2017))"
   ],
   [
     "Mizuno Kaya",
