@@ -73,7 +73,7 @@
                   <span v-else class="far fa-heart"></span>
               </button>
             <div class="meta">
-              <div v-if="maintenance">
+              <div>
                 Key: {{ fandom['.key'] }}
               </div>
               <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category.join(', ')}}</span>
@@ -329,7 +329,9 @@ export default {
               this.$store.commit('loadAllChars', true);
               this.$store.commit('setCharacters', {});
               this.$store.commit('setCharacters', newVal);
-              return (this.scrollPosition = this.fandoms.length);
+              this.scrollPosition = this.fandoms.length;
+              this.updateFilter();
+              return;
             });
         } else {
           this.updateFilter();
@@ -339,7 +341,10 @@ export default {
     loaded() {
       this.updateFilter();
     },
-    scrollPosition() {
+    scrollPosition(val) {
+      if (val >= this.fandoms.length) {
+        return;
+      }
       this.updateFilter();
     }
   },

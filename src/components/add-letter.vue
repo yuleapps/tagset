@@ -75,6 +75,8 @@
 
         <p>Here are your requests formatted in HTML so you can easily share them - may we suggest posting to the <a href="https://yuletide.dreamwidth.org/139157.html" target="blank">Letters Post</a>? </p>
         <textarea>{{ getCopypasta() }}</textarea>
+
+        <p>Pssst, your letter is number <strong>{{number}}</strong> to be added!</p>
       </div>
 
       <div class="error list" v-if="errors.length">
@@ -138,7 +140,8 @@ export default {
       availableFandoms: [],
       userExists: false,
       showSubmit: true,
-      userKey: ''
+      userKey: '',
+      number: undefined
     };
   },
   computed: {
@@ -283,6 +286,13 @@ export default {
                   isPinchhitter: this.pinchhitter || false
                 });
             });
+
+            db
+              .ref('/letterkeys')
+              .once('value')
+              .then(res => {
+                this.number = res.val().length;
+              });
 
             // this.$emit('close');
           } else {
