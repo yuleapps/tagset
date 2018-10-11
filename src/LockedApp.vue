@@ -73,7 +73,7 @@
                   <span v-else class="far fa-heart"></span>
               </button>
             <div class="meta">
-              <div>
+              <div v-if="maintenance">
                 Key: {{ fandom['.key'] }}
               </div>
               <span class="category meta-tag" v-if="!options.hideCategory">{{fandom.category.join(', ')}}</span>

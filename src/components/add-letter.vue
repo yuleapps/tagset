@@ -248,12 +248,12 @@ export default {
 
       return pasta.join('\n');
     },
-    add() {
-      db
+    async add() {
+      await db
         .ref('/letterkeys')
         .child(this.username)
         .once('value')
-        .then(res => {
+        .then(async res => {
           if (!res.val()) {
             this.userKey = (Math.random() + 1).toString(36).substring(7);
             this.showSubmit = false;
@@ -287,13 +287,12 @@ export default {
                 });
             });
 
-            db
+            await db
               .ref('/letterkeys')
               .once('value')
               .then(res => {
-                this.number = res.val().length;
+                this.number = Object.keys(res.val()).length;
               });
-
             // this.$emit('close');
           } else {
             this.userExists = true;
