@@ -370,7 +370,9 @@ export default {
         }, 200);
       }
 
-      let arr = this.fandoms;
+      let arr = _.filter(this.fandoms, f => {
+        return f.name.length;
+      });
 
       if (this.options.onlyPrompts) {
         arr = _.filter(arr, o => {
