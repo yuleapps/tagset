@@ -445,7 +445,7 @@ export default {
             }, 200);
           });
         // Otherwise, just take the i/o hit
-      } else if (this.options.filter.term.length) {
+      } else if (this.options.filter.term.length || this.options.filter.category.length) {
         this.filtered = _.take(_.sortBy(arr, [removeArticlesCompare]), this.scrollPosition);
         setTimeout(() => {
           this.updating = false;
