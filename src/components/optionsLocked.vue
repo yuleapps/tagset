@@ -74,10 +74,14 @@ export default {
   },
   watch: {
     options: {
-      handler(val) {
-        _.debounce(() => {
+      handler(val, oldVal) {
+        if (val.filter.term.length && val.filter.term === oldVal.filter.term) {
+          _.debounce(() => {
+            this.$store.commit('setOptions', val);
+          }, 500)();
+        } else {
           this.$store.commit('setOptions', val);
-        }, 500)();
+        }
       },
       deep: true
     }

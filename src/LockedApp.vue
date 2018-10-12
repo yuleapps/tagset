@@ -314,7 +314,7 @@ export default {
       deep: true,
       handler(val) {
         this.updating = true;
-        if ((val.loadAll || val.onlyLetters) && !this.loadAll.characters) {
+        if ((val.loadAll || val.onlyLetters || val.onlyBookmarks) && !this.loadAll.characters) {
           const data = db
             .ref('/characters')
             .orderByKey()
