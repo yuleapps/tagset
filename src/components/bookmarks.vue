@@ -32,6 +32,27 @@
         prompts by clicking on the <span class="far fa-heart"></span> icon. This data is saved in your browser,
         and will remain for as long as you do not clear the cache.
       </p>
+      <p>
+        <a @click="showLoad = !showLoad" class="show-load">
+          {{ showLoad ? 'Hide' : 'Show'}} Backup/Load
+        </a>
+      </p>
+      <div v-if="showLoad" class="load-wrapper">
+        <div class="load-info">
+          <p>To transfer your bookmarks between browsers or computers, copy <em>exactly</em> the text in the "Copy" field. In the browser you want to load your bookmarks in, paste it into the "Load" field, then hit this button:
+            <button class="button-primary load" @click="loadSaved">Load!</button>
+          </p>
+        </div>
+        <div class="area">
+          <strong>Copy:</strong> <textarea cols="10" rows="2" >{{ marks }}</textarea>
+        </div>
+        <div class="area">
+          <strong>Load:</strong>
+          <textarea cols="10" rows="2" v-model="saved"></textarea>
+        </div>
+
+      </div>
+      <hr  />
 
       <div class="letters">
         <h3>Letters</h3>
@@ -200,15 +221,15 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import { each, find } from 'lodash';
 import hasPrompts from '../data/prompts.js';
 import { mapGetters } from 'vuex';
 import utils from './utils.js';
 export default {
   beforeMount() {
     const data = [];
-    _.each(this.bookmarks, o => {
-      const fandom = _.find(this.fandoms, fandom => {
+    find(this.bookmarks, o => {
+      const fandom = find(this.fandoms, fandom => {
         return fandom['.key'] === o['.key'];
       });
 
@@ -222,8 +243,8 @@ export default {
   watch: {
     bookmarks() {
       const data = [];
-      _.each(this.bookmarks, o => {
-        const fandom = _.find(this.fandoms, fandom => {
+      find(this.bookmarks, o => {
+        const fandom = find(this.fandoms, fandom => {
           return fandom['.key'] === o['.key'];
         });
 
@@ -251,7 +272,16 @@ export default {
       'unlock',
       'showEasterEggs',
       'loadAll'
-    ])
+    ]),
+    marks() {
+      const marks = {
+        fandoms: this.bookmarks,
+        letters: this.lettermarks,
+        prompts: this.promptsmarks
+      };
+
+      return JSON.stringify(marks);
+    }
   },
   props: {
     forceExpand: false
@@ -263,11 +293,41 @@ export default {
       showHelp: false,
       expand: false,
       bookmarksData: [],
-      largeBookmarks: false
+      largeBookmarks: false,
+      saved: null,
+      showLoad: false
     };
   },
   methods: {
-    ...utils
+    ...utils,
+    loadSaved() {
+
+      if (!confirm('Are you sure you want to load bookmarks? Your current bookmarks will be wiped!')) {
+        return;
+      }
+
+      let parsed;
+
+      try {
+        parsed = JSON.parse(this.saved);
+      } catch (e) {
+        alert('Your bookmarks were invalid!');
+        return;
+      }
+
+      if (!this.saved || !this.saved.length) {
+        return;
+      }
+      this.$localStorage.set('lettermarks', JSON.stringify(parsed.letters));
+      this.$localStorage.set('bookmarks', JSON.stringify(parsed.fandoms));
+      this.$localStorage.set('promptmarks', JSON.stringify(parsed.prompts || []));
+      this.$store.commit('setPromptmarks', parsed.prompts || []);
+      this.$store.commit('setBookmarks', parsed.fandoms);
+      this.$store.commit('setLettermarks', parsed.letters);
+      console.log('hello')
+
+
+    }
   }
 };
 </script>
@@ -357,6 +417,32 @@ export default {
     &:hover {
       color: #e4a6a6;
     }
+  }
+
+  .show-load {
+    cursor: pointer;
+  }
+
+  .load-wrapper {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .load-info {
+    flex: 0 0 100%;
+  }
+
+  .area {
+    flex: 0 0 50%;
+    textarea {
+      vertical-align: top;
+    }
+  }
+
+  .load {
+    padding: 7px;
+    font-weight: bold;
   }
 }
 

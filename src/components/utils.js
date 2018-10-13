@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { includes, find, filter, sortBy } from 'lodash';
 import db from '../db.js';
 import { PROLIFIC_WRITERS, CRUELTIDE, YULEPORN, FESTIVUS } from '../data/lists';
 
@@ -23,7 +23,7 @@ export default {
       });
   },
   letterHasChar(key, char) {
-    return this.letterChars.fandom === key && _.includes(this.letterChars.characters, char);
+    return this.letterChars.fandom === key && includes(this.letterChars.characters, char);
   },
   highlightChars(letter, key) {
     this.letterChars = {
@@ -32,7 +32,7 @@ export default {
     };
   },
   toggle(fandom) {
-    if (_.includes(this.bookmarks, fandom)) {
+    if (includes(this.bookmarks, fandom)) {
       this.remove(fandom);
       return false;
     }
@@ -43,7 +43,7 @@ export default {
   },
   toggleLettermark(letter, fandom) {
     if (
-      _.find(this.lettermarks, o => {
+      find(this.lettermarks, o => {
         return o.username === letter.username && o.key === fandom['.key'];
       })
     ) {
@@ -64,7 +64,7 @@ export default {
   },
   addPromptmark(prompt) {
     if (
-      _.find(this.promptmarks, o => {
+      find(this.promptmarks, o => {
         return o.username === prompt.ousername && o.fandom === prompt.fandom;
       })
     ) {
@@ -82,7 +82,7 @@ export default {
   remove(fandom) {
     this.$store.commit(
       'setBookmarks',
-      _.filter(this.bookmarks, o => {
+      filter(this.bookmarks, o => {
         return o['.key'] !== fandom['.key'];
       })
     );
@@ -95,7 +95,7 @@ export default {
 
     this.$store.commit(
       'setLettermarks',
-      _.filter(this.lettermarks, o => {
+      filter(this.lettermarks, o => {
         return !(o.username === letter.username && o.key === key);
       })
     );
@@ -104,7 +104,7 @@ export default {
   removePromptmark(prompt) {
     this.$store.commit(
       'setPromptmarks',
-      _.filter(this.promptmarks, o => {
+      filter(this.promptmarks, o => {
         return (
           (o.username !== prompt.username && o.fandom === prompt.fandom) ||
           o.fandom !== prompt.fandom
@@ -114,23 +114,23 @@ export default {
     this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
   },
   hasBookmark(fandom) {
-    return _.find(this.bookmarks, o => {
+    return find(this.bookmarks, o => {
       return o['.key'] === fandom['.key'];
     });
   },
   hasLettermark(letter, fandom) {
-    return _.find(this.lettermarks, o => {
+    return find(this.lettermarks, o => {
       return o.username === letter.username && o.key === fandom['.key'];
     });
   },
   hasPromptmark(prompt) {
-    return _.find(this.promptmarks, o => {
+    return find(this.promptmarks, o => {
       return o.username === prompt.username && o.fandom === prompt.fandom;
     });
   },
   addPromptmark(prompt) {
     if (
-      _.find(this.promptmarks, o => {
+      find(this.promptmarks, o => {
         return o.username === prompt.username && o.fandom === prompt.fandom;
       })
     ) {
@@ -155,7 +155,7 @@ export default {
       return false;
     }
 
-    if (_.includes(PROLIFIC_WRITERS, name.trim().toLowerCase())) {
+    if (includes(PROLIFIC_WRITERS, name.trim().toLowerCase())) {
       return true;
     }
 
@@ -168,9 +168,9 @@ export default {
 
     const data = [];
 
-    _.includes(this.crueltide, name.trim().toLowerCase()) ? data.push('C') : null;
-    _.includes(this.yuleporn, name.trim().toLowerCase()) ? data.push('P') : null;
-    _.includes(this.festivus, name.trim().toLowerCase()) ? data.push('F') : null;
+    includes(this.crueltide, name.trim().toLowerCase()) ? data.push('C') : null;
+    includes(this.yuleporn, name.trim().toLowerCase()) ? data.push('P') : null;
+    includes(this.festivus, name.trim().toLowerCase()) ? data.push('F') : null;
 
     return data;
   },
@@ -187,7 +187,7 @@ export default {
         let results = snapshot.val();
 
         if (results && results.length) {
-          results = _.sortBy(results, o => o.username.toLowerCase());
+          results = sortBy(results, o => o.username.toLowerCase());
           newVal[fandomKey] = results;
         } else {
           newVal[fandomKey] = [];
