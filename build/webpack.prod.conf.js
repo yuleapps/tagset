@@ -56,7 +56,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 		// you can customize output by editing /index.html
 		// see https://github.com/ampedandwired/html-webpack-plugin
 		new HtmlWebpackPlugin({
-			filename: config.build.index,
+			filename: config.build.locked,
 			template: 'index.html',
 			excludeChunks: ['locked'],
 			inject: true,
@@ -71,7 +71,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 			chunksSortMode: 'dependency'
 		}),
 		new HtmlWebpackPlugin({
-			filename: config.build.locked,
+			filename: config.build.index,
 			excludeChunks: ['app'],
 			template: 'index.html',
 			inject: true,
