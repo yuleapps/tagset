@@ -520,24 +520,7 @@ export default {
       e.target.innerText = e.target.innerText !== 'Collapse' ? 'Collapse' : `Expand (${length})`;
       e.target.nextElementSibling.classList.toggle('hide');
     },
-    getUserPrompts(username) {
-      this.$store.commit('setUser', 'Loading');
 
-      db
-        .ref('/users/' + username)
-        .once('value')
-        .then(snapshot => {
-          let results = snapshot.val();
-
-          this.$store.commit('setUser', username);
-
-          if (results && results.length) {
-            this.$store.commit('setUserPrompts', results);
-          } else {
-            this.$store.commit('setUserPrompts', []);
-          }
-        });
-    },
     unlockModTools(e) {
       if (e.type === 'keydown') {
         this.down[e.keyCode] = true;

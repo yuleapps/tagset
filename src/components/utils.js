@@ -30,6 +30,23 @@ export default {
       characters: letter.characters
     };
   },
+  getUserPrompts(username) {
+    this.$store.commit('setUser', 'Loading');
+
+    db.ref('/users/' + username)
+      .once('value')
+      .then(snapshot => {
+        let results = snapshot.val();
+
+        this.$store.commit('setUser', username);
+
+        if (results && results.length) {
+          this.$store.commit('setUserPrompts', results);
+        } else {
+          this.$store.commit('setUserPrompts', []);
+        }
+      });
+  },
   toggle(fandom) {
     if (includes(this.bookmarks, fandom)) {
       this.remove(fandom);

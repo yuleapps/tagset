@@ -60,6 +60,14 @@
       <small><strong :style="{ color: 'red'}">Load all the fandoms at once instead of as you scroll. This may take your browser a bit!</strong></small>
     </div>
   </div>
+
+  <div class="row" v-if="unlock">
+    <span class="label">Username:</span>
+    <div class="option-large">
+        <input id="search-user" type="text" placeholder="AO3 Username" v-model="userlookup">
+        <button class="button-primary search-user-submit" @click="getUserPrompts(userlookup)">Go!</button>
+    </div>
+  </div>
 </div>
 
 </template>
@@ -68,6 +76,8 @@
 import { mapGetters } from 'vuex';
 import db from '../db.js';
 import _ from 'lodash';
+import utils from './utils.js';
+
 export default {
   computed: {
     ...mapGetters(['unlock', 'categories', 'loadAll'])
@@ -86,9 +96,13 @@ export default {
       deep: true
     }
   },
+  methods: {
+    getUserPrompts: utils.getUserPrompts
+  },
   data() {
     return {
       showMsg: false,
+      userlookup: '',
       options: {
         filter: {
           category: '',
@@ -125,6 +139,13 @@ export default {
     vertical-align: top;
   }
 
+  .option-large {
+    display: inline-block;
+    width: 500px;
+    height: 30px;
+    vertical-align: top;
+  }
+
   select {
     max-width: 180px;
   }
@@ -145,6 +166,11 @@ export default {
       vertical-align: top;
     }
   }
+}
+
+.search-user,
+.search-user-submit {
+  display: inline-block;
 }
 
 .warn {
