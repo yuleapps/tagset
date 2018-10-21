@@ -130,10 +130,10 @@
                 </ul>
             </td>
             <td v-if="unlock" class="prompts">
-              <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
+              <button class="button-primary" v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts( fandom['.key'])">Get Prompts</button>
               <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
               <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-                <a href="javascript:void(0);" @click="collapse">Collapse</a>
+                <a href="javascript:void(0);" @click="collapse(prompts[fandom['.key']].length, $event)">Collapse</a>
                 <table class="prompts">
                   <thead>
                     <tr>
@@ -344,7 +344,7 @@ export default {
 .bookmarks {
   z-index: 2;
   position: fixed;
-  top: 100px;
+  top: 50px;
   right: 0;
   padding: 10px;
   padding-top: 30px;
@@ -367,8 +367,8 @@ export default {
 
   .header {
     position: fixed;
-    z-index: 1;
-    top: 101px;
+    z-index: 2;
+    top: 51px;
     padding-top: 10px;
     height: 40px;
     width: 100%;

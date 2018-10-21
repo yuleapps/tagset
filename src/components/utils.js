@@ -128,8 +128,8 @@ export default {
       return o.username === prompt.username && o.fandom === prompt.fandom;
     });
   },
-  collapse(e) {
-    e.target.innerText = e.target.innerText === 'Expand' ? 'Collapse' : 'Expand';
+  collapse(length, e) {
+    e.target.innerText = e.target.innerText !== 'Collapse' ? 'Collapse' : `Expand (${length})`;
     e.target.nextElementSibling.classList.toggle('hide');
   },
   isProlific(name) {
@@ -175,7 +175,6 @@ export default {
         }
 
         this.$store.commit('setPrompts', {});
-
         this.$store.commit('setPrompts', newVal);
       });
   },

@@ -120,7 +120,7 @@ export default {
 
   .option {
     display: inline-block;
-    width: 180px;
+    width: 210px;
     height: 30px;
     vertical-align: top;
   }

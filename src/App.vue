@@ -122,7 +122,7 @@
             <button class="button-primary" v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
             <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
             <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
-              <a href="javascript:void(0);" @click="collapse">Collapse</a>
+              <a href="javascript:void(0);" @click="collapse(prompts[fandom['.key']].length, $event)">Collapse</a>
               <table class="prompts">
                 <thead>
                   <tr>
@@ -286,7 +286,8 @@ export default {
       timesCalled: 0,
       filtered: [],
       updating: true,
-      sticky: false
+      sticky: false,
+      promptStates: {}
     };
   },
   computed: {
@@ -515,8 +516,8 @@ export default {
         }
       }
     },
-    collapse(e) {
-      e.target.innerText = e.target.innerText === 'Expand' ? 'Collapse' : 'Expand';
+    collapse(length, e) {
+      e.target.innerText = e.target.innerText !== 'Collapse' ? 'Collapse' : `Expand (${length})`;
       e.target.nextElementSibling.classList.toggle('hide');
     },
     getUserPrompts(username) {
