@@ -71,7 +71,7 @@ var webpackConfig = merge(baseWebpackConfig, {
 			chunksSortMode: 'dependency'
 		}),
 		new HtmlWebpackPlugin({
-			filename: config.build.unlocked,
+			filename: config.build.locked,
 			excludeChunks: ['app'],
 			template: 'index.html',
 			inject: true,

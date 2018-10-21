@@ -139,9 +139,11 @@
                   >
                     <td>
                       <button
-                        class="bookmark-prompt"
-                        v-if="!hasPromptmark(prompt)"
-                        @click="addPromptmark(prompt)">&hearts;
+                        class="bookmark"
+                        @click="togglePromptmark(prompt)"
+                      >
+                          <span v-if="hasPromptmark(prompt)" class="fas fa-heart"></span>
+                          <span v-else class="far fa-heart"></span>
                       </button>
                     </td>
                     <td>
@@ -151,8 +153,8 @@
                       <a @click="getUserPrompts(prompt.username)"> (see all)</a>
                     </td>
                     <td>
-                      <ul v-if="prompt.characters">
-                        <li v-for="c in prompt.characters.split(',')" :key="c">{{ c }}</li>
+                      <ul v-if="prompt.characters"  class="characters">
+                        <li v-for="c in prompt.characters" :key="c">{{ c }}</li>
                       </ul>
                     </td>
                     <td class="prompt" v-html="prompt.prompt"></td>

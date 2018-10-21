@@ -30,13 +30,13 @@
       <input type="checkbox" id="letters-fandoms" v-model="options.onlyLetters">
       <label for="letters-fandoms">Fandoms with letters<span v-if="unlock">*</span></label>
     </div>
-    <div class="option" v-if="unlock">
+    <!-- <div class="option" v-if="unlock">
       <input type="checkbox" id="ph" v-model="options.onlyPHs">
       <label for="ph">Only fandoms with pinch hitters</label>
-    </div>
+    </div> -->
 
     <div class="clear" v-if="unlock">
-      <small>* these apply only to the letters column, not to prompts</small>
+      <small>* letters that were submitted to the letters post; prompts may have unlisted letters</small>
     </div>
   </div>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="option">
       <input type="checkbox" id="journal-style" v-model="options.destyle">
-      <label for="journal-style">Mobile letter format<span v-if="unlock">*</span></label>
+      <label for="journal-style">Mobile letter format</label>
     </div>
 
     <div class="clear" v-if="showMsg">
@@ -74,10 +74,14 @@ export default {
   },
   watch: {
     options: {
-      handler(val) {
-        _.debounce(() => {
+      handler(val, oldVal) {
+        if (val.filter.term.length && val.filter.term === oldVal.filter.term) {
+          _.debounce(() => {
+            this.$store.commit('setOptions', val);
+          }, 500)();
+        } else {
           this.$store.commit('setOptions', val);
-        }, 500)();
+        }
       },
       deep: true
     }
@@ -92,12 +96,11 @@ export default {
         },
         onlyLetters: false,
         onlyBookmarks: false,
-        onlyPrompts: false,
+        onlyPrompts: true,
         onlyPHs: false,
         destyle: false,
         loadAll: false,
-        hideCharacters: false,
-        hideCategory: false
+        hideCharacters: true
       }
     };
   }

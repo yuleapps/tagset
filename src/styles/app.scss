@@ -10,10 +10,14 @@ $muted: #e4a6a6;
 .button-primary {
   background-color: $primary-body;
   color: #ffffff;
+  padding: 7px 10px;
+  font-weight: bold;
 }
 .button-warn {
   background-color: $active;
   color: #ffffff;
+  padding: 7px 10px;
+  font-weight: bold;
 }
 .fas,
 .far,
@@ -122,10 +126,12 @@ $muted: #e4a6a6;
   }
 }
 .user-lookup {
+  z-index: 90;
   position: fixed;
   top: 40px;
   left: 0;
   background: #fff;
+  min-width: 600px;
   width: 40%;
   border: 1px solid #cfcfcf;
   max-height: 600px;
@@ -138,6 +144,7 @@ $muted: #e4a6a6;
     display: none;
   }
   .close-lookup {
+    cursor: pointer;
     position: absolute;
     top: 10px;
     right: 15px;
@@ -150,25 +157,41 @@ table {
   width: 100%;
   table-layout: fixed;
   &.prompts {
-    font-size: smaller;
+    th,
+    td {
+      &:first-child {
+        padding-left: 0;
+      }
+    }
     th.username,
     th.characters {
       width: 20%;
     }
     td {
+      a {
+        cursor: pointer;
+      }
       &.prompt {
         word-break: break-word;
+
+        p:first-child {
+          margin-top: 0;
+        }
       }
     }
   }
   th.fandom {
-    width: 33%;
+    width: 25%;
   }
   th.characters {
-    width: 300px;
+    width: 15%;
   }
   th.letters {
-    width: auto;
+    width: 15%;
+  }
+
+  th.fave {
+    width: 20px;
   }
 }
 thead {

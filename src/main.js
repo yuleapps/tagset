@@ -4,12 +4,11 @@ import 'babel-polyfill';
 import _ from 'lodash';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import App from './LockedApp';
+import App from './App';
 import appStore from './store/index.js';
 import VueFire from 'vuefire';
 import VueLocalStorage from 'vue-localstorage';
 import db from './db.js';
-let fandomsRef = db.ref('/fandomsonly');
 let metaRef = db.ref('/meta');
 
 Vue.config.productionTip = false;

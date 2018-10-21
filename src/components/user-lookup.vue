@@ -5,7 +5,7 @@
     <table class="prompts">
       <thead>
         <tr>
-          <th class="fave">&hearts;</th>
+          <th class="fave"><span class="fas fa-heart"></span></th>
           <th class="username">Fandom</th>
           <th class="characters">Characters</th>
           <th class="prompts">Prompts</th>
@@ -14,25 +14,30 @@
       <tbody>
         <tr v-for="prompt in userPrompts">
           <td>
-            <button 
-              class="bookmark-prompt" 
-              v-if="!hasPromptmark(prompt)"
-              @click="addPromptmark(prompt)">&hearts;
+            <button
+              class="bookmark"
+              @click="togglePromptmark(prompt)"
+            >
+                <span v-if="hasPromptmark(prompt)" class="fas fa-heart"></span>
+                <span v-else class="far fa-heart"></span>
             </button>
           </td>
           <td>
             {{ prompt.fandom }}
           </td>
           <td>
-            <ul v-if="prompt.characters">
-              <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+            <ul v-if="prompt.characters" class="characters">
+              <li v-for="c in prompt.characters">{{ c }}</li>
             </ul>
           </td>
-          <td class="prompt" v-html="prompt.prompt"></td>
+          <td class="prompt">
+            <div v-html="prompt.prompt"></div>
+            <a v-if="prompt.letter" :href="formatUrl(prompt.letter)" target="blank">Letter</a>
+          </td>
         </tr>
       </tbody>
     </table>
-    
+
   </div>
 </template>
 
@@ -44,12 +49,14 @@
       ...mapGetters([
         'userPrompts',
         'user',
-        'promptmarks'
+        'promptmarks',
+        'options'
       ])
     },
     methods: {
       hasPromptmark: utils.hasPromptmark,
-      addPromptmark: utils.addPromptmark,
+      togglePromptmark: utils.togglePromptmark,
+      formatUrl: utils.formatUrl,
       close() {
         this.$store.commit('setUser', null);
         this.$store.commit('setUserPrompts', []);

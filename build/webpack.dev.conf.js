@@ -29,13 +29,13 @@ module.exports = merge(baseWebpackConfig, {
 			filename: 'index.html',
 			template: 'index.html',
 			inject: true,
-			chunks: ['app']
+			chunks: ['locked']
 		}),
 		new HtmlWebpackPlugin({
 			filename: 'unlocked.html',
 			template: 'index.html',
 			inject: true,
-			chunks: ['locked']
+			chunks: ['app']
 		}),
 		new FriendlyErrorsPlugin()
 	]

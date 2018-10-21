@@ -28,8 +28,7 @@ const state = {
     onlyPrompts: false,
     onlyPHs: false,
     destyle: false,
-    hideCharacters: false,
-    hideCategory: false
+    hideCharacters: false
   }
 };
 

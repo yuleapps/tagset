@@ -11,23 +11,20 @@
 
       <div :class="['menu', { sticky: sticky }]">
         <ul>
-          <li class="submit-letter"  @click="showLetterModal = true"  v-if="unlock">
+          <li class="submit-letter"  @click="showLetterModal = true">
             Submit Letter
           </li>
-          <li class="edit-letter"  @click="showEditModal = true"  v-if="unlock">
+          <li class="edit-letter"  @click="showEditModal = true">
             Edit Letter
           </li>
           <li class="bookmarks" @click="expandBookmarks = !expandBookmarks">
             Bookmarks
           </li>
-          <li class="contact">Contact</li>
           <li class="help" @click="showHelp = true">
             <span class="fas fa-question-circle fa-xxl" ></span>
           </li>
         </ul>
       </div>
-
-      <div>While the tagset is being corrected, bookmarks and letter submission are disabled! Please report any corrections that need to happen to the corrections post on <a href="https://yuletide-admin.dreamwidth.org/57790.html" target="blank">DW</a> or  <a href="https://yuletide-admin.livejournal.com/228349.html" target="blank">LJ</a>.</div>
 
       <bookmarks :force-expand="expandBookmarks" @toggle="expandBookmarks = !expandBookmarks"></bookmarks>
       <add-letter
@@ -122,14 +119,14 @@
           </td>
           <!-- HERE BE PROMPTS -->
           <td v-if="unlock" class="prompts">
-            <button v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
+            <button class="button-primary" v-if="!prompts[fandom['.key']] && hasPrompts[fandom['.key']]" @click="getPrompts(fandom['.key'])">Get Prompts</button>
             <div v-if="prompts[fandom['.key']] === 'loading'">Loading...</div>
             <template v-if="prompts[fandom['.key']] && prompts[fandom['.key']].length && prompts[fandom['.key']] !== 'loading'">
               <a href="javascript:void(0);" @click="collapse">Collapse</a>
               <table class="prompts">
                 <thead>
                   <tr>
-                    <th class="fave">&hearts;</th>
+                    <th class="fave"><span class="fas fa-heart"></span></th>
                     <th class="username">Username</th>
                     <th class="characters">Characters</th>
                     <th class="prompts">Prompts</th>
@@ -142,9 +139,11 @@
                   >
                     <td>
                       <button
-                        class="bookmark-prompt"
-                        v-if="!hasPromptmark(prompt)"
-                        @click="addPromptmark(prompt)">&hearts;
+                        class="bookmark"
+                        @click="togglePromptmark(prompt)"
+                      >
+                          <span v-if="hasPromptmark(prompt)" class="fas fa-heart"></span>
+                          <span v-else class="far fa-heart"></span>
                       </button>
                     </td>
                     <td>
@@ -154,11 +153,14 @@
                       <a @click="getUserPrompts(prompt.username)"> (see all)</a>
                     </td>
                     <td>
-                      <ul v-if="prompt.characters">
-                        <li v-for="c in prompt.characters.split(',')" :key="c">{{ c }}</li>
+                      <ul v-if="prompt.characters" class="characters">
+                        <li v-for="c in prompt.characters" :key="c">{{ c }}</li>
                       </ul>
                     </td>
-                    <td class="prompt" v-html="prompt.prompt"></td>
+                    <td class="prompt">
+                      <div v-html="prompt.prompt"></div>
+                      <a v-if="prompt.letter" :href="formatUrl(prompt.letter)" target="blank">Letter</a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -195,7 +197,7 @@ import db from './db.js';
 import { mapGetters } from 'vuex';
 
 // internal
-// import hasPrompts from './data/prompts.js';
+import hasPrompts from './data/hasPrompts.js';
 import utils from './components/utils.js';
 
 // Remove english articles from fandom names
@@ -224,6 +226,20 @@ export default {
     UserLookup
   },
   beforeMount() {
+    this.$store.commit('setUnlock', true);
+    this.$store.commit('setOptions', {
+      filter: {
+        category: '',
+        term: ''
+      },
+      onlyLetters: false,
+      onlyBookmarks: false,
+      onlyPrompts: true,
+      onlyPHs: false,
+      destyle: false,
+      hideCharacters: true
+    });
+
     const bookmarksJson = this.$localStorage.get('bookmarks');
     if (bookmarksJson) {
       this.$store.commit('setBookmarks', JSON.parse(bookmarksJson));
@@ -258,7 +274,7 @@ export default {
       maintenance: false,
       showEggHelp: false,
       showHelp: false,
-      // hasPrompts,
+      hasPrompts,
       expandBookmarks: false,
       down: {},
       mods: false,
@@ -317,7 +333,7 @@ export default {
       deep: true,
       handler(val) {
         this.updating = true;
-        if (val.loadAll && !this.loadAll.characters) {
+        if ((val.loadAll || val.onlyLetters || val.onlyBookmarks) && !this.loadAll.characters) {
           const data = db
             .ref('/characters')
             .orderByKey()
@@ -332,7 +348,9 @@ export default {
               this.$store.commit('loadAllChars', true);
               this.$store.commit('setCharacters', {});
               this.$store.commit('setCharacters', newVal);
-              return (this.scrollPosition = this.fandoms.length);
+              this.scrollPosition = this.fandoms.length;
+              this.updateFilter();
+              return;
             });
         } else {
           this.updateFilter();
@@ -342,7 +360,10 @@ export default {
     loaded() {
       this.updateFilter();
     },
-    scrollPosition() {
+    scrollPosition(val) {
+      if (val >= this.fandoms.length) {
+        return;
+      }
       this.updateFilter();
     }
   },
@@ -368,7 +389,9 @@ export default {
         }, 200);
       }
 
-      let arr = this.fandoms;
+      let arr = _.filter(this.fandoms, f => {
+        return f.name.length;
+      });
 
       if (this.options.onlyPrompts) {
         arr = _.filter(arr, o => {
@@ -413,7 +436,8 @@ export default {
         });
       }
 
-      // If filtering by term, preload everything if there are more than a few
+      // If filtering by term or category, preload everything if there are more than a few
+      // Also sort by alpha name instead of alpha category when there is a search term
       if (
         (this.options.filter.term.length || this.options.filter.category.length) &&
         !this.loadAll.characters &&
@@ -433,15 +457,18 @@ export default {
             this.$store.commit('loadAllChars', true);
             this.$store.commit('setCharacters', {});
             this.$store.commit('setCharacters', newVal);
-            this.filtered = _.take(
-              _.sortBy(arr, ['category', removeArticlesCompare]),
-              this.scrollPosition
-            );
+            this.scrollPosition = this.fandoms.length;
+            this.filtered = _.sortBy(arr, [removeArticlesCompare]);
             setTimeout(() => {
               this.updating = false;
             }, 200);
           });
         // Otherwise, just take the i/o hit
+      } else if (this.options.filter.term.length || this.options.filter.category.length) {
+        this.filtered = _.take(_.sortBy(arr, [removeArticlesCompare]), this.scrollPosition);
+        setTimeout(() => {
+          this.updating = false;
+        }, 200);
       } else {
         this.filtered = _.take(
           _.sortBy(arr, ['category', removeArticlesCompare]),
@@ -460,6 +487,10 @@ export default {
         this.sticky = true;
       } else {
         this.sticky = false;
+      }
+
+      if (this.loadAll.characters) {
+        return;
       }
 
       if (totalHeight - y - (document.documentElement.scrollTop || document.body.scrollTop) < 50) {

@@ -147,9 +147,11 @@
                     <tr v-for="prompt in prompts[fandom['.key']]">
                       <td>
                         <button
-                          class="bookmark-prompt"
-                          v-if="!hasPromptmark(prompt)"
-                          @click="addPromptmark(prompt)">&hearts;
+                          class="bookmark"
+                          @click="togglePromptmark(prompt)"
+                        >
+                          <span v-if="hasPromptmark(prompt)" class="fas fa-heart"></span>
+                          <span v-else class="far fa-heart"></span>
                         </button>
                       </td>
                       <td>
@@ -160,10 +162,13 @@
                       </td>
                       <td>
                         <ul v-if="prompt.characters">
-                          <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                          <li v-for="c in prompt.characters">{{ c }}</li>
                         </ul>
                       </td>
-                      <td class="prompt" v-html="prompt.prompt"></td>
+                      <td class="prompt">
+                        <div v-html="prompt.prompt"></div>
+                        <a v-if="prompt.letter" :href="formatUrl(prompt.letter)" target="blank">Letter</a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -185,7 +190,7 @@
             <table class="prompts">
               <thead>
                 <tr>
-                  <th class="fave">&hearts;</th>
+                  <th class="fave"><span class="fas fa-heart"></span></th>
                   <th class="username">Username</th>
                   <th class="characters">Characters</th>
                   <th class="prompts">Prompts</th>
@@ -195,9 +200,12 @@
                 <tr v-for="prompt in promptmarks">
                   <td>
                     <button
-                      class="remove-prompt"
-                      @click="removePromptmark(prompt)">x
-                    </button>
+                        class="bookmark"
+                        @click="togglePromptmark(prompt)"
+                      >
+                          <span v-if="hasPromptmark(prompt)" class="fas fa-heart"></span>
+                          <span v-else class="far fa-heart"></span>
+                      </button>
                   </td>
                   <td>
                     {{ prompt.username }}
@@ -205,11 +213,14 @@
                     <sup v-if="showEasterEggs">{{ challenges(prompt.username).join(' ') }}</sup>
                   </td>
                   <td>
-                    <ul v-if="prompt.characters">
-                      <li v-for="c in prompt.characters.split(',')">{{ c }}</li>
+                    <ul v-if="prompt.characters"  class="characters">
+                      <li v-for="c in prompt.characters">{{ c }}</li>
                     </ul>
                   </td>
-                  <td class="prompt" v-html="prompt.prompt"></td>
+                  <td class="prompt">
+                    <div v-html="prompt.prompt"></div>
+                    <a v-if="prompt.letter" :href="formatUrl(prompt.letter)" target="blank">Letter</a>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -222,7 +233,7 @@
 
 <script>
 import { each, find } from 'lodash';
-import hasPrompts from '../data/prompts.js';
+import hasPrompts from '../data/hasPrompts.js';
 import { mapGetters } from 'vuex';
 import utils from './utils.js';
 export default {
@@ -324,9 +335,6 @@ export default {
       this.$store.commit('setPromptmarks', parsed.prompts || []);
       this.$store.commit('setBookmarks', parsed.fandoms);
       this.$store.commit('setLettermarks', parsed.letters);
-      console.log('hello')
-
-
     }
   }
 };
@@ -385,10 +393,6 @@ export default {
       height: auto;
       z-index: 0;
     }
-  }
-
-  th.fandom {
-    width: auto !important;
   }
 
   th.characters {

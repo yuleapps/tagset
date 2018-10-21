@@ -13,8 +13,7 @@ export default {
       return null;
     }
 
-    db
-      .ref('/characters/' + fandomKey)
+    db.ref('/characters/' + fandomKey)
       .once('value')
       .then(res => {
         const result = res.toJSON();
@@ -62,12 +61,13 @@ export default {
     this.$store.commit('setLettermarks', newVal);
     this.$localStorage.set('lettermarks', JSON.stringify(this.lettermarks));
   },
-  addPromptmark(prompt) {
+  togglePromptmark(prompt) {
     if (
       find(this.promptmarks, o => {
-        return o.username === prompt.ousername && o.fandom === prompt.fandom;
+        return o.username === prompt.username && o.fandom === prompt.fandom;
       })
     ) {
+      this.removePromptmark(prompt);
       return false;
     }
 
@@ -128,24 +128,6 @@ export default {
       return o.username === prompt.username && o.fandom === prompt.fandom;
     });
   },
-  addPromptmark(prompt) {
-    if (
-      find(this.promptmarks, o => {
-        return o.username === prompt.username && o.fandom === prompt.fandom;
-      })
-    ) {
-      return false;
-    }
-
-    const newVal = this.promptmarks;
-    newVal.push({
-      ...prompt
-    });
-
-    this.$store.commit('setPrompts', newVal);
-
-    this.$localStorage.set('promptmarks', JSON.stringify(this.promptmarks));
-  },
   collapse(e) {
     e.target.innerText = e.target.innerText === 'Expand' ? 'Collapse' : 'Expand';
     e.target.nextElementSibling.classList.toggle('hide');
@@ -180,8 +162,7 @@ export default {
     this.$store.commit('setPrompts', {});
     this.$store.commit('setPrompts', newVal);
 
-    db
-      .ref('/prompts/' + fandomKey)
+    db.ref('/prompts/' + fandomKey)
       .once('value')
       .then(snapshot => {
         let results = snapshot.val();
