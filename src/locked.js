@@ -30,7 +30,11 @@ new Vue({
     letters: {
       deep: true,
       handler(val) {
-        store.commit('setLetters', val);
+        if (val && val['.value']) {
+          store.commit('setLetters', val['.value']);
+        } else {
+          store.commit('setLetters', val);
+        }
       }
     }
   },
@@ -40,8 +44,7 @@ new Vue({
     };
   },
   beforeMount() {
-    db
-      .ref('/characters')
+    db.ref('/characters')
       .limitToFirst(100)
       .once('value')
       .then(res => {
@@ -49,8 +52,7 @@ new Vue({
         store.commit('setCharsLoaded', true);
         store.commit('setCharacters', result);
       });
-    db
-      .ref('/fandomsonly')
+    db.ref('/fandomsonly')
       .once('value')
       .then(res => {
         let result = res.val();
@@ -79,7 +81,11 @@ new Vue({
       source: db.ref('/letters'),
       asObject: true,
       readyCallback() {
-        store.commit('setLetters', this.letters);
+        if (this.letters && this.letters['.value']) {
+          store.commit('setLetters', this.letters['.value']);
+        } else {
+          store.commit('setLetters', this.letters);
+        }
       }
     },
     meta: {

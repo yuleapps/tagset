@@ -40,8 +40,7 @@ new Vue({
     };
   },
   beforeMount() {
-    db
-      .ref('/characters')
+    db.ref('/characters')
       .limitToFirst(100)
       .once('value')
       .then(res => {
@@ -49,8 +48,7 @@ new Vue({
         store.commit('setCharsLoaded', true);
         store.commit('setCharacters', result);
       });
-    db
-      .ref('/fandomsonly')
+    db.ref('/fandomsonly')
       .once('value')
       .then(res => {
         let result = res.val();
