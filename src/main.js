@@ -30,7 +30,11 @@ new Vue({
     letters: {
       deep: true,
       handler(val) {
-        store.commit('setLetters', val);
+        if (val && val['.value']) {
+          store.commit('setLetters', val['.value']);
+        } else {
+          store.commit('setLetters', val);
+        }
       }
     }
   },
@@ -80,7 +84,11 @@ new Vue({
       source: db.ref('/letters'),
       asObject: true,
       readyCallback() {
-        store.commit('setLetters', this.letters);
+        if (this.letters && this.letters['.value']) {
+          store.commit('setLetters', this.letters['.value']);
+        } else {
+          store.commit('setLetters', this.letters);
+        }
       }
     },
     meta: {
